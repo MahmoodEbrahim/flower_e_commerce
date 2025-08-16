@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';import 'config/theme/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  configureDependencies();
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en', 'US'), ],
