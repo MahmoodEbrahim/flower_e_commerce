@@ -1,30 +1,20 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
-import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
-import 'package:flower_e_commerce/core/di/di.dart';
-import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flutter/material.dart';import 'config/theme/app_theme.dart';
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await configureDependencies();
-  runApp(
-    MyApp()
-  );}
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.signup,
-      onGenerateRoute: Routes.onGenerate,
       theme: AppTheme.lightTheme,
     );
   }
