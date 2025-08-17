@@ -5,14 +5,9 @@ import 'package:flutter/material.dart';import 'config/theme/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  configureDependencies();
+  await configureDependencies();
   runApp(
-    // EasyLocalization(
-    //   supportedLocales: [Locale('en', 'US'), ],
-    //   path: 'assets/translations',
-    //   fallbackLocale: Locale('en', 'US'),
-    //   child: MyApp(),
-    // ),
+  
     MyApp()
   );}
 

@@ -25,7 +25,7 @@ dependencies:
   json_annotation:
   easy_localization:
   injectable:
-  get_it:
+  get_it: ^8.2.0
   hive_flutter:
   hive:
   mockito:
