@@ -1,4 +1,10 @@
 {
-    "@@locale": "en"
-    
+    "@@locale": "en",
+    "password":"Password",
+    "forgetpassword":"Forget password",
+    "pleaseenteryouremailassociatedtoyouraccount": "Please enter your email associated to \nyour account"
+    ,"thisEmailisnotvalid": "This Email is not valid",
+    "email": "Email",
+    "confirm": "Confirm"
+
 }

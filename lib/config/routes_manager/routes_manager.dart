@@ -1,5 +1,6 @@
 
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +9,16 @@ abstract class Routes {
     final url = Uri.parse(settings.name ?? '/');
 
     switch (url.path) {
-      case AppRoutes.signup:
-        return MaterialPageRoute(builder: (context) => const SignupPage());
-
+      // case AppRoutes.signup:
+      //   return MaterialPageRoute(builder: (context) => const SignpPag());
+      case AppRoutes.forgetPassword:
+        return MaterialPageRoute(builder:
+            (context)=>const ForgetPasswordPage());
 
       default:
         return MaterialPageRoute(
-          builder: (context) => const Scaffold(body: Text("No Route Page")),
+          builder: (context) =>
+          const Scaffold(body: Text("No Route Page")),
         );
     }
   }

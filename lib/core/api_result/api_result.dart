@@ -10,5 +10,6 @@ class ApiFailedResult<T> extends ApiResult<T> {
   String errorMessage;
   ApiFailedResult(this.errorMessage);
 
-  
+
 }
+

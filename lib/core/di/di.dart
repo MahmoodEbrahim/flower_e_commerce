@@ -1,5 +1,6 @@
 
 import 'package:flower_e_commerce/core/di/di.config.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,4 +12,6 @@ final getIt = GetIt.instance;
   asExtension: true,
   
 )
-Future<void> configureDependencies() async => getIt.init();
+Future<void> configureDependencies() async {
+  getIt.init();
+}
