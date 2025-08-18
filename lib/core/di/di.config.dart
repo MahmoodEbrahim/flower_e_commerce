@@ -21,6 +21,8 @@ import '../../features/auth/data/source/auth_remote_data_source.dart' as _i777;
 import '../../features/auth/domain/repository/auth_repository.dart' as _i961;
 import '../../features/auth/domain/usecase/forget_password_use_case.dart'
     as _i240;
+import '../../features/auth/domain/usecase/reset_password_use_case.dart'
+    as _i878;
 import '../../features/auth/domain/usecase/verfiy_password_use_case.dart'
     as _i197;
 import '../../features/auth/presentation/view_model/forget_password/forget_password_bloc.dart'
@@ -52,8 +54,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i240.ForgetPasswordUseCase(gh<_i961.AuthRepository>()));
     gh.factory<_i197.VerfiyPasswordUseCase>(
         () => _i197.VerfiyPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i878.ResetPasswordUseCase>(
+        () => _i878.ResetPasswordUseCase(gh<_i961.AuthRepository>()));
     gh.factory<_i34.ForgetPasswordBCubit>(() => _i34.ForgetPasswordBCubit(
           gh<_i240.ForgetPasswordUseCase>(),
+          gh<_i878.ResetPasswordUseCase>(),
           gh<_i197.VerfiyPasswordUseCase>(),
         ));
     return this;

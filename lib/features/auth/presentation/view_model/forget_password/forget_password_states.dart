@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
 
 class ForgetPasswordStates extends Equatable{
@@ -9,6 +10,9 @@ final String? errorMessage;
 final  bool isLoadingVerfiyPassword;
 final String? errorMessageVerfiyPassword;
 VerfiyPasswordResponse? verfiyPasswordResponse;
+final  bool isLoadingResetPassword;
+final String? errorMessageResetPassword;
+ResetPasswordResponsea? resetPasswordResponse;
   ForgetPasswordStates(
       {this.isLoadingForgetPassword=true,
         this.errorMessage,
@@ -16,6 +20,9 @@ VerfiyPasswordResponse? verfiyPasswordResponse;
         this.isLoadingVerfiyPassword=true,
         this.errorMessageVerfiyPassword,
         this.verfiyPasswordResponse,
+        this.isLoadingResetPassword=true,
+        this.resetPasswordResponse,
+        this.errorMessageResetPassword
       });
 ForgetPasswordStates copyWith({
     bool? isLoadingForgetPassword,
@@ -24,6 +31,9 @@ ForgetPasswordStates copyWith({
     bool? isLoadingVerfiyPassword,
    String? errorMessageVerfiyPassword,
   VerfiyPasswordResponse? verfiyPasswordResponse,
+    bool? isLoadingResetPassword,
+   String? errorMessageResetPassword,
+  ResetPasswordResponsea? resetPasswordResponse
 }){
   return ForgetPasswordStates(
     isLoadingForgetPassword: isLoadingForgetPassword??this.isLoadingForgetPassword,
@@ -31,7 +41,11 @@ ForgetPasswordStates copyWith({
     response: response??this.response,
     isLoadingVerfiyPassword: isLoadingVerfiyPassword??this.isLoadingVerfiyPassword,
     verfiyPasswordResponse: verfiyPasswordResponse??this.verfiyPasswordResponse,
-      errorMessageVerfiyPassword: errorMessageVerfiyPassword??this.errorMessageVerfiyPassword
+      errorMessageVerfiyPassword: errorMessageVerfiyPassword??this.errorMessageVerfiyPassword,
+ isLoadingResetPassword:isLoadingResetPassword??this.isLoadingResetPassword ,
+ resetPasswordResponse:resetPasswordResponse??this.resetPasswordResponse ,
+ errorMessageResetPassword:errorMessageResetPassword??this.errorMessageResetPassword,
+
   );
 }
   @override
@@ -40,6 +54,7 @@ ForgetPasswordStates copyWith({
     isLoadingForgetPassword,
     errorMessage,
     response,
+    isLoadingResetPassword,resetPasswordResponse,errorMessageResetPassword,
     isLoadingVerfiyPassword,verfiyPasswordResponse,errorMessageVerfiyPassword
   ];
 }
