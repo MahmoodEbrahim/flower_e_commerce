@@ -2,7 +2,9 @@
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/utils/constants/api_end_points.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -19,5 +21,9 @@ abstract class AuthApiService {
   Future<ForgetPasswordResponse>forgetPassword(
     @Body()ForgetPasswordRequest request
     );
+  @POST(ApiEndPoints.verfiyPasswordEndPoint)
+  Future<VerfiyPasswordResponse>verfiyPassword(
+      @Body()VerfiyPasswordRequest request
+      );
 
 }

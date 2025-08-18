@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/utils/validator.dart';
@@ -5,6 +6,7 @@ import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_states.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +51,10 @@ var emailController=TextEditingController();
               Text(local.pleaseenteryouremailassociatedtoyouraccount,textAlign: TextAlign.center,
                 style: getMediumStyle(color: AppColors.gray,fontSize: FontSize.s14),),
               SizedBox(height: 26.h,),
-              CustomTxtFieldWidget(lbl: "E-mail",
+              CustomTxtFieldWidget(lbl: local.email,
 
                 validator: Validator.validateEmail
-                ,hint: "Enter you email",
+                ,hint: local.email,
                 controller: emailController,
               ),
               SizedBox(height: 40.h,),
@@ -71,6 +73,8 @@ if(state.response?.message=="success"){
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text("✅ Password reset link sent successfully")),
   );
+Navigator.of(context).push(MaterialPageRoute( builder:
+    (context) =>VerfiyPasswordPage()));
 }
 if(state.errorMessage!=null){
   ScaffoldMessenger.of(context).showSnackBar(

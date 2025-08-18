@@ -118,6 +118,12 @@ abstract class AppLocalizations {
   /// **'This Email is not valid'**
   String get thisEmailisnotvalid;
 
+  /// No description provided for @enteryouremail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get enteryouremail;
+
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
@@ -129,6 +135,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// No description provided for @emailverification.
+  ///
+  /// In en, this message translates to:
+  /// **'Email verification'**
+  String get emailverification;
+
+  /// No description provided for @pleaseEnterYourCodeThatSentToYourEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your code that was sent to your\n email address'**
+  String get pleaseEnterYourCodeThatSentToYourEmailAddress;
+
+  /// No description provided for @didntReceiveCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive code?'**
+  String get didntReceiveCode;
+
+  /// No description provided for @passwordValidationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must not be empty and must contain\n 6 characters with upper case letter and one\n number at least'**
+  String get passwordValidationMessage;
+
+  /// No description provided for @resend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend'**
+  String get resend;
+
+  /// No description provided for @resetpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetpassword;
+
+  /// No description provided for @enteryoupassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter you password'**
+  String get enteryoupassword;
+
+  /// No description provided for @confirmpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmpassword;
+
+  /// No description provided for @newpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newpassword;
 }
 
 class _AppLocalizationsDelegate

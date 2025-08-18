@@ -22,8 +22,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get thisEmailisnotvalid => 'This Email is not valid';
 
   @override
+  String get enteryouremail => 'Enter your email';
+
+  @override
   String get email => 'Email';
 
   @override
   String get confirm => 'Confirm';
+
+  @override
+  String get emailverification => 'Email verification';
+
+  @override
+  String get pleaseEnterYourCodeThatSentToYourEmailAddress =>
+      'Please enter your code that was sent to your\n email address';
+
+  @override
+  String get didntReceiveCode => 'Didn\'t receive code?';
+
+  @override
+  String get passwordValidationMessage =>
+      'Password must not be empty and must contain\n 6 characters with upper case letter and one\n number at least';
+
+  @override
+  String get resend => 'Resend';
+
+  @override
+  String get resetpassword => 'Reset password';
+
+  @override
+  String get enteryoupassword => 'Enter you password';
+
+  @override
+  String get confirmpassword => 'Confirm password';
+
+  @override
+  String get newpassword => 'New password';
 }

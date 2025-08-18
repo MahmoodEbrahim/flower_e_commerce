@@ -1,7 +1,9 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/client/auth_api_service.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
 import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRemoteDataSource)
@@ -22,5 +24,16 @@ forgetPassword(ForgetPasswordRequest request) async{
  }catch(error){
    return ApiFailedResult(error.toString());
  }
+  }
+  @override
+  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
+  try{
+    final response=await _apiService.verfiyPassword(request);
+
+      return ApiSucessResult(response);
+
+  }catch(error){
+    return ApiFailedResult(error.toString()!);
+  }
   }
 }
