@@ -30,6 +30,7 @@ dependencies:
   hive:
   mockito:
   pretty_dio_logger: ^1.4.0
+  device_preview: ^1.3.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
