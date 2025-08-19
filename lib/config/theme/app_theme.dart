@@ -7,7 +7,7 @@ import 'font_style_manger.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-      scaffoldBackgroundColor: AppColors.white,
+      scaffoldBackgroundColor: AppColors.White,
       appBarTheme: AppBarTheme(
         foregroundColor: AppColors.white,
         elevation: 0,
@@ -34,22 +34,22 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide(color: AppColors.black[40]?? Colors.grey),
+          borderSide: BorderSide(color:  AppColors.gray),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide(color: AppColors.black[40]?? Colors.grey),
+          borderSide: BorderSide(color: AppColors.gray),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide(color: AppColors.black[60]?? Colors.grey, width: 2.0),
+          borderSide: BorderSide(color: AppColors.gray, width: 2.0),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.0),
           borderSide: BorderSide(color: AppColors.red),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(4.0),
           borderSide: BorderSide(color: AppColors.red, width: 2.0),
         ),
         labelStyle: GoogleFonts.roboto(color: AppColors.black, fontSize: 16),
@@ -70,6 +70,20 @@ class AppTheme {
               fontSize: FontSize.s12
           ),
           type: BottomNavigationBarType.fixed
-      )
+      ),
+
+
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStatePropertyAll(AppColors.White),
+      checkColor:  WidgetStatePropertyAll(AppColors.gray),
+      overlayColor: WidgetStatePropertyAll(AppColors.White),
+      side: BorderSide(
+        color: AppColors.gray,
+        width: 2
+      ),
+    )
+
+
+
   );
 }

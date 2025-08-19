@@ -20,3 +20,9 @@ class LoginButtonPressed extends LoginEvent {
   @override
   List<Object?> get props => [email, password];
 }
+
+class ToggleRememberMe extends LoginEvent {
+  final bool value;
+
+  ToggleRememberMe(this.value);
+}

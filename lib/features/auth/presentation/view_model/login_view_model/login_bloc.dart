@@ -32,5 +32,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ));
       }
     });
+
+    on<ToggleRememberMe>((event, emit) {
+      emit(state.copyWith(rememberMe: event.value));
+    },);
   }
 }
