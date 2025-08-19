@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/auth/data/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_entity.dart';
 import 'package:flower_e_commerce/features/auth/domain/usecase/login_usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -24,6 +25,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             loginState: RequestState.success,
             user: result.data,
           ));
+          if (state.rememberMe) {
+            await UserLocalStorage.saveUser(result.data);
+          }
 
         case ApiErrorResult<LoginEntity>():
           emit(state.copyWith(
@@ -33,8 +37,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     });
 
-    on<ToggleRememberMe>((event, emit) {
-      emit(state.copyWith(rememberMe: event.value));
-    },);
+    on<ToggleRememberMe>(
+      (event, emit) {
+        emit(state.copyWith(rememberMe: event.value));
+      },
+    );
   }
 }

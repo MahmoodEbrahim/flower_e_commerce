@@ -25,12 +25,11 @@ class LoginState extends Equatable {
   }) {
     return LoginState(
         loginState: loginState ?? this.loginState,
-        user: user, // هنا بنسيبها زي ما هي، مش بنعمل ?? this.user
-        // user: user ?? this.user,
+        user: user ?? this.user,
         errorMessage: errorMessage ?? this.errorMessage,
       rememberMe: rememberMe ?? this.rememberMe,);
   }
 
   @override
-  List<Object?> get props => [loginState, user, errorMessage];
+  List<Object?> get props => [loginState, user, errorMessage,rememberMe];
 }

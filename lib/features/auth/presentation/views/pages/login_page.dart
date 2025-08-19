@@ -140,7 +140,7 @@ class LoginPage extends StatelessWidget {
                                       password: pass,
                                     ),
                                   );
-                              //   navigator
+                              Navigator.pushNamed(context, AppRoutes.signup);
                             }
                           },
                           child: Text(
