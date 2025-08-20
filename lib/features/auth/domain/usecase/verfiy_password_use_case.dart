@@ -8,7 +8,8 @@ import 'package:injectable/injectable.dart';
 class VerfiyPasswordUseCase{
   AuthRepository _authRepository;
   VerfiyPasswordUseCase(this._authRepository);
-  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async{
+  Future<ApiResult<VerfiyPasswordResponse>>
+  verfiyPassword(VerfiyPasswordRequest request)async{
     return _authRepository.verfiyPassword(request);
   }
 }

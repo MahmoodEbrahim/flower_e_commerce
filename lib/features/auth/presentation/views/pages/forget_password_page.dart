@@ -4,7 +4,7 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/utils/validator.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
-import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_bloc.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_cubit.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_states.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';

@@ -5,7 +5,7 @@ import 'package:flower_e_commerce/config/utils/validator.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
-import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_bloc.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_cubit.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/forget_password/forget_password_states.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/test_screen.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
@@ -13,16 +13,13 @@ import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     var local=AppLocalizations.of(context)!;
     var passwordController=TextEditingController();
     var emailController=TextEditingController();
-
     return BlocProvider(
       create: (context)=>getIt<ForgetPasswordBCubit>(),
       child: Scaffold(
@@ -73,12 +70,9 @@ class ResetPasswordPage extends StatelessWidget {
             BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>
               (listener: (c,state){
 if(state.resetPasswordResponse!=null){
-  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
-      TestScreen()));
-}
-
-            },
-            child:Builder(builder: (c)=> CustomBtnWidget(txt: local.confirm,onPressed: (){
+  Navigator.of(context).push(MaterialPageRoute(
+      builder: (context)=> TestScreen()));
+}}, child:Builder(builder: (c)=> CustomBtnWidget(txt: local.confirm,onPressed: (){
               c.read<ForgetPasswordBCubit>().resetPassword(
                   ResetPasswordRequest(
                       email: emailController.text,
@@ -86,9 +80,7 @@ if(state.resetPasswordResponse!=null){
                   ));
             },))
 
-            )
-
-          ],
+            )],
         ),
         )
 

@@ -7,8 +7,10 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/respo
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<ApiResult<ForgetPasswordResponse>>forgetPassword(ForgetPasswordRequest request);
-  Future<ApiResult<VerfiyPasswordResponse>>verfiyPassword(VerfiyPasswordRequest request);
+  Future<ApiResult<ForgetPasswordResponse>>
+  forgetPassword(ForgetPasswordRequest request);
+  Future<ApiResult<VerfiyPasswordResponse>>
+  verfiyPassword(VerfiyPasswordRequest request);
   Future<ApiResult<ResetPasswordResponsea>>
   resetPassword(ResetPasswordRequest request);
 
