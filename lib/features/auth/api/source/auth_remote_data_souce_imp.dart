@@ -19,7 +19,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       AuthResponseDto response =
           await authApiService.logIn({"email": email, "password": password});
 
-      return ApiSuccessResult<LoginModel>(response.toLoginEntity());
+      return ApiSuccessResult<LoginModel>(response.toLoginModel());
     } on DioException catch (e) {
       String message = "Something went wrong, please try again";
 

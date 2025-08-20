@@ -28,12 +28,8 @@ class AuthResponseDto {
     return _$AuthResponseDtoToJson(this);
   }
 
-  LoginModel toLoginEntity(){
+  LoginModel toLoginModel(){
     return LoginModel(user: user!.toUserModel(),token: token??"" );
   }
 }
 
-
-
-
-/////////////////////////////////
