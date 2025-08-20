@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/login_entity.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/user_entity.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/usecase/login_usecase.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_event.dart';
@@ -13,7 +13,7 @@ import 'login_bloc_test.mocks.dart';
 
 @GenerateMocks([LoginUsecase])
 main() {
-  provideDummy<ApiResult<LoginEntity>>(ApiErrorResult<LoginEntity>("dummy"));
+  provideDummy<ApiResult<LoginModel>>(ApiErrorResult<LoginModel>("dummy"));
   late LoginBloc loginBloc;
   late MockLoginUsecase mockLoginUsecase;
 
@@ -27,9 +27,9 @@ main() {
   const email = "test@test.com";
   const password = "123456";
 
-  final fakeLoginEntity = LoginEntity(
+  final fakeLoginModel = LoginModel(
     token: "fake_token",
-    user: UserEntity(
+    user: UserModel(
       Id: "1",
       firstName: "Test",
       lastName: "User",
@@ -40,7 +40,6 @@ main() {
       role: "customer",
       wishlist: [],
       addresses: [],
-      createdAt: "2025-08-20",
     ),
   );
 
@@ -51,7 +50,7 @@ main() {
         "emits [init, success] when login succeeds",
         build: () {
           when(mockLoginUsecase.call(email, password)).thenAnswer(
-              (_) async => ApiSuccessResult<LoginEntity>(fakeLoginEntity));
+              (_) async => ApiSuccessResult<LoginModel>(fakeLoginModel));
           return loginBloc;
         },
         act: (bloc) =>
@@ -60,7 +59,7 @@ main() {
           LoginState(loginState: RequestState.init),
           LoginState(
             loginState: RequestState.success,
-            user: fakeLoginEntity,
+            user: fakeLoginModel,
           ),
         ],
       );
@@ -69,7 +68,7 @@ main() {
         "emits [init, error] when login succeeds",
         build: () {
           when(mockLoginUsecase.call(email, password)).thenAnswer(
-              (_) async => ApiErrorResult<LoginEntity>("errorMessage"));
+              (_) async => ApiErrorResult<LoginModel>("errorMessage"));
           return loginBloc;
         },
         act: (bloc) =>

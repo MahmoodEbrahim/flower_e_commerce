@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flower_e_commerce/features/auth/api/models/auth_response/auth_response_dto.dart';
 import 'package:flower_e_commerce/features/auth/api/models/user_dto.dart';
 import 'package:flower_e_commerce/features/auth/api/source/auth_remote_data_souce_imp.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,8 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/client/auth_api_service.dart';
-import 'package:flower_e_commerce/features/auth/api/models/responses/login_response.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/login_entity.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 
 import 'auth_remote_data_source_impl_test.mocks.dart';
 
@@ -27,9 +27,9 @@ void main() {
 
     test('should return ApiSuccessResult when login is successful', () async {
       // Arrange
-      final fakeLoginResponse = LoginResponse(
+      final fakeLoginResponse = AuthResponseDto(
         token: "fake_token",
-        user: UserDTO(
+        user: UserDto(
           id: "1",
           firstName: "Test",
           lastName: "User",
@@ -40,7 +40,6 @@ void main() {
           role: "customer",
           wishlist: [],
           addresses: [],
-          createdAt: "2025-08-20",
         ),
       );
 
@@ -49,10 +48,10 @@ void main() {
 
       // Act
       final result = await dataSource.login(email, password);
-      final success = result as ApiSuccessResult<LoginEntity>;
+      final success = result as ApiSuccessResult<LoginModel>;
 
       // Assert
-      expect(result, isA<ApiSuccessResult<LoginEntity>>());
+      expect(result, isA<ApiSuccessResult<LoginModel>>());
       expect(success.data.token, "fake_token");
       expect(success.data.user.email, email);
     });
@@ -66,7 +65,7 @@ void main() {
       final result = await dataSource.login(email, password);
 
       // Assert
-      expect(result, isA<ApiErrorResult<LoginEntity>>());
+      expect(result, isA<ApiErrorResult<LoginModel>>());
     });
 
     test('should return ApiErrorResult when other Exception is thrown', () async {
@@ -76,10 +75,10 @@ void main() {
 
       // Act
       final result = await dataSource.login(email, password);
-      final error = result as ApiErrorResult<LoginEntity>;
+      final error = result as ApiErrorResult<LoginModel>;
 
       // Assert
-      expect(result, isA<ApiErrorResult<LoginEntity>>());
+      expect(result, isA<ApiErrorResult<LoginModel>>());
       expect(error.errorMessage, contains("Unknown Error"));
     });
   });

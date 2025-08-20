@@ -1,8 +1,8 @@
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/data/repository/auth_repository_imp.dart';
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/login_entity.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/user_entity.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -11,7 +11,7 @@ import 'auth_repository_impl_test.mocks.dart';
 
 @GenerateMocks([AuthRemoteDataSource])
 main() {
-  provideDummy<ApiResult<LoginEntity>>(ApiErrorResult<LoginEntity>("dummy"));
+  provideDummy<ApiResult<LoginModel>>(ApiErrorResult<LoginModel>("dummy"));
   late AuthRepositoryImp authRepositoryImp;
   late MockAuthRemoteDataSource mockAuthRemoteDataSource;
 
@@ -32,9 +32,9 @@ main() {
           const email = "test@test.com";
           const password = "123456";
 
-          LoginEntity fakeLoginEntity = LoginEntity(
+          LoginModel fakeLoginEntity = LoginModel(
             token: "fake_token",
-            user: UserEntity(
+            user: UserModel(
               Id: "1",
               firstName: "Test",
               lastName: "User",
@@ -45,18 +45,17 @@ main() {
               role: "customer",
               wishlist: [],
               addresses: [],
-              createdAt: "2025-08-20",
             ),
           );
           when(mockAuthRemoteDataSource.login(any, any)).thenAnswer(
-              (_) async => ApiSuccessResult<LoginEntity>(fakeLoginEntity));
+              (_) async => ApiSuccessResult<LoginModel>(fakeLoginEntity));
 
           //act
           final result=await authRepositoryImp.login(email, password);
-          final success = result as ApiSuccessResult<LoginEntity>;
+          final success = result as ApiSuccessResult<LoginModel>;
 
           //assert
-          expect(result, isA<ApiSuccessResult<LoginEntity>>());
+          expect(result, isA<ApiSuccessResult<LoginModel>>());
           expect(success.data.token, "fake_token");
           expect(success.data.user.email, email);
         },
@@ -67,15 +66,15 @@ main() {
             //arrange
             const email = "test@test.com";
             const password = "123456";
-            when(mockAuthRemoteDataSource.login(any, any)).thenAnswer((_) async => ApiErrorResult<LoginEntity>("errorMessage"));
+            when(mockAuthRemoteDataSource.login(any, any)).thenAnswer((_) async => ApiErrorResult<LoginModel>("errorMessage"));
             
             
             //act 
             final result=await authRepositoryImp.login(email, password);
-            final error = result as ApiErrorResult<LoginEntity>;
+            final error = result as ApiErrorResult<LoginModel>;
             
             //assert
-            expect(result, isA<ApiErrorResult<LoginEntity>>());
+            expect(result, isA<ApiErrorResult<LoginModel>>());
             expect(error.errorMessage, "errorMessage");
           },);
     },

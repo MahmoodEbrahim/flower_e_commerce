@@ -5,7 +5,7 @@ enum RequestState { init, loading, success, error }
 @immutable
 class LoginState extends Equatable {
   final RequestState loginState;
-  final LoginEntity? user;
+  final LoginModel? user;
   final String? errorMessage;
   final bool rememberMe;
 
@@ -19,7 +19,7 @@ class LoginState extends Equatable {
 
   LoginState copyWith({
     final RequestState? loginState,
-    final LoginEntity? user,
+    final LoginModel? user,
     final String? errorMessage,
     bool? rememberMe,
   }) {

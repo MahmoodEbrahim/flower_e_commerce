@@ -28,8 +28,8 @@ class LoginPage extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Login Success ✅")),
               );
-              // TODO: Navigate to Home
-              // Navigator.pushReplacementNamed(context, AppRoutes.home);
+
+              Navigator.pushReplacementNamed(context, AppRoutes.home);
             }
             if (state.loginState == RequestState.error) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -140,7 +140,6 @@ class LoginPage extends StatelessWidget {
                                       password: pass,
                                     ),
                                   );
-                              Navigator.pushNamed(context, AppRoutes.signup);
                             }
                           },
                           child: Text(

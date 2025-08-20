@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/home_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ abstract class Routes {
 
       case AppRoutes.login:
         return MaterialPageRoute(builder: (context) => LoginPage());
+
+      case AppRoutes.home:
+        return MaterialPageRoute(builder: (context) => HomePage());
+
 
       default:
         return MaterialPageRoute(

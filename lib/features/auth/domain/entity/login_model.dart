@@ -1,17 +1,17 @@
 import 'package:hive/hive.dart';
-import 'user_entity.dart';
+import 'user_model.dart';
 
-part 'login_entity.g.dart';
+part 'login_model.g.dart';
 
 @HiveType(typeId: 2)
-class LoginEntity {
+class LoginModel {
   @HiveField(0)
-  final UserEntity user;
+  final UserModel user;
 
   @HiveField(1)
   final String token;
 
-  LoginEntity({
+  LoginModel({
     required this.user,
     required this.token,
   });

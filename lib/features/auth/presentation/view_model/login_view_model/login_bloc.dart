@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
-import 'package:flower_e_commerce/features/auth/data/source/user_local_storage.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/login_entity.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/usecase/login_usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginButtonPressed>((event, emit) async {
       emit(state.copyWith(loginState: RequestState.init));
 
-      ApiResult<LoginEntity> result =
+      ApiResult<LoginModel> result =
           await loginUsecase(event.email, event.password);
       switch (result) {
-        case ApiSuccessResult<LoginEntity>():
+        case ApiSuccessResult<LoginModel>():
           emit(state.copyWith(
             loginState: RequestState.success,
             user: result.data,
@@ -29,7 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await UserLocalStorage.saveUser(result.data);
           }
 
-        case ApiErrorResult<LoginEntity>():
+        case ApiErrorResult<LoginModel>():
           emit(state.copyWith(
             loginState: RequestState.error,
             errorMessage: result.errorMessage,

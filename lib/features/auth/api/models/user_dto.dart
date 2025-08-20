@@ -1,34 +1,32 @@
-import 'package:flower_e_commerce/features/auth/domain/entity/user_entity.dart';
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'user_dto.g.dart';
-
 @JsonSerializable()
-class UserDTO{
-  @JsonKey(name: "_id")
-  final String? id;
-  @JsonKey(name: "firstName")
-  final String? firstName;
-  @JsonKey(name: "lastName")
-  final String? lastName;
-  @JsonKey(name: "email")
-  final String? email;
-  @JsonKey(name: "gender")
-  final String? gender;
-  @JsonKey(name: "phone")
-  final String? phone;
-  @JsonKey(name: "photo")
-  final String? photo;
-  @JsonKey(name: "role")
-  final String? role;
-  @JsonKey(name: "wishlist")
-  final List<dynamic>? wishlist;
-  @JsonKey(name: "addresses")
-  final List<dynamic>? addresses;
-  @JsonKey(name: "createdAt")
-  final String? createdAt;
-
-  UserDTO({
+class UserDto {
+  @JsonKey(name: JsonSerlizableConstants.id)
+  String? id;
+  @JsonKey(name: JsonSerlizableConstants.firstName)
+  String? firstName;
+  @JsonKey(name: JsonSerlizableConstants.lastName)
+  String? lastName;
+  @JsonKey(name: JsonSerlizableConstants.email)
+  String? email;
+  @JsonKey(name: JsonSerlizableConstants.gender)
+  String? gender;
+  @JsonKey(name: JsonSerlizableConstants.phone)
+  String? phone;
+  @JsonKey(name: JsonSerlizableConstants.photo)
+  String? photo;
+  @JsonKey(name: JsonSerlizableConstants.role)
+  String? role;
+  @JsonKey(name: JsonSerlizableConstants.wishlist)
+  List<dynamic>? wishlist;
+  @JsonKey(name: JsonSerlizableConstants.addresses)
+  List<dynamic>? addresses;
+  @JsonKey(name: JsonSerlizableConstants.createdAt)
+  DateTime? createdAt;
+  UserDto({
     this.id,
     this.firstName,
     this.lastName,
@@ -41,24 +39,19 @@ class UserDTO{
     this.addresses,
     this.createdAt,
   });
-
-  factory UserDTO.fromJson(Map<String, dynamic> json) => _$UserDTOFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserDTOToJson(this);
-
-  UserEntity toUserEntity(){
-    return UserEntity(
-      Id: id,
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      photo: photo,
-      addresses: addresses,
-      gender: gender,
-      role: role,
-      wishlist: wishlist,
-      createdAt: createdAt,
+  factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$UserDtoToJson(this);
+  UserModel toUserModel() {
+    return UserModel(
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        gender: gender,
+        photo: photo,
+        role: role,
+        wishlist: wishlist,
+        addresses: addresses
     );
   }
 }

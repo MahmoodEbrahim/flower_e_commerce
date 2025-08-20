@@ -1,7 +1,7 @@
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/data/repository/auth_repository_imp.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/login_entity.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/user_entity.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/usecase/login_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -11,7 +11,7 @@ import 'login_usecase_test.mocks.dart';
 
 @GenerateMocks([AuthRepositoryImp])
 main() {
-  provideDummy<ApiResult<LoginEntity>>(ApiErrorResult<LoginEntity>("dummy"));
+  provideDummy<ApiResult<LoginModel>>(ApiErrorResult<LoginModel>("dummy"));
 
   group(
     "test login usecase",
@@ -33,9 +33,9 @@ main() {
           const email = "test@test.com";
           const password = "123456";
 
-          LoginEntity fakeLoginEntity = LoginEntity(
+          LoginModel fakeLoginModel = LoginModel(
             token: "fake_token",
-            user: UserEntity(
+            user: UserModel(
               Id: "1",
               firstName: "Test",
               lastName: "User",
@@ -46,19 +46,18 @@ main() {
               role: "customer",
               wishlist: [],
               addresses: [],
-              createdAt: "2025-08-20",
             ),
           );
           when(mockAuthRepositoryImp.login(any, any)).thenAnswer(
-              (_) async => ApiSuccessResult<LoginEntity>(fakeLoginEntity));
+              (_) async => ApiSuccessResult<LoginModel>(fakeLoginModel));
 
           //act
           final result = await loginUsecase.call(email, password);
-          final success = result as ApiSuccessResult<LoginEntity>;
+          final success = result as ApiSuccessResult<LoginModel>;
 
           //assert
-          expect(result, isA<ApiSuccessResult<LoginEntity>>());
-          expect(success.data.token, fakeLoginEntity.token);
+          expect(result, isA<ApiSuccessResult<LoginModel>>());
+          expect(success.data.token, fakeLoginModel.token);
           expect(success.data.user.email, email);
         },
       );
@@ -68,14 +67,14 @@ main() {
             //arrange
             const email = "test@test.com";
             const password = "123456";
-            when(mockAuthRepositoryImp.login(any, any)).thenAnswer((_) async=> ApiErrorResult<LoginEntity>("errorMessage") );
+            when(mockAuthRepositoryImp.login(any, any)).thenAnswer((_) async=> ApiErrorResult<LoginModel>("errorMessage") );
 
             //act
             final result=await loginUsecase.call(email, password);
-            final error = result as ApiErrorResult<LoginEntity>;
+            final error = result as ApiErrorResult<LoginModel>;
 
           //assert
-            expect(result, isA<ApiErrorResult<LoginEntity>>());
+            expect(result, isA<ApiErrorResult<LoginModel>>());
             expect(error.errorMessage, "errorMessage");
 
           },);

@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'user_entity.g.dart';
+part 'user_model.g.dart';
 
 @HiveType(typeId: 1)
-class UserEntity {
+class UserModel {
   @HiveField(0)
   final String? Id;
 
@@ -34,10 +34,8 @@ class UserEntity {
   @HiveField(9)
   final List<dynamic>? addresses;
 
-  @HiveField(10)
-  final String? createdAt;
 
-  UserEntity({
+  UserModel({
     this.Id,
     this.firstName,
     this.lastName,
@@ -48,6 +46,5 @@ class UserEntity {
     this.role,
     this.wishlist,
     this.addresses,
-    this.createdAt,
   });
 }
