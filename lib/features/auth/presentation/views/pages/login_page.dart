@@ -5,6 +5,7 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/core/utils/validator.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_event.dart';
 import 'package:flutter/material.dart';
@@ -57,17 +58,8 @@ class LoginPage extends StatelessWidget {
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return locale.emailIsRequired;
-                          }
-                          final emailRegex =
-                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                          if (!emailRegex.hasMatch(value)) {
-                            return locale.thisEmailIsNotValid;
-                          }
-                          return null;
-                        },
-                      ),
+                          Validator.validateEmail(value);
+                      }),
                       const SizedBox(height: 20),
                       TextFormField(
                         obscureText: true,
@@ -78,19 +70,7 @@ class LoginPage extends StatelessWidget {
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return locale.passwordIsRequired;
-                          }
-                          if (value.length < 6) {
-                            return locale.passwordMinLength;
-                          }
-                          if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                            return locale.passwordUppercase;
-                          }
-                          if (!RegExp(r'\d').hasMatch(value)) {
-                            return locale.passwordNumber;
-                          }
-                          return null;
+                          Validator.validatePassword(value);
                         },
                       ),
                       const SizedBox(height: 10),
@@ -178,7 +158,7 @@ class LoginPage extends StatelessWidget {
                         child: Text.rich(
                           TextSpan(children: [
                             TextSpan(
-                              text: locale.dontHaveAccount,
+                              text: locale.donotHaveAccount,
                               style: getRegularStyle(
                                   color: AppColors.black,
                                   fontSize: FontSize.s16),

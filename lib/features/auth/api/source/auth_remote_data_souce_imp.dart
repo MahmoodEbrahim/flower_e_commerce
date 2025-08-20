@@ -20,12 +20,21 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
           await authApiService.logIn({"email": email, "password": password});
 
       return ApiSuccessResult<LoginModel>(response.toLoginEntity());
-    } catch (e) {
-      if (e is DioException) {
-        return ApiErrorResult<LoginModel>(e.message ?? e.toString());
+    } on DioException catch (e) {
+      String message = "Something went wrong, please try again";
+
+      if (e.response != null) {
+        if (e.response?.statusCode == 401) {
+          message = "Invalid email or password"; //
+        } else if (e.response?.statusCode == 500) {
+          message = "Server error, try again later";
+        } else {
+          message = e.response?.data["message"] ?? message;
+        }
       }
-      return ApiErrorResult<LoginModel>(
-          e.toString()); // T is signature means --> error for login entity
+      return ApiErrorResult<LoginModel>(message);
+    } catch (e) {
+      return ApiErrorResult<LoginModel>(e.toString());
     }
   }
 }
