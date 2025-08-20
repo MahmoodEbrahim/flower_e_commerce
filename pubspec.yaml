@@ -30,6 +30,7 @@ dependencies:
   hive:
   mockito:
   pretty_dio_logger: ^1.4.0
+  bloc_test: ^10.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,8 +47,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-  - assets/translations/
+#  assets:
+#  - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
