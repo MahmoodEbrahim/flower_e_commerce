@@ -6,16 +6,16 @@ import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart'
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';import 'config/theme/app_theme.dart';
-import 'features/auth/data/source/user_local_storage.dart';
-import 'features/auth/domain/entity/login_entity.dart';
-import 'features/auth/domain/entity/user_entity.dart';
+import 'features/auth/api/source/user_local_storage.dart';
+import 'features/auth/domain/entity/login_model.dart';
+import 'features/auth/domain/entity/user_model.dart';
 import 'features/auth/domain/usecase/login_usecase.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   await Hive.initFlutter();
-  Hive.registerAdapter(UserEntityAdapter());
-  Hive.registerAdapter(LoginEntityAdapter());
+  Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(LoginModelAdapter());
 
   await UserLocalStorage.init();
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      initialRoute:isLoggedIn? AppRoutes.signup:AppRoutes.login,
+      initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
       onGenerateRoute: Routes.onGenerate,
       theme: AppTheme.lightTheme,
     );
