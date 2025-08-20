@@ -30,6 +30,8 @@ dependencies:
   hive:
   mockito:
   pretty_dio_logger: ^1.4.0
+  flutter_screenutil: ^5.9.3
+  flutter_otp_text_field: ^1.5.1+1
   bloc_test: ^10.0.0
 dev_dependencies:
   flutter_test:

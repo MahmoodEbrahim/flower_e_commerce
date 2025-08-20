@@ -4,6 +4,7 @@ import 'package:flower_e_commerce/config/theme/app_theme.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_event.dart';
 import 'package:flutter/material.dart';
@@ -18,24 +19,25 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return BlocProvider<LoginBloc>(
       create: (context) => getIt<LoginBloc>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text("Login")),
+        appBar: AppBar(title: Text(locale.login)),
         body: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state.loginState == RequestState.success) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Login Success ✅")),
+                SnackBar(content: Text(locale.loginSuccess)),
               );
-
               Navigator.pushReplacementNamed(context, AppRoutes.home);
             }
             if (state.loginState == RequestState.error) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content:
-                        Text(state.errorMessage ?? "server error , try again")),
+                    content: Text(
+                        state.errorMessage ?? locale.serverError)),
               );
             }
           },
@@ -49,19 +51,19 @@ class LoginPage extends StatelessWidget {
                     children: [
                       TextFormField(
                         controller: emailController,
-                        decoration: const InputDecoration(
-                          labelText: "Email",
-                          hintText: "Enter your email",
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: locale.email,
+                          hintText: locale.enterYourEmail,
+                          border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Email is required";
+                            return locale.emailIsRequired;
                           }
                           final emailRegex =
-                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                           if (!emailRegex.hasMatch(value)) {
-                            return "This Email is not valid";
+                            return locale.thisEmailIsNotValid;
                           }
                           return null;
                         },
@@ -70,23 +72,23 @@ class LoginPage extends StatelessWidget {
                       TextFormField(
                         obscureText: true,
                         controller: passwordController,
-                        decoration: const InputDecoration(
-                          labelText: "Password",
-                          hintText: "Enter your password",
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: locale.password,
+                          hintText: locale.enterYourPassword,
+                          border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Password is required";
+                            return locale.passwordIsRequired;
                           }
                           if (value.length < 6) {
-                            return "Password must be at least 6 characters";
+                            return locale.passwordMinLength;
                           }
                           if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                            return "Add at least 1 uppercase"; //
+                            return locale.passwordUppercase;
                           }
                           if (!RegExp(r'\d').hasMatch(value)) {
-                            return "Add at least 1 number"; //
+                            return locale.passwordNumber;
                           }
                           return null;
                         },
@@ -103,7 +105,7 @@ class LoginPage extends StatelessWidget {
                             },
                           ),
                           Text(
-                            "Remember me",
+                            locale.rememberMe,
                             style: getRegularStyle(
                                 color: AppColors.black, fontSize: FontSize.s14),
                           ),
@@ -113,7 +115,7 @@ class LoginPage extends StatelessWidget {
                               // Navigator.pushNamed(context, AppRoutes.forgetpass);
                             },
                             child: Text(
-                              "Forget password?",
+                              locale.forgetPassword,
                               style: getRegularStyle(
                                 color: AppColors.black,
                                 fontSize: FontSize.s14,
@@ -135,15 +137,15 @@ class LoginPage extends StatelessWidget {
                               final pass = passwordController.text.trim();
 
                               context.read<LoginBloc>().add(
-                                    LoginButtonPressed(
-                                      email: email,
-                                      password: pass,
-                                    ),
-                                  );
+                                LoginButtonPressed(
+                                  email: email,
+                                  password: pass,
+                                ),
+                              );
                             }
                           },
                           child: Text(
-                            "Login",
+                            locale.login,
                             style: getMediumStyle(
                                 color: AppColors.White, fontSize: FontSize.s20),
                           ),
@@ -156,17 +158,17 @@ class LoginPage extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () {},
                             child: Text(
-                              "Continue as guest",
+                              locale.continueAsGuest,
                               style: getMediumStyle(
                                   color: AppColors.gray,
                                   fontSize: FontSize.s20),
                             ),
                             style: AppTheme.lightTheme.elevatedButtonTheme.style
                                 ?.copyWith(
-                                    backgroundColor:
-                                        WidgetStatePropertyAll(AppColors.White),
-                                    side: WidgetStateProperty.all(
-                                        BorderSide(color: AppColors.gray)))),
+                                backgroundColor:
+                                WidgetStatePropertyAll(AppColors.White),
+                                side: WidgetStateProperty.all(
+                                    BorderSide(color: AppColors.gray)))),
                       ),
                       const SizedBox(height: 16),
                       GestureDetector(
@@ -176,13 +178,13 @@ class LoginPage extends StatelessWidget {
                         child: Text.rich(
                           TextSpan(children: [
                             TextSpan(
-                              text: "Don't have an account? ",
+                              text: locale.dontHaveAccount,
                               style: getRegularStyle(
                                   color: AppColors.black,
                                   fontSize: FontSize.s16),
                             ),
                             TextSpan(
-                              text: "Sign up",
+                              text: locale.signUp,
                               style: getRegularStyle(
                                 color: AppColors.Pink,
                                 fontSize: FontSize.s16,

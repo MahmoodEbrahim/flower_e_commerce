@@ -1,4 +1,21 @@
 {
     "@@locale": "en"
-    
+    "login": "Login",
+      "email": "Email",
+      "enterYourEmail": "Enter your email",
+      "emailIsRequired": "Email is required",
+      "thisEmailIsNotValid": "This Email is not valid",
+      "password": "Password",
+      "enterYourPassword": "Enter your password",
+      "passwordIsRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "passwordUppercase": "Add at least 1 uppercase",
+      "passwordNumber": "Add at least 1 number",
+      "rememberMe": "Remember me",
+      "forgetPassword": "Forget password?",
+      "loginSuccess": "Login Success ✅",
+      "serverError": "server error , try again",
+      "continueAsGuest": "Continue as guest",
+      "dontHaveAccount": "Don't have an account? ",
+      "signUp": "Sign up"
 }
