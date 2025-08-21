@@ -71,14 +71,14 @@ var emailController=TextEditingController();
                 listener: (context,state){
 if(state.response?.message=="success"){
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text("✅ Password reset link sent successfully")),
+    SnackBar(content: Text("Password reset link sent successfully")),
   );
 Navigator.of(context).push(MaterialPageRoute( builder:
     (context) =>VerfiyPasswordPage()));
 }
 if(state.errorMessage!=null){
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content:Text("❌ ${state.errorMessage}")),
+    SnackBar(content:Text("${state.errorMessage}")),
   );
 }
                 },
