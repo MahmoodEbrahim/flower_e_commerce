@@ -5,7 +5,6 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/reque
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_error_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
 import 'package:injectable/injectable.dart';
@@ -29,11 +28,12 @@ forgetPassword(ForgetPasswordRequest request) async{
  }
   }
   @override
-  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
+  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword
+      (VerfiyPasswordRequest request)async {
   try{
     final response=await _apiService.verfiyPassword(request);
 
-   if(response.status=="success"){
+   if(response.status=="Success"){
 return ApiSucessResult(response);
    }else{
     // VerfiyPasswordErrorResponse? verfiyPasswordErrorResponse;
@@ -48,10 +48,14 @@ return ApiFailedResult(response.status!);
   resetPassword(ResetPasswordRequest request) async{
     try{
       final response=await _apiService.resetPassword(request);
-      return  ApiSucessResult(response);
-
+      if(response.message=="success"){
+        return ApiSucessResult(response);
+      }
+      else{
+        return ApiFailedResult(response.message!);
+      }
     }catch(error){
-      return ApiFailedResult(error.toString()!);
+      return ApiFailedResult(error.toString());
     }
   }
 }

@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import '../../../../../../core/utils/constants/json_serlizable_constants.dart';
 part 'reset_password_request.g.dart';
 
 @JsonSerializable()
 class ResetPasswordRequest {
-  @JsonKey(name: "email")
+  @JsonKey(name: JsonSerlizableConstants.emailJsonKey)
   final String? email;
-  @JsonKey(name: "newPassword")
+  @JsonKey(name: JsonSerlizableConstants.newPasswordJsonKey)
   final String? newPassword;
 
   ResetPasswordRequest ({

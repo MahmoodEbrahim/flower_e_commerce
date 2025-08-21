@@ -189,6 +189,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New password'**
   String get newpassword;
+
+  /// No description provided for @passwordresetlinksentsuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset link sent successfully'**
+  String get passwordresetlinksentsuccessfully;
 }
 
 class _AppLocalizationsDelegate

@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../../../core/utils/constants/json_serlizable_constants.dart';
+
 part 'forget_password_request.g.dart';
 
 @JsonSerializable()
 class ForgetPasswordRequest {
-  @JsonKey(name: "email")
+  @JsonKey(name: JsonSerlizableConstants.emailJsonKey)
   final String? email;
 
   ForgetPasswordRequest ({

@@ -54,7 +54,12 @@ ForgetPasswordStates copyWith({
     isLoadingForgetPassword,
     errorMessage,
     response,
-    isLoadingResetPassword,resetPasswordResponse,errorMessageResetPassword,
-    isLoadingVerfiyPassword,verfiyPasswordResponse,errorMessageVerfiyPassword
+    isLoadingVerfiyPassword,
+    verfiyPasswordResponse,
+    errorMessageVerfiyPassword,
+    isLoadingResetPassword,
+    resetPasswordResponse,
+    errorMessageResetPassword,
+
   ];
 }

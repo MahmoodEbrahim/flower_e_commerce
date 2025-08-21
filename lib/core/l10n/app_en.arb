@@ -16,5 +16,6 @@
     "resetpassword": "Reset password",
 "enteryoupassword": "Enter you password",
     "confirmpassword": "Confirm password",
-    "newpassword": "New password"
+    "newpassword": "New password",
+    "passwordresetlinksentsuccessfully": "Password reset link sent successfully"
 }

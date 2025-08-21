@@ -52,6 +52,7 @@ switch(result){
 }
   Future<void>
   resetPassword(ResetPasswordRequest request)async{
+    emit(state.copyWith(isLoadingResetPassword: true));
     final result=await _resetPasswordUseCase.resetPassword(request);
     switch(result){
       case ApiSucessResult<ResetPasswordResponsea>():
