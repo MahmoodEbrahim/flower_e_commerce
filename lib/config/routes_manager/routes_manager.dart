@@ -14,6 +14,7 @@ abstract class Routes {
     final url = Uri.parse(settings.name ?? '/');
 
     switch (url.path) {
+
       // case AppRoutes.signup:
       //   return MaterialPageRoute(builder: (context) => const SignpPag());
       case AppRoutes.forgetPassword:
@@ -28,6 +29,7 @@ abstract class Routes {
         return MaterialPageRoute(builder:
             (context)=> ResetPasswordPage(),
             );
+
       default:
         return MaterialPageRoute(
           builder: (context) =>
