@@ -5,9 +5,9 @@ class Validator {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     );
     if (val == null) {
-      return 'This Email field is required';
+      return 'Email  is required';
     } else if (val.trim().isEmpty) {
-      return 'This  Email field is required';
+      return ' Email  is required';
     } else if (emailRegex.hasMatch(val) == false) {
       return 'This Email is not valid';
     } else {

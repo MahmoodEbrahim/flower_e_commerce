@@ -25,7 +25,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
 
       if (e.response != null) {
         if (e.response?.statusCode == 401) {
-          message = "Invalid email or password"; //
+          message = "Invalid email or password";
         } else if (e.response?.statusCode == 500) {
           message = "Server error, try again later";
         } else {

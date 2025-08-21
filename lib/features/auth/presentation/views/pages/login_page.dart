@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
-                          Validator.validateEmail(value);
+                         return Validator.validateEmail(value);
                       }),
                       const SizedBox(height: 20),
                       TextFormField(
@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
-                          Validator.validatePassword(value);
+                          return Validator.validatePassword(value);
                         },
                       ),
                       const SizedBox(height: 10),
@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
                           const Spacer(),
                           GestureDetector(
                             onTap: () {
-                              // Navigator.pushNamed(context, AppRoutes.forgetpass);
+                              Navigator.pushNamed(context, AppRoutes.forgetPass);
                             },
                             child: Text(
                               locale.forgetPassword,
@@ -136,7 +136,9 @@ class LoginPage extends StatelessWidget {
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false,);
+                            },
                             child: Text(
                               locale.continueAsGuest,
                               style: getMediumStyle(
@@ -153,7 +155,7 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, AppRoutes.signup);
+                          Navigator.pushNamed(context, AppRoutes.signup  );
                         },
                         child: Text.rich(
                           TextSpan(children: [
