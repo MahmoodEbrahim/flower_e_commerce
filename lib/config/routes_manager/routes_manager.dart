@@ -11,7 +11,7 @@ abstract class Routes {
 
     switch (url.path) {
       case AppRoutes.signup:
-        return MaterialPageRoute(builder: (context) => const SignupPage());
+       // return MaterialPageRoute(builder: (context) => const SignupPage());
 
       case AppRoutes.login:
         return MaterialPageRoute(builder: (context) => LoginPage());
