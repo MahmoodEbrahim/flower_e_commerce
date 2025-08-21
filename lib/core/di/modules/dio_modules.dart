@@ -6,11 +6,13 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 @module
 abstract class DioModule {
   @lazySingleton
-  Dio provideDio() {
-    final Dio dio = Dio();
-    dio.interceptors.add(getIt.get<PrettyDioLogger>());
-    return dio;
-  }
+Dio provideDio() {
+  final dio = Dio();
+  dio.interceptors.add(getIt.get<PrettyDioLogger>());
+  return dio;
+}
+
+
 
   @lazySingleton
   PrettyDioLogger prettyDioLoggerProvider() {
@@ -20,4 +22,5 @@ abstract class DioModule {
       responseHeader: true,
     );
   }
+
 }

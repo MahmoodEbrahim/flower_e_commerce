@@ -20,26 +20,18 @@ class AuthRemoteDataSouceImp implements AuthRemoteDataSource {
           await _apiService.signUp(SignupRequestDto.toDto(userModel));
 
       return ApiSucessResult(signupResponse.user!.toUserModel());
-    }
-
-   on DioException catch (e) {
+    } on DioException catch (e) {
       final data = e.response?.data;
-      String errorMessage = e.toString();
+      String errorMessage = e.message!;
 
-      if (data is Map<String, dynamic> &&
-          data.containsKey("message")) {
-        errorMessage = data["message"].toString();
+      if (data is Map<String, dynamic> && data.containsKey("error")) {
+        errorMessage = data["error"].toString();
       }
+      
 
       return ApiFailedResult(errorMessage);
     } catch (e) {
       return ApiFailedResult(e.toString());
     }
-    
-    
-    
-    
-    
-    
   }
 }

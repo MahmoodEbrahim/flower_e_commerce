@@ -10,8 +10,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await configureDependencies();
-  runApp(DevicePreview(builder: (context)=>MyApp()));
-}
+  runApp(
+    DevicePreview(builder: (context)=>MyApp())
+  
+  );}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

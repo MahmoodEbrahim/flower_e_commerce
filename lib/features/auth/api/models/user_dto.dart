@@ -1,10 +1,12 @@
 import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:equatable/equatable.dart';
 part 'user_dto.g.dart';
+
 @JsonSerializable()
-class UserDto {
-   @JsonKey(name: JsonSerlizableConstants.id)
+class UserDto extends Equatable {
+  @JsonKey(name: JsonSerlizableConstants.id)
   String? id;
 
   @JsonKey(name: JsonSerlizableConstants.firstName)
@@ -36,36 +38,50 @@ class UserDto {
 
   @JsonKey(name: JsonSerlizableConstants.createdAt)
   DateTime? createdAt;
-    UserDto({
-        this.id,
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.gender,
-        this.phone,
-        this.photo,
-        this.role,
-        this.wishlist,
-        this.addresses,
-        this.createdAt,
-    });
+  UserDto({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.gender,
+    this.phone,
+    this.photo,
+    this.role,
+    this.wishlist,
+    this.addresses,
+    this.createdAt,
+  });
 
-    factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+  factory UserDto.fromJson(Map<String, dynamic> json) =>
+      _$UserDtoFromJson(json);
 
-    Map<String, dynamic> toJson() => _$UserDtoToJson(this);
+  Map<String, dynamic> toJson() => _$UserDtoToJson(this);
 
-
-    UserModel toUserModel() {
+  UserModel toUserModel() {
     return UserModel(
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      gender: gender,
-      photo: photo,
-      role: role,
-      wishlist: wishlist,
-      addresses: addresses
-    );
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        gender: gender,
+        photo: photo,
+        role: role,
+        wishlist: wishlist,
+        addresses: addresses);
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        firstName,
+        lastName,
+        email,
+        gender,
+        phone,
+        photo,
+        role,
+        wishlist,
+        addresses,
+        createdAt,
+      ];
 }
