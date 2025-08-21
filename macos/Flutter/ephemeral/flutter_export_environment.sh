@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\src_flutter\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\AYA\OneDrive\Documents\Flutter_Projects\flower_ecommerce"
+export "FLUTTER_ROOT=D:\flutter_sdk\flutter_windows_3.32.5-stable\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\mariam\StudioProjects\flower_e_commerce"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"

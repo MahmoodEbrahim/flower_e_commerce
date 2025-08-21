@@ -19,9 +19,20 @@ import '../../features/auth/api/source/auth_remote_data_souce_imp.dart'
 import '../../features/auth/data/repository/auth_repository_imp.dart' as _i794;
 import '../../features/auth/data/source/auth_remote_data_source.dart' as _i777;
 import '../../features/auth/domain/repository/auth_repository.dart' as _i961;
+
 import '../../features/auth/domain/usecase/login_usecase.dart' as _i911;
 import '../../features/auth/presentation/view_model/login_view_model/login_bloc.dart'
     as _i644;
+
+import '../../features/auth/domain/usecase/forget_password_use_case.dart'
+    as _i240;
+import '../../features/auth/domain/usecase/reset_password_use_case.dart'
+    as _i878;
+import '../../features/auth/domain/usecase/verfiy_password_use_case.dart'
+    as _i197;
+import '../../features/auth/presentation/view_model/forget_password/forget_password_cubit.dart'
+    as _i1028;
+
 import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -36,6 +47,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioModule = _$DioModule();
+
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioModule.prettyDioLogger);
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
@@ -49,6 +61,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i911.LoginUsecase(gh<_i961.AuthRepository>()));
     gh.factory<_i644.LoginBloc>(
         () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
+
+    
+    gh.factory<_i240.ForgetPasswordUseCase>(
+        () => _i240.ForgetPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i197.VerfiyPasswordUseCase>(
+        () => _i197.VerfiyPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i878.ResetPasswordUseCase>(
+        () => _i878.ResetPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i1028.ForgetPasswordBCubit>(() => _i1028.ForgetPasswordBCubit(
+          gh<_i240.ForgetPasswordUseCase>(),
+          gh<_i878.ResetPasswordUseCase>(),
+          gh<_i197.VerfiyPasswordUseCase>(),
+        ));
+
     return this;
   }
 }
