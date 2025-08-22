@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
@@ -14,7 +15,7 @@ import 'verfiy_password_use_case_test.mocks.dart';
 @GenerateMocks([AuthRepository])
 void provideDummies(){
   provideDummy<ApiResult<ResetPasswordResponsea>>(
-      ApiFailedResult<ResetPasswordResponsea>("error"));
+      ApiErrorResult<ResetPasswordResponsea>("error"));
 }
 
 void main() {
@@ -33,23 +34,23 @@ group("Reset Password ", (){
   ResetPasswordResponsea successResponse=ResetPasswordResponsea(
     message: "success",token: "rtyuiolkbvcxawertyui"
   );
-  final failureResponse=ApiFailedResult<ResetPasswordResponsea>("ERROR");
+  final failureResponse=ApiErrorResult<ResetPasswordResponsea>("ERROR");
   test("should return ApiSuccessResult when retrurn Repo success",
       ()async{
 when(mockAuthRepository.resetPassword(request))
-    .thenAnswer((_)async=>ApiSucessResult(successResponse));
+    .thenAnswer((_)async=>ApiSuccessResult(successResponse));
 final result=await resetPasswordUseCase.resetPassword(request);
-expect(result, isA<ApiSucessResult<ResetPasswordResponsea>>());
-expect((result as ApiSucessResult ).sucessResult, successResponse);
+expect(result, isA<ApiSuccessResult<ResetPasswordResponsea>>());
+expect((result as ApiSuccessResult ).data, successResponse);
 verify(mockAuthRepository.resetPassword(request)).called(1);
       });
-  test("should return ApiFailedResult when retrurn Repo success",
+  test("should return ApiErrorResult when retrurn Repo success",
           ()async{
         when(mockAuthRepository.resetPassword(request))
             .thenAnswer((_)async=>failureResponse);
         final result=await resetPasswordUseCase.resetPassword(request);
-        expect(result, isA<ApiFailedResult<ResetPasswordResponsea>>());
-        expect((result as ApiFailedResult ).errorMessage, failureResponse.errorMessage);
+        expect(result, isA<ApiErrorResult<ResetPasswordResponsea>>());
+        expect((result as ApiErrorResult ).errorMessage, failureResponse.errorMessage);
         verify(mockAuthRepository.resetPassword(request)).called(1);
       });
 })  ;

@@ -41,7 +41,6 @@ final isLoggedIn = UserLocalStorage.isLoggedIn();
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.forgetPassword,
         onGenerateRoute: Routes.onGenerate,
         theme: AppTheme.lightTheme,
       ),

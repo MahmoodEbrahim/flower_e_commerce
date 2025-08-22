@@ -12,7 +12,6 @@ import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custo
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
   @override
@@ -27,7 +26,7 @@ class ResetPasswordPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.White,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 20.sp,
+            icon: Icon(Icons.arrow_back_ios, size: 20,
                 color: AppColors.black[60]),
             onPressed: () => Navigator.pop(context),
           ),
@@ -40,7 +39,7 @@ class ResetPasswordPage extends StatelessWidget {
         body: Padding(padding: EdgeInsets.symmetric(horizontal: 24.0),
         child:   Column(
           children: [
-            SizedBox(height: 26.h),
+            SizedBox(height: 26),
             Text(
               local.resetpassword, // ✅ camelCase
               textAlign: TextAlign.center,
@@ -49,7 +48,7 @@ class ResetPasswordPage extends StatelessWidget {
                 fontSize: FontSize.s18,
               ),
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 16),
             Text(
               local.passwordValidationMessage,
               textAlign: TextAlign.center,
@@ -58,15 +57,15 @@ class ResetPasswordPage extends StatelessWidget {
                 fontSize: FontSize.s14,
               ),
             ),
-            SizedBox(height: 26.h),
+            SizedBox(height: 26),
             CustomTxtFieldWidget(lbl: local.email,
-              hint: local.enteryouremail,controller: emailController,
+              hint: local.enterYourEmail,controller: emailController,
               validator: Validator.validateEmail,),
-            SizedBox(height: 16.h),
+            SizedBox(height: 16),
             CustomTxtFieldWidget(lbl: local.newpassword,
               hint: local.enteryoupassword,controller: passwordController,
               validator: Validator.validatePassword,),
-            SizedBox(height: 36.h),
+            SizedBox(height: 36),
             BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>
               (listener: (c,state){
 if(state.resetPasswordResponse!=null){

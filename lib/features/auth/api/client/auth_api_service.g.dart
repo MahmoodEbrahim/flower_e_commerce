@@ -24,30 +24,20 @@ class _AuthApiService implements AuthApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-
   Future<AuthResponseDto> logIn(Map<String, dynamic> body) async {
-
-  Future<ForgetPasswordResponse> forgetPassword(
-      ForgetPasswordRequest request) async {
-
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-
     _data.addAll(body);
     final _options = _setStreamType<AuthResponseDto>(Options(
-
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
-
+          _dio.options,
           '/signin',
-
-          'forgotPassword',
-
           queryParameters: queryParameters,
           data: _data,
         )
@@ -57,11 +47,41 @@ class _AuthApiService implements AuthApiService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-
     late AuthResponseDto _value;
     try {
       _value = AuthResponseDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
 
+  @override
+  Future<ForgetPasswordResponse> forgetPassword(
+      ForgetPasswordRequest request) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _options = _setStreamType<ForgetPasswordResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'forgotPassword',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late ForgetPasswordResponse _value;
     try {
       _value = ForgetPasswordResponse.fromJson(_result.data!);
@@ -135,7 +155,6 @@ class _AuthApiService implements AuthApiService {
     late ResetPasswordResponsea _value;
     try {
       _value = ResetPasswordResponsea.fromJson(_result.data!);
-
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

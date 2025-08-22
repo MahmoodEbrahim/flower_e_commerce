@@ -5,23 +5,25 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:flower_e_commerce/core/api_result/api_result.dart' as _i4;
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart' as _i4;
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart'
-    as _i6;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart'
-    as _i11;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart'
-    as _i9;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart'
-    as _i5;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart'
-    as _i10;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart'
     as _i8;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart'
+    as _i12;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart'
+    as _i10;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart'
+    as _i7;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart'
+    as _i11;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart'
+    as _i9;
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart'
+    as _i5;
 import 'package:flower_e_commerce/features/auth/domain/repository/auth_repository.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -46,59 +48,85 @@ class MockAuthRepository extends _i1.Mock implements _i2.AuthRepository {
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.ForgetPasswordResponse>> forgetPassword(
-          _i6.ForgetPasswordRequest? request) =>
+  _i3.Future<_i4.ApiResult<_i5.LoginModel>> login(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #login,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i3.Future<_i4.ApiResult<_i5.LoginModel>>.value(
+            _i6.dummyValue<_i4.ApiResult<_i5.LoginModel>>(
+          this,
+          Invocation.method(
+            #login,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i3.Future<_i4.ApiResult<_i5.LoginModel>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i7.ForgetPasswordResponse>> forgetPassword(
+          _i8.ForgetPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #forgetPassword,
           [request],
         ),
         returnValue:
-            _i3.Future<_i4.ApiResult<_i5.ForgetPasswordResponse>>.value(
-                _i7.dummyValue<_i4.ApiResult<_i5.ForgetPasswordResponse>>(
+            _i3.Future<_i4.ApiResult<_i7.ForgetPasswordResponse>>.value(
+                _i6.dummyValue<_i4.ApiResult<_i7.ForgetPasswordResponse>>(
           this,
           Invocation.method(
             #forgetPassword,
             [request],
           ),
         )),
-      ) as _i3.Future<_i4.ApiResult<_i5.ForgetPasswordResponse>>);
+      ) as _i3.Future<_i4.ApiResult<_i7.ForgetPasswordResponse>>);
 
   @override
-  _i3.Future<_i4.ApiResult<_i8.VerfiyPasswordResponse>> verfiyPassword(
-          _i9.VerfiyPasswordRequest? request) =>
+  _i3.Future<_i4.ApiResult<_i9.VerfiyPasswordResponse>> verfiyPassword(
+          _i10.VerfiyPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #verfiyPassword,
           [request],
         ),
         returnValue:
-            _i3.Future<_i4.ApiResult<_i8.VerfiyPasswordResponse>>.value(
-                _i7.dummyValue<_i4.ApiResult<_i8.VerfiyPasswordResponse>>(
+            _i3.Future<_i4.ApiResult<_i9.VerfiyPasswordResponse>>.value(
+                _i6.dummyValue<_i4.ApiResult<_i9.VerfiyPasswordResponse>>(
           this,
           Invocation.method(
             #verfiyPassword,
             [request],
           ),
         )),
-      ) as _i3.Future<_i4.ApiResult<_i8.VerfiyPasswordResponse>>);
+      ) as _i3.Future<_i4.ApiResult<_i9.VerfiyPasswordResponse>>);
 
   @override
-  _i3.Future<_i4.ApiResult<_i10.ResetPasswordResponsea>> resetPassword(
-          _i11.ResetPasswordRequest? request) =>
+  _i3.Future<_i4.ApiResult<_i11.ResetPasswordResponsea>> resetPassword(
+          _i12.ResetPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
           [request],
         ),
         returnValue:
-            _i3.Future<_i4.ApiResult<_i10.ResetPasswordResponsea>>.value(
-                _i7.dummyValue<_i4.ApiResult<_i10.ResetPasswordResponsea>>(
+            _i3.Future<_i4.ApiResult<_i11.ResetPasswordResponsea>>.value(
+                _i6.dummyValue<_i4.ApiResult<_i11.ResetPasswordResponsea>>(
           this,
           Invocation.method(
             #resetPassword,
             [request],
           ),
         )),
-      ) as _i3.Future<_i4.ApiResult<_i10.ResetPasswordResponsea>>);
+      ) as _i3.Future<_i4.ApiResult<_i11.ResetPasswordResponsea>>);
 }

@@ -37,16 +37,16 @@ class VerfiyPasswordPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           children: [
-            SizedBox(height: 26.h),
+            SizedBox(height: 26),
             Text(
-              local.forgetpassword, // ✅ camelCase
+              local.forgetPassword,
               textAlign: TextAlign.center,
               style: getMediumStyle(
                 color: AppColors.black[50]!,
                 fontSize: FontSize.s18,
               ),
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 16),
             Text(
               local.pleaseEnterYourCodeThatSentToYourEmailAddress,
               textAlign: TextAlign.center,
@@ -55,14 +55,15 @@ class VerfiyPasswordPage extends StatelessWidget {
                 fontSize: FontSize.s14,
               ),
             ),
-            SizedBox(height: 26.h),
+            SizedBox(height: 26),
             BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>(
               listener: (context,state){
                 if(state.verfiyPasswordResponse!=null){
                   Navigator.of(context).pushNamed(AppRoutes.resetPassword);
                 }
               },
-              child: Builder(builder: (c)=>      OtpTextField(
+              child: Builder(builder: (c)=>
+                  OtpTextField(
                 numberOfFields: 6,
                 fillColor: AppColors.lightGray,
                 enabledBorderColor: AppColors.lightGray,
@@ -75,7 +76,7 @@ class VerfiyPasswordPage extends StatelessWidget {
                   fontSize: FontSize.s14,
                 ),
                 borderColor: AppColors.lightGray,
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(10),
                 onCodeChanged: (value) {
                   c.read<ForgetPasswordBCubit>().verfiyPassword(
                     VerfiyPasswordRequest(resetCode: value),
@@ -89,7 +90,7 @@ class VerfiyPasswordPage extends StatelessWidget {
               ),)
 
              ),
-            SizedBox(height: 26.h),
+            SizedBox(height: 26),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,7 +101,7 @@ class VerfiyPasswordPage extends StatelessWidget {
                     fontSize: FontSize.s16,
                   ),
                 ),
-                SizedBox(width: 10.w),
+                SizedBox(width: 10),
                 Text(
                   local.resend,
                   style: TextStyle(

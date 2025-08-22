@@ -34,7 +34,7 @@ abstract class Routes {
 
       // case AppRoutes.signup:
       //   return MaterialPageRoute(builder: (context) => const SignpPag());
-      case AppRoutes.forgetPassword:
+      case AppRoutes.forgetPass:
         return MaterialPageRoute(builder:
             (context)=>const ForgetPasswordPage());
       case AppRoutes.verfiyPassword:
