@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/client/auth_api_service.dart';
@@ -9,8 +8,8 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/reque
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_error_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
+
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:injectable/injectable.dart';
@@ -28,7 +27,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
   Future<ApiResult<LoginModel>> login(String email, String password) async {
     try {
       AuthResponseDto response =
-          await authApiService.logIn({"email": email, "password": password});
+      await authApiService.logIn({"email": email, "password": password});
 
       return ApiSuccessResult<LoginModel>(response.toLoginModel());
     } on DioException catch (e) {
@@ -48,49 +47,39 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       return ApiErrorResult<LoginModel>(e.toString());
     }
   }
-   Future<ApiResult<ForgetPasswordResponse>>
-forgetPassword(ForgetPasswordRequest request) async{
- try{
-   final response=await authApiService.forgetPassword(request);
-   if(response.message=="success"){
-     return ApiSuccessResult(response);
-   }
-   else{
-     return ApiErrorResult(response.message!);
-   }
- }catch(error){
-   return ApiErrorResult(error.toString());
- }
+  Future<ApiResult<ForgetPasswordResponse>>
+  forgetPassword(ForgetPasswordRequest request) async{
+    try{
+      final response=await authApiService.forgetPassword(request);
+      if(response.message=="success"){
+        return ApiSuccessResult(response);
+      }
+      else{
+        return ApiErrorResult(response.message!);
+      }
+    }catch(error){
+      return ApiErrorResult(error.toString());
+    }
   }
   @override
-  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword
-      (VerfiyPasswordRequest request)async {
-  try{
-    final response=await authApiService.verfiyPassword(request);
+  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
+    try{
+      final response=await authApiService.verfiyPassword(request);
 
-   if(response.status=="Success"){
-return ApiSuccessResult(response);
-   }else{
-    // VerfiyPasswordErrorResponse? verfiyPasswordErrorResponse;
-return ApiErrorResult(response.status!);
-   }
-  }catch(error){
-    return ApiErrorResult(error.toString()!);
-  }
+      return ApiSuccessResult(response);
+    }catch(error){
+      return ApiErrorResult(error.toString()!);
+    }
   }
   @override
   Future<ApiResult<ResetPasswordResponsea>>
   resetPassword(ResetPasswordRequest request) async{
     try{
-      final response=await _apiService.resetPassword(request);
-      if(response.message=="success"){
-        return ApiSucessResult(response);
-      }
-      else{
-        return ApiFailedResult(response.message!);
-      }
+      final response=await authApiService.resetPassword(request);
+      return  ApiSuccessResult(response);
+
     }catch(error){
-      return ApiFailedResult(error.toString());
+      return ApiErrorResult(error.toString()!);
     }
   }
 }

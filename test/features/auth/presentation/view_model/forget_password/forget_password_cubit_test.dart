@@ -1,6 +1,5 @@
-
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart';
@@ -20,13 +19,13 @@ import 'forget_password_cubit_test.mocks.dart';
 @GenerateMocks([ForgetPasswordUseCase,VerfiyPasswordUseCase,ResetPasswordUseCase])
 provideDummies(){
   provideDummy<ApiResult<ForgetPasswordResponse>>(
-    ApiFailedResult<ForgetPasswordResponse>( ' error'),
+    ApiErrorResult<ForgetPasswordResponse>( ' error'),
   );
   provideDummy<ApiResult<VerfiyPasswordResponse>>(
-    ApiFailedResult<VerfiyPasswordResponse>( ' error'),
+    ApiErrorResult<VerfiyPasswordResponse>( ' error'),
   );
   provideDummy<ApiResult<ResetPasswordResponsea>>(
-    ApiFailedResult<ResetPasswordResponsea>( ' error'),
+    ApiErrorResult<ResetPasswordResponsea>( ' error'),
   );
 }
 void main() {
@@ -53,7 +52,7 @@ group("Forget Password Cubit", (){
       ("emits loading and success state when forgetPassword succeeds",
         build: (){
         when(forgetPasswordUseCase.forgetPassword(request)).
-        thenAnswer((_)async=>ApiSucessResult(forgetPasswordResponse));
+        thenAnswer((_)async=>ApiSuccessResult(forgetPasswordResponse));
         return cubit;
         },act:(cubit)=>cubit.forgetPassword(request) ,expect:()=>[
        ForgetPasswordStates(isLoadingForgetPassword: true),
@@ -64,7 +63,7 @@ group("Forget Password Cubit", (){
       ("emits loading and fails state when forgetPassword failure", 
         build: (){
         when(forgetPasswordUseCase.forgetPassword(request))
-            .thenAnswer((_)async=>ApiFailedResult('There is no account with this email address  mariammohme.25720@gmail.com'));
+            .thenAnswer((_)async=>ApiErrorResult('There is no account with this email address  mariammohme.25720@gmail.com'));
      return cubit;
         },act: (cubit)=>cubit.forgetPassword(request),
       expect: ()=>[
@@ -84,7 +83,7 @@ ForgetPasswordStates(isLoadingForgetPassword: false,errorMessage: 'There is no a
       "emits [loading, Success] when verfiyPassword succeeds",
       build: () {
         when( verfiyPasswordUseCase.verfiyPassword(request))
-            .thenAnswer((_) async => ApiSucessResult(successResponse));
+            .thenAnswer((_) async => ApiSuccessResult(successResponse));
         return cubit;
       },
       act:(cubit) => cubit.verfiyPassword(request),
@@ -105,7 +104,7 @@ ForgetPasswordStates(isLoadingForgetPassword: false,errorMessage: 'There is no a
         "emits loading and fails state when verifyPassword fails",
         build: (){
           when(verfiyPasswordUseCase.verfiyPassword(request))
-              .thenAnswer((_)async=>ApiFailedResult("failed"));
+              .thenAnswer((_)async=>ApiErrorResult("failed"));
           return cubit;
         },act: (cubit)=>cubit.verfiyPassword(request),
     expect: ()=>[
@@ -126,7 +125,7 @@ ForgetPasswordStates(isLoadingForgetPassword: false,errorMessage: 'There is no a
       ("emits loading and success state when forgetPassword succeeds",
         build: (){
           when(resetPasswordUseCase.resetPassword(request)).
-          thenAnswer((_)async=>ApiSucessResult(successResponse));
+          thenAnswer((_)async=>ApiSuccessResult(successResponse));
           return cubit;
         },act:(cubit)=>cubit.resetPassword(request) ,expect:()=>[
           ForgetPasswordStates(isLoadingResetPassword: true),
@@ -138,7 +137,7 @@ ForgetPasswordStates(isLoadingForgetPassword: false,errorMessage: 'There is no a
         "emits loading and fails state when resetPassword fails",
         build: (){
           when(resetPasswordUseCase.resetPassword(request))
-              .thenAnswer((_)async=>ApiFailedResult("reset code not verified"));
+              .thenAnswer((_)async=>ApiErrorResult("reset code not verified"));
           return cubit;
         },act: (cubit)=>cubit.resetPassword(request),
         expect: ()=>[

@@ -84,6 +84,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newpassword => 'New password';
 
   @override
-  String get passwordresetlinksentsuccessfully =>
-      'Password reset link sent successfully';
+  String get passwordresetlinksentsuccessfully => 'Password reset link sent successfully';
 }

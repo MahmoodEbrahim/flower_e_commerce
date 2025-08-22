@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:flower_e_commerce/core/api_result/api_result.dart' as _i4;
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart' as _i4;
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart'
     as _i6;
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart'

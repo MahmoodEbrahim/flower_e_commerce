@@ -9,11 +9,11 @@ part of 'verfiy_password_response.dart';
 VerfiyPasswordResponse _$VerfiyPasswordResponseFromJson(
         Map<String, dynamic> json) =>
     VerfiyPasswordResponse(
-      status: json['status'] as String?,
+      status: json['email'] as String?,
     );
 
 Map<String, dynamic> _$VerfiyPasswordResponseToJson(
         VerfiyPasswordResponse instance) =>
     <String, dynamic>{
-      'status': instance.status,
+      'email': instance.status,
     };

@@ -1,7 +1,6 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
-import 'package:flower_e_commerce/config/utils/validator.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
@@ -12,6 +11,8 @@ import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custo
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../core/utils/validator.dart';
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
   @override
