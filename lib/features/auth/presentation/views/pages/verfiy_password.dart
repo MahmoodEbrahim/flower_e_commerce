@@ -14,12 +14,11 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerfiyPasswordPage extends StatelessWidget {
-  const VerfiyPasswordPage({super.key});
-
+   VerfiyPasswordPage({this.email});
+String? email;
   @override
   Widget build(BuildContext context) {
     var local=AppLocalizations.of(context)!;
-var email=ModalRoute.of(context)!.settings!.arguments as String?;
 print("email $email");
     return   BlocProvider(create: (context)=>getIt<ForgetPasswordBCubit>(),
       child:  Scaffold(
@@ -62,7 +61,9 @@ print("email $email");
               listener: (context,state){
                 if(state.verfiyPasswordResponse!=null ){
                   Navigator.of(context).pushNamed(AppRoutes.resetPassword);
+
                 }
+
               },
               child: Builder(builder: (c)=>      OtpTextField(
                 numberOfFields: 6,
@@ -79,15 +80,12 @@ print("email $email");
                 ),
                 borderColor: AppColors.lightGray,
                 borderRadius: BorderRadius.circular(10.r),
-                onCodeChanged: (value) {
-                  c.read<ForgetPasswordBCubit>().verfiyPassword(
-                    VerfiyPasswordRequest(resetCode: value),
-                  );
-                },
+
                 onSubmit: (value) {
                   c.read<ForgetPasswordBCubit>().verfiyPassword(
                     VerfiyPasswordRequest(resetCode: value),
                   );
+                  value="";
                 },
               ),)
 

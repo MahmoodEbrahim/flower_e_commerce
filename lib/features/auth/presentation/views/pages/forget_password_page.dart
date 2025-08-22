@@ -73,8 +73,10 @@ if(state.response?.message=="success"){
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text(local.passwordresetlinksentsuccessfully)),
   );
-Navigator.of(context).pushNamed(AppRoutes.verfiyPassword,arguments:
-emailController.text);
+Navigator.of(context).push(MaterialPageRoute(builder: (context)=>VerfiyPasswordPage(
+
+  email: emailController.text,
+)));
 }
 if(state.errorMessage!=null){
   ScaffoldMessenger.of(context).showSnackBar(
