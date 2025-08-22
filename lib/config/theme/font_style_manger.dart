@@ -20,7 +20,7 @@ TextStyle getLightStyle(
 // font weight --> 400
 TextStyle getRegularStyle(
     {double fontSize = FontSize.s12, required Color color}) {
-  return _getTextStyle(fontSize, FontWeightManager.regular, color);
+  return _getTextStyle(fontSize, FontWeightManager.regular, color,);
 }
 
 // font weight --> 500

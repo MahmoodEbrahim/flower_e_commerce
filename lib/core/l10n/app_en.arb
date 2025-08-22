@@ -1,4 +1,34 @@
 {
-    "@@locale": "en"
-    
-}
+    "@@locale": "en",
+
+    "login": "Login",
+      "email": "Email",
+      "enterYourEmail": "Enter your email",
+      "password": "Password",
+      "enterYourPassword": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgetPassword": "Forget password?",
+      "loginSuccess": "Login Success ✅",
+      "serverError": "server error , try again",
+      "continueAsGuest": "Continue as guest",
+      "donotHaveAccount": "Don't have an account? ",
+      "signUp": "Sign up"
+
+    "password":"Password",
+    "forgetpassword":"Forget password",
+    "pleaseenteryouremailassociatedtoyouraccount": "Please enter your email associated to \nyour account"
+    ,"thisEmailisnotvalid": "This Email is not valid",
+    "enteryouremail": "Enter your email",
+    "email": "Email",
+    "confirm": "Confirm",
+    "emailverification": "Email verification",
+    "pleaseEnterYourCodeThatSentToYourEmailAddress": "Please enter your code that was sent to your\n email address",
+    "didntReceiveCode": "Didn't receive code?",
+    "passwordValidationMessage": "Password must not be empty and must contain\n 6 characters with upper case letter and one\n number at least",
+
+    "resend": "Resend",
+    "resetpassword": "Reset password",
+"enteryoupassword": "Enter you password",
+    "confirmpassword": "Confirm password",
+    "newpassword": "New password"
+>
