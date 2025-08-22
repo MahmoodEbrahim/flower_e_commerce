@@ -30,8 +30,7 @@ void main() {
  late MockAuthApiService mockAuthApiService;
  late   AuthRemoteDataSourceImp authRemoteDataSource;
 setUp((){
-  provideDummies();
-  mockAuthApiService=MockAuthApiService();
+  provideDummies();mockAuthApiService=MockAuthApiService();
   authRemoteDataSource=
       AuthRemoteDataSourceImp(mockAuthApiService);
 });

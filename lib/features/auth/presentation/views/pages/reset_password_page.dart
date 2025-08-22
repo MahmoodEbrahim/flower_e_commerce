@@ -41,7 +41,7 @@ class ResetPasswordPage extends StatelessWidget {
           children: [
             SizedBox(height: 26),
             Text(
-              local.resetpassword, // ✅ camelCase
+              local.resetpassword,
               textAlign: TextAlign.center,
               style: getMediumStyle(
                 color: AppColors.black[50]!,

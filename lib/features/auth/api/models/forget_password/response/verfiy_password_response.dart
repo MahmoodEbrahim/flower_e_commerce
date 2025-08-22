@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../../../core/utils/constants/json_serlizable_constants.dart';
+
 part 'verfiy_password_response.g.dart';
 
 @JsonSerializable()
 class VerfiyPasswordResponse {
-  @JsonKey(name: "status")
+  @JsonKey(name: JsonSerlizableConstants.statusJsonKey)
   final String? status;
 
   VerfiyPasswordResponse ({
