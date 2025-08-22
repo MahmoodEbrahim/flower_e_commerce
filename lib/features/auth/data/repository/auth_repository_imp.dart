@@ -27,22 +27,19 @@ class AuthRepositoryImp implements AuthRepository {
   }
   
 
-  AuthRemoteDataSource _authRemoteDataSource;
-  AuthRepositoryImp(this._authRemoteDataSource);
-  @override
   Future<ApiResult<ForgetPasswordResponse>> forgetPassword
       (ForgetPasswordRequest request) async {
-    return await _authRemoteDataSource.forgetPassword(request);
+    return await authRemoteDataSource.forgetPassword(request);
   }
   @override
   Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
     // TODO: implement verfiyPassword
-    return await _authRemoteDataSource.verfiyPassword(request);
+    return await authRemoteDataSource.verfiyPassword(request);
   }
   @override
   Future<ApiResult<ResetPasswordResponsea>>
   resetPassword(ResetPasswordRequest request) async{
     // TODO: implement resetPassword
-    return await _authRemoteDataSource.resetPassword(request);  }
+    return await authRemoteDataSource.resetPassword(request);  }
 
 }

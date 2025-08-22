@@ -53,41 +53,41 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
    Future<ApiResult<ForgetPasswordResponse>>
 forgetPassword(ForgetPasswordRequest request) async{
  try{
-   final response=await _apiService.forgetPassword(request);
+   final response=await authApiService.forgetPassword(request);
    if(response.message=="success"){
-     return ApiSucessResult(response);
+     return ApiSuccessResult(response);
    }
    else{
-     return ApiFailedResult(response.message!);
+     return ApiErrorResult(response.message!);
    }
  }catch(error){
-   return ApiFailedResult(error.toString());
+   return ApiErrorResult(error.toString());
  }
   }
   @override
   Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
   try{
-    final response=await _apiService.verfiyPassword(request);
+    final response=await authApiService.verfiyPassword(request);
 
    if(response.status=="success"){
-return ApiSucessResult(response);
+return ApiSuccessResult(response);
    }else{
     // VerfiyPasswordErrorResponse? verfiyPasswordErrorResponse;
-return ApiFailedResult(response.status!);
+return ApiErrorResult(response.status!);
    }
   }catch(error){
-    return ApiFailedResult(error.toString()!);
+    return ApiErrorResult(error.toString()!);
   }
   }
   @override
   Future<ApiResult<ResetPasswordResponsea>>
   resetPassword(ResetPasswordRequest request) async{
     try{
-      final response=await _apiService.resetPassword(request);
-      return  ApiSucessResult(response);
+      final response=await authApiService.resetPassword(request);
+      return  ApiSuccessResult(response);
 
     }catch(error){
-      return ApiFailedResult(error.toString()!);
+      return ApiErrorResult(error.toString()!);
     }
   }
 }

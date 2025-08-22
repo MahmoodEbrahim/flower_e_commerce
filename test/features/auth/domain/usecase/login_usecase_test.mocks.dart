@@ -6,6 +6,18 @@
 import 'dart:async' as _i4;
 
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart' as _i5;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart'
+    as _i9;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart'
+    as _i13;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart'
+    as _i11;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart'
+    as _i8;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart'
+    as _i12;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart'
+    as _i10;
 import 'package:flower_e_commerce/features/auth/data/repository/auth_repository_imp.dart'
     as _i3;
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart'
@@ -92,4 +104,61 @@ class MockAuthRepositoryImp extends _i1.Mock implements _i3.AuthRepositoryImp {
           ),
         )),
       ) as _i4.Future<_i5.ApiResult<_i6.LoginModel>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i8.ForgetPasswordResponse>> forgetPassword(
+          _i9.ForgetPasswordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #forgetPassword,
+          [request],
+        ),
+        returnValue:
+            _i4.Future<_i5.ApiResult<_i8.ForgetPasswordResponse>>.value(
+                _i7.dummyValue<_i5.ApiResult<_i8.ForgetPasswordResponse>>(
+          this,
+          Invocation.method(
+            #forgetPassword,
+            [request],
+          ),
+        )),
+      ) as _i4.Future<_i5.ApiResult<_i8.ForgetPasswordResponse>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i10.VerfiyPasswordResponse>> verfiyPassword(
+          _i11.VerfiyPasswordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verfiyPassword,
+          [request],
+        ),
+        returnValue:
+            _i4.Future<_i5.ApiResult<_i10.VerfiyPasswordResponse>>.value(
+                _i7.dummyValue<_i5.ApiResult<_i10.VerfiyPasswordResponse>>(
+          this,
+          Invocation.method(
+            #verfiyPassword,
+            [request],
+          ),
+        )),
+      ) as _i4.Future<_i5.ApiResult<_i10.VerfiyPasswordResponse>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i12.ResetPasswordResponsea>> resetPassword(
+          _i13.ResetPasswordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [request],
+        ),
+        returnValue:
+            _i4.Future<_i5.ApiResult<_i12.ResetPasswordResponsea>>.value(
+                _i7.dummyValue<_i5.ApiResult<_i12.ResetPasswordResponsea>>(
+          this,
+          Invocation.method(
+            #resetPassword,
+            [request],
+          ),
+        )),
+      ) as _i4.Future<_i5.ApiResult<_i12.ResetPasswordResponsea>>);
 }

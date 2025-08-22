@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart';
@@ -22,12 +23,12 @@ Future<void>forgetPassword(ForgetPasswordRequest request)async{
   emit(state.copyWith(isLoadingForgetPassword: true));
   final result=await _forgetPasswordUseCase.forgetPassword(request);
   switch(result){
-    case ApiSucessResult<ForgetPasswordResponse>():
+    case ApiSuccessResult<ForgetPasswordResponse>():
     emit(state.copyWith(
       isLoadingForgetPassword: false,
-      response: result.sucessResult
+      response: result.data
     ));
-    case ApiFailedResult<ForgetPasswordResponse>():
+    case ApiErrorResult<ForgetPasswordResponse>():
       emit(state.copyWith(
           isLoadingForgetPassword: false,
           errorMessage: result.errorMessage
@@ -38,12 +39,12 @@ Future<void>forgetPassword(ForgetPasswordRequest request)async{
     emit(state.copyWith(isLoadingVerfiyPassword: true));
     final result=await _verfiyPasswordUseCase.verfiyPassword(request);
 switch(result){
-  case ApiSucessResult<VerfiyPasswordResponse>():
+  case ApiSuccessResult<VerfiyPasswordResponse>():
     emit(state.copyWith(
         isLoadingForgetPassword: false,
-        verfiyPasswordResponse: result.sucessResult
+        verfiyPasswordResponse: result.data
     ));
-  case ApiFailedResult<VerfiyPasswordResponse>():
+  case ApiErrorResult<VerfiyPasswordResponse>():
     emit(state.copyWith(
         isLoadingVerfiyPassword: false,
         errorMessageVerfiyPassword: result.errorMessage
@@ -54,12 +55,12 @@ switch(result){
   resetPassword(ResetPasswordRequest request)async{
     final result=await _resetPasswordUseCase.resetPassword(request);
     switch(result){
-      case ApiSucessResult<ResetPasswordResponsea>():
+      case ApiSuccessResult<ResetPasswordResponsea>():
         emit(state.copyWith(
             isLoadingResetPassword: false,
-            resetPasswordResponse: result.sucessResult
+            resetPasswordResponse: result.data
         ));
-      case ApiFailedResult<ResetPasswordResponsea>():
+      case ApiErrorResult<ResetPasswordResponsea>():
         emit(state.copyWith(
             isLoadingResetPassword: false,
             errorMessageResetPassword: result.errorMessage

@@ -3,22 +3,24 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:flower_e_commerce/features/auth/api/client/auth_api_service.dart'
-    as _i5;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart'
-    as _i7;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart'
-    as _i9;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart'
-    as _i8;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart'
+    as _i6;
+import 'package:flower_e_commerce/features/auth/api/models/auth_response/auth_response_dto.dart'
     as _i2;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart'
-    as _i4;
-import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart'
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart'
+    as _i8;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart'
+    as _i10;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/verfiy_password_request.dart'
+    as _i9;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart'
     as _i3;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart'
+    as _i5;
+import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -35,9 +37,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeForgetPasswordResponse_0 extends _i1.SmartFake
-    implements _i2.ForgetPasswordResponse {
-  _FakeForgetPasswordResponse_0(
+class _FakeAuthResponseDto_0 extends _i1.SmartFake
+    implements _i2.AuthResponseDto {
+  _FakeAuthResponseDto_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -46,9 +48,9 @@ class _FakeForgetPasswordResponse_0 extends _i1.SmartFake
         );
 }
 
-class _FakeVerfiyPasswordResponse_1 extends _i1.SmartFake
-    implements _i3.VerfiyPasswordResponse {
-  _FakeVerfiyPasswordResponse_1(
+class _FakeForgetPasswordResponse_1 extends _i1.SmartFake
+    implements _i3.ForgetPasswordResponse {
+  _FakeForgetPasswordResponse_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -57,9 +59,20 @@ class _FakeVerfiyPasswordResponse_1 extends _i1.SmartFake
         );
 }
 
-class _FakeResetPasswordResponsea_2 extends _i1.SmartFake
-    implements _i4.ResetPasswordResponsea {
-  _FakeResetPasswordResponsea_2(
+class _FakeVerfiyPasswordResponse_2 extends _i1.SmartFake
+    implements _i4.VerfiyPasswordResponse {
+  _FakeVerfiyPasswordResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeResetPasswordResponsea_3 extends _i1.SmartFake
+    implements _i5.ResetPasswordResponsea {
+  _FakeResetPasswordResponsea_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -71,62 +84,79 @@ class _FakeResetPasswordResponsea_2 extends _i1.SmartFake
 /// A class which mocks [AuthApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthApiService extends _i1.Mock implements _i5.AuthApiService {
+class MockAuthApiService extends _i1.Mock implements _i6.AuthApiService {
   MockAuthApiService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.ForgetPasswordResponse> forgetPassword(
-          _i7.ForgetPasswordRequest? request) =>
+  _i7.Future<_i2.AuthResponseDto> logIn(Map<String, dynamic>? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #logIn,
+          [body],
+        ),
+        returnValue:
+            _i7.Future<_i2.AuthResponseDto>.value(_FakeAuthResponseDto_0(
+          this,
+          Invocation.method(
+            #logIn,
+            [body],
+          ),
+        )),
+      ) as _i7.Future<_i2.AuthResponseDto>);
+
+  @override
+  _i7.Future<_i3.ForgetPasswordResponse> forgetPassword(
+          _i8.ForgetPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #forgetPassword,
           [request],
         ),
-        returnValue: _i6.Future<_i2.ForgetPasswordResponse>.value(
-            _FakeForgetPasswordResponse_0(
+        returnValue: _i7.Future<_i3.ForgetPasswordResponse>.value(
+            _FakeForgetPasswordResponse_1(
           this,
           Invocation.method(
             #forgetPassword,
             [request],
           ),
         )),
-      ) as _i6.Future<_i2.ForgetPasswordResponse>);
+      ) as _i7.Future<_i3.ForgetPasswordResponse>);
 
   @override
-  _i6.Future<_i3.VerfiyPasswordResponse> verfiyPassword(
-          _i8.VerfiyPasswordRequest? request) =>
+  _i7.Future<_i4.VerfiyPasswordResponse> verfiyPassword(
+          _i9.VerfiyPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #verfiyPassword,
           [request],
         ),
-        returnValue: _i6.Future<_i3.VerfiyPasswordResponse>.value(
-            _FakeVerfiyPasswordResponse_1(
+        returnValue: _i7.Future<_i4.VerfiyPasswordResponse>.value(
+            _FakeVerfiyPasswordResponse_2(
           this,
           Invocation.method(
             #verfiyPassword,
             [request],
           ),
         )),
-      ) as _i6.Future<_i3.VerfiyPasswordResponse>);
+      ) as _i7.Future<_i4.VerfiyPasswordResponse>);
 
   @override
-  _i6.Future<_i4.ResetPasswordResponsea> resetPassword(
-          _i9.ResetPasswordRequest? request) =>
+  _i7.Future<_i5.ResetPasswordResponsea> resetPassword(
+          _i10.ResetPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
           [request],
         ),
-        returnValue: _i6.Future<_i4.ResetPasswordResponsea>.value(
-            _FakeResetPasswordResponsea_2(
+        returnValue: _i7.Future<_i5.ResetPasswordResponsea>.value(
+            _FakeResetPasswordResponsea_3(
           this,
           Invocation.method(
             #resetPassword,
             [request],
           ),
         )),
-      ) as _i6.Future<_i4.ResetPasswordResponsea>);
+      ) as _i7.Future<_i5.ResetPasswordResponsea>);
 }

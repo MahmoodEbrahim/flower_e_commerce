@@ -23,12 +23,12 @@ abstract class AuthApiService {
 
   @POST(ApiEndPoints.loginEndPoint)
   Future<AuthResponseDto> logIn(@Body() Map<String, dynamic> body);
-}
 
-@POST(ApiEndPoints.forgetPasswordEndPoint)
+
+  @POST(ApiEndPoints.forgetPasswordEndPoint)
   Future<ForgetPasswordResponse>forgetPassword(
-    @Body()ForgetPasswordRequest request
-    );
+      @Body()ForgetPasswordRequest request
+      );
   @POST(ApiEndPoints.verfiyPasswordEndPoint)
   Future<VerfiyPasswordResponse>verfiyPassword(
       @Body()VerfiyPasswordRequest request
@@ -38,4 +38,6 @@ abstract class AuthApiService {
       @Body()ResetPasswordRequest request
       );
 }
+
+
 

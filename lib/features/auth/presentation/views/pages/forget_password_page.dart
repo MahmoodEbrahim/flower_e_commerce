@@ -11,7 +11,6 @@ import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custo
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/theme/font_style_manger.dart';
 import '../../../../../core/l10n/translations/app_localizations.dart' ;
@@ -30,7 +29,7 @@ var emailController=TextEditingController();
       backgroundColor: AppColors.White,
       appBar: AppBar(
         backgroundColor: AppColors.White,
-        leading: Icon(Icons.arrow_back_ios,size: 20.sp,color: AppColors.black[60],),
+        leading: Icon(Icons.arrow_back_ios,size: 20,color: AppColors.black[60],),
 
         title: Text(local.password,style: getMediumStyle
           (color: AppColors.black,fontSize: FontSize.s20,),
@@ -43,21 +42,21 @@ var emailController=TextEditingController();
           key: formKey,
           child: Column(
             children: [
-              SizedBox(height: 26.h,),
-              Text(local.forgetpassword,textAlign: TextAlign.center,
+              SizedBox(height: 26,),
+              Text(local.forgetPassword,textAlign: TextAlign.center,
                 style: getMediumStyle(color: AppColors.black[50]!,
                     fontSize: FontSize.s18),),
-              SizedBox(height: 16.h,),
-              Text(local.pleaseenteryouremailassociatedtoyouraccount,textAlign: TextAlign.center,
+              SizedBox(height: 16,),
+              Text(local.pleaseEnterYourCodeThatSentToYourEmailAddress,textAlign: TextAlign.center,
                 style: getMediumStyle(color: AppColors.gray,fontSize: FontSize.s14),),
-              SizedBox(height: 26.h,),
+              SizedBox(height: 26,),
               CustomTxtFieldWidget(lbl: local.email,
 
                 validator: Validator.validateEmail
                 ,hint: local.email,
                 controller: emailController,
               ),
-              SizedBox(height: 40.h,),
+              SizedBox(height: 40,),
               BlocConsumer<ForgetPasswordBCubit,ForgetPasswordStates>(
                 builder:  (context,state){
                return   CustomBtnWidget(txt: local.confirm,onPressed: (){

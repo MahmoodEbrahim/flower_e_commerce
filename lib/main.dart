@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-final isLoggedIn = UserLocalStorage.isLoggedIn();
+final bool isLoggedIn = UserLocalStorage.isLoggedIn();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -41,7 +41,6 @@ final isLoggedIn = UserLocalStorage.isLoggedIn();
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.forgetPassword,
         onGenerateRoute: Routes.onGenerate,
         theme: AppTheme.lightTheme,
       ),
