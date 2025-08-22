@@ -33,7 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioModule = _$DioModule();
-    gh.lazySingleton<_i361.Dio>(() => dioModule.dio);
+    gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
     gh.lazySingleton<_i528.PrettyDioLogger>(
         () => dioModule.prettyDioLoggerProvider());
     gh.factory<_i961.AuthRepository>(() => _i794.AuthRepositoryImp());
