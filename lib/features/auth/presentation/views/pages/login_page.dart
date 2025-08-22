@@ -8,6 +8,7 @@ import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart'
 import 'package:flower_e_commerce/core/utils/validator.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_event.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,8 +38,7 @@ class LoginPage extends StatelessWidget {
             if (state.loginState == RequestState.error) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text(
-                        state.errorMessage ?? locale.serverError)),
+                    content: Text(state.errorMessage ?? locale.serverError)),
               );
             }
           },
@@ -51,15 +51,15 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          labelText: locale.email,
-                          hintText: locale.enterYourEmail,
-                          border: const OutlineInputBorder(),
-                        ),
-                        validator: (value) {
-                         return Validator.validateEmail(value);
-                      }),
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            labelText: locale.email,
+                            hintText: locale.enterYourEmail,
+                            border: const OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            return Validator.validateEmail(value);
+                          }),
                       const SizedBox(height: 20),
                       TextFormField(
                         obscureText: true,
@@ -90,20 +90,24 @@ class LoginPage extends StatelessWidget {
                                 color: AppColors.black, fontSize: FontSize.s14),
                           ),
                           const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, AppRoutes.forgetPass);
-                            },
-                            child: Text(
-                              locale.forgetPassword,
-                              style: getRegularStyle(
-                                color: AppColors.black,
-                                fontSize: FontSize.s14,
-                              ).copyWith(
-                                decoration: TextDecoration.underline,
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.forgetPass);
+                              },
+                              child: Text(
+                                locale.forgetPassword,
+                                style: getRegularStyle(
+                                  color: AppColors.black,
+                                  fontSize: FontSize.s14,
+                                ).copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                       const SizedBox(height: 24),
@@ -117,11 +121,11 @@ class LoginPage extends StatelessWidget {
                               final pass = passwordController.text.trim();
 
                               context.read<LoginBloc>().add(
-                                LoginButtonPressed(
-                                  email: email,
-                                  password: pass,
-                                ),
-                              );
+                                    LoginButtonPressed(
+                                      email: email,
+                                      password: pass,
+                                    ),
+                                  );
                             }
                           },
                           child: Text(
@@ -137,7 +141,11 @@ class LoginPage extends StatelessWidget {
                         height: 48,
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false,);
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                AppRoutes.home,
+                                (route) => false,
+                              );
                             },
                             child: Text(
                               locale.continueAsGuest,
@@ -147,15 +155,15 @@ class LoginPage extends StatelessWidget {
                             ),
                             style: AppTheme.lightTheme.elevatedButtonTheme.style
                                 ?.copyWith(
-                                backgroundColor:
-                                WidgetStatePropertyAll(AppColors.White),
-                                side: WidgetStateProperty.all(
-                                    BorderSide(color: AppColors.gray)))),
+                                    backgroundColor:
+                                        WidgetStatePropertyAll(AppColors.White),
+                                    side: WidgetStateProperty.all(
+                                        BorderSide(color: AppColors.gray)))),
                       ),
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, AppRoutes.signup  );
+                          Navigator.pushNamed(context, AppRoutes.signup);
                         },
                         child: Text.rich(
                           TextSpan(children: [
@@ -166,6 +174,11 @@ class LoginPage extends StatelessWidget {
                                   fontSize: FontSize.s16),
                             ),
                             TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.signup);
+                                },
                               text: locale.signUp,
                               style: getRegularStyle(
                                 color: AppColors.Pink,

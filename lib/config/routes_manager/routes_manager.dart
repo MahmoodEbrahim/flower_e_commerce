@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/features/auth/presentation/views/pages/home_pa
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,8 @@ abstract class Routes {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => HomePage());
 
-      // case AppRoutes.signup:
-      //   return MaterialPageRoute(builder: (context) => const SignpPag());
+      case AppRoutes.signup:
+        return MaterialPageRoute(builder: (context) =>  SignupPage());
       case AppRoutes.forgetPass:
         return MaterialPageRoute(
             builder: (context) => const ForgetPasswordPage());

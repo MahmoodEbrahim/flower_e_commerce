@@ -13,20 +13,54 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class VerfiyPasswordPage extends StatelessWidget {
+class VerfiyPasswordPage extends StatefulWidget {
   VerfiyPasswordPage({this.email});
-  String? email;
+  final String? email;
+
+  @override
+  State<VerfiyPasswordPage> createState() => _VerfiyPasswordPageState();
+}
+
+class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
+  bool isButtonEnabled = true;
+  bool isLoading = false;
+
+  Future<void> _resendCode(BuildContext context) async {
+    if (isButtonEnabled && !isLoading) {
+      setState(() {
+        isButtonEnabled = false;
+        isLoading = true;
+      });
+
+
+      await context.read<ForgetPasswordBCubit>().forgetPassword(
+        ForgetPasswordRequest(email: widget.email ?? ''),
+      );
+
+      Future.delayed(Duration(seconds: 30), () {
+        setState(() {
+          isButtonEnabled = true;
+        });
+      });
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var local=AppLocalizations.of(context)!;
-    print("email $email");
-    return   BlocProvider(create: (context)=>getIt<ForgetPasswordBCubit>(),
-      child:  Scaffold(
+    var local = AppLocalizations.of(context)!;
+    print("email ${widget.email}");
+    return BlocProvider(
+      create: (context) => getIt<ForgetPasswordBCubit>(),
+      child: Scaffold(
         backgroundColor: AppColors.White,
         appBar: AppBar(
           backgroundColor: AppColors.White,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 20.sp, color: AppColors.black[60]),
+            icon: Icon(Icons.arrow_back_ios, color: AppColors.black[60]),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -57,16 +91,17 @@ class VerfiyPasswordPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 26.h),
-              BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>(
-                  listener: (context,state){
-                    print("890- ${state.verfiyPasswordResponse}");
-                    if(state.verfiyPasswordResponse!=null ){
-                      Navigator.of(context).pushNamed(AppRoutes.resetPassword);
-
-                    }
-
-                  },
-                  child: Builder(builder: (c)=>      OtpTextField(
+              BlocListener<ForgetPasswordBCubit, ForgetPasswordStates>(
+                listener: (context, state) {
+                 
+                  if (state.verfiyPasswordResponse != null&& isButtonEnabled==true) {
+                    Navigator.of(context).pushNamed(AppRoutes.resetPassword);
+                  }
+                },
+                child: 
+                
+                Builder(
+                  builder: (c) => OtpTextField(
                     numberOfFields: 6,
                     fillColor: AppColors.lightGray,
                     enabledBorderColor: AppColors.lightGray,
@@ -77,62 +112,76 @@ class VerfiyPasswordPage extends StatelessWidget {
                     textStyle: getMediumStyle(
                       color: Colors.black,
                       fontSize: FontSize.s12,
-
                     ),
                     borderColor: AppColors.lightGray,
                     borderRadius: BorderRadius.circular(10.r),
-
                     onSubmit: (value) {
                       c.read<ForgetPasswordBCubit>().verfiyPassword(
                         VerfiyPasswordRequest(resetCode: value),
                       );
-                      value="";
                     },
-                  ),)
-
+                  ),
+                ),
+             
+             
+             
               ),
               SizedBox(height: 26.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    local.didntReceiveCode,
-                    style: getRegularStyle(
-                      color: AppColors.black,
-                      fontSize: FontSize.s16,
+              BlocListener<ForgetPasswordBCubit, ForgetPasswordStates>(
+                listener: (context, state) {
+                  if (state.response != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Reset Code Sent successfuly ')),
+                    );
+                  } else if (state.errorMessage != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.errorMessage!)),
+                    );
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      local.didntReceiveCode,
+                      style: getRegularStyle(
+                        color: AppColors.black,
+                        fontSize: FontSize.s16,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Builder(builder: (c){
-                    return     GestureDetector(
-                      onTap: (){
-                        c.read<ForgetPasswordBCubit>().forgetPassword(
-                            ForgetPasswordRequest(
-                                email: email
-                            ));
-
-                      },
-                      child: Text(
-                        local.resend,
-                        style: TextStyle(
-                          fontSize: FontSize.s16,
-                          color: AppColors.Pink,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppColors.Pink,
+                    SizedBox(width: 10.w),
+                    Builder(
+                      builder: (c) => GestureDetector(
+                        onTap: isButtonEnabled && !isLoading ? () => _resendCode(c) : null,
+                        child: isLoading
+                            ? SizedBox(
+                          height: 20.h,
+                          width: 20.w,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.Pink,
+                              strokeWidth: 2,
+                            ),
+                          ),
+                        )
+                            : Text(
+                          local.resend,
+                          style: TextStyle(
+                            fontSize: FontSize.s16,
+                            color: isButtonEnabled ? AppColors.Pink : AppColors.gray,
+                            decoration: TextDecoration.underline,
+                            decorationColor: isButtonEnabled ? AppColors.Pink : AppColors.gray,
+                          ),
                         ),
                       ),
-                    );
-                  })
-                ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
-
-      ) ,);
-
-
-
-
+      ),
+    );
   }
 }

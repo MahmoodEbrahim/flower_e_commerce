@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -13,78 +14,89 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/validator.dart';
+
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
   @override
   Widget build(BuildContext context) {
-    var local=AppLocalizations.of(context)!;
-    var passwordController=TextEditingController();
-    var emailController=TextEditingController();
+    var local = AppLocalizations.of(context)!;
+    var passwordController = TextEditingController();
+    var emailController = TextEditingController();
     return BlocProvider(
-      create: (context)=>getIt<ForgetPasswordBCubit>(),
+      create: (context) => getIt<ForgetPasswordBCubit>(),
       child: Scaffold(
-        backgroundColor: AppColors.White,
-        appBar: AppBar(
           backgroundColor: AppColors.White,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 20,
-                color: AppColors.black[60]),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: Text(
-            local.password,
-            style: getMediumStyle(color: AppColors.black,
-                fontSize: FontSize.s20),
-          ),
-        ),
-        body: Padding(padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child:   Column(
-          children: [
-            SizedBox(height: 26),
-            Text(
-              local.resetpassword,
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: AppColors.black[50]!,
-                fontSize: FontSize.s18,
-              ),
+          appBar: AppBar(
+            backgroundColor: AppColors.White,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios,
+                  size: 20, color: AppColors.black[60]),
+              onPressed: () => Navigator.pop(context),
             ),
-            SizedBox(height: 16),
-            Text(
-              local.passwordValidationMessage,
-              textAlign: TextAlign.center,
+            title: Text(
+              local.password,
               style: getMediumStyle(
-                color: AppColors.gray,
-                fontSize: FontSize.s14,
-              ),
+                  color: AppColors.black, fontSize: FontSize.s20),
             ),
-            SizedBox(height: 26),
-            CustomTxtFieldWidget(lbl: local.email,
-              hint: local.enterYourEmail,controller: emailController,
-              validator: Validator.validateEmail,),
-            SizedBox(height: 16),
-            CustomTxtFieldWidget(lbl: local.newpassword,
-              hint: local.enteryoupassword,controller: passwordController,
-              validator: Validator.validatePassword,),
-            SizedBox(height: 36),
-            BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>
-              (listener: (c,state){
-if(state.resetPasswordResponse!=null){
-  Navigator.of(context).push(MaterialPageRoute(
-      builder: (context)=> TestScreen()));
-}}, child:Builder(builder: (c)=> CustomBtnWidget(txt: local.confirm,onPressed: (){
-              c.read<ForgetPasswordBCubit>().resetPassword(
-                  ResetPasswordRequest(
-                      email: emailController.text,
-                      newPassword: passwordController.text
-                  ));
-            },))
-
-            )],
-        ),
-        )
-
-      ),
+          ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              children: [
+                SizedBox(height: 26),
+                Text(
+                  local.resetpassword,
+                  textAlign: TextAlign.center,
+                  style: getMediumStyle(
+                    color: AppColors.black[50]!,
+                    fontSize: FontSize.s18,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  local.passwordValidationMessage,
+                  textAlign: TextAlign.center,
+                  style: getMediumStyle(
+                    color: AppColors.gray,
+                    fontSize: FontSize.s14,
+                  ),
+                ),
+                SizedBox(height: 26),
+                CustomTxtFieldWidget(
+                  lbl: local.email,
+                
+                  hint: local.enterYourEmail,
+                  controller: emailController,
+                  validator: Validator.validateEmail,
+                ),
+                SizedBox(height: 16),
+                CustomTxtFieldWidget(
+                  isPass: true,
+                  lbl: local.newpassword,
+                  hint: local.enteryoupassword,
+                  controller: passwordController,
+                  validator: Validator.validatePassword,
+                ),
+                SizedBox(height: 36),
+                BlocListener<ForgetPasswordBCubit, ForgetPasswordStates>(
+                    listener: (c, state) {
+                      if (state.resetPasswordResponse != null) {
+                        Navigator.of(context).pushNamed(AppRoutes.login);
+                      }
+                    },
+                    child: Builder(
+                        builder: (c) => CustomBtnWidget(
+                              txt: local.confirm,
+                              onPressed: () {
+                                c.read<ForgetPasswordBCubit>().resetPassword(
+                                    ResetPasswordRequest(
+                                        email: emailController.text,
+                                        newPassword: passwordController.text));
+                              },
+                            )))
+              ],
+            ),
+          )),
     );
   }
 }

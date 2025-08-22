@@ -25,6 +25,33 @@
   "enteryoupassword": "Enter your password",
   "confirmpassword": "Confirm password",
   "newpassword": "New password",
-  "passwordresetlinksentsuccessfully": "Password reset link sent successfully"
+  "passwordresetlinksentsuccessfully": "Password reset link sent successfully",
+
+
+
+   "gender": "Gender",
+  "female": "Female",
+  "male": "Male",
+  "pleaseSelectGender": "Please select the gender",
+  "firstName": "First Name",
+  "enterFirstName": "Enter first name",
+  "lastName": "Last Name",
+  "enterLastName": "Enter last name",
+
+  "enterEmail": "Enter your email",
+  
+  "enterPassword": "Enter password",
+  "confirmPassword": "Confirm Password",
+  "enterConfirmPassword": "Confirm password",
+  "phoneNumber": "Phone Number",
+  "enterPhoneNumber": "Enter phone number",
+  "creatingAccountAgreement": "Creating an account, you agree to our ",
+  "termsAndConditions": "Terms & Conditions",
+  "alreadyHaveAccount": "Already have an account? "
+
+
+
+    
+
 
 }

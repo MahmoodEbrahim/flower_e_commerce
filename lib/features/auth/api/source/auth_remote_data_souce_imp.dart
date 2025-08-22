@@ -7,8 +7,11 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/reque
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
+import 'package:flower_e_commerce/features/auth/api/models/signup_request/signup_request_dto.dart';
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/signup_request_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:injectable/injectable.dart';
 
 import '../models/auth_response/auth_response_dto.dart';
@@ -44,8 +47,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       return ApiErrorResult<LoginModel>(e.toString());
     }
   }
-  Future<ApiResult<ForgetPasswordResponse>>
-  forgetPassword(ForgetPasswordRequest request) async{
+  @override
+  Future<ApiResult<ForgetPasswordResponse>>forgetPassword(ForgetPasswordRequest request) async{
     try{
       final response=await authApiService.forgetPassword(request);
       if(response.message=="success"){
@@ -121,4 +124,30 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       return ApiErrorResult<ResetPasswordResponsea>(e.toString());
     }
   }
+
+
+
+  @override
+  Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel) async {
+    try {
+      final signupResponse =
+          await authApiService.signUp(SignupRequestDto.toDto(userModel));
+
+      return ApiSuccessResult(signupResponse.user!.toUserModel());
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      String errorMessage = e.message!;
+
+      if (data is Map<String, dynamic> && data.containsKey("error")) {
+        errorMessage = data["error"].toString();
+      }
+      
+
+      return ApiErrorResult(errorMessage);
+    } catch (e) {
+      return ApiErrorResult(e.toString());
+    }
+  }
+
+
 }

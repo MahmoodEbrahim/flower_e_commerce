@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
@@ -30,6 +31,10 @@ import '../../features/auth/presentation/view_model/forget_password/forget_passw
     as _i1028;
 import '../../features/auth/presentation/view_model/login_view_model/login_bloc.dart'
     as _i644;
+import '../../features/auth/domain/usecase/signup_usecase.dart' as _i472;
+import '../../features/auth/presentation/view_model/signup_view_model/signup_view_model.dart'
+    as _i401;
+import '../../features/auth/presentation/views/pages/signup_page.dart' as _i81;
 import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -47,6 +52,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioModule.prettyDioLogger);
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
+    gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
+    gh.lazySingleton<_i528.PrettyDioLogger>(
+        () => dioModule.prettyDioLoggerProvider());
+    gh.factory<_i81.SignupPage>(() => _i81.SignupPage(key: gh<_i409.Key>()));
     gh.factory<_i522.AuthApiService>(
         () => _i522.AuthApiService(gh<_i361.Dio>()));
     gh.factory<_i777.AuthRemoteDataSource>(
@@ -68,6 +77,14 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i644.LoginBloc>(
         () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
+    gh.factory<_i777.AuthRemoteDataSource>(
+        () => _i669.AuthRemoteDataSouceImp(gh<_i522.AuthApiService>()));
+    gh.factory<_i961.AuthRepository>(
+        () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
+    gh.factory<_i472.SignupUsecase>(
+        () => _i472.SignupUsecase(gh<_i961.AuthRepository>()));
+    gh.factory<_i401.SignupViewModel>(
+        () => _i401.SignupViewModel(gh<_i472.SignupUsecase>()));
     return this;
   }
 }

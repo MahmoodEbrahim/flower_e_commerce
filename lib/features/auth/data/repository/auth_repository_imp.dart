@@ -7,6 +7,8 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/reque
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/signup_request_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/repository/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -33,7 +35,13 @@ class AuthRepositoryImp implements AuthRepository {
   @override
   Future<ApiResult<ResetPasswordResponsea>>
   resetPassword(ResetPasswordRequest request) async{
-    // TODO: implement resetPassword
+   
     return await authRemoteDataSource.resetPassword(request);  }
+
+
+    @override
+  Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel) async {
+    return await authRemoteDataSource.signUp(userModel);
+  }
 
 }
