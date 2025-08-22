@@ -26,7 +26,10 @@ class LoginPage extends StatelessWidget {
     return BlocProvider<LoginBloc>(
       create: (context) => getIt<LoginBloc>(),
       child: Scaffold(
-        appBar: AppBar(title: Text(locale.login)),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: AppColors.White,
+          title: Text(locale.login)),
         body: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state.loginState == RequestState.success) {

@@ -83,6 +83,7 @@ class ResetPasswordPage extends StatelessWidget {
                       if (state.resetPasswordResponse != null) {
                         Navigator.of(context).pushNamed(AppRoutes.login);
                       }
+                      
                     },
                     child: Builder(
                         builder: (c) => CustomBtnWidget(

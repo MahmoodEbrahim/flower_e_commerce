@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerfiyPasswordPage extends StatefulWidget {
   VerfiyPasswordPage({this.email});
@@ -32,10 +33,9 @@ class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
         isLoading = true;
       });
 
-
       await context.read<ForgetPasswordBCubit>().forgetPassword(
-        ForgetPasswordRequest(email: widget.email ?? ''),
-      );
+            ForgetPasswordRequest(email: widget.email ?? ''),
+          );
 
       Future.delayed(Duration(seconds: 30), () {
         setState(() {
@@ -65,7 +65,8 @@ class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
           ),
           title: Text(
             local.password,
-            style: getMediumStyle(color: AppColors.black, fontSize: FontSize.s20),
+            style:
+                getMediumStyle(color: AppColors.black, fontSize: FontSize.s20),
           ),
         ),
         body: Padding(
@@ -92,40 +93,86 @@ class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
               ),
               SizedBox(height: 26.h),
               BlocListener<ForgetPasswordBCubit, ForgetPasswordStates>(
-                listener: (context, state) {
-                 
-                  if (state.verfiyPasswordResponse != null&& isButtonEnabled==true) {
-                    Navigator.of(context).pushNamed(AppRoutes.resetPassword);
-                  }
-                },
-                child: 
-                
-                Builder(
-                  builder: (c) => OtpTextField(
-                    numberOfFields: 6,
-                    fillColor: AppColors.lightGray,
-                    enabledBorderColor: AppColors.lightGray,
-                    cursorColor: AppColors.lightGray,
-                    focusedBorderColor: AppColors.lightGray,
-                    keyboardType: TextInputType.number,
-                    filled: true,
-                    textStyle: getMediumStyle(
-                      color: Colors.black,
-                      fontSize: FontSize.s12,
+                  listener: (context, state) {
+                    if (state.verfiyPasswordResponse != null &&
+                        isButtonEnabled == true) {
+                      Navigator.of(context).pushNamed(AppRoutes.resetPassword);
+                    }
+
+                    if (state.errorMessageVerfiyPassword != null) {
+                      SnackBar(
+                          content:
+                              Text("❌ ${state.errorMessageVerfiyPassword}"));
+                    }
+                  },
+                  child:
+
+                      // Builder(
+                      //   builder: (c) => OtpTextField(
+                      //     numberOfFields: 6,
+                      //     fillColor: AppColors.lightGray,
+                      //     enabledBorderColor: AppColors.lightGray,
+                      //     cursorColor: AppColors.lightGray,
+                      //     focusedBorderColor: AppColors.lightGray,
+                      //     keyboardType: TextInputType.number,
+                      //     filled: true,
+                      //     textStyle: getMediumStyle(
+                      //       color: Colors.black,
+                      //       fontSize: FontSize.s12,
+                      //     ),
+                      //     borderColor: AppColors.lightGray,
+                      //     borderRadius: BorderRadius.circular(10.r),
+                      //     onSubmit: (value) {
+                      //       c.read<ForgetPasswordBCubit>().verfiyPassword(
+                      //         VerfiyPasswordRequest(resetCode: value),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
+                      Builder(
+                    builder: (c) => PinCodeTextField(
+                      appContext: c, // Pass the context from Builder
+                      length: 6, // Number of fields
+                      obscureText: false, // No masking
+                      keyboardType: TextInputType.number, // Numeric keyboard
+                      enableActiveFill: true, // Enable fill color
+                      animationType: AnimationType.fade, // Animation for input
+                      animationDuration: Duration(milliseconds: 300),
+                      textStyle: getMediumStyle(
+                        color: Colors.black,
+                        fontSize: FontSize.s12,
+                      ),
+                      pinTheme: PinTheme(
+                        
+                        shape: PinCodeFieldShape.box, // Box shape for fields
+                        borderRadius: BorderRadius.circular(10), // Match your border radius
+                        fieldHeight: 50, // Adjust height as needed
+                        fieldWidth: 50, // Adjust width as needed
+                        activeColor:
+                            AppColors.lightGray, // Border color when focused
+                        inactiveColor: AppColors
+                            .lightGray, // Border color when not focused
+                        selectedColor:
+                            AppColors.lightGray, // Border color when selected
+                        activeFillColor:
+                            AppColors.lightGray, // Fill color when active
+                        inactiveFillColor:
+                            AppColors.lightGray, // Fill color when inactive
+                        selectedFillColor:
+                            AppColors.lightGray, // Fill color when selected
+                        borderWidth: 1, // Adjust border width if needed
+                      ),
+                      cursorColor: AppColors.lightGray, // Cursor color
+                      onCompleted: (value) {
+                        c.read<ForgetPasswordBCubit>().verfiyPassword(
+                              VerfiyPasswordRequest(resetCode: value),
+                            );
+                      },
+                      onChanged: (value) {
+                        // Optional: Handle text changes if needed
+                      },
                     ),
-                    borderColor: AppColors.lightGray,
-                    borderRadius: BorderRadius.circular(10.r),
-                    onSubmit: (value) {
-                      c.read<ForgetPasswordBCubit>().verfiyPassword(
-                        VerfiyPasswordRequest(resetCode: value),
-                      );
-                    },
-                  ),
-                ),
-             
-             
-             
-              ),
+                  )),
               SizedBox(height: 26.h),
               BlocListener<ForgetPasswordBCubit, ForgetPasswordStates>(
                 listener: (context, state) {
@@ -152,27 +199,33 @@ class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
                     SizedBox(width: 10.w),
                     Builder(
                       builder: (c) => GestureDetector(
-                        onTap: isButtonEnabled && !isLoading ? () => _resendCode(c) : null,
+                        onTap: isButtonEnabled && !isLoading
+                            ? () => _resendCode(c)
+                            : null,
                         child: isLoading
                             ? SizedBox(
-                          height: 20.h,
-                          width: 20.w,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.Pink,
-                              strokeWidth: 2,
-                            ),
-                          ),
-                        )
+                                height: 20.h,
+                                width: 20.w,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.Pink,
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              )
                             : Text(
-                          local.resend,
-                          style: TextStyle(
-                            fontSize: FontSize.s16,
-                            color: isButtonEnabled ? AppColors.Pink : AppColors.gray,
-                            decoration: TextDecoration.underline,
-                            decorationColor: isButtonEnabled ? AppColors.Pink : AppColors.gray,
-                          ),
-                        ),
+                                local.resend,
+                                style: TextStyle(
+                                  fontSize: FontSize.s16,
+                                  color: isButtonEnabled
+                                      ? AppColors.Pink
+                                      : AppColors.gray,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: isButtonEnabled
+                                      ? AppColors.Pink
+                                      : AppColors.gray,
+                                ),
+                              ),
                       ),
                     ),
                   ],
