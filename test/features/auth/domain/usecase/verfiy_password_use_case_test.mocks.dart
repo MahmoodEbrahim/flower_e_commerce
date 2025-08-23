@@ -20,6 +20,10 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/respo
     as _i9;
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart'
     as _i5;
+import 'package:flower_e_commerce/features/auth/domain/entity/signup_request_model.dart'
+    as _i14;
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart'
+    as _i13;
 import 'package:flower_e_commerce/features/auth/domain/repository/auth_repository.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -129,4 +133,22 @@ class MockAuthRepository extends _i1.Mock implements _i2.AuthRepository {
           ),
         )),
       ) as _i3.Future<_i4.ApiResult<_i11.ResetPasswordResponsea>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i13.UserModel>> signUp(
+          _i14.SignupRequestModel? userModel) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [userModel],
+        ),
+        returnValue: _i3.Future<_i4.ApiResult<_i13.UserModel>>.value(
+            _i6.dummyValue<_i4.ApiResult<_i13.UserModel>>(
+          this,
+          Invocation.method(
+            #signUp,
+            [userModel],
+          ),
+        )),
+      ) as _i3.Future<_i4.ApiResult<_i13.UserModel>>);
 }

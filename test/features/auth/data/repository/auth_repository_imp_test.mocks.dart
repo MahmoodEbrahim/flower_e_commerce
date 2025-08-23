@@ -22,6 +22,10 @@ import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_sou
     as _i2;
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart'
     as _i5;
+import 'package:flower_e_commerce/features/auth/domain/entity/signup_request_model.dart'
+    as _i14;
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart'
+    as _i13;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 
@@ -130,4 +134,22 @@ class MockAuthRemoteDataSource extends _i1.Mock
           ),
         )),
       ) as _i3.Future<_i4.ApiResult<_i11.ResetPasswordResponsea>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i13.UserModel>> signUp(
+          _i14.SignupRequestModel? userModel) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [userModel],
+        ),
+        returnValue: _i3.Future<_i4.ApiResult<_i13.UserModel>>.value(
+            _i6.dummyValue<_i4.ApiResult<_i13.UserModel>>(
+          this,
+          Invocation.method(
+            #signUp,
+            [userModel],
+          ),
+        )),
+      ) as _i3.Future<_i4.ApiResult<_i13.UserModel>>);
 }

@@ -1,5 +1,5 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
-import 'package:flower_e_commerce/features/auth/presentation/views/pages/home_page.dart';
+import 'package:flower_e_commerce/features/Home/Presentation/Pages/HomePage.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';

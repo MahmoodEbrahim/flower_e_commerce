@@ -25,13 +25,13 @@ import '../../features/auth/domain/usecase/forget_password_use_case.dart'
 import '../../features/auth/domain/usecase/login_usecase.dart' as _i911;
 import '../../features/auth/domain/usecase/reset_password_use_case.dart'
     as _i878;
+import '../../features/auth/domain/usecase/signup_usecase.dart' as _i472;
 import '../../features/auth/domain/usecase/verfiy_password_use_case.dart'
     as _i197;
 import '../../features/auth/presentation/view_model/forget_password/forget_password_cubit.dart'
     as _i1028;
 import '../../features/auth/presentation/view_model/login_view_model/login_bloc.dart'
     as _i644;
-import '../../features/auth/domain/usecase/signup_usecase.dart' as _i472;
 import '../../features/auth/presentation/view_model/signup_view_model/signup_view_model.dart'
     as _i401;
 import '../../features/auth/presentation/views/pages/signup_page.dart' as _i81;
@@ -52,9 +52,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioModule.prettyDioLogger);
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
-    gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
-    gh.lazySingleton<_i528.PrettyDioLogger>(
-        () => dioModule.prettyDioLoggerProvider());
     gh.factory<_i81.SignupPage>(() => _i81.SignupPage(key: gh<_i409.Key>()));
     gh.factory<_i522.AuthApiService>(
         () => _i522.AuthApiService(gh<_i361.Dio>()));
@@ -62,6 +59,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i669.AuthRemoteDataSourceImp(gh<_i522.AuthApiService>()));
     gh.factory<_i961.AuthRepository>(
         () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
+    gh.factory<_i472.SignupUsecase>(
+        () => _i472.SignupUsecase(gh<_i961.AuthRepository>()));
     gh.factory<_i240.ForgetPasswordUseCase>(
         () => _i240.ForgetPasswordUseCase(gh<_i961.AuthRepository>()));
     gh.factory<_i878.ResetPasswordUseCase>(
@@ -77,12 +76,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i644.LoginBloc>(
         () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
-    gh.factory<_i777.AuthRemoteDataSource>(
-        () => _i669.AuthRemoteDataSouceImp(gh<_i522.AuthApiService>()));
-    gh.factory<_i961.AuthRepository>(
-        () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
-    gh.factory<_i472.SignupUsecase>(
-        () => _i472.SignupUsecase(gh<_i961.AuthRepository>()));
     gh.factory<_i401.SignupViewModel>(
         () => _i401.SignupViewModel(gh<_i472.SignupUsecase>()));
     return this;

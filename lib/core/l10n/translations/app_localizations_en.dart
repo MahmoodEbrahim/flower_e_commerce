@@ -85,4 +85,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordresetlinksentsuccessfully => 'Password reset link sent successfully';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get pleaseSelectGender => 'Please select the gender';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get enterFirstName => 'Enter first name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get enterLastName => 'Enter last name';
+
+  @override
+  String get enterEmail => 'Enter your email';
+
+  @override
+  String get enterPassword => 'Enter password';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get enterConfirmPassword => 'Confirm password';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get enterPhoneNumber => 'Enter phone number';
+
+  @override
+  String get creatingAccountAgreement => 'Creating an account, you agree to our ';
+
+  @override
+  String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? ';
 }

@@ -21,6 +21,8 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/respo
     as _i5;
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart'
     as _i4;
+import 'package:flower_e_commerce/features/auth/api/models/signup_request/signup_request_dto.dart'
+    as _i11;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -159,4 +161,21 @@ class MockAuthApiService extends _i1.Mock implements _i6.AuthApiService {
           ),
         )),
       ) as _i7.Future<_i5.ResetPasswordResponsea>);
+
+  @override
+  _i7.Future<_i2.AuthResponseDto> signUp(_i11.SignupRequestDto? body) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [body],
+        ),
+        returnValue:
+            _i7.Future<_i2.AuthResponseDto>.value(_FakeAuthResponseDto_0(
+          this,
+          Invocation.method(
+            #signUp,
+            [body],
+          ),
+        )),
+      ) as _i7.Future<_i2.AuthResponseDto>);
 }
