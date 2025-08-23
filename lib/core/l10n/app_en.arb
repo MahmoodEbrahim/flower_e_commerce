@@ -1,7 +1,18 @@
 {
     "@@locale": "en",
-    "password":"Password",
-    "forgetpassword":"Forget password",
+
+    "login": "Login",
+      "email": "Email",
+      "enterYourEmail": "Enter your email",
+      "password": "Password",
+      "enterYourPassword": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgetPassword": "Forget password?",
+      "loginSuccess": "Login Success ✅",
+      "serverError": "server error , try again",
+      "continueAsGuest": "Continue as guest",
+      "donotHaveAccount": "Don't have an account? ",
+      "signUp": "Sign up",
     "pleaseenteryouremailassociatedtoyouraccount": "Please enter your email associated to \nyour account"
     ,"thisEmailisnotvalid": "This Email is not valid",
     "enteryouremail": "Enter your email",

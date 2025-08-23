@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/domain/usecase/forget_password_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -15,7 +16,7 @@ import 'forget_password_use_case_test.mocks.dart';
 
 void provideDummies() {
   provideDummy<ApiResult<ForgetPasswordResponse>>(
-    ApiFailedResult<ForgetPasswordResponse>('Dummy error'),
+    ApiErrorResult<ForgetPasswordResponse>('Dummy error'),
   );
 }
 
@@ -37,16 +38,16 @@ void main() {
         message: "success",
         info: "OTP sent to your email"
     );
-    final failureResponse=ApiFailedResult<ForgetPasswordResponse>("There is no account with this email address  @1elevate.com");
+    final failureResponse=ApiErrorResult<ForgetPasswordResponse>("error");
 
 
     test("should call ApiSucessResult when repo return success ",
         ()async{
 when(mockAuthRepository.forgetPassword(request))
-    .thenAnswer((_)async=>ApiSucessResult(successResponse));
+    .thenAnswer((_)async=>ApiSuccessResult(successResponse));
 final result=await forgetPasswordUseCase.forgetPassword(request);
-expect(result, isA<ApiSucessResult>());
-expect((result as ApiSucessResult).sucessResult, successResponse);
+expect(result, isA<ApiSuccessResult>());
+expect((result as ApiSuccessResult).data, successResponse);
 verify(mockAuthRepository.forgetPassword(request)).called(1);
         });
     test("should call ApiFailedResult when repo return success",
@@ -54,8 +55,8 @@ verify(mockAuthRepository.forgetPassword(request)).called(1);
       when(mockAuthRepository.forgetPassword(request))
           .thenAnswer((_)async=>failureResponse);
       final result=await forgetPasswordUseCase.forgetPassword(request);
-      expect(result, isA<ApiFailedResult>());
-      expect((result as ApiFailedResult).errorMessage, failureResponse.errorMessage);
+      expect(result, isA<ApiSuccessResult>());
+      expect((result as ApiErrorResult).errorMessage, failureResponse);
       verify(mockAuthRepository.forgetPassword(request)).called(1);
         });
   });

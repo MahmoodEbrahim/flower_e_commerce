@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/client/auth_api_service.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
@@ -14,13 +15,13 @@ import 'package:mockito/mockito.dart';
 import 'auth_remote_data_souce_imp_test.mocks.dart';
 void provideDummies() {
   provideDummy<ApiResult<ForgetPasswordResponse>>(
-    ApiFailedResult<ForgetPasswordResponse>('Dummy error'),
+    ApiErrorResult<ForgetPasswordResponse>('Dummy error'),
   );
   provideDummy<ApiResult<VerfiyPasswordResponse>>(
-    ApiFailedResult<VerfiyPasswordResponse>('Dummy error'),
+    ApiErrorResult<VerfiyPasswordResponse>('Dummy error'),
   );
   provideDummy<ApiResult<ResetPasswordResponsea>>(
-    ApiFailedResult<ResetPasswordResponsea>('Dummy error'),
+    ApiErrorResult<ResetPasswordResponsea>('Dummy error'),
   );
 }
 @GenerateMocks([AuthApiService])
@@ -29,12 +30,12 @@ void main() {
     // TODO: Implement test
   });
  late MockAuthApiService mockAuthApiService;
- late   AuthRemoteDataSouceImp authRemoteDataSource;
+ late   AuthRemoteDataSourceImp authRemoteDataSource;
 setUp((){
   provideDummies();
   mockAuthApiService=MockAuthApiService();
   authRemoteDataSource=
-      AuthRemoteDataSouceImp(mockAuthApiService);
+      AuthRemoteDataSourceImp(mockAuthApiService);
 });
 
 
@@ -49,8 +50,8 @@ final failureResponse = ForgetPasswordResponse
       when(mockAuthApiService.forgetPassword(any))
           .thenAnswer((_)async=>successResponse);
       final result=await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
-   expect(result, isA<ApiSucessResult<ForgetPasswordResponse>>());
-   expect((result as ApiSucessResult).sucessResult, successResponse);
+   expect(result, isA<ApiSuccessResult<ForgetPasswordResponse>>());
+   expect((result as ApiSuccessResult).data, successResponse);
    verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
     });
 
@@ -58,8 +59,8 @@ final failureResponse = ForgetPasswordResponse
       when(mockAuthApiService.forgetPassword(any))
           .thenAnswer((_)async=>failureResponse);
       final result=await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
- expect(result, isA<ApiFailedResult<ForgetPasswordResponse>>());
- var actualResult=(result as ApiFailedResult).errorMessage;
+ expect(result, isA<ApiErrorResult<ForgetPasswordResponse>>());
+ var actualResult=(result as ApiErrorResult).errorMessage;
  expect(actualResult, failureResponse.message);
  verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
     });
@@ -69,8 +70,8 @@ final failureResponse = ForgetPasswordResponse
      thenThrow(exception);
       final result=await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
 
-expect(result, isA<ApiFailedResult<ForgetPasswordResponse>>());
-var actualResult=(result as ApiFailedResult).errorMessage;
+expect(result, isA<ApiErrorResult<ForgetPasswordResponse>>());
+var actualResult=(result as ApiErrorResult).errorMessage;
 expect(actualResult, exception.toString());
 verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
     });
@@ -90,8 +91,8 @@ verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
       when(mockAuthApiService.verfiyPassword(any)).
       thenAnswer((_)async=>verfiyPasswordResponseSucess);
       final result=await authRemoteDataSource.verfiyPassword(verfiyPasswordRequest);
-      expect(result, isA<ApiSucessResult<VerfiyPasswordResponse>>());
-      var actualResult= (result as ApiSucessResult).sucessResult;
+      expect(result, isA<ApiSuccessResult<VerfiyPasswordResponse>>());
+      var actualResult= (result as ApiSuccessResult).data;
       expect(actualResult, verfiyPasswordResponseSucess);
       verify(mockAuthApiService.verfiyPassword(verfiyPasswordRequest)).called(1);
 
@@ -103,8 +104,8 @@ verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
       final result = await authRemoteDataSource.verfiyPassword
         (verfiyPasswordRequest);
 
-      expect(result, isA<ApiFailedResult<VerfiyPasswordResponse>>());
-      expect((result as ApiFailedResult).errorMessage,
+      expect(result, isA<ApiErrorResult<VerfiyPasswordResponse>>());
+      expect((result as ApiErrorResult).errorMessage,
           verfiyPasswordResponseFailure.status);
       verify(mockAuthApiService.verfiyPassword(verfiyPasswordRequest)).called(1);
       
@@ -113,8 +114,8 @@ verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
       final exception=Exception("Network problem");
       when(mockAuthApiService.verfiyPassword(any)).thenThrow(exception);
       final result=await authRemoteDataSource.verfiyPassword(verfiyPasswordRequest);
-      expect(result, isA<ApiFailedResult<VerfiyPasswordResponse>>());
-      var actualResult=(result as ApiFailedResult).errorMessage;
+      expect(result, isA<ApiErrorResult<VerfiyPasswordResponse>>());
+      var actualResult=(result as ApiErrorResult).errorMessage;
       expect(actualResult, exception.toString());
       verify(mockAuthApiService.verfiyPassword(verfiyPasswordRequest)).called(1);
     });
@@ -134,8 +135,8 @@ verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
       resetPasswordResponsea);
       final result = await authRemoteDataSource.resetPassword(
           resetPasswordRequest);
-      expect(result, isA<ApiSucessResult<ResetPasswordResponsea>>());
-      var actualResult = (result as ApiSucessResult).sucessResult;
+      expect(result, isA<ApiSuccessResult<ResetPasswordResponsea>>());
+      var actualResult = (result as ApiSuccessResult).data;
       expect(actualResult, resetPasswordResponsea);
       verify(mockAuthApiService.resetPassword(resetPasswordRequest)).called(1);
     });
@@ -146,8 +147,7 @@ verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
       final result = await authRemoteDataSource.resetPassword(
           resetPasswordRequest);
 
-      expect(result, isA<ApiFailedResult<ResetPasswordResponsea>>());
-      expect((result as ApiFailedResult).errorMessage,
+      expect((result as ApiErrorResult).errorMessage,
           resetPasswordErrorResponsea.message!.toString());
       verify(mockAuthApiService.resetPassword(resetPasswordRequest)).called(1);
     });
@@ -155,8 +155,8 @@ verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
       final exception=Exception("Network Problems");
       when(mockAuthApiService.resetPassword(any)).thenThrow(exception);
       final result=await authRemoteDataSource.resetPassword(resetPasswordRequest);
-      expect(result, isA<ApiFailedResult<ResetPasswordResponsea>>());
-      expect((result as ApiFailedResult).errorMessage, exception.toString());
+      expect(result, isA<ApiErrorResult<ResetPasswordResponsea>>());
+      expect((result as ApiErrorResult).errorMessage, exception.toString());
       verify(mockAuthApiService.resetPassword(resetPasswordRequest)).called(1);
     });
   });
