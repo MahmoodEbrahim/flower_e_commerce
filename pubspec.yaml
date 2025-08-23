@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
 
   cupertino_icons: ^1.0.8
   google_fonts:
@@ -25,7 +29,7 @@ dependencies:
   hive_flutter:
   hive:
   mockito:
-  flutter_svg: ^2.2.0
+  pretty_dio_logger: ^1.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -37,13 +41,13 @@ dev_dependencies:
   injectable_generator:
   hive_generator:
 flutter:
+  generate: true
 
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
-  #   - images/a_dot_ham.jpeg
+  - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
