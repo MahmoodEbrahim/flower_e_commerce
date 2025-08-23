@@ -4,8 +4,8 @@ import 'package:flower_e_commerce/Features/Home/Presentation/Widgets/Tabs/CardTa
 import 'package:flower_e_commerce/Features/Home/Presentation/Widgets/Tabs/CategoriesTab.dart';
 import 'package:flower_e_commerce/Features/Home/Presentation/Widgets/Tabs/HomeTab.dart';
 import 'package:flower_e_commerce/Features/Home/Presentation/Widgets/Tabs/ProfileTab.dart';
-import 'package:flower_e_commerce/core/utils/constants/AssetsManager.dart';
-import 'package:flower_e_commerce/core/utils/constants/StringsManager.dart';
+import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
+import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class HomePage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       data: Theme.of(context).copyWith(
         navigationBarTheme: NavigationBarThemeData(
           indicatorColor: Colors.transparent, // No background indicator
-          labelTextStyle: MaterialStateProperty.all(
+          labelTextStyle: WidgetStatePropertyAll(
             TextStyle(color:Colors.pink), // Pink label color
           ),
         ),
