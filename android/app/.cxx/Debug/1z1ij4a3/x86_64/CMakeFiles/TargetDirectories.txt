@@ -1,2 +1,0 @@
-E:/flower_e_commerce/android/app/.cxx/Debug/1z1ij4a3/x86_64/CMakeFiles/edit_cache.dir
-E:/flower_e_commerce/android/app/.cxx/Debug/1z1ij4a3/x86_64/CMakeFiles/rebuild_cache.dir

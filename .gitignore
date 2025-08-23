@@ -73,3 +73,9 @@ app.*.map.json
 # Flutter ephemeral
 # ================================
 **/flutter/ephemeral/
+
+
+# Android NDK / CMake build
+android/app/.cxx/
+
+
