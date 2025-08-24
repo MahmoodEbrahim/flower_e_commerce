@@ -1,3 +1,5 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -7,7 +9,8 @@ abstract class Routes {
 
     switch (url.path) {
 
-     
+      case AppRoutes.home:
+        return MaterialPageRoute(builder: (context) => const HomePage());
       default:
         return MaterialPageRoute(
           builder: (context) =>
