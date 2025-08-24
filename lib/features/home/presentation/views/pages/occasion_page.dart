@@ -1,5 +1,8 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/occasion_grid.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/occasion_tab_widget.dart';
 import 'package:flutter/material.dart';
 
 class OccasionPage extends StatefulWidget {
@@ -13,6 +16,7 @@ class _OccasionPageState extends State<OccasionPage> {
   int currIndex=0;
   @override
   Widget build(BuildContext context) {
+    var local=AppLocalizations.of(context);
     return Scaffold(
 
       backgroundColor: AppColors.White,
@@ -31,10 +35,10 @@ class _OccasionPageState extends State<OccasionPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Occasion",style: getMediumStyle(color: AppColors.lightBlack,
+                  Text(local!.occasion,style: getMediumStyle(color: AppColors.lightBlack,
                       fontSize: 20.0),),
 
-                  Text("Bloom with our exquisite best sellers",
+                  Text(local.bloomWithOurExquisitebestSellers,
                     style: getMediumStyle(color: AppColors.white[90]!,
                       fontSize: 13.0),),
 
@@ -57,36 +61,23 @@ onTap: (index){
               indicatorColor: AppColors.Pink,
               tabAlignment: TabAlignment.start,
               isScrollable: true,
-              dividerColor: Colors.transparent,
-              indicatorPadding: EdgeInsets.only(
-                  top:
-                  20),
+indicatorWeight: 2,
+
+dividerColor: Colors.transparent,
+
+
+indicatorPadding: EdgeInsets.only(
+),
               padding: EdgeInsets.zero,
 
               tabs: List.generate(10, (index)=>occasionTab(
-                  title: "Weeding $index",isSelected: index==currIndex,))),)
+                  title: "Weeding $index",
+                isSelected: index==currIndex,))),),
+         SizedBox(height: 16.0,),
+         Expanded(child: OccasionGrid())
        ],
      ),),)
     );
   }
 }
-class occasionTab extends StatelessWidget {
- const  occasionTab({ super.key,required this.title,this.isSelected=false});
-final String title;
- final bool isSelected;
-  @override
-  Widget build(BuildContext context) {
-    return
-      Text(title,
 
-      style: getRegularStyle(color:isSelected?
-    AppColors.Pink:AppColors.midGray,
-        fontSize: 18.0).copyWith(
-      decoration: isSelected==false? TextDecoration.underline:null,
-height: 2.1,
-
-decorationThickness:2.5,
-      decorationColor: isSelected?Colors.transparent:AppColors.midGray
-    ),);
-  }
-}
