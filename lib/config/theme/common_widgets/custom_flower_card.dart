@@ -48,6 +48,7 @@ import 'package:flutter/material.dart';
 //           ),
 //           SizedBox(height: 5.0,),
 //           ElevatedButton(onPressed: (){}, child: Row(
+//mainAxisAlignment: MainAxisAlignment.center,
 //             children: [
 //               Icon(CupertinoIcons.cart,color: AppColors.White,),
 //               SizedBox(width: 7.0,),
