@@ -1,8 +1,6 @@
-import 'package:dartz/dartz.dart';
 
-import '../../data/models/homemodel.dart';
-
+import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
 
 abstract class HomeRepository {
-  Future<Either<dynamic, Homemodel>> getHomeData();
+  Future<Homemodel> getHomeData();
 }

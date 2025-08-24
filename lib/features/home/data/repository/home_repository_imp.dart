@@ -1,9 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
+import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
+import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/repository/home_repository.dart';
-import '../models/homemodel.dart';
-import '../source/home_remote_data_source.dart';
 
 @Injectable(as: HomeRepository)
 class HomeRepositoryImpl implements HomeRepository {
@@ -12,15 +10,12 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<Either<dynamic, Homemodel>> getHomeData() async {
+  Future<Homemodel> getHomeData() async {
     try {
       final response = await remoteDataSource.getHomeData();
-      return Right(response);
+      return response;
     } catch (e) {
-      if (e is DioException) {
-        return Left(e);
-      }
-      return Left(e.toString());
+      throw Exception(e);
     }
   }
 }

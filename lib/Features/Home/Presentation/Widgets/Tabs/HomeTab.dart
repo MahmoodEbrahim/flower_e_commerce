@@ -1,50 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
 import 'package:flower_e_commerce/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flower_e_commerce/features/home/presentation/bloc/home_events.dart';
 import 'package:flower_e_commerce/features/home/presentation/bloc/home_states.dart';
-
-import '../../../data/models/homemodel.dart';
-
 
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
+      backgroundColor: Colors.white,
       body: BlocBuilder<HomeBloc, HomeStates>(
         builder: (context, state) {
           if (state is HomeInitialState) {
             BlocProvider.of<HomeBloc>(context).add(GetHomeDataEvent());
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is HomeLoadingState) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is HomeErrorState) {
             return Center(child: Text('Error: ${state.message}'));
           } else if (state is HomeSuccessState) {
             final homeData = state.homeResponse;
             return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Categories Section
-                  _buildSectionTitle('Categories', () => {}),
-                  _buildCategoriesList(homeData.categories),
+              padding: const EdgeInsets.all(12),
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "🌸 Flowery",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.pink,
+                              fontFamily: "IMFellEnglish",
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search, color: Colors.grey),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.grey.shade300),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Icon(Icons.location_on_outlined,size: 24,),
+                        const SizedBox(width: 6),
+                        Text("Deliver to 2XVP+XC - Sheikh Zayed ",style: TextStyle(
+                          fontSize: 18
+                        ),),
+                        Icon(Icons.keyboard_arrow_down_outlined,size: 24,color: Colors.pink,),
 
-                  // Best Seller Section
-                  _buildSectionTitle('Best Seller', () => {}),
-                  _buildBestSellerList(homeData.bestSeller), // تم التعديل هنا
+                      ],
+                    ),
+                    _buildSectionTitle('Categories', () {
+                      final categories = homeData.categories;
+                      print("Categories Data: $categories");
+                    }),
+                    _buildCategoriesList(homeData.categories),
+                    _buildSectionTitle('Best Seller', () {
+                      final bestseller =homeData.bestSeller;
+                      print("bestseller Data: $bestseller");
+                    }),
+                    _buildBestSellerList(homeData.bestSeller),
+                    _buildSectionTitle('Occasion', () {
+                      final occasion =homeData.occasions;
+                      print("occasions Data: $occasion");
+                    }),
+                    _buildOccasionsList(homeData.occasions),
+                    _buildSectionTitle('Products', () {
+                      final Products =homeData.products;
+                      print("products Data: $Products");
+                    }),
+                    _buildProductsList(homeData.products),
 
-                  // Products Section (بفرض وجودها في الـ JSON)
-                  _buildSectionTitle('Products', () => {}),
-                  _buildProductsList(homeData.products),
-
-                  // Occasion Section
-                  _buildSectionTitle('Occasion', () => {}),
-                  _buildOccasionsList(homeData.occasions),
-                ],
+                  ],
+                ),
               ),
             );
           }
@@ -56,14 +103,17 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildSectionTitle(String title, VoidCallback onViewAll) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           TextButton(
             onPressed: onViewAll,
-            child: Text('View All', style: TextStyle(color: Colors.blue)),
+            child: const Text('View All', style: TextStyle(color: Colors.pink,
+            decoration: TextDecoration.underline,
+              decorationColor: Colors.pink
+            )),
           ),
         ],
       ),
@@ -72,27 +122,47 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildCategoriesList(List<Categories>? categories) {
     if (categories == null || categories.isEmpty) {
-      return Text("No categories found.");
+      return const Text("No categories found.");
     }
     return SizedBox(
-      height: 120,
+      height: 130,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(category.image!),
+          return Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 6),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Color(0xffF9ECF0),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                SizedBox(height: 8),
-                Text(category.name!),
-              ],
-            ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 6),
+                      padding: const EdgeInsets.all(24),
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundColor: Color(0xffF9ECF0),
+                        backgroundImage: NetworkImage(category.image!),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                category.name!,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                ),
+              ),
+            ],
           );
         },
       ),
@@ -101,29 +171,48 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildProductsList(List<Products>? products) {
     if (products == null || products.isEmpty) {
-      return Text("No products found.");
+      return const Text("No products found.");
     }
     return SizedBox(
-      height: 250,
+      height: 240,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context, index) {
           final product = products[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          return Container(
+            width: 160,
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  product.imgCover!,
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,
+                ClipRRect(
+                  child: Image.network(
+                    product.imgCover!,
+                    width: 160,
+                    height: 120,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                SizedBox(height: 8),
-                Text(product.title!),
-                Text('${product.price} EGP'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(product.title!,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.normal
+                          )),
+                      Text('${product.price} EGP',
+                          style: const TextStyle(
+                              color: Colors.
+                              black,fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -134,29 +223,48 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildBestSellerList(List<BestSeller>? bestSellers) {
     if (bestSellers == null || bestSellers.isEmpty) {
-      return Text("No best sellers found.");
+      return const Text("No best sellers found.");
     }
     return SizedBox(
-      height: 250,
+      height: 240,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: bestSellers.length,
         itemBuilder: (context, index) {
           final bestSeller = bestSellers[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          return Container(
+            width: 140,
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  bestSeller.imgCover!,
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,
+                ClipRRect(
+                  child: Image.network(
+                    bestSeller.imgCover!,
+                    width: 140,
+                    height: 160,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                SizedBox(height: 8),
-                Text(bestSeller.title!),
-                Text('${bestSeller.price} EGP'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(bestSeller.title!,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.normal
+                          )),
+                      Text('${bestSeller.price} EGP',
+                          style: const TextStyle(
+                              color: Colors.
+                              black,fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -167,16 +275,40 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildOccasionsList(List<Occasions>? occasions) {
     if (occasions == null || occasions.isEmpty) {
-      return Text("No occasions found.");
+      return const Text("No occasions found.");
     }
     return SizedBox(
-      height: 120,
+      height: 210,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: occasions.length,
         itemBuilder: (context, index) {
           final occasion = occasions[index];
-          return Text('Occasion: ${occasion.name}');
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  child: Image.network(
+                    occasion.image!,
+                    width: 140,
+                    height: 160,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(height: 6,),
+                Text(
+                  occasion.name ?? "",
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );

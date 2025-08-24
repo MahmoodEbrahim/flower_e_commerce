@@ -1,10 +1,12 @@
+// lib/features/home/data/models/homemodel.dart
+
 class Homemodel {
   Homemodel({
-      this.message, 
-      this.products, 
-      this.categories, 
-      this.bestSeller, 
-      this.occasions,});
+    this.message,
+    this.products,
+    this.categories,
+    this.bestSeller,
+    this.occasions,});
 
   Homemodel.fromJson(dynamic json) {
     message = json['message'];
@@ -61,13 +63,13 @@ class Homemodel {
 
 class Occasions {
   Occasions({
-      this.id, 
-      this.name, 
-      this.slug, 
-      this.image, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.isSuperAdmin,});
+    this.id,
+    this.name,
+    this.slug,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
+    this.isSuperAdmin,});
 
   Occasions.fromJson(dynamic json) {
     id = json['_id'];
@@ -102,25 +104,25 @@ class Occasions {
 
 class BestSeller {
   BestSeller({
-      this.rateAvg, 
-      this.rateCount, 
-      this.id, 
-      this.title, 
-      this.slug, 
-      this.description, 
-      this.imgCover, 
-      this.images, 
-      this.price, 
-      this.priceAfterDiscount, 
-      this.quantity, 
-      this.category, 
-      this.occasion, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v, 
-      this.isSuperAdmin, 
-      this.sold, 
-   });
+    this.rateAvg,
+    this.rateCount,
+    this.id,
+    this.title,
+    this.slug,
+    this.description,
+    this.imgCover,
+    this.images,
+    this.price,
+    this.priceAfterDiscount,
+    this.quantity,
+    this.category,
+    this.occasion,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.isSuperAdmin,
+    this.sold,
+  });
 
   BestSeller.fromJson(dynamic json) {
     rateAvg = json['rateAvg'];
@@ -142,16 +144,16 @@ class BestSeller {
     isSuperAdmin = json['isSuperAdmin'];
     sold = json['sold'];
   }
-  int? rateAvg;
-  int? rateCount;
+  num? rateAvg; // تم التغيير من int? إلى num?
+  num? rateCount; // تم التغيير من int? إلى num?
   String? id;
   String? title;
   String? slug;
   String? description;
   String? imgCover;
   List<String>? images;
-  int? price;
-  int? priceAfterDiscount;
+  num? price; // تم التغيير من int? إلى num?
+  num? priceAfterDiscount; // تم التغيير من int? إلى num?
   int? quantity;
   String? category;
   String? occasion;
@@ -189,13 +191,13 @@ class BestSeller {
 
 class Categories {
   Categories({
-      this.id, 
-      this.name, 
-      this.slug, 
-      this.image, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.isSuperAdmin,});
+    this.id,
+    this.name,
+    this.slug,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
+    this.isSuperAdmin,});
 
   Categories.fromJson(dynamic json) {
     id = json['_id'];
@@ -230,25 +232,25 @@ class Categories {
 
 class Products {
   Products({
-      this.rateAvg, 
-      this.rateCount, 
-      this.id, 
-      this.title, 
-      this.slug, 
-      this.description, 
-      this.imgCover, 
-      this.images, 
-      this.price, 
-      this.priceAfterDiscount, 
-      this.quantity, 
-      this.category, 
-      this.occasion, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v, 
-      this.isSuperAdmin, 
-      this.sold, 
-     });
+    this.rateAvg,
+    this.rateCount,
+    this.id,
+    this.title,
+    this.slug,
+    this.description,
+    this.imgCover,
+    this.images,
+    this.price,
+    this.priceAfterDiscount,
+    this.quantity,
+    this.category,
+    this.occasion,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.isSuperAdmin,
+    this.sold,
+  });
 
   Products.fromJson(dynamic json) {
     rateAvg = json['rateAvg'];
@@ -270,16 +272,16 @@ class Products {
     isSuperAdmin = json['isSuperAdmin'];
     sold = json['sold'];
   }
-  int? rateAvg;
-  int? rateCount;
+  num? rateAvg; // تم التغيير من int? إلى num?
+  num? rateCount; // تم التغيير من int? إلى num?
   String? id;
   String? title;
   String? slug;
   String? description;
   String? imgCover;
   List<String>? images;
-  int? price;
-  int? priceAfterDiscount;
+  num? price; // تم التغيير من int? إلى num?
+  num? priceAfterDiscount; // تم التغيير من int? إلى num?
   int? quantity;
   String? category;
   String? occasion;

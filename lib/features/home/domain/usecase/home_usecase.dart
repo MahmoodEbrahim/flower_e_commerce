@@ -1,7 +1,5 @@
 
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../data/models/homemodel.dart';
 import '../repository/home_repository.dart';
 
@@ -11,7 +9,7 @@ class GetHomeDataUseCase {
 
   GetHomeDataUseCase(this.repository);
 
-  Future<Either<dynamic, Homemodel>> call() {
-    return repository.getHomeData();
+  Future<Homemodel> call() async {
+    return await repository.getHomeData();
   }
 }
