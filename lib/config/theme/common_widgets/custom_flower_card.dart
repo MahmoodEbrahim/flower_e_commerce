@@ -62,11 +62,11 @@ import 'package:flutter/material.dart';
 class CustomCardFlower extends StatelessWidget {
   const CustomCardFlower({super.key,
   required this.image,required this.title,
-    required this.newPrice,required this.oldPrice,
-   required this.discount,
+    required this.newPrice, this.oldPrice,
+    this.discount,
   });
 final String image;final String title;final double newPrice;
-final double oldPrice; final int discount;
+final double? oldPrice;final  int? discount;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -115,7 +115,10 @@ final double oldPrice; final int discount;
             ],
           ),
           SizedBox(height: 5.0,),
-          ElevatedButton(onPressed: (){}, child: Row(
+          ElevatedButton(
+
+              onPressed: (){}, child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(CupertinoIcons.cart,color: AppColors.White,),
               SizedBox(width: 7.0,),
