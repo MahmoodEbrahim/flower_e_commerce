@@ -13,13 +13,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 @injectable
 class ForgetPasswordBCubit extends Cubit<ForgetPasswordStates>{
-  ForgetPasswordBCubit(this._forgetPasswordUseCase,this._resetPasswordUseCase,
+  ForgetPasswordBCubit(this._forgetPasswordUseCase, this._resetPasswordUseCase,
       this._verfiyPasswordUseCase):super(ForgetPasswordStates());
   ForgetPasswordUseCase _forgetPasswordUseCase;
   VerfiyPasswordUseCase _verfiyPasswordUseCase;
   ResetPasswordUseCase _resetPasswordUseCase;
   Future<void>forgetPassword(ForgetPasswordRequest request)async{
-
+    emit(state.copyWith(isLoadingForgetPassword: true));
     final result=await _forgetPasswordUseCase.forgetPassword(request);
     switch(result){
       case ApiSuccessResult<ForgetPasswordResponse>():
@@ -35,10 +35,11 @@ class ForgetPasswordBCubit extends Cubit<ForgetPasswordStates>{
     }
   }
   Future<void>verfiyPassword(VerfiyPasswordRequest request)async{
-
+    emit(state.copyWith(isLoadingVerfiyPassword: true));
     final result=await _verfiyPasswordUseCase.verfiyPassword(request);
     switch(result){
       case ApiSuccessResult<VerfiyPasswordResponse>():
+        print((result as ApiSuccessResult).data);
         emit(state.copyWith(
             isLoadingVerfiyPassword: false,
             verfiyPasswordResponse: result.data
@@ -52,6 +53,7 @@ class ForgetPasswordBCubit extends Cubit<ForgetPasswordStates>{
   }
   Future<void>
   resetPassword(ResetPasswordRequest request)async{
+    emit(state.copyWith(isLoadingResetPassword: true));
     final result=await _resetPasswordUseCase.resetPassword(request);
     switch(result){
       case ApiSuccessResult<ResetPasswordResponsea>():

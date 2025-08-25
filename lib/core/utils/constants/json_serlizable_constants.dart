@@ -23,7 +23,7 @@ abstract class JsonSerlizableConstants {
   static const String messageJsonKey="message";
   static const String infoJsonKey="info";
   static const String tokenJsonKey="token";
-  static const String statusJsonKey="email";
+  static const String statusJsonKey="status";
 
 
 }

@@ -22,9 +22,9 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) =>  SignupPage());
       case AppRoutes.forgetPass:
         return MaterialPageRoute(
-            builder: (context) => const ForgetPasswordPage());
+            builder: (context) =>  ForgetPasswordPage());
       case AppRoutes.verfiyPassword:
-        return MaterialPageRoute(builder: (context) => VerfiyPasswordPage());
+        return MaterialPageRoute(builder: (context) => VerifyPasswordPage());
       //ResetPasswordPage
       case AppRoutes.resetPassword:
         return MaterialPageRoute(

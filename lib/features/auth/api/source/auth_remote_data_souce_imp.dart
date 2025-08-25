@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flower_e_commerce/core/utils/api_error/api_error.dart';
 import 'package:flower_e_commerce/core/utils/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/client/auth_api_service.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
@@ -48,80 +49,58 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     }
   }
   @override
-  Future<ApiResult<ForgetPasswordResponse>>forgetPassword(ForgetPasswordRequest request) async{
-    try{
-      final response=await authApiService.forgetPassword(request);
+  Future<ApiResult<ForgetPasswordResponse>> forgetPassword(
+      ForgetPasswordRequest request) async
+  {
+    try {
+      final response = await authApiService.forgetPassword(request);
       if(response.message=="success"){
         return ApiSuccessResult(response);
+      }else{
+        return ApiErrorResult(ServerFailure("There is no account with this email address").errorMessage);
       }
-      else{
-        return ApiErrorResult(response.message!);
-      }
-    }on DioException catch (e) {
-      String message = "Something went wrong, please try again";
 
-      if (e.response != null) {
-        if (e.response?.statusCode == 401) {
-          message = "Invalid email or password";
-        } else if (e.response?.statusCode == 500) {
-          message = "Server error, try again later";
-        } else {
-          message = e.response?.data["message"] ?? message;
-        }
-      }
-      return ApiErrorResult<ForgetPasswordResponse>(message);
-    } catch (e) {
-      return ApiErrorResult<ForgetPasswordResponse>(e.toString());
+    } on DioException catch (e) {
+      return ApiErrorResult(ServerFailure.fromDioError(e).errorMessage);
+    } catch (error) {
+      return ApiErrorResult(error.toString());
     }
   }
+
   @override
-  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
-    try{
-      final response=await authApiService.verfiyPassword(request);
-
-      return ApiSuccessResult(response);
-
-    }
-    on DioException catch (e) {
-      String message = "Something went wrong, please try again";
-
-      if (e.response != null) {
-        if (e.response?.statusCode == 401) {
-          message = "Invalid email or password";
-        } else if (e.response?.statusCode == 500) {
-          message = "Server error, try again later";
-        } else {
-          message = e.response?.data["message"] ?? message;
-        }
+  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword
+      (VerfiyPasswordRequest request) async {
+    try {
+      final response = await authApiService.verfiyPassword(request);
+      print("before response ${response.status}");
+      if (response.status == "Success") {
+        print( "${response.status} as ApiSuccessResult).data");
+        return ApiSuccessResult(response);
+      } else {
+        return ApiErrorResult(ServerFailure(response.status??
+            'Reset code is invalid or has expired').errorMessage);
       }
-      return ApiErrorResult<VerfiyPasswordResponse>(message);
-    } catch (e) {
-      return ApiErrorResult<VerfiyPasswordResponse>(e.toString());
+    } on DioException catch (e) {
+      return ApiErrorResult(ServerFailure.fromDioError(e).errorMessage);
+    } catch (error) {
+      return ApiErrorResult(ServerFailure(error.toString()).errorMessage);
     }
   }
+
   @override
-  Future<ApiResult<ResetPasswordResponsea>>
-  resetPassword(ResetPasswordRequest request) async{
-    try{
-      final response=await authApiService.resetPassword(request);
-      return  ApiSuccessResult(response);
-
-    }
-    on DioException catch (e) {
-      String message = "Something went wrong, please try again";
-
-      if (e.response != null) {
-        if (e.response?.statusCode == 401) {
-          message = "Invalid email or password";
-        } else if (e.response?.statusCode == 500) {
-          message = "Server error, try again later";
-        } else {
-          message = e.response?.data["message"] ?? message;
-        }
+  Future<ApiResult<ResetPasswordResponsea>> resetPassword(
+      ResetPasswordRequest request) async {
+    try {
+      final response = await authApiService.resetPassword(request);
+      if(response.message=="success"){
+        return ApiSuccessResult(response);
+      }else{
+        return ApiErrorResult(ServerFailure("reset code not verified").errorMessage);
       }
-      return ApiErrorResult<ResetPasswordResponsea>(message);
-    } catch (e) {
-      return ApiErrorResult<ResetPasswordResponsea>(e.toString());
+    } on DioException catch (e) {
+      return ApiErrorResult(ServerFailure.fromDioError(e).errorMessage);
+    } catch (error) {
+      return ApiErrorResult(error.toString());
     }
   }
 
