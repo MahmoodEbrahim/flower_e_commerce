@@ -14,15 +14,41 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 
-class VerfiyPasswordPage extends StatefulWidget {
-   VerfiyPasswordPage({this.email});
+class VerifyPasswordPage extends StatefulWidget {
+  VerifyPasswordPage({this.email});
 String? email;
 
   @override
-  State<VerfiyPasswordPage> createState() => _VerfiyPasswordPageState();
+  State<VerifyPasswordPage> createState() => _VerfiyPasswordPageState();
 }
 
-class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
+class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
+bool isButtonEnabled=true;
+bool isLoading=false;
+Future<void>resetCode(BuildContext context)async{
+
+  if (isButtonEnabled && !isLoading) {
+    setState(() {
+      isButtonEnabled = false;
+      isLoading = true;
+    });
+
+    await context.read<ForgetPasswordBCubit>().forgetPassword(
+      ForgetPasswordRequest(email: widget.email ?? ''),
+    );
+
+
+    Future.delayed(Duration(seconds: 20), () {
+      setState(() {
+        isButtonEnabled = true;
+      });
+    });
+    setState(() {
+      isLoading = false;
+    });
+
+  }
+}
   @override
   Widget build(BuildContext context) {
     var local=AppLocalizations.of(context)!;
@@ -66,7 +92,7 @@ class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
             SizedBox(height: 26.h),
             BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>(
               listener: (context,state){
-                if(state.verfiyPasswordResponse!=null ){
+                if(state.verfiyPasswordResponse!=null && isButtonEnabled){
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=>ResetPasswordPage(
                         email: widget.email,
@@ -138,21 +164,19 @@ class _VerfiyPasswordPageState extends State<VerfiyPasswordPage> {
                 ),
                 SizedBox(width: 10.w),
             Builder(builder: (c){
-              return     GestureDetector(
-                onTap: (){
-                  c.read<ForgetPasswordBCubit>().forgetPassword(
-                      ForgetPasswordRequest(
-                          email: widget.email!
-                      ));
-
-                },
-                child: Text(
+              return   GestureDetector(
+                onTap: ()=>isButtonEnabled && !isLoading ?
+                resetCode(c):null,
+                child:isLoading? Center(child:
+                CircularProgressIndicator(
+                  color: AppColors.Pink,
+                ),):Text(
                   local.resend,
                   style: TextStyle(
                     fontSize: FontSize.s16,
-                    color: AppColors.Pink,
+                    color: isButtonEnabled? AppColors.Pink:AppColors.gray,
                     decoration: TextDecoration.underline,
-                    decorationColor: AppColors.Pink,
+                    decorationColor:isButtonEnabled? AppColors.Pink:AppColors.gray,
                   ),
                 ),
               );

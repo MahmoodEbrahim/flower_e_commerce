@@ -23,7 +23,7 @@ abstract class Routes {
       case AppRoutes.verfiyPassword:
         return MaterialPageRoute(builder:
             (context)=>
-      VerfiyPasswordPage());
+                VerifyPasswordPage());
         //ResetPasswordPage
       case AppRoutes.resetPassword:
         return MaterialPageRoute(builder:

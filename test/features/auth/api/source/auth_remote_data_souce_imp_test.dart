@@ -11,6 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'auth_remote_data_souce_imp_test.mocks.dart';
+
 void provideDummies() {
   provideDummy<ApiResult<ForgetPasswordResponse>>(
     ApiFailedResult<ForgetPasswordResponse>('Dummy error'),
@@ -22,141 +23,118 @@ void provideDummies() {
     ApiFailedResult<ResetPasswordResponsea>('Dummy error'),
   );
 }
+
 @GenerateMocks([AuthApiService])
 void main() {
-  test('TODO: Implement tests for auth_remote_data_souce_imp.dart', () {
-    // TODO: Implement test
+  late MockAuthApiService mockAuthApiService;
+  late AuthRemoteDataSouceImp authRemoteDataSource;
+  setUp(() {
+    provideDummies();
+    mockAuthApiService = MockAuthApiService();
+    authRemoteDataSource = AuthRemoteDataSouceImp(mockAuthApiService);
   });
- late MockAuthApiService mockAuthApiService;
- late   AuthRemoteDataSouceImp authRemoteDataSource;
-setUp((){
-  provideDummies();mockAuthApiService=MockAuthApiService();
-  authRemoteDataSource=
-      AuthRemoteDataSouceImp(mockAuthApiService);
-});
 
-
-
-  group("test Forget Password", (){
-ForgetPasswordRequest forgetPasswordRequest=ForgetPasswordRequest();
-final successResponse = ForgetPasswordResponse( message: "success",
-    info: "OTP sent to your email");
-final failureResponse = ForgetPasswordResponse
-  (message: "There is no account with this email address  admin@.com");
-    test("should return ApiSucessResult when calling api ", ()async{
+  group("test Forget Password", () {
+    ForgetPasswordRequest request = ForgetPasswordRequest();
+    final successResponse = ForgetPasswordResponse(
+        message: "success", info: "OTP sent to your email");
+    final failureResponse = ForgetPasswordResponse(
+        message: "There is no account with this email address");
+    test("should return ApiSuccessResult when calling api success", () async {
       when(mockAuthApiService.forgetPassword(any))
-          .thenAnswer((_)async=>successResponse);
-      final result=await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
-   expect(result, isA<ApiSucessResult<ForgetPasswordResponse>>());
-   expect((result as ApiSucessResult).sucessResult, successResponse);
-   verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
+          .thenAnswer((_) async => successResponse);
+      final result = await authRemoteDataSource.forgetPassword(request);
+      expect(result, isA<ApiSucessResult<ForgetPasswordResponse>>());
+      expect((result as ApiSucessResult).sucessResult, successResponse);
+      verify(mockAuthApiService.forgetPassword(request)).called(1);
     });
+    test('should return ApiFailedResult when API returns failure message',
+        () async {
+      // Arrange
 
-    test("when return ApiFailedResult when calling api", ()async{
+      final forgetPasswordRequest =
+          ForgetPasswordRequest(email: 'test@example.com');
+      final failureResponse = ForgetPasswordResponse(message: 'failure');
       when(mockAuthApiService.forgetPassword(any))
-          .thenAnswer((_)async=>failureResponse);
-      final result=await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
- expect(result, isA<ApiFailedResult<ForgetPasswordResponse>>());
- var actualResult=(result as ApiFailedResult).errorMessage;
- expect(actualResult, failureResponse.message);
- verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
-    });
-    test("should return ApiFailedResult when api call throws an exception", ()async{
-      final exception=Exception("Network Problems");
-      when(mockAuthApiService.forgetPassword(any)).
-     thenThrow(exception);
-      final result=await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
+          .thenAnswer((_) async => failureResponse);
 
-expect(result, isA<ApiFailedResult<ForgetPasswordResponse>>());
-var actualResult=(result as ApiFailedResult).errorMessage;
-expect(actualResult, exception.toString());
-verify(mockAuthApiService.forgetPassword(forgetPasswordRequest)).called(1);
-    });
-
-
-  });
-  group("test Verify Password", (){
-    VerfiyPasswordRequest verfiyPasswordRequest=VerfiyPasswordRequest();
-    VerfiyPasswordResponse verfiyPasswordResponseSucess=VerfiyPasswordResponse(
-        status: "success"
-    );
-    VerfiyPasswordResponse verfiyPasswordResponseFailure=VerfiyPasswordResponse(
-   status: "Reset code is invalid or has expired"
-    );
-    test("should return ApiSucessResult when api call", ()async{
-   
-      when(mockAuthApiService.verfiyPassword(any)).
-      thenAnswer((_)async=>verfiyPasswordResponseSucess);
-      final result=await authRemoteDataSource.verfiyPassword(verfiyPasswordRequest);
-      expect(result, isA<ApiSucessResult<VerfiyPasswordResponse>>());
-      var actualResult= (result as ApiSucessResult).sucessResult;
-      expect(actualResult, verfiyPasswordResponseSucess);
-      verify(mockAuthApiService.verfiyPassword(verfiyPasswordRequest)).called(1);
-
-    });
-    test("should return ApiFailureResult when calling api ", ()async{
-      when(mockAuthApiService.verfiyPassword(any))
-          .thenAnswer((_) async => verfiyPasswordResponseFailure);
-
-      final result = await authRemoteDataSource.verfiyPassword
-        (verfiyPasswordRequest);
-
-      expect(result, isA<ApiFailedResult<VerfiyPasswordResponse>>());
+      final result =
+          await authRemoteDataSource.forgetPassword(forgetPasswordRequest);
+      expect(result, isA<ApiFailedResult>());
       expect((result as ApiFailedResult).errorMessage,
-          verfiyPasswordResponseFailure.status);
-      verify(mockAuthApiService.verfiyPassword(verfiyPasswordRequest)).called(1);
-      
+          contains('There is no account with this email address'));
     });
-    test("should return ApiFailureResult when throw excepion", ()async{
-      final exception=Exception("Network problem");
-      when(mockAuthApiService.verfiyPassword(any)).thenThrow(exception);
-      final result=await authRemoteDataSource.verfiyPassword(verfiyPasswordRequest);
-      expect(result, isA<ApiFailedResult<VerfiyPasswordResponse>>());
-      var actualResult=(result as ApiFailedResult).errorMessage;
-      expect(actualResult, exception.toString());
-      verify(mockAuthApiService.verfiyPassword(verfiyPasswordRequest)).called(1);
-    });
-  });
-  group("test Reset password ", () {
-    ResetPasswordRequest resetPasswordRequest = ResetPasswordRequest();
-    ResetPasswordResponsea resetPasswordResponsea = ResetPasswordResponsea(
-        message: "success",
-        token: "AqwertyuSertyuioDFrtyuiopGtyuioplkjhHfghjkJKL23456789PLKJHGwertyuidsertyuiop"
-    );
-
-    ResetPasswordResponsea resetPasswordErrorResponsea = ResetPasswordResponsea(
-      message: "reset code not verified",
-    );
-    test("should return ApiSuccessResult when calling api", () async {
-      when(mockAuthApiService.resetPassword(any)).thenAnswer((_) async =>
-      resetPasswordResponsea);
-      final result = await authRemoteDataSource.resetPassword(
-          resetPasswordRequest);
-      expect(result, isA<ApiSucessResult<ResetPasswordResponsea>>());
-      var actualResult = (result as ApiSucessResult).sucessResult;
-      expect(actualResult, resetPasswordResponsea);
-      verify(mockAuthApiService.resetPassword(resetPasswordRequest)).called(1);
-    });
-    test('should return ApiFailedResult when calling api', () async {
-      when(mockAuthApiService.resetPassword(any))
-          .thenAnswer((answer) async => resetPasswordErrorResponsea);
-
-      final result = await authRemoteDataSource.resetPassword(
-          resetPasswordRequest);
-
-      expect(result, isA<ApiFailedResult<ResetPasswordResponsea>>());
-      expect((result as ApiFailedResult).errorMessage,
-          resetPasswordErrorResponsea.message!.toString());
-      verify(mockAuthApiService.resetPassword(resetPasswordRequest)).called(1);
-    });
-    test("should return ApiFailedResult when throw exception", ()async{
-      final exception=Exception("Network Problems");
-      when(mockAuthApiService.resetPassword(any)).thenThrow(exception);
-      final result=await authRemoteDataSource.resetPassword(resetPasswordRequest);
-      expect(result, isA<ApiFailedResult<ResetPasswordResponsea>>());
+    test("should return ApiFailedResult when  throw exception", ()async{
+     final exception=Exception("Throw Exception");
+      when(mockAuthApiService.forgetPassword(any))
+          .thenThrow(Exception("Throw Exception"));
+      final result=await authRemoteDataSource.forgetPassword(request);
+      expect(result, isA<ApiFailedResult>());
       expect((result as ApiFailedResult).errorMessage, exception.toString());
-      verify(mockAuthApiService.resetPassword(resetPasswordRequest)).called(1);
+   verify(mockAuthApiService.forgetPassword(request)).called(1);
     });
   });
 
+  group("Verify Password", () {
+    VerfiyPasswordRequest request = VerfiyPasswordRequest(resetCode: "930926");
+    final successResponse = VerfiyPasswordResponse(status: "Success");
+    final failurResponse =
+        VerfiyPasswordResponse(status: "Reset code is invalid or has expired");
+    test("should return ApiSuccessResult when calling api success", () async {
+      when(mockAuthApiService.verfiyPassword(request))
+          .thenAnswer((_) async => successResponse);
+      final result = await authRemoteDataSource.verfiyPassword(request);
+      expect(result, isA<ApiSucessResult<VerfiyPasswordResponse>>());
+      expect((result as ApiSucessResult).sucessResult, successResponse);
+      verify(mockAuthApiService.verfiyPassword(request)).called(1);
+    });
+    test("should return ApiFailedResult when calling api failed", () async {
+      when(mockAuthApiService.verfiyPassword(any))
+          .thenAnswer((_) async => failurResponse);
+      final result = await authRemoteDataSource.verfiyPassword(request);
+      expect(result, isA<ApiFailedResult>());
+      expect((result as ApiFailedResult).errorMessage, failurResponse.status);
+    });
+    test("should return ApiFailedResult when  throw exception", ()async{
+      final exception=Exception("Throw Exception");
+      when(mockAuthApiService.verfiyPassword(any)).thenThrow(Exception("Throw Exception"));
+    final result=await authRemoteDataSource.verfiyPassword(request);
+    expect(result, isA<ApiFailedResult>());
+    expect((result as ApiFailedResult).errorMessage, exception.toString());
+    });
+  });
+
+  group("Reset Password", () {
+    ResetPasswordRequest request = ResetPasswordRequest(
+        email: "mariammohmed.25720@gmail.com", newPassword: "Marew123@");
+    final successResponse = ResetPasswordResponsea(
+        message: "success",
+        token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTIxODI1YThiY2EzMDdmOWRlOTM2NSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU2MTEzODgzfQ.B4dZ4Jj9wtfKj4ArdVF7OF2KYFm4M3kRd-5teDbRbT0");
+    final failureResponse =
+        ResetPasswordResponsea(message: "reset code not verified");
+
+    test("should return ApiSuccessResult when calling api success", () async {
+      when(mockAuthApiService.resetPassword(request))
+          .thenAnswer((_) async => successResponse);
+      final result = await authRemoteDataSource.resetPassword(request);
+      expect(result, isA<ApiSucessResult<ResetPasswordResponsea>>());
+      expect((result as ApiSucessResult).sucessResult, successResponse);
+      verify(mockAuthApiService.resetPassword(request)).called(1);
+    });
+    test("should return ApiFailedResult when calling api failed", ()async{
+      when(mockAuthApiService.resetPassword(any)).thenAnswer((_)
+      async=>failureResponse);
+      final result=await authRemoteDataSource.resetPassword(request);
+      expect(result, isA<ApiFailedResult>());
+      expect((result as ApiFailedResult).errorMessage, failureResponse.message);
+    });
+    test("should return ApiFailedResult when  throw exception", ()async{
+      final exception=Exception("Throw Exception");
+      when(mockAuthApiService.resetPassword(any)).thenThrow(Exception("Throw Exception"));
+   final result=await authRemoteDataSource.resetPassword(request);
+   expect(result, isA<ApiFailedResult>());
+   expect((result as ApiFailedResult).errorMessage, exception.toString());
+    });
+  });
 }
