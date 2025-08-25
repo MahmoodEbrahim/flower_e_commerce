@@ -1,15 +1,26 @@
-// import 'package:dio/dio.dart';
-// import 'package:injectable/injectable.dart';
-// import 'package:online_exam_app_f/core/network/token_interspector.dart'; // افترض إن فيه ملف كده
-// import 'package:online_exam_app_f/core/utils/constants/api_endpionts.dart';
-// import 'package:online_exam_app_f/features/profile/data/datasources/user_local_storage.dart'; // لجلب الـ token
-//
-// @module
-// abstract class DioModule {
-//   @lazySingleton
-//   Dio dio() {
-//     final dio = Dio(BaseOptions(baseUrl: ApiEndPionts.baseUrl));
-//     dio.interceptors.add(TokenInterceptor());
-//     return dio;
-//   }
-// }
+import 'package:dio/dio.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:injectable/injectable.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+@module
+abstract class DioModule {
+  @lazySingleton
+Dio provideDio() {
+  final dio = Dio();
+  dio.interceptors.add(getIt.get<PrettyDioLogger>());
+  return dio;
+}
+
+
+
+  @lazySingleton
+  PrettyDioLogger prettyDioLoggerProvider() {
+    return PrettyDioLogger(
+      requestBody: true,
+      requestHeader: true,
+      responseHeader: true,
+    );
+  }
+
+}
