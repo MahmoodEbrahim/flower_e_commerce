@@ -135,6 +135,7 @@ void main() {
    final result=await authRemoteDataSource.resetPassword(request);
    expect(result, isA<ApiFailedResult>());
    expect((result as ApiFailedResult).errorMessage, exception.toString());
+
     });
   });
 }

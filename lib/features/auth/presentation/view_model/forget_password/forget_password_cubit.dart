@@ -40,7 +40,7 @@ Future<void>forgetPassword(ForgetPasswordRequest request)async{
 switch(result){
   case ApiSucessResult<VerfiyPasswordResponse>():
     emit(state.copyWith(
-        isLoadingForgetPassword: false,
+        isLoadingVerfiyPassword: false,
         verfiyPasswordResponse: result.sucessResult
     ));
   case ApiFailedResult<VerfiyPasswordResponse>():

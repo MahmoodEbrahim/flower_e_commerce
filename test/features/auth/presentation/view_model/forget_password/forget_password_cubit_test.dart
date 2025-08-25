@@ -81,7 +81,7 @@ ForgetPasswordStates(isLoadingForgetPassword: false,errorMessage: 'There is no a
     final successResponse = VerfiyPasswordResponse(
         status: 'Success');
     blocTest<ForgetPasswordBCubit, ForgetPasswordStates>(
-      "emits [loading, Success] when verfiyPassword succeeds",
+      "emits loading, Success when verfiyPassword succeeds",
       build: () {
         when( verfiyPasswordUseCase.verfiyPassword(request))
             .thenAnswer((_) async => ApiSucessResult(successResponse));
