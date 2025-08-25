@@ -1,0 +1,13 @@
+{
+  "login": "Login",
+  "email": "Email",
+  "email_hint": "Enter your email",
+  "email_error": "This Email is not valid",
+  "password": "Password",
+  "password_hint": "Enter your password",
+  "remember_me": "Remember me",
+  "forgot_password": "Forgot password?",
+  "no_account": "Don't have an account?",
+  "sign_up": "Sign up",
+  "guest": "guest"
+}
