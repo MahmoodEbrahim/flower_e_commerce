@@ -17,5 +17,6 @@
 "enteryoupassword": "Enter you password",
     "confirmpassword": "Confirm password",
     "newpassword": "New password",
-    "passwordresetlinksentsuccessfully": "Password reset link sent successfully"
+    "passwordresetlinksentsuccessfully": "Password reset link sent successfully",
+"emailnotfound": "Email Not Found"
 }

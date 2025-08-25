@@ -62,4 +62,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get passwordresetlinksentsuccessfully =>
       'Password reset link sent successfully';
+
+  @override
+  String get emailnotfound => 'Email Not Found';
 }

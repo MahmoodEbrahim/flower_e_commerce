@@ -14,12 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ResetPasswordPage extends StatelessWidget {
-  const ResetPasswordPage({super.key});
+   ResetPasswordPage({super.key,this.email});
+  String? email;
   @override
   Widget build(BuildContext context) {
     var local=AppLocalizations.of(context)!;
     var passwordController=TextEditingController();
-    var emailController=TextEditingController();
+    var formkey=GlobalKey<FormState>();
     return BlocProvider(
       create: (context)=>getIt<ForgetPasswordBCubit>(),
       child: Scaffold(
@@ -38,49 +39,60 @@ class ResetPasswordPage extends StatelessWidget {
           ),
         ),
         body: Padding(padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child:   Column(
-          children: [
-            SizedBox(height: 26.h),
-            Text(
-              local.resetpassword,
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: AppColors.black[50]!,
-                fontSize: FontSize.s18,
+        child:   Form(
+          key: formkey,
+          child: Column(
+            children: [
+              SizedBox(height: 26.h),
+              Text(
+                local.resetpassword,
+                textAlign: TextAlign.center,
+                style: getMediumStyle(
+                  color: AppColors.black[50]!,
+                  fontSize: FontSize.s18,
+                ),
               ),
-            ),
-            SizedBox(height: 16.h),
-            Text(
-              local.passwordValidationMessage,
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: AppColors.gray,
-                fontSize: FontSize.s14,
+              SizedBox(height: 16.h),
+              Text(
+                local.passwordValidationMessage,
+                textAlign: TextAlign.center,
+                style: getMediumStyle(
+                  color: AppColors.gray,
+                  fontSize: FontSize.s14,
+                ),
               ),
-            ),
-            SizedBox(height: 26.h),
-            CustomTxtFieldWidget(lbl: local.email,
-              hint: local.enteryouremail,controller: emailController,
-              validator: Validator.validateEmail,),
-            SizedBox(height: 16.h),
-            CustomTxtFieldWidget(lbl: local.newpassword,
-              hint: local.enteryoupassword,controller: passwordController,
-              validator: Validator.validatePassword,),
-            SizedBox(height: 36.h),
-            BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>
-              (listener: (c,state){
-if(state.resetPasswordResponse!=null){
-  Navigator.of(context).push(MaterialPageRoute(
-      builder: (context)=> TestScreen()));
-}}, child:Builder(builder: (c)=> CustomBtnWidget(txt: local.confirm,onPressed: (){
+              SizedBox(height: 26.h),
+              CustomTxtFieldWidget(lbl: local.newpassword,
+                isPassword: true,
+                hint: local.enteryoupassword,
+                controller: passwordController,
+                validator: Validator.validatePassword,),
+              SizedBox(height: 16.h),
+              CustomTxtFieldWidget(lbl: local.confirmpassword,
+                hint: local.confirmpassword,
+                isPassword: true,
+
+                validator:(value)=> Validator.validateConfirmPassword(value,
+                    passwordController!.text),),
+              SizedBox(height: 36.h),
+              BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>
+                (listener: (c,state){
+          if(state.resetPasswordResponse!=null){
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context)=> TestScreen()));
+          }}, child:Builder(builder: (c)=> CustomBtnWidget(txt: local.confirm,
+                onPressed: (){
+            if(formkey.currentState!.validate()){
               c.read<ForgetPasswordBCubit>().resetPassword(
                   ResetPasswordRequest(
-                      email: emailController.text,
+                      email:email!,
                       newPassword: passwordController.text
                   ));
-            },))
+            }
+              },))
 
-            )],
+              )],
+          ),
         ),
         )
 

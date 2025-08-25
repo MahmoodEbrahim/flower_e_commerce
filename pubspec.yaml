@@ -19,6 +19,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts:
   flutter_bloc:
+  pin_code_text_field: ^1.8.0
+  pin_code_fields: ^8.0.1
   equatable:
   dio:
   retrofit:

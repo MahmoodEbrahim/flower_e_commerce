@@ -80,7 +80,7 @@ Navigator.of(context).push(MaterialPageRoute(builder: (context)=>VerfiyPasswordP
 }
 if(state.errorMessage!=null){
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content:Text("${state.errorMessage}")),
+    SnackBar(content:Text(local.emailnotfound)),
   );
 }
                 },

@@ -6,14 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTxtFieldWidget extends StatelessWidget {
    CustomTxtFieldWidget({super.key,required this.lbl,
-   required this.hint,this.validator,this.controller});
+   required this.hint,this.validator,this.controller,this.isPassword=false});
 final String lbl;
  final String hint;
    TextEditingController? controller;
  String? Function(String?)? validator;
+ bool? isPassword;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: isPassword!,
       validator:validator ,
       controller: controller,
       decoration: InputDecoration(

@@ -195,6 +195,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password reset link sent successfully'**
   String get passwordresetlinksentsuccessfully;
+
+  /// No description provided for @emailnotfound.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Not Found'**
+  String get emailnotfound;
 }
 
 class _AppLocalizationsDelegate
