@@ -14,13 +14,13 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../features/home/data/repository/home_repository_imp.dart' as _i342;
-import '../../features/home/data/source/home_api_service.dart' as _i665;
+import '../../features/home/API/home_api_service.dart' as _i665;
 import '../../features/home/data/source/home_remote_data_source.dart' as _i557;
 import '../../features/home/data/source/home_remote_data_source_imp.dart'
     as _i780;
 import '../../features/home/domain/repository/home_repository.dart' as _i541;
 import '../../features/home/domain/usecase/home_usecase.dart' as _i73;
-import '../../features/home/presentation/bloc/home_bloc.dart' as _i202;
+import '../../features/home/presentation/view_model/bloc/home_bloc.dart' as _i202;
 import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {

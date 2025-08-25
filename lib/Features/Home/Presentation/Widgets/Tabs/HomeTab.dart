@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
-import 'package:flower_e_commerce/features/home/presentation/bloc/home_bloc.dart';
-import 'package:flower_e_commerce/features/home/presentation/bloc/home_events.dart';
-import 'package:flower_e_commerce/features/home/presentation/bloc/home_states.dart';
+
+import '../../view_model/bloc/home_bloc.dart';
+import '../../view_model/bloc/home_events.dart';
+import '../../view_model/bloc/home_states.dart';
+
 
 class HomeTab extends StatelessWidget {
   @override

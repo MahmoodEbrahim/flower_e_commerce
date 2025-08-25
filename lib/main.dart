@@ -6,9 +6,9 @@ import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; // Import this line
-import 'package:flower_e_commerce/features/home/presentation/bloc/home_bloc.dart'; // Import this line
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'config/theme/app_theme.dart';
+import 'features/home/presentation/view_model/bloc/home_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
