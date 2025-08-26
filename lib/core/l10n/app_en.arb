@@ -1,4 +1,10 @@
 {
-    "@@locale": "en"
-    
+    "@@locale": "en",
+    "egp":"EGP",
+    "status":"Status: ",
+    "inStock":"In stock",
+    "outOfStock":"Out of stock",
+    "includeTax":"All prices include tax",
+    "description":"Description",
+"addToCart":"Add to cart"
 }
