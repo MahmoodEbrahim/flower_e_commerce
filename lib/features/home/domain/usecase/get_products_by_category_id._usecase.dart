@@ -1,16 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
-import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
 import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
+
 import 'package:injectable/injectable.dart';
 
-@Injectable(as: HomeRepository)
-class HomeRepositoryImp implements HomeRepository {
-  final HomeRemoteDataSource _homeRemoteDataSource;
-  HomeRepositoryImp(this._homeRemoteDataSource);
-  @override
+
+@injectable
+class GetProductsByCategoryIdUseCase {
+  final HomeRepository _homeRepository;
+  GetProductsByCategoryIdUseCase(
+    this._homeRepository,
+  );
+
   Future<ApiResult<List<ProductModel>>> getProductsByCategoryId(
       String catId) async {
-    return await _homeRemoteDataSource.getProductsByCategoryId(catId);
+    return await _homeRepository.getProductsByCategoryId(catId);
   }
 }
