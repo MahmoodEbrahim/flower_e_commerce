@@ -1,4 +1,3 @@
-// lib/features/home/data/models/homemodel.dart
 
 class Homemodel {
   Homemodel({
