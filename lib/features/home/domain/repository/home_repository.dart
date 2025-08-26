@@ -1,6 +1,6 @@
 
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 
 abstract class HomeRepository {
-  Future<Homemodel> getHomeData();
+  Future<HomeEntity> getHomeData();
 }

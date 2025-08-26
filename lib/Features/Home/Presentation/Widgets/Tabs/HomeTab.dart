@@ -1,17 +1,19 @@
+import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
-
+import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import '../../view_model/bloc/home_bloc.dart';
 import '../../view_model/bloc/home_events.dart';
 import '../../view_model/bloc/home_states.dart';
-
 
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: BlocBuilder<HomeBloc, HomeStates>(
         builder: (context, state) {
           if (state is HomeInitialState) {
@@ -47,11 +49,14 @@ class HomeTab extends StatelessWidget {
                             child: TextField(
                               decoration: InputDecoration(
                                 hintText: "Search",
-                                prefixIcon: Icon(Icons.search, color: Colors.grey),
-                                contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                                prefixIcon: Icon(
+                                    Icons.search, color: Colors.grey),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 16),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: Colors.grey.shade300),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade300),
                                 ),
                               ),
                             ),
@@ -62,13 +67,14 @@ class HomeTab extends StatelessWidget {
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined,size: 24,),
+                        Icon(Icons.location_on_outlined, size: 24),
                         const SizedBox(width: 6),
-                        Text("Deliver to 2XVP+XC - Sheikh Zayed ",style: TextStyle(
-                          fontSize: 18
-                        ),),
-                        Icon(Icons.keyboard_arrow_down_outlined,size: 24,color: Colors.pink,),
-
+                        Text(
+                          "Deliver to 2XVP+XC - Sheikh Zayed ",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Icon(Icons.keyboard_arrow_down_outlined, size: 24,
+                            color: Colors.pink),
                       ],
                     ),
                     _buildSectionTitle('Categories', () {
@@ -77,101 +83,86 @@ class HomeTab extends StatelessWidget {
                     }),
                     _buildCategoriesList(homeData.categories),
                     _buildSectionTitle('Best Seller', () {
-                      final bestseller =homeData.bestSeller;
-                      print("bestseller Data: $bestseller");
+                      final bestseller = homeData.bestSeller;
+                      print("BestSeller Data: $bestseller");
                     }),
                     _buildBestSellerList(homeData.bestSeller),
                     _buildSectionTitle('Occasion', () {
-                      final occasion =homeData.occasions;
-                      print("occasions Data: $occasion");
+                      final occasions = homeData.occasions;
+                      print("Occasions Data: $occasions");
                     }),
                     _buildOccasionsList(homeData.occasions),
                     _buildSectionTitle('Products', () {
-                      final Products =homeData.products;
-                      print("products Data: $Products");
+                      final products = homeData.products;
+                      print("Products Data: $products");
                     }),
                     _buildProductsList(homeData.products),
-
                   ],
                 ),
               ),
             );
           }
-          return Container();
+          return const SizedBox.shrink();
         },
       ),
     );
   }
 
-  Widget _buildSectionTitle(String title, VoidCallback onViewAll) {
+  Widget _buildSectionTitle(String title, VoidCallback onSeeAll) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           TextButton(
-            onPressed: onViewAll,
-            child: const Text('View All', style: TextStyle(color: Colors.pink,
-            decoration: TextDecoration.underline,
-              decorationColor: Colors.pink
-            )),
+            onPressed: onSeeAll,
+            child: const Text(
+              "See all",
+              style: TextStyle(color: Colors.pink, fontSize: 15),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildCategoriesList(List<Categories>? categories) {
+  Widget _buildCategoriesList(List<CategoriesEntity>? categories) {
     if (categories == null || categories.isEmpty) {
       return const Text("No categories found.");
     }
     return SizedBox(
-      height: 130,
+      height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
-          return Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 6),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Color(0xffF9ECF0),
-                  borderRadius: BorderRadius.circular(20),
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(category.image ?? ''),
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 6),
-                      padding: const EdgeInsets.all(24),
-                      child: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Color(0xffF9ECF0),
-                        backgroundImage: NetworkImage(category.image!),
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 6),
+                Text(
+                  category.name ?? '',
+                  style: const TextStyle(fontSize: 12),
                 ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                category.name!,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
     );
   }
 
-  Widget _buildProductsList(List<Products>? products) {
+  Widget _buildProductsList(List<ProductsEntity>? products) {
     if (products == null || products.isEmpty) {
       return const Text("No products found.");
     }
@@ -193,7 +184,7 @@ class HomeTab extends StatelessWidget {
               children: [
                 ClipRRect(
                   child: Image.network(
-                    product.imgCover!,
+                    product.imgCover ?? '',
                     width: 160,
                     height: 120,
                     fit: BoxFit.cover,
@@ -204,14 +195,15 @@ class HomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(product.title!,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.normal
-                          )),
-                      Text('${product.price} EGP',
-                          style: const TextStyle(
-                              color: Colors.
-                              black,fontWeight: FontWeight.bold)),
+                      Text(
+                        product.title ?? '',
+                        style: const TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                      Text(
+                        '${product.price ?? 0} EGP',
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                 ),
@@ -223,7 +215,7 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-  Widget _buildBestSellerList(List<BestSeller>? bestSellers) {
+  Widget _buildBestSellerList(List<BestSellerEntity>? bestSellers) {
     if (bestSellers == null || bestSellers.isEmpty) {
       return const Text("No best sellers found.");
     }
@@ -245,7 +237,7 @@ class HomeTab extends StatelessWidget {
               children: [
                 ClipRRect(
                   child: Image.network(
-                    bestSeller.imgCover!,
+                    bestSeller.imgCover ?? '',
                     width: 140,
                     height: 160,
                     fit: BoxFit.cover,
@@ -256,14 +248,15 @@ class HomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(bestSeller.title!,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.normal
-                          )),
-                      Text('${bestSeller.price} EGP',
-                          style: const TextStyle(
-                              color: Colors.
-                              black,fontWeight: FontWeight.bold)),
+                      Text(
+                        bestSeller.title ?? '',
+                        style: const TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                      Text(
+                        '${bestSeller.price ?? 0} EGP',
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                 ),
@@ -275,7 +268,7 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-  Widget _buildOccasionsList(List<Occasions>? occasions) {
+  Widget _buildOccasionsList(List<OccasionsEntity>? occasions) {
     if (occasions == null || occasions.isEmpty) {
       return const Text("No occasions found.");
     }
@@ -297,15 +290,15 @@ class HomeTab extends StatelessWidget {
               children: [
                 ClipRRect(
                   child: Image.network(
-                    occasion.image!,
+                    occasion.image ?? '',
                     width: 140,
                     height: 160,
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 6,),
+                const SizedBox(height: 6),
                 Text(
-                  occasion.name ?? "",
+                  occasion.name ?? '',
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
               ],

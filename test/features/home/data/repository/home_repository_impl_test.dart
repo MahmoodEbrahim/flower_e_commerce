@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
 import 'package:flower_e_commerce/features/home/data/repository/home_repository_imp.dart';
 

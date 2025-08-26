@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
 
 import 'get_home_data_usecase_test.mocks.dart';
 

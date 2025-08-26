@@ -1,7 +1,7 @@
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flower_e_commerce/features/home/domain/usecase/home_usecase.dart';
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
 
 import 'home_events.dart';
 import 'home_states.dart';
@@ -14,7 +14,7 @@ class HomeBloc extends Bloc<HomeEvents, HomeStates> {
     on<GetHomeDataEvent>((event, emit) async {
       emit(HomeLoadingState());
       try {
-        final Homemodel homeResponse = await getHomeDataUseCase.call();
+        final HomeEntity homeResponse = await getHomeDataUseCase.call();
         emit(HomeSuccessState(homeResponse));
       } catch (e) {
         emit(HomeErrorState(e.toString()));

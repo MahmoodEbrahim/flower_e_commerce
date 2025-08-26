@@ -1,16 +1,18 @@
 
 
-import '../../data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 
 class HomeEntity {
-  final String? message;
-  final List<Products>? products;
-  final List<Categories>? categories;
-  final List<BestSeller>? bestSeller;
-  final List<Occasions>? occasions;
+  final List<ProductsEntity>? products;
+  final List<CategoriesEntity>? categories;
+  final List<BestSellerEntity>? bestSeller;
+  final List<OccasionsEntity>? occasions;
 
   HomeEntity({
-    this.message,
     this.products,
     this.categories,
     this.bestSeller,

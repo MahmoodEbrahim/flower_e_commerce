@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flower_e_commerce/Features/Home/Presentation/view_model/bloc/home_bloc.dart';
 import 'package:flower_e_commerce/Features/Home/Presentation/view_model/bloc/home_events.dart';
 import 'package:flower_e_commerce/Features/Home/Presentation/view_model/bloc/home_states.dart';
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/domain/usecase/home_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

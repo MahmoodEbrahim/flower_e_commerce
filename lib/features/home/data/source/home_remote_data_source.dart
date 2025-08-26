@@ -1,6 +1,8 @@
 
-import '../models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
+
+import '../models/home_model.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<Homemodel> getHomeData();
+  Future<HomeEntity> getHomeData();
 }

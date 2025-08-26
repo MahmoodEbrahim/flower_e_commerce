@@ -41,8 +41,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => dioModule.prettyDioLoggerProvider());
     gh.factory<_i303.HomeApiService>(
         () => _i303.HomeApiService(gh<_i361.Dio>()));
-    gh.factory<_i557.HomeRemoteDataSource>(
-        () => _i780.HomeRemoteDataSourceImp(gh<_i303.HomeApiService>()));
+    gh.lazySingleton<_i557.HomeRemoteDataSource>(
+        () => _i780.HomeRemoteDataSourceImpl(gh<_i303.HomeApiService>()));
     gh.factory<_i541.HomeRepository>(
         () => _i342.HomeRepositoryImpl(gh<_i557.HomeRemoteDataSource>()));
     gh.factory<_i73.GetHomeDataUseCase>(

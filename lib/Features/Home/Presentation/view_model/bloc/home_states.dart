@@ -1,4 +1,5 @@
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 
 abstract class HomeStates {}
 
@@ -7,7 +8,7 @@ class HomeInitialState extends HomeStates {}
 class HomeLoadingState extends HomeStates {}
 
 class HomeSuccessState extends HomeStates {
-  final Homemodel homeResponse;
+  final HomeEntity homeResponse;
 
   HomeSuccessState(this.homeResponse);
 }

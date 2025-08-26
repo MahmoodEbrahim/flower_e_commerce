@@ -1,5 +1,9 @@
+import 'package:flower_e_commerce/features/home/data/models/bestseller_model.dart';
+import 'package:flower_e_commerce/features/home/data/models/categories_model.dart';
+import 'package:flower_e_commerce/features/home/data/models/occasions_model.dart';
+import 'package:flower_e_commerce/features/home/data/models/product_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
+import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
 
 void main() {
   group("Homemodel Test", () {
@@ -35,16 +39,16 @@ void main() {
       // Arrange
       final model = Homemodel(
         categories: [
-          Categories(id: "1", name: "Flowers", image: "flowers.png")
+          CategoriesModel(id: "1", name: "Flowers", image: "flowers.png")
         ],
         products: [
-          Products(id: "101", title: "Rose", price: 50, imgCover: "rose.png")
+          ProductsModel(id: "101", title: "Rose", price: 50, imgCover: "rose.png")
         ],
         bestSeller: [
-          BestSeller(id: "201", title: "Tulip", price: 70, imgCover: "tulip.png")
+          BestSellerModel(id: "201", title: "Tulip", price: 70, imgCover: "tulip.png")
         ],
         occasions: [
-          Occasions(id: "301", name: "Birthday", image: "birthday.png")
+          OccasionsModel(id: "301", name: "Birthday", image: "birthday.png")
         ],
       );
 

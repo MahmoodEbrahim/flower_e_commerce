@@ -1,16 +1,22 @@
-import 'package:flower_e_commerce/features/home/data/models/homemodel.dart';
-import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
-import 'package:flower_e_commerce/features/home/API/home_api_service.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable(as:HomeRemoteDataSource)
-class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
-  final HomeApiService apiService;
+import '../../API/home_api_service.dart';
+import 'home_remote_data_source.dart';
 
-  HomeRemoteDataSourceImp(this.apiService);
+@LazySingleton(as: HomeRemoteDataSource)
+class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
+  final HomeApiService homeApiService;
+
+  HomeRemoteDataSourceImpl(this.homeApiService);
 
   @override
-  Future<Homemodel> getHomeData() async {
-    return await apiService.getHomeData();
+  Future<HomeEntity> getHomeData() async {
+    try {
+      final homeModel = await homeApiService.getHomeData();
+      return homeModel.toEntity();
+    } catch (e) {
+      throw Exception('Failed to fetch home data: $e');
+    }
   }
 }
