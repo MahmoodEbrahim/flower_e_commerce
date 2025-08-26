@@ -6,14 +6,14 @@ import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainLayout extends StatefulWidget {
+  const MainLayout({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainLayout> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<MainLayout> {
   int selectedIndex = 0;
 
   final List<Widget> tabs = [
