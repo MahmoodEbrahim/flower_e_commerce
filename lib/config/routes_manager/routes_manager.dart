@@ -14,7 +14,7 @@ class Routes {
   static Route<dynamic> onGenerate(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.home:
-        final args = settings.arguments as List<ProductsEntity>;
+        // final args = settings.arguments as List<ProductsEntity>;
         return MaterialPageRoute(builder: (context) => MainLayout(),);
 
       case AppRoutes.productDetails:
@@ -22,7 +22,7 @@ class Routes {
 
 
       case AppRoutes.categories:
-        final args = settings.arguments as List<CategoriesEntity>;
+        // final args = settings.arguments as List<CategoriesEntity>;
         return MaterialPageRoute(
           builder: (_) => CategoriesTab(
 
@@ -30,13 +30,13 @@ class Routes {
         );
 
       case AppRoutes.bestSellers:
-        final args = settings.arguments as List<BestSellerEntity>;
+        // final args = settings.arguments as List<BestSellerEntity>;
         return MaterialPageRoute(
           builder: (_) => BestSellerPage(),
         );
 
       case AppRoutes.occasions:
-        final args = settings.arguments as List<OccasionsEntity>;
+        // final args = settings.arguments as List<OccasionsEntity>;
         return MaterialPageRoute(
           builder: (_) => OccasionsPage()
         );
