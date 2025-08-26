@@ -3,7 +3,7 @@ import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/Pages/main_layout.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/main_layout.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasions_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/product_details_page.dart';
@@ -15,7 +15,7 @@ class Routes {
     switch (settings.name) {
       case AppRoutes.home:
         final args = settings.arguments as List<ProductsEntity>;
-        return MaterialPageRoute(builder: (context) => HomePage(),);
+        return MaterialPageRoute(builder: (context) => MainLayout(),);
 
       case AppRoutes.productDetails:
         return MaterialPageRoute(builder: (context) => ProductDetailsPage(),);
