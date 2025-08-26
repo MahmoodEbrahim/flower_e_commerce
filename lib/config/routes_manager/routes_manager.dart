@@ -4,9 +4,9 @@ import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.
 import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Pages/main_layout.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/Pages/product_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasions_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/product_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/tabs/categories_tab.dart';
 import 'package:flutter/material.dart';
 
