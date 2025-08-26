@@ -1,15 +1,11 @@
-import 'package:flower_e_commerce/features/home/data/models/bestseller_model.dart';
-import 'package:flower_e_commerce/features/home/data/models/categories_model.dart';
-import 'package:flower_e_commerce/features/home/data/models/occasions_model.dart';
-import 'package:flower_e_commerce/features/home/data/models/product_model.dart';
+import 'package:flower_e_commerce/features/home/api/models/bestseller_model.dart';
+import 'package:flower_e_commerce/features/home/api/models/categories_model.dart';
+import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+import 'package:flower_e_commerce/features/home/api/models/occasions_model.dart';
 
-class Homemodel {
-  Homemodel({
+class HomeModel {
+  HomeModel({
     this.message,
     this.products,
     this.categories,
@@ -17,7 +13,7 @@ class Homemodel {
     this.occasions,
   });
 
-  Homemodel.fromJson(dynamic json) {
+  HomeModel.fromJson(dynamic json) {
     message = json['message'];
     if (json['products'] != null) {
       products = [];

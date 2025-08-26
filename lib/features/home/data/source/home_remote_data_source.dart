@@ -1,8 +1,6 @@
-
+import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 
-import '../models/home_model.dart';
-
 abstract class HomeRemoteDataSource {
-  Future<HomeEntity> getHomeData();
+  Future<ApiResult<HomeEntity>> getHomeData();
 }

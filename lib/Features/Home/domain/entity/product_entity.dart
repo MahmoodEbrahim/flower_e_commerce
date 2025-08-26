@@ -1,6 +1,5 @@
 class ProductsEntity {
   ProductsEntity({
-
     this.id,
     this.title,
     this.description,
@@ -23,7 +22,4 @@ class ProductsEntity {
   int? quantity;
   String? category;
   String? occasion;
-
-
-
 }

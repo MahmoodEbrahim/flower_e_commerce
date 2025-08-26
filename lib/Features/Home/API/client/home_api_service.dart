@@ -1,7 +1,6 @@
-
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/utils/constants/api_end_points.dart';
-import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
+import 'package:flower_e_commerce/features/home/api/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -15,5 +14,5 @@ abstract class HomeApiService {
   factory HomeApiService(Dio dio) = _HomeApiService;
 
   @GET('home')
-  Future<Homemodel> getHomeData();
+  Future<HomeModel> getHomeData();
 }

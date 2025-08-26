@@ -1,7 +1,5 @@
 class BestSellerEntity {
   BestSellerEntity({
-    this.rateAvg,
-    this.rateCount,
     this.id,
     this.title,
     this.description,
@@ -13,8 +11,6 @@ class BestSellerEntity {
     this.category,
     this.occasion,
   });
-  double? rateAvg;
-  double? rateCount;
   String? id;
   String? title;
   String? description;

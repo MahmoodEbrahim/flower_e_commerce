@@ -1,4 +1,3 @@
-import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 
 abstract class HomeStates {}

@@ -13,15 +13,15 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
-import '../../features/home/API/home_api_service.dart' as _i303;
+import '../../features/home/api/client/home_api_service.dart' as _i220;
+import '../../features/home/api/source/home_remote_data_source_imp.dart'
+    as _i265;
 import '../../features/home/data/repository/home_repository_imp.dart' as _i342;
 import '../../features/home/data/source/home_remote_data_source.dart' as _i557;
-import '../../features/home/data/source/home_remote_data_source_imp.dart'
-    as _i780;
 import '../../features/home/domain/repository/home_repository.dart' as _i541;
-import '../../features/home/domain/usecase/home_usecase.dart' as _i73;
-import '../../features/home/presentation/view_model/bloc/home_bloc.dart'
-    as _i854;
+import '../../features/home/domain/usecase/get_home_data_usecase.dart' as _i630;
+import '../../features/home/presentation/view_model/home_view_model/home_bloc.dart'
+    as _i191;
 import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -39,16 +39,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
     gh.lazySingleton<_i528.PrettyDioLogger>(
         () => dioModule.prettyDioLoggerProvider());
-    gh.factory<_i303.HomeApiService>(
-        () => _i303.HomeApiService(gh<_i361.Dio>()));
+    gh.factory<_i220.HomeApiService>(
+        () => _i220.HomeApiService(gh<_i361.Dio>()));
     gh.lazySingleton<_i557.HomeRemoteDataSource>(
-        () => _i780.HomeRemoteDataSourceImpl(gh<_i303.HomeApiService>()));
+        () => _i265.HomeRemoteDataSourceImpl(gh<_i220.HomeApiService>()));
     gh.factory<_i541.HomeRepository>(
         () => _i342.HomeRepositoryImpl(gh<_i557.HomeRemoteDataSource>()));
-    gh.factory<_i73.GetHomeDataUseCase>(
-        () => _i73.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
-    gh.factory<_i854.HomeBloc>(
-        () => _i854.HomeBloc(gh<_i73.GetHomeDataUseCase>()));
+    gh.factory<_i630.GetHomeDataUseCase>(
+        () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
+    gh.factory<_i191.HomeBloc>(
+        () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
     return this;
   }
 }

@@ -1,21 +1,53 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/Pages/main_layout.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/Pages/product_details_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/occasions_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/tabs/categories_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flower_e_commerce/features/home/presentation/view_model/bloc/home_bloc.dart';
-import 'package:get_it/get_it.dart';
-
-import '../../Features/Home/Presentation/Widgets/Tabs/HomeTab.dart';
-import '../../features/home/presentation/Pages/home_page.dart';
 
 class Routes {
   static Route<dynamic> onGenerate(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.home:
+        final args = settings.arguments as List<ProductsEntity>;
+        return MaterialPageRoute(builder: (context) => HomePage(),);
+
+      case AppRoutes.productDetails:
+        return MaterialPageRoute(builder: (context) => ProductDetailsPage(),);
+
+
+      case AppRoutes.categories:
+        final args = settings.arguments as List<CategoriesEntity>;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: GetIt.instance<HomeBloc>(),
-            child: HomePage(),
-          ),
+          builder: (_) => CategoriesTab(
+
+          )
         );
+
+      case AppRoutes.bestSellers:
+        final args = settings.arguments as List<BestSellerEntity>;
+        return MaterialPageRoute(
+          builder: (_) => BestSellerPage(),
+        );
+
+      case AppRoutes.occasions:
+        final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+          builder: (_) => OccasionsPage()
+        );
+
+
+
+
+
+
+
+
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(
@@ -26,6 +58,4 @@ class Routes {
   }
 }
 
-class AppRoutes {
-  static const String home = '/home';
-}
+
