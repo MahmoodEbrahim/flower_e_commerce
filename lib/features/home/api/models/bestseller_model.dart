@@ -1,7 +1,7 @@
-import '../../domain/entity/product_entity.dart';
+import '../../domain/entity/bestseller_entity.dart';
 
-class ProductsModel {
-  ProductsModel({
+class BestSellerModel {
+  BestSellerModel({
     this.rateAvg,
     this.rateCount,
     this.id,
@@ -22,7 +22,7 @@ class ProductsModel {
     this.sold,
   });
 
-  ProductsModel.fromJson(dynamic json) {
+  BestSellerModel.fromJson(dynamic json) {
     rateAvg = json['rateAvg'];
     rateCount = json['rateCount'];
     id = json['_id'];
@@ -84,8 +84,8 @@ class ProductsModel {
     map['id'] = id;
     return map;
   }
-  ProductsEntity toEntity() {
-    return ProductsEntity(
+  BestSellerEntity toEntity() {
+    return BestSellerEntity(
       id: id,
       title: title,
       description: description,
