@@ -90,6 +90,7 @@ class _OccasionPageState extends State<OccasionPage> {
       id: "673b364e1159920171827af9",
       title: "New Year",
       price:1234,
+      priceAfterDiscount: 700,
       images: [
         "https://flower.elevateegy.com/uploads/dad03ac6-87ea-4467-aaea-0ef5fe9b0076-flower_image.png"
       ],
