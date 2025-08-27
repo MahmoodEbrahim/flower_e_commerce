@@ -1,31 +1,35 @@
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../features/home/domain/entity/product_entity.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class CustomCardFlower extends StatelessWidget {
-  ProductsEntity product;
-
-   CustomCardFlower({
+  const CustomCardFlower({
     super.key,
-    required this.product
+    required this.image,
+    required this.title,
+    this.newPrice,
+    required this.oldPrice,
   });
-
+  final String image;
+  final String title;
+  final int? newPrice;
+  final int oldPrice;
   @override
   Widget build(BuildContext context) {
     int? discount;
     bool isThereDiscount = false;
-    if (product.priceAfterDiscount != null && product.price != null) {
+    if (newPrice != null) {
       isThereDiscount = true;
-      final price = product.price!.toDouble();
-      final discounted = product.priceAfterDiscount!.toDouble();
-      discount = (((price - discounted) / price) * 100).round();
+      double n = (newPrice! / oldPrice);
+      discount = (n * 100).round();
     }
     final t = AppLocalizations.of(context)!;
+
     return Container(
       width: 163.0,
       padding: EdgeInsets.all(10),
@@ -37,7 +41,7 @@ class CustomCardFlower extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CachedNetworkImage(
-            imageUrl: product.imgCover!,
+            imageUrl: image,
             width: 147.0,
             height: 131.0,
             fit: BoxFit.cover,
@@ -55,7 +59,7 @@ class CustomCardFlower extends StatelessWidget {
             height: 5.0,
           ),
           Text(
-            product.title!,
+            title,
             style: getRegularStyle(color: AppColors.black[60]!, fontSize: 12.0),
           ),
           SizedBox(
@@ -65,26 +69,26 @@ class CustomCardFlower extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isThereDiscount)
-                Text("EGP ${product.priceAfterDiscount} ",
+                Text("EGP $newPrice ",
                     style: getBoldStyle(
                       color: AppColors.black[60]!,
                       fontSize: FontSize.s16,
                     )),
-              Text("${product.price}",
+              Text("$oldPrice",
                   style: isThereDiscount
                       ? getRegularStyle(
-                          color: AppColors.black[60]!,
-                          fontSize: FontSize.s12,
-                        ).copyWith(decoration: TextDecoration.lineThrough)
+                    color: AppColors.black[60]!,
+                    fontSize: FontSize.s12,
+                  ).copyWith(decoration: TextDecoration.lineThrough)
                       : getBoldStyle(
-                          color: AppColors.black[60]!,
-                          fontSize: FontSize.s16,
-                        )),
+                    color: AppColors.black[60]!,
+                    fontSize: FontSize.s16,
+                  )),
               if (isThereDiscount)
                 Text(
                   "$discount%",
                   style:
-                      getRegularStyle(color: AppColors.green, fontSize: 12.0),
+                  getRegularStyle(color: AppColors.green, fontSize: 12.0),
                 ),
             ],
           ),
@@ -105,7 +109,7 @@ class CustomCardFlower extends StatelessWidget {
                   Text(
                     t.addToCart,
                     style:
-                        getMediumStyle(color: AppColors.White, fontSize: 13.0),
+                    getMediumStyle(color: AppColors.White, fontSize: 13.0),
                   )
                 ],
               ))
