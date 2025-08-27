@@ -1,6 +1,7 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/category_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
@@ -28,7 +29,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   void initState() {
-    CategoryModel newCategory = CategoryModel(id: "", name: "All"); 
+    CategoryModel newCategory = CategoryModel(id: "", name: "All");
     widget.categoryList.insert(0, newCategory);
     categoriesViewModel
         .add(GetAllProductsEvent(products: widget.produdctsList));
@@ -37,6 +38,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return BlocProvider.value(
       value: categoriesViewModel,
       child: Scaffold(
@@ -46,7 +48,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
           child: CustomScrollView(
             slivers: [
               CustumSearchBar(),
-
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -56,7 +57,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           categoryList: widget.categoryList,
                           categoriesViewModel: categoriesViewModel,
                           produdctsList: widget.produdctsList),
-                    
                       BlocBuilder<CategoriesViewModel, CategoryState>(
                         builder: (context, state) {
                           if (state.isLoading) {
@@ -74,9 +74,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             final products = state.products!;
 
                             return SizedBox(
-                              
                               child: GridView.builder(
-                                 shrinkWrap: true, 
+                                  shrinkWrap: true,
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -97,7 +96,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             );
                           } else {
                             return Center(
-                              child: Text("No Products Found"),
+                              child: Text(t.noProducts),
                             );
                           }
                         },

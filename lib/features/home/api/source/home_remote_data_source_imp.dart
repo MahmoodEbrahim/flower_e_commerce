@@ -16,18 +16,13 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
   Future<ApiResult<List<ProductModel>>> getProductsByCategoryId(
       String catId) async {
     try {
-       // print("here here");
-      final productsDtoList =
-          await _homeApiService.getProductsByCategoryId(catId);
+     
+      final productsDtoList = await _homeApiService.getProductsByCategoryId(catId);
     
-      //print(productsDtoList);
+   
       final productModelList =
           productsDtoList.products!.map((dto) => ProductDto.toModel(dto)).toList();
           
-
-    
-      
-
       return ApiSucessResult(productModelList);
     } on DioException catch (e) {
       final data = e.response?.data;
