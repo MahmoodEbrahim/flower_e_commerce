@@ -51,6 +51,7 @@ migrate_working_dir/
 # Auto-generated code files
 # ================================
 *.g.dart
+*.config.dart
 *.freezed.dart
 *.mocks.dart
 *.pb.dart

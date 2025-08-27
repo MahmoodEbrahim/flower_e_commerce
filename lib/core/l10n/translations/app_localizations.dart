@@ -105,6 +105,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bloom with our exquisite best sellers'**
   String get bloomWithOurExquisitebestSellers;
+
+  /// No description provided for @addToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Cart'**
+  String get addToCart;
 }
 
 class _AppLocalizationsDelegate

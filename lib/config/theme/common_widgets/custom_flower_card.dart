@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
@@ -28,11 +29,15 @@ class CustomCardFlower extends StatelessWidget {
       discount = (n * 100).round();
     }
     final t = AppLocalizations.of(context)!;
+
     return Container(
       width: 163.0,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
+
           borderRadius: BorderRadiusGeometry.circular(8.0),
+
+
           border: Border.all(width: 1.0, color: AppColors.midGray)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +101,9 @@ class CustomCardFlower extends StatelessWidget {
           ElevatedButton(
               onPressed: () {},
               child: Row(
+
                 mainAxisAlignment: MainAxisAlignment.center,
+
                 children: [
                   Icon(
                     CupertinoIcons.cart,
@@ -106,10 +113,14 @@ class CustomCardFlower extends StatelessWidget {
                     width: 7.0,
                   ),
                   Text(
-                   "Add to cart",
+
+                    t.addToCart,
                     style:
                     getMediumStyle
                       (color: AppColors.White, fontSize: 13.0),
+
+
+
                   )
                 ],
               ))

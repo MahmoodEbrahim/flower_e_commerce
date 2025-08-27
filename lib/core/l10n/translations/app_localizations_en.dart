@@ -14,4 +14,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get bloomWithOurExquisitebestSellers =>
       'Bloom with our exquisite best sellers';
+
+  @override
+  String get addToCart => 'Add to Cart';
 }

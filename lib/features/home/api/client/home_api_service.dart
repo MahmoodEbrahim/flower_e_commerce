@@ -6,7 +6,6 @@ import 'package:flower_e_commerce/features/home/api/models/products_by_occassion
 
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-
 part 'home_api_service.g.dart';
 
 @RestApi(baseUrl: ApiEndPoints.apiUrl)

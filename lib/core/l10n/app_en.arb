@@ -1,5 +1,7 @@
 {
     "@@locale": "en",
     "occasion": "Occasion",
-    "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers"
+    "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers",
+"addToCart": "Add to Cart"
+
 }
