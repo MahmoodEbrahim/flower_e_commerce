@@ -2,8 +2,9 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/category_model.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
@@ -13,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesPage extends StatefulWidget {
-  final List<CategoryModel> categoryList;
-  final List<ProductModel> produdctsList;
+  final List<CategoriesEntity> categoryList;
+  final List<ProductsEntity> produdctsList;
 
   const CategoriesPage(
       {super.key, required this.categoryList, required this.produdctsList});
@@ -29,7 +30,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   void initState() {
-    CategoryModel newCategory = CategoryModel(id: "", name: "All");
+    CategoriesEntity newCategory = CategoriesEntity(id: "", name: "All");
     widget.categoryList.insert(0, newCategory);
     categoriesViewModel
         .add(GetAllProductsEvent(products: widget.produdctsList));
@@ -85,6 +86,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   ),
                                   itemCount: products.length,
                                   itemBuilder: (context, index) {
+                                 
                                     return CustomCardFlower(
                                       image: products[index].imgCover ?? "",
                                       title: products[index].title ?? "",

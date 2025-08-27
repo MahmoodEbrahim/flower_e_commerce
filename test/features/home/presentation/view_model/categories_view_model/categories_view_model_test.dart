@@ -1,5 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/usecase/get_products_by_category_id._usecase.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
@@ -15,22 +15,19 @@ import 'categories_view_model_test.mocks.dart';
 void main() {
   late MockGetProductsByCategoryIdUseCase mockGetProductsByCategoryIdUseCase;
   late CategoriesViewModel categoriesViewModel;
-  late List<ProductModel> fakeProductsModel;
+  late List<ProductsEntity> fakeProductsModel;
   late String catId;
 
   setUpAll(() {
     catId = "673c46fd1159920171827c85";
     mockGetProductsByCategoryIdUseCase = MockGetProductsByCategoryIdUseCase();
-    categoriesViewModel =
-        CategoriesViewModel(mockGetProductsByCategoryIdUseCase);
-
+   
     fakeProductsModel = [
-      ProductModel(
-        rateAvg: 5,
-        rateCount: 0,
+      ProductsEntity(
+        
         id: "673e2e1f1159920171828153",
         title: "Dreamy White Roses Bouquet",
-        slug: "dreamy-white-roses-bouquet",
+       
         description:
             "Elevate any celebration with our luxury rose bouquet. This exquisite arrangement features pristine white roses wrapped in a sophisticated dark teal wrap, creating a stunning visual contrast. Perfect for celebrations, anniversaries, or as a heartfelt gift, this bouquet combines timeless elegance with modern style. Make a memorable impression with this luxurious floral arrangement. Buy now to delight your loved ones with the beauty and grace of these premium roses.",
         imgCover:
@@ -45,15 +42,14 @@ void main() {
         quantity: -1,
         category: "673c46fd1159920171827c85",
         occasion: "673b35c01159920171827aed",
-        isSuperAdmin: true,
-        sold: 101,
+        
+        
       ),
-      ProductModel(
-        rateAvg: 5,
-        rateCount: 0,
+      ProductsEntity(
+        
         id: "6745096c90ab40a0685402fc",
         title: "Forever Pink | Baby Roses",
-        slug: "forever-pink-or-baby-roses",
+        
         description:
             "A gift of pink baby roses holds profound meaning. It symbolizes love, gratitude, and appreciation, making it a perfect choice for any occasion. The soft, feminine hue of pink baby roses embodies notions of nurturing and emotional love. They are also a gentle way to express sympathy or convey a message filled with kindness. These pink baby roses represent a significant gesture of love or a heartfelt wish for good luck and happiness. Embrace the power of pink roses to convey your emotions and leave a lasting impression.",
         imgCover:
@@ -69,21 +65,24 @@ void main() {
         quantity: 4741,
         category: "673c46fd1159920171827c85",
         occasion: "673b34c21159920171827ae0",
-        isSuperAdmin: true,
-        sold: 259,
+        
+        
       ),
     ];
+
   });
 
- 
- 
   group('test categoryies view model', () {
     blocTest<CategoriesViewModel, CategoryState>(
       'emits states first is loading and second with data when GetAllProductsOfCategoriesEvent is added and products are fetched successfully',
+      
+      
       build: () {
+         categoriesViewModel =
+        CategoriesViewModel(mockGetProductsByCategoryIdUseCase);
         final mockResult =
-            ApiSucessResult<List<ProductModel>>(fakeProductsModel);
-        provideDummy<ApiResult<List<ProductModel>>>(mockResult);
+            ApiSucessResult<List<ProductsEntity>>(fakeProductsModel);
+        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
         when(mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId))
             .thenAnswer((_) async => mockResult);
         return categoriesViewModel;
@@ -95,55 +94,45 @@ void main() {
             isLoading: false, errorMessage: null, products: fakeProductsModel),
       ],
 
-    // verify: (categoriesViewModel) =>verify(mockGetProductsByCategoryIdUseCase).called(1) ,
-   
+     verify: (categoriesViewModel) =>verify(mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId)).called(1) ,
     );
-    
-    
-    //  blocTest<CategoriesViewModel, CategoryState>(
-    //   'emits states first is loading and second with errorMessage when GetAllProductsOfCategoriesEvent is added and products are fetched failed',
-    //   build: () {
-    //     final mockResult = ApiFailedResult<List<ProductModel>>("errorMessage");
-    //     provideDummy<ApiResult<List<ProductModel>>>(mockResult);
-    //     when(mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId))
-    //         .thenAnswer((_) async => mockResult);
-    //     return categoriesViewModel;
-    //   },
-    //   act: (bloc) => bloc.add(GetAllProductsOfCategoriesEvent(catId: catId)),
-    //   expect: () => <CategoryState>[
-    //     CategoryState(isLoading: true, errorMessage: null, products: null),
-    //     CategoryState(
-    //         isLoading: false, errorMessage: "errorMessage", products: null),
-    //   ],
-    //    verify: (categoriesViewModel) =>verify(mockGetProductsByCategoryIdUseCase).called(1) ,
-   
 
-    // );
-
-
-
-  });
-
-
- blocTest<CategoriesViewModel, CategoryState>(
-      'emits states first is loading and second with data when GetAllProductsEvent is added and products are fetched successfully',
+     blocTest<CategoriesViewModel, CategoryState>(
+      'emits states first is loading and second with errorMessage when GetAllProductsOfCategoriesEvent is added and products are fetched failed',
       build: () {
-      
-          
+         categoriesViewModel =
+        CategoriesViewModel(mockGetProductsByCategoryIdUseCase);
+        final mockResult = ApiFailedResult<List<ProductsEntity>>("errorMessage");
+        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+        when(mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId))
+            .thenAnswer((_) async => mockResult);
         return categoriesViewModel;
       },
-      act: (bloc) => bloc.add(GetAllProductsEvent(products: fakeProductsModel)),
+      act: (bloc) => bloc.add(GetAllProductsOfCategoriesEvent(catId: catId)),
       expect: () => <CategoryState>[
         CategoryState(isLoading: true, errorMessage: null, products: null),
         CategoryState(
-            isLoading: false, errorMessage: null, products: fakeProductsModel),
+            isLoading: false, errorMessage: "errorMessage", products: null),
       ],
+       verify: (categoriesViewModel) =>verify(mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId)).called(1) ,
 
-     //verify: (categoriesViewModel) =>verify(mockGetProductsByCategoryIdUseCase).called(1) ,
-   
     );
-    
-    
+  });
 
+  blocTest<CategoriesViewModel, CategoryState>(
+    'emits states first is loading and second with data when GetAllProductsEvent is added and products are fetched successfully',
+    build: () {
+       categoriesViewModel =
+        CategoriesViewModel(mockGetProductsByCategoryIdUseCase);
+      return categoriesViewModel;
+    },
+    act: (bloc) => bloc.add(GetAllProductsEvent(products: fakeProductsModel)),
+    expect: () => <CategoryState>[
+      CategoryState(isLoading: true, errorMessage: null, products: null),
+      CategoryState(
+          isLoading: false, errorMessage: null, products: fakeProductsModel),
+    ],
 
+   
+  );
 }

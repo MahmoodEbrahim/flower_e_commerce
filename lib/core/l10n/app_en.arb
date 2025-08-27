@@ -6,5 +6,6 @@
   "loading": "Loading...",
   "errorMessage": "Something went wrong",
   "search":"search",
-  "egy":"EGP"
+  "egy":"EGP",
+  "addToCart":"Add to cart"
 }

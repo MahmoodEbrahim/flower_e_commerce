@@ -1,16 +1,16 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/category_model.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flutter/material.dart';
 
 class CustumTabBar extends StatelessWidget {
-  final List<CategoryModel> categoryList;
+  final List<CategoriesEntity> categoryList;
   final CategoriesViewModel categoriesViewModel;
-  final List<ProductModel> produdctsList;
+  final List<ProductsEntity> produdctsList;
 
   CustumTabBar(
       {super.key,
@@ -37,17 +37,13 @@ class CustumTabBar extends StatelessWidget {
                   if (catIndex.value == 0) {
                     categoriesViewModel
                         .add(GetAllProductsEvent(products: produdctsList));
-                      
-                  }
-                  else{
-                     categoriesViewModel
-                        .add(GetAllProductsOfCategoriesEvent(catId: categoryList[catIndex.value].id!));
-
+                  } else {
+                   
+                    categoriesViewModel.add(GetAllProductsOfCategoriesEvent(
+                        catId: categoryList[catIndex.value].id!));
                   }
 
                   // get category products
-
-                
                 },
                 child: ValueListenableBuilder(
                     valueListenable: catIndex,
@@ -67,7 +63,7 @@ class CustumTabBar extends StatelessWidget {
                         child: Text(
                           categoryList[index].name!,
                           style: getRegularStyle(
-                            fontSize: FontSize.s16,
+                              fontSize: FontSize.s16,
                               color: index == catIndex.value
                                   ? AppColors.Pink
                                   : AppColors.midGray),

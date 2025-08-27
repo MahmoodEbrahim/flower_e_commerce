@@ -1,7 +1,8 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/data/repository/home_repository_imp.dart';
 import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -13,19 +14,18 @@ void main() {
   late MockHomeRemoteDataSource mockHomeRemoteDataSource;
   late HomeRepositoryImp homeRepositoryImp;
   late String catId;
-  late List<ProductModel> fakeProductsModel;
+  late List<ProductsEntity> fakeProductsModel;
 
   setUpAll(() {
     mockHomeRemoteDataSource = MockHomeRemoteDataSource();
     homeRepositoryImp = HomeRepositoryImp(mockHomeRemoteDataSource);
     catId = "673c46fd1159920171827c85";
     fakeProductsModel = [
-      ProductModel(
-        rateAvg: 5,
-        rateCount: 0,
+      ProductsEntity(
+        
         id: "673e2e1f1159920171828153",
         title: "Dreamy White Roses Bouquet",
-        slug: "dreamy-white-roses-bouquet",
+       
         description:
             "Elevate any celebration with our luxury rose bouquet. This exquisite arrangement features pristine white roses wrapped in a sophisticated dark teal wrap, creating a stunning visual contrast. Perfect for celebrations, anniversaries, or as a heartfelt gift, this bouquet combines timeless elegance with modern style. Make a memorable impression with this luxurious floral arrangement. Buy now to delight your loved ones with the beauty and grace of these premium roses.",
         imgCover:
@@ -40,15 +40,14 @@ void main() {
         quantity: -1,
         category: "673c46fd1159920171827c85",
         occasion: "673b35c01159920171827aed",
-        isSuperAdmin: true,
-        sold: 101,
+        
+        
       ),
-      ProductModel(
-        rateAvg: 5,
-        rateCount: 0,
+      ProductsEntity(
+        
         id: "6745096c90ab40a0685402fc",
         title: "Forever Pink | Baby Roses",
-        slug: "forever-pink-or-baby-roses",
+        
         description:
             "A gift of pink baby roses holds profound meaning. It symbolizes love, gratitude, and appreciation, making it a perfect choice for any occasion. The soft, feminine hue of pink baby roses embodies notions of nurturing and emotional love. They are also a gentle way to express sympathy or convey a message filled with kindness. These pink baby roses represent a significant gesture of love or a heartfelt wish for good luck and happiness. Embrace the power of pink roses to convey your emotions and leave a lasting impression.",
         imgCover:
@@ -64,19 +63,21 @@ void main() {
         quantity: 4741,
         category: "673c46fd1159920171827c85",
         occasion: "673b34c21159920171827ae0",
-        isSuperAdmin: true,
-        sold: 259,
+        
+        
       ),
     ];
-  
+
+
   });
   group("test getProductsByCategoryId in HomeRepositoryImp", () {
     test(
         "when call getProductsByCategoryId in HomeRepositoryImp  with catId  as a parameter it should return api sucess result ",
         () async {
       // arrang
-      final mockResult = ApiSucessResult<List<ProductModel>>(fakeProductsModel);
-      provideDummy<ApiResult<List<ProductModel>>>(mockResult);
+      final mockResult =
+          ApiSucessResult<List<ProductsEntity>>(fakeProductsModel);
+      provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
 
       when(mockHomeRemoteDataSource.getProductsByCategoryId(catId))
           .thenAnswer((_) async => mockResult);
@@ -87,8 +88,8 @@ void main() {
 
       //assert
 
-      expect(res, isA<ApiSucessResult<List<ProductModel>>>());
-      final acResult = res as ApiSucessResult<List<ProductModel>>;
+      expect(res, isA<ApiSucessResult<List<ProductsEntity>>>());
+      final acResult = res as ApiSucessResult<List<ProductsEntity>>;
       expect(acResult.sucessResult[0].id, equals(fakeProductsModel[0].id));
 
       verify(mockHomeRemoteDataSource.getProductsByCategoryId(catId)).called(1);
@@ -98,8 +99,9 @@ void main() {
       "when call getProductsByCategoryId in HomeRepositoryImp and remote source returns failure, should return ApiFailureResult",
       () async {
         // arrange
-        final mockError = ApiFailedResult<List<ProductModel>>("Network error");
-        provideDummy<ApiResult<List<ProductModel>>>(mockError);
+        final mockError =
+            ApiFailedResult<List<ProductsEntity>>("Network error");
+        provideDummy<ApiResult<List<ProductsEntity>>>(mockError);
 
         when(mockHomeRemoteDataSource.getProductsByCategoryId(catId))
             .thenAnswer((_) async => mockError);
@@ -108,8 +110,8 @@ void main() {
         final res = await homeRepositoryImp.getProductsByCategoryId(catId);
 
         // assert
-        expect(res, isA<ApiFailedResult<List<ProductModel>>>());
-        final failResult = res as ApiFailedResult<List<ProductModel>>;
+        expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
+        final failResult = res as ApiFailedResult<List<ProductsEntity>>;
         expect(failResult.errorMessage, equals("Network error"));
         verify(mockHomeRemoteDataSource.getProductsByCategoryId(catId))
             .called(1);

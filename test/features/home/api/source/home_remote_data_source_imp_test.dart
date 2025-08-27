@@ -3,9 +3,11 @@ import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/api/client/home_api_service.dart';
 import 'package:flower_e_commerce/features/home/api/models/category_products_response_dto.dart';
 import 'package:flower_e_commerce/features/home/api/models/meta_data_dto.dart';
-import 'package:flower_e_commerce/features/home/api/models/product_dto.dart';
+import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
+
 import 'package:flower_e_commerce/features/home/api/source/home_remote_data_source_imp.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -16,7 +18,7 @@ import 'home_remote_data_source_imp_test.mocks.dart';
 void main() {
   late HomeRemoteDataSourceImp homeRemoteDataSourceImp;
   late MockHomeApiService mockHomeApiService;
-  late List<ProductDto> fakeProductList;
+  late List<ProductModel> fakeProductList;
   late MetaDataDto metaData;
   late CategoryProductsResponseDto categoryProductsResponseDto;
   late String catId;
@@ -25,7 +27,7 @@ void main() {
     mockHomeApiService = MockHomeApiService();
     homeRemoteDataSourceImp = HomeRemoteDataSourceImp(mockHomeApiService);
     fakeProductList = [
-      ProductDto(
+      ProductModel(
         rateAvg: 5,
         rateCount: 0,
         id: "673e2e1f1159920171828153",
@@ -48,7 +50,7 @@ void main() {
         isSuperAdmin: true,
         sold: 101,
       ),
-      ProductDto(
+      ProductModel(
         rateAvg: 5,
         rateCount: 0,
         id: "6745096c90ab40a0685402fc",
@@ -95,10 +97,10 @@ void main() {
 
       //assert
       verify(mockHomeApiService.getProductsByCategoryId(catId)).called(1);
-      expect(res, isA<ApiSucessResult<List<ProductModel>>>());
-      final acResult = res as ApiSucessResult<List<ProductModel>>;
+      expect(res, isA<ApiSucessResult<List<ProductsEntity>>>());
+      final acResult = res as ApiSucessResult<List<ProductsEntity>>;
       expect(acResult.sucessResult[0].id,
-          categoryProductsResponseDto.products![0].id);
+          categoryProductsResponseDto.products![0].Id);
     });
 
     test(
@@ -122,35 +124,29 @@ void main() {
       //assert
 
       verify(mockHomeApiService.getProductsByCategoryId(catId)).called(1);
-      expect(res, isA<ApiFailedResult<List<ProductModel>>>());
-      final acResult = res as ApiFailedResult<List<ProductModel>>;
+      expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
+      final acResult = res as ApiFailedResult<List<ProductsEntity>>;
       expect(acResult.errorMessage, equals(dioExceptionMessage));
     });
   });
 
   test(
       "when call getProductsByCategoryId with catedgory id as a parameter it should return failedApiResult with exception ",
-      () async{
+      () async {
+    //arrange
+    final String exceptionMessage = "exception error";
+    final Exception mockException = Exception(exceptionMessage);
+    when(mockHomeApiService.getProductsByCategoryId(catId))
+        .thenThrow(mockException);
 
-        //arrange
-         final String exceptionMessage = "exception error";
-      final Exception mockException = Exception(exceptionMessage);
-       when(mockHomeApiService.getProductsByCategoryId(catId))
-          .thenThrow(mockException);
+    //act
+    final res = await homeRemoteDataSourceImp.getProductsByCategoryId(catId);
 
+    //assert
 
-        //act
-        final res = await homeRemoteDataSourceImp.getProductsByCategoryId(catId);
-
-
-
-        //assert
-
-         verify(mockHomeApiService.getProductsByCategoryId(catId)).called(1);
-      expect(res, isA<ApiFailedResult<List<ProductModel>>>());
-      final acResult = res as ApiFailedResult<List<ProductModel>>;
-      expect(acResult.errorMessage, equals(mockException.toString()));
-
-
-      });
+    verify(mockHomeApiService.getProductsByCategoryId(catId)).called(1);
+    expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
+    final acResult = res as ApiFailedResult<List<ProductsEntity>>;
+    expect(acResult.errorMessage, equals(mockException.toString()));
+  });
 }

@@ -1,6 +1,8 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
+
 import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,7 +11,7 @@ class HomeRepositoryImp implements HomeRepository {
   final HomeRemoteDataSource _homeRemoteDataSource;
   HomeRepositoryImp(this._homeRemoteDataSource);
   @override
-  Future<ApiResult<List<ProductModel>>> getProductsByCategoryId(
+  Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
       String catId) async {
     return await _homeRemoteDataSource.getProductsByCategoryId(catId);
   }
