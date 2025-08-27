@@ -1,7 +1,9 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,12 +28,13 @@ class CustomCardFlower extends StatelessWidget {
       double n = (newPrice! / oldPrice);
       discount = (n * 100).round();
     }
+    final t = AppLocalizations.of(context)!;
 
     return Container(
       width: 163.0,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadiusGeometry.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 1.0, color: AppColors.midGray)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +45,8 @@ class CustomCardFlower extends StatelessWidget {
             width: 147.0,
             height: 131.0,
             fit: BoxFit.cover,
-            placeholder: (context, _) => Center(child: CircularProgressIndicator()),
+            placeholder: (context, _) =>
+                Center(child: CircularProgressIndicator()),
             errorWidget: (context, _, error) => Center(
               child: Icon(
                 Icons.image_not_supported_rounded,
@@ -65,28 +69,26 @@ class CustomCardFlower extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isThereDiscount)
-                Text(
-                  "EGP $newPrice ",
-                  style: getBoldStyle(
-                          color: AppColors.black[60]!,
-                          fontSize: FontSize.s16,
-                        )
-                ),
+                Text("EGP $newPrice ",
+                    style: getBoldStyle(
+                      color: AppColors.black[60]!,
+                      fontSize: FontSize.s16,
+                    )),
               Text("$oldPrice",
                   style: isThereDiscount
                       ? getRegularStyle(
-                          color: AppColors.black[60]!,
-                          fontSize: FontSize.s12,
-                        ).copyWith(decoration: TextDecoration.lineThrough)
+                    color: AppColors.black[60]!,
+                    fontSize: FontSize.s12,
+                  ).copyWith(decoration: TextDecoration.lineThrough)
                       : getBoldStyle(
-                          color: AppColors.black[60]!,
-                          fontSize: FontSize.s16,
-                        )),
+                    color: AppColors.black[60]!,
+                    fontSize: FontSize.s16,
+                  )),
               if (isThereDiscount)
                 Text(
                   "$discount%",
                   style:
-                      getRegularStyle(color: AppColors.green, fontSize: 12.0),
+                  getRegularStyle(color: AppColors.green, fontSize: 12.0),
                 ),
             ],
           ),
@@ -105,9 +107,9 @@ class CustomCardFlower extends StatelessWidget {
                     width: 7.0,
                   ),
                   Text(
-                    "Add to Cart",
+                    t.addToCart,
                     style:
-                        getMediumStyle(color: AppColors.White, fontSize: 13.0),
+                    getMediumStyle(color: AppColors.White, fontSize: 13.0),
                   )
                 ],
               ))
