@@ -1,5 +1,6 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
 import '../../../../../config/theme/common_widgets/custom_flower_card.dart';
@@ -10,7 +11,7 @@ class TestProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dummyProducts = [
-      ProductDetailsEntity(
+      ProductsEntity(
         id: "1",
         title: "Red Roses",
         description: "Beautiful red roses bouquet",
@@ -24,7 +25,7 @@ class TestProductsScreen extends StatelessWidget {
         imgCover: 'https://flower.elevateegy.com/uploads/336d4a68-109d-4f29-a35c-d5ca2215b4ff-cover_image.png',
         quantity: 88,
       ),
-      ProductDetailsEntity(
+      ProductsEntity(
         id: "2",
         title: "White Tulips",
         description: "Elegant white tulips",

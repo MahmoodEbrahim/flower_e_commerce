@@ -103,7 +103,7 @@ class CustomCardFlower extends StatelessWidget {
                     width: 7.0,
                   ),
                   Text(
-                    t.add_to_cart,
+                    t.addToCart,
                     style:
                         getMediumStyle(color: AppColors.White, fontSize: 13.0),
                   )

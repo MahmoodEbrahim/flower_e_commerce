@@ -2,13 +2,14 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../domain/entity/product_details_entity.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final PageController controller = PageController();
-  final ProductDetailsEntity product;
+  final ProductsEntity product;
 
   ProductDetailsScreen({super.key, required this.product});
   @override
@@ -37,7 +38,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: PageView(
                       controller: controller,
-                      children: product.images
+                      children: product.images!
                           .map(
                             (imageUrl) =>
                                 Image.network(imageUrl, fit: BoxFit.contain),
@@ -48,7 +49,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   SizedBox(height: 8),
                   SmoothPageIndicator(
                     controller: controller,
-                    count: product.images.length,
+                    count: product.images!.length,
                     effect: ScrollingDotsEffect(
                       dotHeight: 10,
                       dotWidth: 10,
@@ -81,7 +82,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 color: AppColors.Black,
                                 fontSize: FontSize.s20)),
                         TextSpan(
-                            text: product.inStock
+                            text: (product.quantity!<=0)
                                 ? locale.inStock
                                 : locale.outOfStock,
                             style: getMediumStyle(
