@@ -29,12 +29,12 @@ dependencies:
   hive_flutter:
   hive:
   mockito:
-  pretty_dio_logger: ^1.4.0
-  flutter_svg: ^2.2.0
+  pretty_dio_logger:
+  flutter_svg:
   device_preview:
-  flutter_screenutil: ^5.9.3
-  cached_network_image: ^3.4.1
-  smooth_page_indicator: ^1.2.1
+  flutter_screenutil:
+  cached_network_image:
+  smooth_page_indicator:
 dev_dependencies:
   flutter_test:
     sdk: flutter
