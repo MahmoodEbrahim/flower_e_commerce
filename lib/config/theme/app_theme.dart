@@ -19,6 +19,19 @@ class AppTheme {
           fontWeight: FontWeight.w500,
         ),
       ),
+      textTheme: TextTheme(
+
+        titleLarge: GoogleFonts.roboto(
+          color: AppColors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
+        titleSmall: GoogleFonts.roboto(
+          color: Colors.black,fontSize: 16
+            ,fontWeight: FontWeight.w400
+        )
+
+      ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
