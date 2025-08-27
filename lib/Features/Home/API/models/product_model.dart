@@ -1,10 +1,54 @@
-import '../../domain/entity/product_entity.dart';
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class ProductsModel {
-  ProductsModel({
+part 'product_model.g.dart';
+
+@JsonSerializable()
+class ProductModel {
+  @JsonKey(name: JsonSerlizableConstants.rateAvgKey)
+  final int? rateAvg;
+  @JsonKey(name: JsonSerlizableConstants.rateCountKey)
+  final int? rateCount;
+  @JsonKey(name: JsonSerlizableConstants.dashedIdKey)
+  final String? Id;
+  @JsonKey(name: JsonSerlizableConstants.titleKey)
+  final String? title;
+  @JsonKey(name: JsonSerlizableConstants.slugKey)
+  final String? slug;
+  @JsonKey(name: JsonSerlizableConstants.descriptionKey)
+  final String? description;
+  @JsonKey(name: JsonSerlizableConstants.imgCoverKey)
+  final String? imgCover;
+  @JsonKey(name: JsonSerlizableConstants.imagesKey)
+  final List<String>? images;
+  @JsonKey(name: JsonSerlizableConstants.priceKey)
+  final int? price;
+  @JsonKey(name: JsonSerlizableConstants.priceAfterDiscountKey)
+  final int? priceAfterDiscount;
+  @JsonKey(name: JsonSerlizableConstants.quantityKey)
+  final int? quantity;
+  @JsonKey(name: JsonSerlizableConstants.categoryKey)
+  final String? category;
+  @JsonKey(name: JsonSerlizableConstants.occasionKey)
+  final String? occasion;
+  @JsonKey(name: JsonSerlizableConstants.createdAtKey)
+  final String? createdAt;
+  @JsonKey(name: JsonSerlizableConstants.updatedAtKey)
+  final String? updatedAt;
+  @JsonKey(name: JsonSerlizableConstants.vKey)
+  final int? v;
+  @JsonKey(name: JsonSerlizableConstants.isSuperAdminKey)
+  final bool? isSuperAdmin;
+  @JsonKey(name: JsonSerlizableConstants.soldKey)
+  final int? sold;
+  @JsonKey(name: JsonSerlizableConstants.idKey)
+  final String? id;
+
+  ProductModel ({
     this.rateAvg,
     this.rateCount,
-    this.id,
+    this.Id,
     this.title,
     this.slug,
     this.description,
@@ -20,70 +64,17 @@ class ProductsModel {
     this.v,
     this.isSuperAdmin,
     this.sold,
+    this.id,
   });
 
-  ProductsModel.fromJson(dynamic json) {
-    rateAvg = json['rateAvg'];
-    rateCount = json['rateCount'];
-    id = json['_id'];
-    title = json['title'];
-    slug = json['slug'];
-    description = json['description'];
-    imgCover = json['imgCover'];
-    images = json['images'] != null ? json['images'].cast<String>() : [];
-    price = json['price'];
-    priceAfterDiscount = json['priceAfterDiscount'];
-    quantity = json['quantity'];
-    category = json['category'];
-    occasion = json['occasion'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    v = json['__v'];
-    isSuperAdmin = json['isSuperAdmin'];
-    sold = json['sold'];
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return _$ProductModelFromJson(json);
   }
-  double? rateAvg;
-  double? rateCount;
-  String? id;
-  String? title;
-  String? slug;
-  String? description;
-  String? imgCover;
-  List<String>? images;
-  int? price;
-  int? priceAfterDiscount;
-  int? quantity;
-  String? category;
-  String? occasion;
-  String? createdAt;
-  String? updatedAt;
-  int? v;
-  bool? isSuperAdmin;
-  int? sold;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['rateAvg'] = rateAvg;
-    map['rateCount'] = rateCount;
-    map['_id'] = id;
-    map['title'] = title;
-    map['slug'] = slug;
-    map['description'] = description;
-    map['imgCover'] = imgCover;
-    map['images'] = images;
-    map['price'] = price;
-    map['priceAfterDiscount'] = priceAfterDiscount;
-    map['quantity'] = quantity;
-    map['category'] = category;
-    map['occasion'] = occasion;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['__v'] = v;
-    map['isSuperAdmin'] = isSuperAdmin;
-    map['sold'] = sold;
-    map['id'] = id;
-    return map;
+    return _$ProductModelToJson(this);
   }
+
   ProductsEntity toEntity() {
     return ProductsEntity(
       id: id,

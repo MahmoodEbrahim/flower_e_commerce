@@ -1,49 +1,49 @@
-import '../../domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'categories_model.g.dart';
+
+@JsonSerializable()
 class CategoriesModel {
-  CategoriesModel({
-    this.id,
+  @JsonKey(name: JsonSerlizableConstants.dashedIdKey)
+  final String? Id;
+  @JsonKey(name: JsonSerlizableConstants.nameKey)
+  final String? name;
+  @JsonKey(name: JsonSerlizableConstants.slugKey)
+  final String? slug;
+  @JsonKey(name: JsonSerlizableConstants.imageKey)
+  final String? image;
+  @JsonKey(name: JsonSerlizableConstants.createdAtKey)
+  final String? createdAt;
+  @JsonKey(name: JsonSerlizableConstants.updatedAtKey)
+  final String? updatedAt;
+  @JsonKey(name: JsonSerlizableConstants.isSuperAdminKey)
+  final bool? isSuperAdmin;
+
+  CategoriesModel ({
+    this.Id,
     this.name,
     this.slug,
     this.image,
     this.createdAt,
     this.updatedAt,
-    this.isSuperAdmin,});
+    this.isSuperAdmin,
+  });
 
-  CategoriesModel.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
-    slug = json['slug'];
-    image = json['image'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    isSuperAdmin = json['isSuperAdmin'];
+  factory CategoriesModel.fromJson(Map<String, dynamic> json) {
+    return _$CategoriesModelFromJson(json);
   }
-  String? id;
-  String? name;
-  String? slug;
-  String? image;
-  String? createdAt;
-  String? updatedAt;
-  bool? isSuperAdmin;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['name'] = name;
-    map['slug'] = slug;
-    map['image'] = image;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['isSuperAdmin'] = isSuperAdmin;
-    return map;
+    return _$CategoriesModelToJson(this);
   }
+
   CategoriesEntity toEntity() {
     return CategoriesEntity(
-      id: id,
+      id: Id,
       name: name,
       image: image,
     );
   }
-
 }
