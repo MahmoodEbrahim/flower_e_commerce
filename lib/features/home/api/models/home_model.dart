@@ -1,11 +1,26 @@
 import 'package:flower_e_commerce/features/home/api/models/bestseller_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/categories_model.dart';
+import 'package:flower_e_commerce/features/home/api/models/occasions_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
-import 'package:flower_e_commerce/features/home/api/models/occasions_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'home_model.g.dart';
+
+@JsonSerializable()
 class HomeModel {
-  HomeModel({
+  @JsonKey(name: "message")
+  final String? message;
+  @JsonKey(name: "products")
+  final List<ProductModel>? products;
+  @JsonKey(name: "categories")
+  final List<CategoriesModel>? categories;
+  @JsonKey(name: "bestSeller")
+  final List<BestsellerModel>? bestSeller;
+  @JsonKey(name: "occasions")
+  final List<OccasionsModel>? occasions;
+
+  HomeModel ({
     this.message,
     this.products,
     this.categories,
@@ -13,55 +28,12 @@ class HomeModel {
     this.occasions,
   });
 
-  HomeModel.fromJson(dynamic json) {
-    message = json['message'];
-    if (json['products'] != null) {
-      products = [];
-      json['products'].forEach((v) {
-        products?.add(ProductsModel.fromJson(v));
-      });
-    }
-    if (json['categories'] != null) {
-      categories = [];
-      json['categories'].forEach((v) {
-        categories?.add(CategoriesModel.fromJson(v));
-      });
-    }
-    if (json['bestSeller'] != null) {
-      bestSeller = [];
-      json['bestSeller'].forEach((v) {
-        bestSeller?.add(BestSellerModel.fromJson(v));
-      });
-    }
-    if (json['occasions'] != null) {
-      occasions = [];
-      json['occasions'].forEach((v) {
-        occasions?.add(OccasionsModel.fromJson(v));
-      });
-    }
+  factory HomeModel.fromJson(Map<String, dynamic> json) {
+    return _$HomeModelFromJson(json);
   }
-  String? message;
-  List<ProductsModel>? products;
-  List<CategoriesModel>? categories;
-  List<BestSellerModel>? bestSeller;
-  List<OccasionsModel>? occasions;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['message'] = message;
-    if (products != null) {
-      map['products'] = products?.map((v) => v.toJson()).toList();
-    }
-    if (categories != null) {
-      map['categories'] = categories?.map((v) => v.toJson()).toList();
-    }
-    if (bestSeller != null) {
-      map['bestSeller'] = bestSeller?.map((v) => v.toJson()).toList();
-    }
-    if (occasions != null) {
-      map['occasions'] = occasions?.map((v) => v.toJson()).toList();
-    }
-    return map;
+    return _$HomeModelToJson(this);
   }
 
   HomeEntity toEntity() {
@@ -73,3 +45,8 @@ class HomeModel {
     );
   }
 }
+
+
+
+
+
