@@ -1,4 +1,4 @@
-class JsonSerlizableConstants {
+abstract class JsonSerlizableConstants {
   static const String dashedIdKey = "_id";
   static const String idKey = "id";
   static const String nameKey = "name";
@@ -25,4 +25,5 @@ class JsonSerlizableConstants {
   static const String categoriesKey = "categories";
   static const String bestSellerKey = "bestSeller";
   static const String occasionsKey = "occasions";
+  static const String metadataKey = "metadata";
 }

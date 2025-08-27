@@ -7,7 +7,7 @@ import 'font_style_manger.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-      scaffoldBackgroundColor: AppColors.White,
+      scaffoldBackgroundColor: AppColors.white,
       appBarTheme: AppBarTheme(
         foregroundColor: AppColors.white,
         elevation: 0,

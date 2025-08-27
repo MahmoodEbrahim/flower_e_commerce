@@ -1,4 +1,11 @@
 {
-    "@@locale": "en",
+  "@@locale": "en",
 
+  "allCategory": "All",
+  "noProducts": "No Products Found",
+  "loading": "Loading...",
+  "errorMessage": "Something went wrong",
+  "search":"search",
+  "egy":"EGP",
+  "addToCart":"Add to cart"
 }
