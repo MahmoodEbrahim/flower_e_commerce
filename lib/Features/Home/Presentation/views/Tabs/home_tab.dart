@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../../core/di/di.dart';
+
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => GetIt.I<HomeBloc>(),
+        create: (context) => getIt<HomeBloc>(),
         child: BlocBuilder<HomeBloc, HomeStates>(
           builder: (context, state) {
             if (state is HomeInitialState) {
