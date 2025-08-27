@@ -1,45 +1,43 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../features/home/domain/entity/product_entity.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CustomCardFlower extends StatelessWidget {
-  const CustomCardFlower({
+  ProductsEntity product;
+
+   CustomCardFlower({
     super.key,
-    required this.image,
-    required this.title,
-    this.newPrice,
-    required this.oldPrice,
+    required this.product
   });
-  final String image;
-  final String title;
-  final int? newPrice;
-  final int oldPrice;
+
   @override
   Widget build(BuildContext context) {
     int? discount;
     bool isThereDiscount = false;
-    if (newPrice != null) {
+    if (product.priceAfterDiscount != null && product.price != null) {
       isThereDiscount = true;
-      double n = (newPrice! / oldPrice);
-      discount = (n * 100).round();
+      final price = product.price!.toDouble();
+      final discounted = product.priceAfterDiscount!.toDouble();
+      discount = (((price - discounted) / price) * 100).round();
     }
     final t = AppLocalizations.of(context)!;
     return Container(
       width: 163.0,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadiusGeometry.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 1.0, color: AppColors.midGray)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CachedNetworkImage(
-            imageUrl: image,
+            imageUrl: product.imgCover!,
             width: 147.0,
             height: 131.0,
             fit: BoxFit.cover,
@@ -57,7 +55,7 @@ class CustomCardFlower extends StatelessWidget {
             height: 5.0,
           ),
           Text(
-            title,
+            product.title!,
             style: getRegularStyle(color: AppColors.black[60]!, fontSize: 12.0),
           ),
           SizedBox(
@@ -67,12 +65,12 @@ class CustomCardFlower extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isThereDiscount)
-                Text("EGP $newPrice ",
+                Text("EGP ${product.priceAfterDiscount} ",
                     style: getBoldStyle(
                       color: AppColors.black[60]!,
                       fontSize: FontSize.s16,
                     )),
-              Text("$oldPrice",
+              Text("${product.price}",
                   style: isThereDiscount
                       ? getRegularStyle(
                           color: AppColors.black[60]!,
