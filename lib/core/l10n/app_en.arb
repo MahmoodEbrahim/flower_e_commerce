@@ -7,5 +7,13 @@
   "errorMessage": "Something went wrong",
   "search":"search",
   "egy":"EGP",
-  "addToCart":"Add to cart"
+  "addToCart":"Add to cart",
+    "@@locale": "en",
+    "egp":"EGP",
+    "status":"Status: ",
+    "inStock":"In stock",
+    "outOfStock":"Out of stock",
+    "includeTax":"All prices include tax",
+    "description":"Description",
+
 }
