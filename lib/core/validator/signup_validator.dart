@@ -27,7 +27,7 @@ class SignupValidators {
   }
 
   static String? lastNameValidation(String? value) {
-    final lastnameRegex = RegExp(ValidatorConstants.nameRegex);
+
 
     if (value == null || value.isEmpty) {
       return "Last name is required";
@@ -35,9 +35,7 @@ class SignupValidators {
     if (value.length < 3) {
       return "Last name is too short";
     }
-    if (!lastnameRegex.hasMatch(value)) {
-      return "Invalid last name";
-    }
+   
 
     return null;
   }
