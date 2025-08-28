@@ -12,6 +12,7 @@ class AppTheme {
         foregroundColor: AppColors.white,
         elevation: 0,
         centerTitle: false,
+        titleSpacing: 0,
         iconTheme: IconThemeData(color: AppColors.black),
         titleTextStyle: GoogleFonts.roboto(
           color: AppColors.black,
