@@ -1,16 +1,17 @@
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 part 'meta_data_dto.g.dart';
 
 @JsonSerializable()
 class MetaDataDto extends Equatable {
-  @JsonKey(name: "currentPage")
+  @JsonKey(name: JsonSerlizableConstants.currentPage)
   final int? currentPage;
-  @JsonKey(name: "totalPages")
+  @JsonKey(name: JsonSerlizableConstants.totalPages)
   final int? totalPages;
-  @JsonKey(name: "limit")
+  @JsonKey(name: JsonSerlizableConstants.limit)
   final int? limit;
-  @JsonKey(name: "totalItems")
+  @JsonKey(name: JsonSerlizableConstants.totalItems)
   final int? totalItems;
 
   const MetaDataDto({

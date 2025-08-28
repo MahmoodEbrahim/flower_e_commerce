@@ -26,4 +26,8 @@ abstract class JsonSerlizableConstants {
   static const String bestSellerKey = "bestSeller";
   static const String occasionsKey = "occasions";
   static const String metadataKey = "metadata";
+  static const String currentPage = "currentPage";
+  static const String totalPages = "totalPages";
+  static const String limit = "limit";
+  static const String totalItems = "totalItems";
 }
