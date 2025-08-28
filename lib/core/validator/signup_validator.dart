@@ -13,7 +13,7 @@ class SignupValidators {
   }
 
   static String? firstNameValidation(String? value) {
-    final firstnameRegex = RegExp(ValidatorConstants.nameRegex);
+   
 
     if (value == null || value.isEmpty) {
       return "First name is required";
@@ -21,9 +21,7 @@ class SignupValidators {
     if (value.length < 3) {
       return "First name is too short";
     }
-    if (!firstnameRegex.hasMatch(value)) {
-      return "Invalid first name";
-    }
+   
 
     return null;
   }

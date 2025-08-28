@@ -6,6 +6,5 @@ class ValidatorConstants {
   static const String nameRegex = r'^[a-zA-Z]+$';
 
   static const String lognEmailRegex = r'^[^@]+@[^@]+\.[^@]+$';
-  static const String phoneRegex =r'^\+?\d{11}$';
-
+  static const String phoneRegex = r'^\+20\d{10}$';
 }
