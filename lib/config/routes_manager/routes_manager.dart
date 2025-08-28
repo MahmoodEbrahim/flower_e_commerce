@@ -1,11 +1,15 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flutter/material.dart';
@@ -302,6 +306,25 @@ abstract class Routes {
         final product = settings.arguments as ProductsEntity;
         return MaterialPageRoute(
           builder: (context) => ProductDetailsScreen(  product: product,),
+        );
+
+
+         case AppRoutes.login:
+        return MaterialPageRoute(builder: (context) => LoginPage());
+
+    
+
+      case AppRoutes.signup:
+        return MaterialPageRoute(builder: (context) =>  SignupPage());
+      case AppRoutes.forgetPass:
+        return MaterialPageRoute(
+            builder: (context) =>  ForgetPasswordPage());
+      case AppRoutes.verfiyPassword:
+        return MaterialPageRoute(builder: (context) => VerifyPasswordPage());
+      //ResetPasswordPage
+      case AppRoutes.resetPassword:
+        return MaterialPageRoute(
+          builder: (context) => ResetPasswordPage(),
         );
 
       default:
