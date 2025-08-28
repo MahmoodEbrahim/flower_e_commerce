@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
@@ -54,13 +55,13 @@ class HomeTab extends StatelessWidget {
                                 decoration: InputDecoration(
                                   hintText: "Search",
                                   prefixIcon:
-                                  Icon(Icons.search, color: Colors.grey),
+                                      Icon(Icons.search, color: Colors.grey),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 16),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.shade300),
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade300),
                                   ),
                                 ),
                               ),
@@ -144,7 +145,7 @@ class HomeTab extends StatelessWidget {
         children: [
           Text(title,
               style:
-              const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           TextButton(
             onPressed: onSeeAll,
             child: const Text("See all",
@@ -170,13 +171,22 @@ class HomeTab extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(category.image ?? ''),
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                      color: AppColors.lightPink,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Image.network(
+                      category.image ?? "",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 6),
-                Text(category.name ?? '',
-                    style: const TextStyle(fontSize: 12)),
+                Text(category.name ?? '', style: const TextStyle(fontSize: 12)),
               ],
             ),
           );
@@ -225,8 +235,8 @@ class HomeTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(product.title ?? '',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.normal)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.normal)),
                         Text('${product.price ?? 0} EGP',
                             style: const TextStyle(
                                 color: Colors.black,
@@ -254,14 +264,15 @@ class HomeTab extends StatelessWidget {
         itemCount: bestSellers.length,
         itemBuilder: (context, index) {
           final bestSeller = bestSellers[index];
-          return GestureDetector(onTap: () {
-            Navigator.pushNamed(
-              context,
-              AppRoutes.productDetails,
-              arguments: bestSeller,
-            );
-          },
-             child:  Container(
+          return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.productDetails,
+                  arguments: bestSeller,
+                );
+              },
+              child: Container(
                 width: 140,
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: const BoxDecoration(color: Colors.white),
@@ -293,8 +304,7 @@ class HomeTab extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
-          );
+              ));
         },
       ),
     );
