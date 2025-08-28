@@ -1,58 +1,68 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flower_e_commerce/Features/Home/Presentation/view_model/bloc/home_bloc.dart';
-import 'package:flower_e_commerce/Features/Home/Presentation/view_model/bloc/home_events.dart';
-import 'package:flower_e_commerce/Features/Home/Presentation/view_model/bloc/home_states.dart';
-import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
-import 'package:flower_e_commerce/features/home/domain/usecase/home_usecase.dart';
+import 'package:flower_e_commerce/features/home/Presentation/view_model/home_view_model/home_bloc.dart';
+import 'package:flower_e_commerce/features/home/Presentation/view_model/home_view_model/home_events.dart';
+import 'package:flower_e_commerce/features/home/Presentation/view_model/home_view_model/home_states.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/usecase/get_home_data_usecase.dart';
+import 'home_bloc_test.mocks.dart';
 
-class MockGetHomeDataUseCase extends Mock implements GetHomeDataUseCase {}
-
+@GenerateMocks([GetHomeDataUseCase])
 void main() {
-  late HomeBloc homeBloc;
-  late MockGetHomeDataUseCase mockUseCase;
+  late MockGetHomeDataUseCase mockGetHomeDataUseCase;
 
   setUp(() {
-    mockUseCase = MockGetHomeDataUseCase();
-    homeBloc = HomeBloc(mockUseCase);
+    mockGetHomeDataUseCase = MockGetHomeDataUseCase();
+    provideDummy<ApiResult<HomeEntity>>(ApiSucessResult(
+      HomeEntity(
+          products: [],
+          categories: [],
+          bestSeller: [],
+          occasions: []),
+    ));
   });
 
-  tearDown(() {
-    homeBloc.close();
-  });
-
-  group("HomeBloc Test", () {
-    final mockHomeModel = Homemodel(
-      categories: [],
+  group('HomeBloc', () {
+    final fakeEntity = HomeEntity(
       products: [],
+      categories: [],
       bestSeller: [],
       occasions: [],
     );
 
+    test('initial state should be HomeInitialState', () {
+      final bloc = HomeBloc(mockGetHomeDataUseCase);
+      expect(bloc.state, isA<HomeInitialState>());
+    });
+
     blocTest<HomeBloc, HomeStates>(
-      "emits [HomeLoadingState, HomeSuccessState] when GetHomeDataEvent succeeds",
+      'emits [HomeLoadingState, HomeSuccessState] when usecase returns success',
       build: () {
-        when(mockUseCase()).thenAnswer((_) async => mockHomeModel);
-        return homeBloc;
+        when(mockGetHomeDataUseCase.call())
+            .thenAnswer((_) async => ApiSucessResult(fakeEntity));
+        return HomeBloc(mockGetHomeDataUseCase);
       },
       act: (bloc) => bloc.add(GetHomeDataEvent()),
       expect: () => [
         isA<HomeLoadingState>(),
-        isA<HomeSuccessState>(),
+        isA<HomeSuccessState>().having((s) => s.homeResponse, 'homeResponse', fakeEntity),
       ],
     );
 
     blocTest<HomeBloc, HomeStates>(
-      "emits [HomeLoadingState, HomeErrorState] when GetHomeDataEvent fails",
+      'emits [HomeLoadingState, HomeErrorState] when usecase returns error',
       build: () {
-        when(mockUseCase()).thenThrow(Exception("Failed"));
-        return homeBloc;
+        when(mockGetHomeDataUseCase.call())
+            .thenAnswer((_) async => ApiErrorResult('error message'));
+        return HomeBloc(mockGetHomeDataUseCase);
       },
       act: (bloc) => bloc.add(GetHomeDataEvent()),
       expect: () => [
         isA<HomeLoadingState>(),
-        isA<HomeErrorState>(),
+        isA<HomeErrorState>().having((s) => s.message, 'message', 'error message'),
       ],
     );
   });

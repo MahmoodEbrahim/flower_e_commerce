@@ -1,54 +1,68 @@
-import 'package:flower_e_commerce/features/home/domain/usecase/home_usecase.dart';
+import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
+import 'package:flower_e_commerce/features/home/domain/usecase/get_home_data_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
-import 'package:flower_e_commerce/features/home/data/models/home_model.dart';
 
 import 'get_home_data_usecase_test.mocks.dart';
 
-
 @GenerateMocks([HomeRepository])
 void main() {
-  late GetHomeDataUseCase usecase;
+  late GetHomeDataUseCase useCase;
   late MockHomeRepository mockRepository;
+
+  setUpAll(() {
+    provideDummy<ApiResult<HomeEntity>>(ApiSucessResult(
+      HomeEntity(
+          products: [],
+          categories: [],
+          bestSeller: [],
+          occasions: []),
+    ));
+  });
 
   setUp(() {
     mockRepository = MockHomeRepository();
-    usecase = GetHomeDataUseCase(mockRepository);
+    useCase = GetHomeDataUseCase(mockRepository);
   });
 
-  group('GetHomeDataUseCase Tests', () {
-    test('should return HomeModel when repository returns success', () async {
-      // Arrange
-      final homeData = Homemodel(
-        categories: [],
+  group('GetHomeDataUseCase', () {
+    test('should return ApiSuccessResult when repository returns success',
+        () async {
+      // arrange
+      final fakeEntity = HomeEntity(
         products: [],
+        categories: [],
         bestSeller: [],
         occasions: [],
       );
-
       when(mockRepository.getHomeData())
-          .thenAnswer((_) async => homeData);
+          .thenAnswer((_) async => ApiSucessResult(fakeEntity));
 
-      // Act
-      final result = await usecase();
+      // act
+      final result = await useCase();
 
-      // Assert
-      expect(result, isA<Homemodel>());
-      expect(result.categories, isEmpty);
+      // assert
+      expect(result, isA<ApiSucessResult<HomeEntity>>());
+      final success = result as ApiSucessResult<HomeEntity>;
+      expect(success.data.products, isEmpty);
     });
 
-    test('should throw exception when repository fails', () async {
-      // Arrange
+    test('should return ApiErrorResult when repository returns error',
+        () async {
+      // arrange
       when(mockRepository.getHomeData())
-          .thenThrow(Exception("Failed to fetch"));
+          .thenAnswer((_) async => ApiErrorResult("Something went wrong"));
 
-      // Act
-      final call = usecase;
+      // act
+      final result = await useCase();
 
-      // Assert
-      expect(() => call(), throwsException);
+      // assert
+      expect(result, isA<ApiErrorResult<HomeEntity>>());
+      final error = result as ApiErrorResult<HomeEntity>;
+      expect(error.errorMessage, "Something went wrong");
     });
   });
 }
