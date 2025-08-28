@@ -290,6 +290,7 @@ abstract class Routes {
       case AppRoutes.home:
         return MaterialPageRoute(
           builder: (context) => HomePage());
+
       case AppRoutes.catergories:
         return MaterialPageRoute(
             builder: (context) => CategoriesPage(

@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
@@ -87,12 +88,18 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   itemCount: products.length,
                                   itemBuilder: (context, index) {
                                  
-                                    return CustomCardFlower(
-                                      image: products[index].imgCover ?? "",
-                                      title: products[index].title ?? "",
-                                      newPrice:
-                                          products[index].priceAfterDiscount,
-                                      oldPrice: products[index].price ?? 0,
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(context, AppRoutes.details,
+                                        arguments: products[index]);
+                                      },
+                                      child: CustomCardFlower(
+                                        image: products[index].imgCover ?? "",
+                                        title: products[index].title ?? "",
+                                        newPrice:
+                                        products[index].priceAfterDiscount,
+                                        oldPrice: products[index].price ?? 0,
+                                      )
                                     );
                                   }),
                             );

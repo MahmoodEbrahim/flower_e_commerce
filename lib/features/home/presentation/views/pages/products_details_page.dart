@@ -5,8 +5,6 @@ import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart'
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../domain/entity/product_details_entity.dart';
-
 class ProductDetailsScreen extends StatelessWidget {
   final PageController controller = PageController();
   final ProductsEntity product;
@@ -83,8 +81,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                 fontSize: FontSize.s20)),
                         TextSpan(
                             text: (product.quantity!<=0)
-                                ? locale.inStock
-                                : locale.outOfStock,
+                                ? locale.outOfStock
+                                : locale.inStock,
                             style: getMediumStyle(
                                 color: AppColors.Black,
                                 fontSize: FontSize.s16)),

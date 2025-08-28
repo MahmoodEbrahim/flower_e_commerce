@@ -1,6 +1,5 @@
 {
   "@@locale": "en",
-
   "allCategory": "All",
   "noProducts": "No Products Found",
   "loading": "Loading...",
@@ -8,12 +7,11 @@
   "search":"search",
   "egy":"EGP",
   "addToCart":"Add to cart",
-    "@@locale": "en",
     "egp":"EGP",
     "status":"Status: ",
     "inStock":"In stock",
     "outOfStock":"Out of stock",
     "includeTax":"All prices include tax",
-    "description":"Description",
+    "description":"Description"
 
 }

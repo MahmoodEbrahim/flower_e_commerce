@@ -7,4 +7,43 @@ import 'app_localizations.dart';
 /// The translations for English (`en`).
 class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get allCategory => 'All';
+
+  @override
+  String get noProducts => 'No Products Found';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get errorMessage => 'Something went wrong';
+
+  @override
+  String get search => 'search';
+
+  @override
+  String get egy => 'EGP';
+
+  @override
+  String get addToCart => 'Add to cart';
+
+  @override
+  String get egp => 'EGP';
+
+  @override
+  String get status => 'Status: ';
+
+  @override
+  String get inStock => 'In stock';
+
+  @override
+  String get outOfStock => 'Out of stock';
+
+  @override
+  String get includeTax => 'All prices include tax';
+
+  @override
+  String get description => 'Description';
 }
