@@ -3,9 +3,11 @@ import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flutter/cupertino.dart';
 
 class occasionTab extends StatelessWidget {
-  const  occasionTab({ super.key,required this.title,this.isSelected=false});
+  const  occasionTab({ super.key,required this.title,
+    this.isSelected=false,required this.id});
   final String title;
   final bool isSelected;
+  final String id;
   @override
   Widget build(BuildContext context) {
     return isSelected==false?

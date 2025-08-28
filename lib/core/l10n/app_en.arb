@@ -2,6 +2,17 @@
     "@@locale": "en",
     "occasion": "Occasion",
     "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers",
-"addToCart": "Add to Cart"
+  "allCategory": "All",
+  "noProducts": "No Products Found",
+  "loading": "Loading...",
+  "errorMessage": "Something went wrong",
+  "search":"search",
+  "addToCart":"Add to cart",
+    "egp":"EGP",
+    "status":"Status: ",
+    "inStock":"In stock",
+    "outOfStock":"Out of stock",
+    "includeTax":"All prices include tax",
+    "description":"Description"
 
 }

@@ -3,7 +3,8 @@ import 'package:flower_e_commerce/core/api_error/api_error.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/api/client/home_api_service.dart';
 import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_detals_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as:HomeRemoteDataSource )
@@ -15,11 +16,11 @@ HomeRemoteDataSourceImp(this._apiService);
   getProductsDetialsByOccasions(String occasionId) async{
     try{
       final response=await _apiService.getProductsDetialsByOccasions(occasionId);
-final products=response.products!.map((e)=>e.toEntity()).toList()??[];
+final products=response.products?.map((e)=>e.toEntity()).toList()??[];
       if (response.products == null) {
         return ApiFailedResult( 'Products list is null');
       }else{
-        return ApiSucessResult(products);
+        return ApiSucessResult(products.cast<ProductDetailsEntity>());
       }
 
     }catch(error){
@@ -30,5 +31,29 @@ if(error is DioException){
 }
     }
   }
+@override
+Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
+    String catId) async {
+  try {
+    final productsDtoList =
+    await _apiService.getProductsByCategoryId(catId);
+
+    final productModelList = productsDtoList.products!
+        .map((dto) => dto.toEntity())
+        .toList();
+
+    return ApiSucessResult(productModelList);
+  } on DioException catch (e) {
+    final data = e.response?.data;
+    String errorMessage = e.message!;
+
+    if (data is Map<String, dynamic> && data.containsKey("error")) {
+      errorMessage = data["error"].toString();
+    }
+    return ApiFailedResult(errorMessage);
+  } catch (e) {
+    return ApiFailedResult(e.toString());
+  }
+}
 
 }

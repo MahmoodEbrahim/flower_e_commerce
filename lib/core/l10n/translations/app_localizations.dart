@@ -106,11 +106,77 @@ abstract class AppLocalizations {
   /// **'Bloom with our exquisite best sellers'**
   String get bloomWithOurExquisitebestSellers;
 
+  /// No description provided for @allCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allCategory;
+
+  /// No description provided for @noProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'No Products Found'**
+  String get noProducts;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @errorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get errorMessage;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'search'**
+  String get search;
+
   /// No description provided for @addToCart.
   ///
   /// In en, this message translates to:
-  /// **'Add to Cart'**
+  /// **'Add to cart'**
   String get addToCart;
+
+  /// No description provided for @egp.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get egp;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status: '**
+  String get status;
+
+  /// No description provided for @inStock.
+  ///
+  /// In en, this message translates to:
+  /// **'In stock'**
+  String get inStock;
+
+  /// No description provided for @outOfStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of stock'**
+  String get outOfStock;
+
+  /// No description provided for @includeTax.
+  ///
+  /// In en, this message translates to:
+  /// **'All prices include tax'**
+  String get includeTax;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
 }
 
 class _AppLocalizationsDelegate

@@ -62,7 +62,7 @@ class CustomCardFlower extends StatelessWidget {
             height: 5.0,
           ),
           Text(
-            title,
+            title,maxLines: 1,overflow: TextOverflow.ellipsis,
             style: getRegularStyle(color: AppColors.black[60]!, fontSize: 12.0),
           ),
           SizedBox(
@@ -72,7 +72,7 @@ class CustomCardFlower extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isThereDiscount)
-                Text("EGP $newPrice ",
+                Text("${t.egp} $newPrice ",
                     style: getBoldStyle(
                       color: AppColors.black[60]!,
                       fontSize: FontSize.s16,

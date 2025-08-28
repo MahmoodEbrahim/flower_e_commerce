@@ -1,6 +1,6 @@
 import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_detals_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
 import 'package:flutter/cupertino.dart';
 class OccasionGrid extends StatelessWidget {
   final List<ProductDetailsEntity>occasion;

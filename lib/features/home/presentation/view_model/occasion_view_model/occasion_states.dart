@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_detals_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
 import 'package:flutter/material.dart';
 @immutable
 class OccasionStates extends Equatable{

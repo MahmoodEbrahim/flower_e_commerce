@@ -1,4 +1,4 @@
-import 'package:flower_e_commerce/features/home/domain/entity/product_detals_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_by_occasion.g.dart';

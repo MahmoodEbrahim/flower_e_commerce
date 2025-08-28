@@ -19,8 +19,12 @@ import '../../features/home/api/source/home_remote_data_source_imp.dart'
 import '../../features/home/data/repository/home_repository_imp.dart' as _i342;
 import '../../features/home/data/source/home_remote_data_source.dart' as _i557;
 import '../../features/home/domain/repository/home_repository.dart' as _i541;
+import '../../features/home/domain/usecase/get_products_by_category_id._usecase.dart'
+    as _i438;
 import '../../features/home/domain/usecase/get_products_detials_by_occasions.dart'
     as _i583;
+import '../../features/home/presentation/view_model/categories_view_model/categories_view_model.dart'
+    as _i604;
 import '../../features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart'
     as _i1010;
 import 'modules/dio_modules.dart' as _i288;
@@ -46,11 +50,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
     gh.factory<_i541.HomeRepository>(
         () => _i342.HomeRepositoryImp(gh<_i557.HomeRemoteDataSource>()));
+    gh.factory<_i438.GetProductsByCategoryIdUseCase>(
+        () => _i438.GetProductsByCategoryIdUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i583.GetProductDetialsByOccasionUseCase>(() =>
         _i583.GetProductDetialsByOccasionUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
         _i1010.ProductsDetialsOccasionBloc(
             gh<_i583.GetProductDetialsByOccasionUseCase>()));
+    gh.factory<_i604.CategoriesViewModel>(() =>
+        _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
     return this;
   }
 }

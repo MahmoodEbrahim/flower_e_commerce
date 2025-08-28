@@ -7,8 +7,6 @@ class ProductDetailsEntity {
   final int price;
   final int? priceAfterDiscount;
   final int quantity;
-
-
   ProductDetailsEntity({
     required this.id,
     required this.title,

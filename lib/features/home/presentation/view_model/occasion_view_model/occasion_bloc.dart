@@ -1,6 +1,6 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_detals_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/usecase/get_products_detials_by_occasions.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_events.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_states.dart';

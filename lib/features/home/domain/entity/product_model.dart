@@ -1,8 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-class ProductsEntity extends Equatable {
+class ProductModel extends Equatable {
+  final int? rateAvg;
+  final int? rateCount;
   final String? id;
   final String? title;
+  final String? slug;
   final String? description;
   final String? imgCover;
   final List<String>? images;
@@ -11,10 +14,16 @@ class ProductsEntity extends Equatable {
   final int? quantity;
   final String? category;
   final String? occasion;
+  final bool? isSuperAdmin;
+  final int? sold;
+  final String? productModelId;
 
-  const ProductsEntity({
+const  ProductModel({
+    this.rateAvg,
+    this.rateCount,
     this.id,
     this.title,
+    this.slug,
     this.description,
     this.imgCover,
     this.images,
@@ -23,12 +32,18 @@ class ProductsEntity extends Equatable {
     this.quantity,
     this.category,
     this.occasion,
+    this.isSuperAdmin,
+    this.sold,
+    this.productModelId,
   });
 
   @override
   List<Object?> get props => [
+        rateAvg,
+        rateCount,
         id,
         title,
+        slug,
         description,
         imgCover,
         images,
@@ -37,5 +52,8 @@ class ProductsEntity extends Equatable {
         quantity,
         category,
         occasion,
+        isSuperAdmin,
+        sold,
+        productModelId,
       ];
 }

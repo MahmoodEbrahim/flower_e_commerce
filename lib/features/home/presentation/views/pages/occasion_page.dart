@@ -1,10 +1,18 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/config/theme/common_widgets/no_products.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_detals_entity.dart';
+import 'package:flower_e_commerce/core/request_state/request_state.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_events.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_states.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/occasion_grid.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/occasion_tab_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class OccasionPage extends StatefulWidget {
   const OccasionPage({super.key});
@@ -20,22 +28,22 @@ class _OccasionPageState extends State<OccasionPage> {
 
 
  List<occasionTab>tabs=[
-   occasionTab(title: "Weeding", ),
-   occasionTab(title: "Graduation"),
-   occasionTab(title: "Birthday",),
-   occasionTab(title: "Anniversary",),
-   occasionTab(title: "New Year",),
-   occasionTab(title: "Mother's Day",),
+   occasionTab(title: "Weeding", id: "673b34c21159920171827ae0",),
+   occasionTab(title: "Graduation", id: "673b351e1159920171827ae5",),
+   occasionTab(title: "Birthday", id: "673b354b1159920171827ae8",),
+   occasionTab(title: "Anniversary", id: "673b35c01159920171827aed",),
+   occasionTab(title: "New Year", id: "673b364e1159920171827af9",),
+   occasionTab(title: "Mother's Day", id: "673b36e71159920171827b05",),
 
-   occasionTab(title: "Father's Day",),
-   occasionTab(title: "Christmas",),
-   occasionTab(title: "Easter",),
-   occasionTab(title: "Baby Shower",),
-   occasionTab(title: "Engagement",),
-   occasionTab(title: "Friendship Day",),
-   occasionTab(title: "Get Well Soon",),
-   occasionTab(title: "Apology",),
-   occasionTab(title: "electronicssdsssw",),
+   occasionTab(title: "Father's Day",id: "673b37511159920171827b0e",),
+    occasionTab(title: "Christmas",id: "673b37a31159920171827b13",),
+    occasionTab(title: "Easter",id: "673b37c41159920171827b16",),
+    occasionTab(title: "Baby Shower",id: "673b382e1159920171827b19",),
+    occasionTab(title: "Engagement",id: "673b38641159920171827b1d",),
+   occasionTab(title: "Friendship Day",id: "673b38a91159920171827b20",),
+    occasionTab(title: "Get Well Soon",id: "673b38d01159920171827b25",),
+    occasionTab(title: "Apology",id: "673b39241159920171827b28",),
+   occasionTab(title: "electronicssdsssw",id: "6899d319a8bca307f9db0e16",),
  ];
   List<ProductDetailsEntity> occasions = [
     ProductDetailsEntity(
@@ -233,68 +241,111 @@ class _OccasionPageState extends State<OccasionPage> {
     ),
 
   ];
+  final ProductsDetialsOccasionBloc occasionBloc=
+  getIt.get<ProductsDetialsOccasionBloc>();
    @override
    Widget build(BuildContext context) {
      var local=AppLocalizations.of(context);
-     return Scaffold(
+     return BlocProvider.value(
+       value: occasionBloc..add(
+         GetProductsDetialsByOccasionEvent(
+           occassionId: tabs[currIndex].id,
+         ),
+       ),
+       child: Scaffold(
 
-         backgroundColor: AppColors.White,
-         body: SafeArea(child:
-         Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0),
-           child:  Column(
-             children: [
-               Row(
-                 children: [
-                   SizedBox(height: 10.0,),
-                   Row(
-                     children: [
-                       Icon(Icons.arrow_back_ios_new,size:
-                       28.0,color: AppColors.lightBlack,),
-                       SizedBox(width: 10.0,),
-                       Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Text(local!.occasion,style: getMediumStyle(color: AppColors.lightBlack,
-                               fontSize: 20.0),),
+           backgroundColor: AppColors.White,
+           body: SafeArea(child:
+           Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0),
+             child:  Column(
+               children: [
+                 Row(
+                   children: [
+                     SizedBox(height: 10.0,),
+                     Row(
+                       children: [
+                         Icon(Icons.arrow_back_ios_new,size:
+                         28.0,color: AppColors.lightBlack,),
+                         SizedBox(width: 10.0,),
+                         Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Text(local!.occasion,style: getMediumStyle(color: AppColors.lightBlack,
+                                 fontSize: 20.0),),
 
-                           Text(local.bloomWithOurExquisitebestSellers,
-                             style: getMediumStyle(color: AppColors.white[90]!,
-                                 fontSize: 13.0),),
+                             Text(local.bloomWithOurExquisitebestSellers,
+                               style: getMediumStyle(color: AppColors.white[90]!,
+                                   fontSize: 13.0),),
 
-                         ],
-                       )
+                           ],
+                         )
 
-                     ],
-                   )
-                 ],
-               ),
-               SizedBox(height: 10.0,),
-               DefaultTabController(length: tabs.length,
-                 child: TabBar(
-                     onTap: (index){
-                       currIndex=index;
-                       setState(() {
-                       });
-                     },
-                     indicatorColor: AppColors.Pink,
-                     tabAlignment: TabAlignment.start,
-                     isScrollable: true,
-                     indicatorWeight: 2,
-                     dividerColor: Colors.transparent,
-                     indicatorPadding: EdgeInsets.only(
-                     ),
-                     padding: EdgeInsets.zero,
+                       ],
+                     )
+                   ],
+                 ),
+                 SizedBox(height: 10.0,),
+                 DefaultTabController(length: tabs.length,
+                   child: TabBar(
+                       onTap: (index){
+                         currIndex=index;
+                         setState(() {
+                         });
+                       },
+                       indicatorColor: AppColors.Pink,
+                       tabAlignment: TabAlignment.start,
+                       isScrollable: true,
+                       indicatorWeight: 2,
+                       dividerColor: Colors.transparent,
+                       indicatorPadding: EdgeInsets.only(
+                       ),
+                       padding: EdgeInsets.zero,
 
-                     tabs: List.generate(tabs.length, (index)=>occasionTab(
-                       title:tabs[index].title,
-                       isSelected:
-                       index==currIndex,))),),
-               SizedBox(height: 16.0,),
-               Expanded(child: OccasionGrid(
-occasion: occasions,
-               ))
-             ],
-           ),),)
+                       tabs: List.generate(tabs.length, (index)=>occasionTab(
+                         title:tabs[index].title,
+                         id: tabs[index].id,
+                         isSelected:
+                         index==currIndex,))),),
+                 SizedBox(height: 16.0,),
+                 BlocBuilder<ProductsDetialsOccasionBloc,OccasionStates>(builder: (context,state){
+              switch(state.requestState){
+
+                case RequestState.init:
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children:
+                 [
+                   SizedBox(height: 200.0,),
+                   LoadingAnimationWidget.inkDrop(color: AppColors.Pink,
+                       size: 50)
+                 ],);
+                case RequestState.loading:
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children:
+                    [
+                      SizedBox(height: 200.0,),
+                      LoadingAnimationWidget.inkDrop(color: AppColors.Pink,
+                          size: 50)
+                    ],);
+
+                case RequestState.success:
+                  // TODO: Handle this case.
+                  return  state.productsDetials.isNotEmpty?    Expanded(child: OccasionGrid(
+                    occasion: state.productsDetials,
+                  )):NoProducts();
+                case RequestState.error:
+                return Center(child: Text(state.errorMessage!),);
+              }
+                 })
+
+               ],
+             ),),)
+       ),
      );
    }
 
