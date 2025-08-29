@@ -314,7 +314,8 @@ class _OccasionPageState extends State<OccasionPage> {
               switch(state.requestState){
 
                 case RequestState.init:
-                  return Column(
+                  return
+                    Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
 
@@ -328,7 +329,6 @@ class _OccasionPageState extends State<OccasionPage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-
                     children:
                     [
                       SizedBox(height: 230.0,),
