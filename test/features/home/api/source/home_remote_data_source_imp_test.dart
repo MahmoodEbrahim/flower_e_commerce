@@ -4,11 +4,10 @@ import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/api/client/home_api_service.dart';
 import 'package:flower_e_commerce/features/home/api/models/category_products_response_dto.dart';
 import 'package:flower_e_commerce/features/home/api/models/meta_data_dto.dart';
+import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/products_by_occassion/product_by_occasion.dart';
 import 'package:flower_e_commerce/features/home/api/source/home_remote_data_source_imp.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -25,7 +24,7 @@ setUp((){
 });
  group("getProductsDetialsByOccasions  test", (){
    const occasionId = '123';
-   final productDetails = ProductDetailsEntity(
+   final productDetails = ProductsEntity(
      id: '123',
      title: 'Rose Bouquet',
      price: 299,
@@ -63,7 +62,7 @@ when(mockHomeApiService.getProductsDetialsByOccasions(occasionId)).thenAnswer
   ((_)async=>successResponse);
 final result=await homeRemoteDataSourceImp.
 getProductsDetialsByOccasions(occasionId);
-expect(result, isA<ApiSucessResult<List<ProductDetailsEntity>>>());
+expect(result, isA<ApiSucessResult<List<ProductsEntity>>>());
 expect((result as ApiSucessResult).sucessResult,equals(occasionProducts));
 verify(mockHomeApiService.getProductsDetialsByOccasions(occasionId)).called(1);
    });

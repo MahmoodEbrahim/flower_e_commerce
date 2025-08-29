@@ -11,7 +11,8 @@ abstract class AppRoutes {
   static const String resetPassword = '/resetPassword';
 
   static const String bestSellers='bestSellers';
-  static const String occasions='occasions';
+  static const String occasions='/occasions';
   static const String productByCat="productByCat";
-
+//AllProductsPage
+  static const String allProducts="/AllProductsPage";
 }

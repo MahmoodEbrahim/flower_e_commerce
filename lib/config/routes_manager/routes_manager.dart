@@ -5,12 +5,11 @@ import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_p
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
-
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
-
+import 'package:flower_e_commerce/features/home/presentation/views/main_layout.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/all_products.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
-
-import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasion_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
@@ -116,7 +115,7 @@ abstract class Routes {
     ),
   ];
 
-  static List<ProductsEntity> fakeProducts = [
+  static List<ProductsEntity>? fakeProducts = [
     ProductsEntity(
 
       id: "673e2e1f1159920171828153",
@@ -286,20 +285,29 @@ abstract class Routes {
 
     ),
   ];
+static ProductsEntity fakeProduct=  ProductsEntity(
 
-  static Route onGenerate(RouteSettings settings) {
-    final url = Uri.parse(settings.name ?? '/');
+  id: "673e2e1f1159920171828153",
+  title: "Dreamy White Roses Bouquet",
 
-    switch (url.path) {
+  description:
+  "Elevate any celebration with our luxury rose bouquet. This exquisite arrangement features pristine white roses wrapped in a sophisticated dark teal wrap, creating a stunning visual contrast. Perfect for celebrations, anniversaries, or as a heartfelt gift, this bouquet combines timeless elegance with modern style. Make a memorable impression with this luxurious floral arrangement. Buy now to delight your loved ones with the beauty and grace of these premium roses.",
+  imgCover:
+  "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
+  images: [
+    "https://flower.elevateegy.com/uploads/8ee8e389-da6a-4371-8b13-5e35fcca16c6-image_one.png",
+    "https://flower.elevateegy.com/uploads/66fc9304-3ceb-4b73-97dd-730ccf790c49-image_three.png",
+    "https://flower.elevateegy.com/uploads/acf9531b-5ca9-4c45-97fc-f81df9d62091-image_two.png"
+  ],
+  price: 320,
+  priceAfterDiscount: 199,
+  quantity: -1,
+  category: "673c46fd1159920171827c85",
+  occasion: "673b35c01159920171827aed",
 
 
-     //OccasionPage
-      case AppRoutes.occasion:
-        return MaterialPageRoute(builder:
-            (context)=>const OccasionPage());
-
-
-  static Route<dynamic> onGenerate(RouteSettings settings) {
+);
+static Route<dynamic> onGenerate(RouteSettings settings) {
     final url = Uri.parse(settings.name ?? '/');    switch (settings.name) {
       case AppRoutes.home:
         // final args = settings.arguments as List<ProductsEntity>;
@@ -314,20 +322,25 @@ abstract class Routes {
       case AppRoutes.occasions:
         // final args = settings.arguments as List<OccasionsEntity>;
         return MaterialPageRoute(
-          builder: (_) => OccasionsPage()
+          builder: (_) => OccasionPage()
         );
-
-      case AppRoutes.catergories:
+//AllProductsPage
+      case AppRoutes.occasions:
+      // final args = settings.arguments as List<OccasionsEntity>;
         return MaterialPageRoute(
-            builder: (context) => CategoriesPage(
-              categoryList: fakeCategories,
-              produdctsList: fakeProducts,
-            ));
+            builder: (_) => OccasionPage()
+        );
+      case AppRoutes.allProducts:
+        return MaterialPageRoute(
+            builder: (context) => AllProductsPage());
 
-      case AppRoutes.details:
+        case AppRoutes.details:
         final product = settings.arguments as ProductsEntity;
         return MaterialPageRoute(
-          builder: (context) => ProductDetailsScreen(  product: product,),
+          builder: (context) => ProductDetailsScreen(
+
+
+          ),
         );
 
       case AppRoutes.productByCat:

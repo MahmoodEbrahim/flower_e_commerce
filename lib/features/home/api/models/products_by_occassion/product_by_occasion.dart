@@ -1,4 +1,4 @@
-import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_by_occasion.g.dart';
@@ -123,11 +123,15 @@ class Products {
   Map<String, dynamic> toJson() {
     return _$ProductsToJson(this);
   }
-  ProductDetailsEntity toEntity(){
-    return ProductDetailsEntity(id: id!, title: title!,
+  ProductsEntity toEntity(){
+    return ProductsEntity(id: id!, title: title!,
         description: description!,
         imgCover: imgCover!,
         images: images!,
+        priceAfterDiscount: priceAfterDiscount,
+        occasion: occasion,
+        category: category,
+
         price: price!,
         quantity: quantity!);
   }

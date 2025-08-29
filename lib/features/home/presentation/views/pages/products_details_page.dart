@@ -5,11 +5,13 @@ import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart'
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../../../../config/routes_manager/routes_manager.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final PageController controller = PageController();
-  final ProductsEntity product;
+  final ProductsEntity? product;
 
-  ProductDetailsScreen({super.key, required this.product});
+  ProductDetailsScreen({super.key,  this.product});
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
@@ -36,7 +38,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: PageView(
                       controller: controller,
-                      children: product.images!
+                      children: product!.images!
                           .map(
                             (imageUrl) =>
                             Image.network(imageUrl, fit: BoxFit.contain),
@@ -47,7 +49,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   SizedBox(height: 8),
                   SmoothPageIndicator(
                     controller: controller,
-                    count: product.images!.length,
+                    count: product!.images!.length,
                     effect: ScrollingDotsEffect(
                       dotHeight: 10,
                       dotWidth: 10,
@@ -70,7 +72,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("${locale.egp} ${product.price}",
+                      Text("${locale.egp} ${product!.price}",
                           style: getSemiBoldStyle(
                               color: AppColors.Black, fontSize: FontSize.s20)),
                       Text.rich(TextSpan(children: [
@@ -80,7 +82,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 color: AppColors.Black,
                                 fontSize: FontSize.s20)),
                         TextSpan(
-                            text: (product.quantity!<=0)
+                            text: (product!.quantity!<=0)
                                 ? locale.outOfStock
                                 : locale.inStock,
                             style: getMediumStyle(
@@ -94,7 +96,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       style: getRegularStyle(
                           color: AppColors.gray, fontSize: FontSize.s13)),
                   SizedBox(height: 5),
-                  Text("${product.title}",
+                  Text("${product!.title}",
                       style: getBoldStyle(
                           color: AppColors.Black, fontSize: FontSize.s16)),
                   SizedBox(height: 15),
@@ -102,7 +104,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       style: getBoldStyle(
                           color: AppColors.Black, fontSize: FontSize.s16)),
                   SizedBox(height: 5),
-                  Text("${product.description}",
+                  Text("${product!.description}",
                       style: getMediumStyle(
                           color: AppColors.Black, fontSize: FontSize.s16)),
                   SizedBox(height: 90),

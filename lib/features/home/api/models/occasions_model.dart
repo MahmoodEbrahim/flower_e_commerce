@@ -1,5 +1,5 @@
 import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'occasions_model.g.dart';

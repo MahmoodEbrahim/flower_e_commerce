@@ -4,7 +4,8 @@ import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_events.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_states.dart';
@@ -13,10 +14,10 @@ import 'package:flower_e_commerce/features/home/presentation/views/widgets/occas
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
+//end of this
 class OccasionPage extends StatefulWidget {
-  const OccasionPage({super.key});
-
+   OccasionPage({ this.occasions});
+List<OccasionsEntity>?occasions;
   @override
   State<OccasionPage> createState() => _OccasionPageState();
 }
@@ -27,26 +28,25 @@ class _OccasionPageState extends State<OccasionPage> {
 
 
 
- List<occasionTab>tabs=[
-   occasionTab(title: "Weeding", id: "673b34c21159920171827ae0",),
-   occasionTab(title: "Graduation", id: "673b351e1159920171827ae5",),
-   occasionTab(title: "Birthday", id: "673b354b1159920171827ae8",),
-   occasionTab(title: "Anniversary", id: "673b35c01159920171827aed",),
-   occasionTab(title: "New Year", id: "673b364e1159920171827af9",),
-   occasionTab(title: "Mother's Day", id: "673b36e71159920171827b05",),
-
-   occasionTab(title: "Father's Day",id: "673b37511159920171827b0e",),
-    occasionTab(title: "Christmas",id: "673b37a31159920171827b13",),
-    occasionTab(title: "Easter",id: "673b37c41159920171827b16",),
-    occasionTab(title: "Baby Shower",id: "673b382e1159920171827b19",),
-    occasionTab(title: "Engagement",id: "673b38641159920171827b1d",),
-   occasionTab(title: "Friendship Day",id: "673b38a91159920171827b20",),
-    occasionTab(title: "Get Well Soon",id: "673b38d01159920171827b25",),
-    occasionTab(title: "Apology",id: "673b39241159920171827b28",),
-   occasionTab(title: "electronicssdsssw",id: "6899d319a8bca307f9db0e16",),
- ];
-  List<ProductDetailsEntity> occasions = [
-    ProductDetailsEntity(
+ // List<occasionTab>tabs=[
+ //   occasionTab(title: "Weeding", id: "673b34c21159920171827ae0",),
+ //   occasionTab(title: "Graduation", id: "673b351e1159920171827ae5",),
+ //   occasionTab(title: "Birthday", id: "673b354b1159920171827ae8",),
+ //   occasionTab(title: "Anniversary", id: "673b35c01159920171827aed",),
+ //   occasionTab(title: "New Year", id: "673b364e1159920171827af9",),
+ //   occasionTab(title: "Mother's Day", id: "673b36e71159920171827b05",),
+ //   occasionTab(title: "Father's Day",id: "673b37511159920171827b0e",),
+ //    occasionTab(title: "Christmas",id: "673b37a31159920171827b13",),
+ //    occasionTab(title: "Easter",id: "673b37c41159920171827b16",),
+ //    occasionTab(title: "Baby Shower",id: "673b382e1159920171827b19",),
+ //    occasionTab(title: "Engagement",id: "673b38641159920171827b1d",),
+ //   occasionTab(title: "Friendship Day",id: "673b38a91159920171827b20",),
+ //    occasionTab(title: "Get Well Soon",id: "673b38d01159920171827b25",),
+ //    occasionTab(title: "Apology",id: "673b39241159920171827b28",),
+ //   occasionTab(title: "electronicssdsssw",id: "6899d319a8bca307f9db0e16",),
+ // ];
+  List<ProductsEntity> fakeOccasions = [
+    ProductsEntity(
       id: "673b34c21159920171827ae0",
       title: "Wedding",
       price: 400,
@@ -58,7 +58,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Celebrate your special wedding day with beautiful flowers.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b351e1159920171827ae5",
       title: "Graduation",
       price: 700,
@@ -70,7 +70,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Congratulate the graduate with stunning floral arrangements.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b354b1159920171827ae8",
       title: "Birthday",
       price: 2076,
@@ -82,7 +82,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Make birthdays memorable with vibrant flower bouquets.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b35c01159920171827aed",
       title: "Anniversary",
       price: 600,
@@ -94,7 +94,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Celebrate your anniversary with elegant floral gifts.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b364e1159920171827af9",
       title: "New Year",
       price:1234,
@@ -106,7 +106,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Welcome the New Year with festive flower decorations.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b368c1159920171827afc",
       title: "Valentine's Day",
       price: 700,
@@ -118,7 +118,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Express love with Valentine’s Day flower arrangements.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b36e71159920171827b05",
       title: "Mother's Day",
       price: 500,
@@ -130,7 +130,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Honor moms with beautiful Mother’s Day flowers.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b37511159920171827b0e",
       title: "Father's Day",
       price: 890,
@@ -143,7 +143,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Celebrate dads with unique Father’s Day floral gifts.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b37a31159920171827b13",
       title: "Christmas",
       price: 945,
@@ -155,7 +155,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Decorate for Christmas with festive flower arrangements.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b37c41159920171827b16",
       title: "Easter",
       price: 850,
@@ -167,7 +167,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Celebrate Easter with colorful floral decorations.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b382e1159920171827b19",
       title: "Baby Shower",
       price: 200,
@@ -179,7 +179,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Welcome the new baby with baby shower flowers.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b38641159920171827b1d",
       title: "Engagement",
       price: 800,
@@ -191,7 +191,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Celebrate engagements with romantic flower arrangements.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b38a91159920171827b20",
       title: "Friendship Day",
       price: 1000,
@@ -203,7 +203,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Show friendship with special Day flower gifts.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b38d01159920171827b25",
       title: "Get Well Soon",
       price: 900,
@@ -215,7 +215,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Send get well soon wishes with healing flowers.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "673b39241159920171827b28",
       title: "Apology",
       price: 900,
@@ -227,7 +227,7 @@ class _OccasionPageState extends State<OccasionPage> {
       quantity: 1,
       description: "Apologize with heartfelt flower arrangements.",
     ),
-    ProductDetailsEntity(
+    ProductsEntity(
       id: "6899d319a8bca307f9db0e16",
       title: "electronicssdsssw",
       price: 300,
@@ -249,7 +249,7 @@ class _OccasionPageState extends State<OccasionPage> {
      return BlocProvider.value(
        value: occasionBloc..add(
          GetProductsDetialsByOccasionEvent(
-           occassionId: tabs[currIndex].id,
+           occassionId: widget.occasions![currIndex].id!,
          ),
        ),
        child: Scaffold(
@@ -264,8 +264,11 @@ class _OccasionPageState extends State<OccasionPage> {
                      SizedBox(height: 10.0,),
                      Row(
                        children: [
-                         Icon(Icons.arrow_back_ios_new,size:
-                         28.0,color: AppColors.lightBlack,),
+                         IconButton(onPressed: (){
+                                    Navigator.of(context).pop();
+                         }, icon:   Icon(Icons.arrow_back_ios_new,size:
+                         28.0,color: AppColors.lightBlack,),),
+
                          SizedBox(width: 10.0,),
                          Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,7 +288,7 @@ class _OccasionPageState extends State<OccasionPage> {
                    ],
                  ),
                  SizedBox(height: 10.0,),
-                 DefaultTabController(length: tabs.length,
+                 DefaultTabController(length: widget.occasions!.length,
                    child: TabBar(
                        onTap: (index){
                          currIndex=index;
@@ -301,9 +304,9 @@ class _OccasionPageState extends State<OccasionPage> {
                        ),
                        padding: EdgeInsets.zero,
 
-                       tabs: List.generate(tabs.length, (index)=>occasionTab(
-                         title:tabs[index].title,
-                         id: tabs[index].id,
+                       tabs: List.generate( widget.occasions!.length, (index)=>occasionTab(
+                         title: widget.occasions![index].name!,
+                         id:  widget.occasions![index].id!,
                          isSelected:
                          index==currIndex,))),),
                  SizedBox(height: 16.0,),
@@ -328,14 +331,14 @@ class _OccasionPageState extends State<OccasionPage> {
 
                     children:
                     [
-                      SizedBox(height: 200.0,),
+                      SizedBox(height: 230.0,),
                       LoadingAnimationWidget.inkDrop(color: AppColors.Pink,
                           size: 50)
                     ],);
 
                 case RequestState.success:
                   // TODO: Handle this case.
-                  return  state.productsDetials.isNotEmpty?    Expanded(child: OccasionGrid(
+                  return  state.productsDetials.isNotEmpty?Expanded(child: OccasionGrid(
                     occasion: state.productsDetials,
                   )):NoProducts();
                 case RequestState.error:

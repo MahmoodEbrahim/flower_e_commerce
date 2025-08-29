@@ -5,6 +5,7 @@ import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CustomCardFlower extends StatelessWidget {
   const CustomCardFlower({
@@ -48,7 +49,8 @@ class CustomCardFlower extends StatelessWidget {
             height: 131.0,
             fit: BoxFit.cover,
             placeholder: (context, _) =>
-                Center(child: CircularProgressIndicator()),
+                Center(child: LoadingAnimationWidget.inkDrop(color: AppColors.Pink,
+                    size: 24)),
             errorWidget: (context, _, error) => Center(
               child: Icon(
                 Icons.image_not_supported_rounded,

@@ -88,7 +88,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get pleaseenteryouremailassociatedtoyouraccount => 'Please enter your email associated to \nyour account';
+  String get pleaseenteryouremailassociatedtoyouraccount =>
+      'Please enter your email associated to \nyour account';
 
   @override
   String get thisEmailisnotvalid => 'This Email is not valid';
@@ -103,13 +104,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailverification => 'Email verification';
 
   @override
-  String get pleaseEnterYourCodeThatSentToYourEmailAddress => 'Please enter your code that was sent to your\n email address';
+  String get pleaseEnterYourCodeThatSentToYourEmailAddress =>
+      'Please enter your code that was sent to your\n email address';
 
   @override
   String get didntReceiveCode => 'Didn\'t receive code?';
 
   @override
-  String get passwordValidationMessage => 'Password must not be empty and must contain\n 6 characters with upper case letter and one\n number at least';
+  String get passwordValidationMessage =>
+      'Password must not be empty and must contain\n 6 characters with upper case letter and one\n number at least';
 
   @override
   String get resend => 'Resend';
@@ -127,7 +130,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newpassword => 'New password';
 
   @override
-  String get passwordresetlinksentsuccessfully => 'Password reset link sent successfully';
+  String get passwordresetlinksentsuccessfully =>
+      'Password reset link sent successfully';
 
   @override
   String get gender => 'Gender';
@@ -172,7 +176,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterPhoneNumber => 'Enter phone number';
 
   @override
-  String get creatingAccountAgreement => 'Creating an account, you agree to our ';
+  String get creatingAccountAgreement =>
+      'Creating an account, you agree to our ';
 
   @override
   String get termsAndConditions => 'Terms & Conditions';

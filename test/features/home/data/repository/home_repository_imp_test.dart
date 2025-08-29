@@ -18,12 +18,12 @@ void main() {
  setUp(() {
   mockHomeRemoteDataSource = MockHomeRemoteDataSource();
   homeRepositoryImp = HomeRepositoryImp(mockHomeRemoteDataSource);
-  provideDummy<ApiResult<List<ProductDetailsEntity>>>(
-   ApiFailedResult<List<ProductDetailsEntity>>('Dummy error'),
+  provideDummy<ApiResult<List<ProductsEntity>>>(
+   ApiFailedResult<List<ProductsEntity>>('Dummy error'),
   );
  });
  const occasionId = '123';
- final productDetails = ProductDetailsEntity(
+ final productDetails = ProductsEntity(
   id: '123',
   title: 'Rose Bouquet',
   price: 299,
@@ -57,25 +57,26 @@ void main() {
  )]);
 group("test getProductsByOCCASIONId in HomeRepositoryImp", (){
   test('should return ApiSuccessResult with products when data source returns success', () async{
-    when(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId)).thenAnswer((_)async=>ApiSucessResult<List<ProductDetailsEntity>>(products));
+    when(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId)).thenAnswer((_)async=>
+        ApiSucessResult<List<ProductsEntity>>(products));
     final result=await homeRepositoryImp.getProductsDetialsByOccasions(occasionId);
-    expect(result, isA<ApiSucessResult<List<ProductDetailsEntity>>>());
+    expect(result, isA<ApiSucessResult<List<ProductsEntity>>>());
     expect((result as ApiSucessResult).sucessResult, equals(products));
     verify(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId)).called(1);
   });
   test('should return ApiFailedResult with null products when data source returns success', () async{
     when(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId)).thenAnswer((_)async=>
-        ApiFailedResult<List<ProductDetailsEntity>>("Products is null"));
+        ApiFailedResult<List<ProductsEntity>>("Products is null"));
     final result=await homeRepositoryImp.getProductsDetialsByOccasions(occasionId);
-    expect(result, isA<ApiFailedResult<List<ProductDetailsEntity>>>());
+    expect(result, isA<ApiFailedResult<List<ProductsEntity>>>());
     expect((result as ApiFailedResult).errorMessage, equals("Products is null"));
     verify(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId)).called(1);
   });
   test("should return ApiFailedResult when remote data source fails", ()async{
     when(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId))
-        .thenAnswer((_) async => ApiFailedResult<List<ProductDetailsEntity>>('Server error'));
+        .thenAnswer((_) async => ApiFailedResult<List<ProductsEntity>>('Server error'));
     final result = await homeRepositoryImp.getProductsDetialsByOccasions(occasionId);
-    expect(result, isA<ApiFailedResult<List<ProductDetailsEntity>>>());
+    expect(result, isA<ApiFailedResult<List<ProductsEntity>>>());
     expect((result as ApiFailedResult).errorMessage, equals('Server error'));
     verify(mockHomeRemoteDataSource.getProductsDetialsByOccasions(occasionId)).called(1);
 

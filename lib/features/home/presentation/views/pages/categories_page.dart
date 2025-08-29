@@ -1,6 +1,7 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
+import 'package:flower_e_commerce/config/theme/common_widgets/no_products.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
@@ -8,10 +9,13 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/product_details_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_search_bar.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CategoriesPage extends StatefulWidget {
   final List<CategoriesEntity> categoryList;
@@ -67,20 +71,26 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       BlocBuilder<CategoriesViewModel, CategoryState>(
                         builder: (context, state) {
                           if (state.isLoading) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+
+                              children:
+                              [
+                                SizedBox(height: 230.0,),
+                                LoadingAnimationWidget.inkDrop(color: AppColors.Pink,
+                                    size: 50)
+                              ],);
                           }
                           if (state.errorMessage != null) {
                             return Center(
                               child: Text(state.errorMessage!),
                             );
                           }
-                          if (state.products != null &&
-                              state.products!.isNotEmpty) {
+                          if (state.products != null ) {
                             final products = state.products!;
 
-                            return SizedBox(
+                            return state.products!.isEmpty?NoProducts() :SizedBox(
                               child: GridView.builder(
                                   shrinkWrap: true,
                                   gridDelegate:
@@ -95,8 +105,10 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.pushNamed(context, AppRoutes.details,
-                                        arguments: products[index]);
+                                        Navigator.of(context).push
+                                          (MaterialPageRoute(builder: (context)=>ProductDetailsScreen(
+                                          product: state.products![index],
+                                        )));
                                       },
                                       child: CustomCardFlower(
                                         image: products[index].imgCover ?? "",

@@ -1,5 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/usecase/get_products_detials_by_occasions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -14,13 +14,13 @@ late MockHomeRepository mockHomeRepository;
 setUp((){
   mockHomeRepository=MockHomeRepository();
   productDetialsByOccasionUseCase=GetProductDetialsByOccasionUseCase(mockHomeRepository);
-  provideDummy<ApiResult<List<ProductDetailsEntity>>>(
-    ApiFailedResult<List<ProductDetailsEntity>>('Dummy error'),
+  provideDummy<ApiResult<List<ProductsEntity>>>(
+    ApiFailedResult<List<ProductsEntity>>('Dummy error'),
   );
 });
   group("GetProductDetialsByOccasionUseCase test", (){
     const occasionId = '123';
-    final productDetails = ProductDetailsEntity(
+    final productDetails = ProductsEntity(
       id: '123',
       title: 'Rose Bouquet',
       price: 299,
@@ -38,23 +38,23 @@ setUp((){
     test("should return ApiSuccessResult when Repositry Success", ()async{
 when(mockHomeRepository.getProductsDetialsByOccasions(occasionId)).thenAnswer((_)async=>ApiSucessResult(products));
 final result=await productDetialsByOccasionUseCase.getProductsDetialsByOccasions(occasionId);
-expect(result, isA<ApiSucessResult<List<ProductDetailsEntity>>>());
+expect(result, isA<ApiSucessResult<List<ProductsEntity>>>());
 expect((result as ApiSucessResult).sucessResult, equals(products));
 verify(mockHomeRepository.getProductsDetialsByOccasions(occasionId));
     });
     test("should return ApiFailedResult when null products", ()async{
       when(mockHomeRepository.getProductsDetialsByOccasions(occasionId)).thenAnswer((_)async=>
-          ApiFailedResult<List<ProductDetailsEntity>>("products is null"));
+          ApiFailedResult<List<ProductsEntity>>("products is null"));
       final result=await productDetialsByOccasionUseCase.getProductsDetialsByOccasions(occasionId);
-      expect(result, isA<ApiFailedResult<List<ProductDetailsEntity>>>());
+      expect(result, isA<ApiFailedResult<List<ProductsEntity>>>());
       expect((result as ApiFailedResult).errorMessage, equals("products is null"));
       verify(mockHomeRepository.getProductsDetialsByOccasions(occasionId)).called(1);
     });
     test("should return ApiFailedResult when Repositry Failed", ()async{
       when(mockHomeRepository.getProductsDetialsByOccasions(occasionId)).thenAnswer((_)async=>
-          ApiFailedResult<List<ProductDetailsEntity>>("error with server"));
+          ApiFailedResult<List<ProductsEntity>>("error with server"));
       final result=await productDetialsByOccasionUseCase.getProductsDetialsByOccasions(occasionId);
-      expect(result, isA<ApiFailedResult<List<ProductDetailsEntity>>>());
+      expect(result, isA<ApiFailedResult<List<ProductsEntity>>>());
       expect((result as ApiFailedResult).errorMessage, equals("error with server"));
       verify(mockHomeRepository.getProductsDetialsByOccasions(occasionId)).called(1);
     });

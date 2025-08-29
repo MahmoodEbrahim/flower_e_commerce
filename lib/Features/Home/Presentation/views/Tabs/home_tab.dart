@@ -1,16 +1,20 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/config/theme/common_widgets/no_products.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/home_view_model/home_bloc.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/home_view_model/home_events.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/home_view_model/home_states.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/all_products.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/occasion_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-
 import '../../../../../core/di/di.dart';
 
 class HomeTab extends StatelessWidget {
@@ -98,31 +102,25 @@ class HomeTab extends StatelessWidget {
 
                       // Best Seller
                       _buildSectionTitle('Best Seller', () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.bestSellers,
-                          arguments: homeData.bestSeller,
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BestSellerPage(
+                          bestSelller: homeData.bestSeller,
+                        )));
                       }),
-                      _buildBestSellerList(homeData.products),
+                      _buildBestSellerList(homeData.bestSeller),
 
                       // Occasions
                       _buildSectionTitle('Occasions', () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.occasions,
-                          arguments: homeData.occasions,
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>OccasionPage(
+                          occasions:homeData.occasions
+                        )));
                       }),
                       _buildOccasionsList(homeData.occasions),
 
                       // Products
                       _buildSectionTitle('Products', () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.catergories,
-                          arguments: homeData.products,
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                          return AllProductsPage(allProducts: homeData.products,);
+                        }));
                       }),
                       _buildProductsList(homeData.products),
                     ],
@@ -158,7 +156,7 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildCategoriesList(List<CategoriesEntity>? categories) {
     if (categories == null || categories.isEmpty) {
-      return const Text("No categories found.");
+      return const NoProducts();
     }
     return SizedBox(
       height: 100,
@@ -219,11 +217,9 @@ class HomeTab extends StatelessWidget {
           final product = products[index];
           return GestureDetector(
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.details,
-                arguments: product,
-              );
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetailsScreen(
+                product: products[index],
+              )));
             },
             child: Container(
               width: 160,
@@ -264,7 +260,8 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-  Widget _buildBestSellerList(List<ProductsEntity>? bestSellers) {
+  Widget _buildBestSellerList(List<BestSellerEntity>? bestSellers,
+) {
     if (bestSellers == null || bestSellers.isEmpty) {
       return const Text("No best sellers found.");
     }
@@ -277,11 +274,10 @@ class HomeTab extends StatelessWidget {
           final bestSeller = bestSellers[index];
           return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.details,
-                  arguments: bestSeller,
-                );
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
+                    ProductDetailsScreen(
+                 product: bestSeller.toEntity()
+                )));
               },
               child: Container(
                 width: 140,
@@ -321,7 +317,7 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-  Widget _buildOccasionsList(List<OccasionsEntity>? occasions) {
+  Widget _buildOccasionsList(List<OccasionsEntity>? occasions ,) {
     if (occasions == null || occasions.isEmpty) {
       return const Text("No occasions found.");
     }
@@ -332,27 +328,37 @@ class HomeTab extends StatelessWidget {
         itemCount: occasions.length,
         itemBuilder: (context, index) {
           final occasion = occasions[index];
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            padding: const EdgeInsets.all(12),
-            decoration: const BoxDecoration(color: Colors.white),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  child: Image.network(
-                    occasion.image ?? '',
-                    width: 140,
-                    height: 160,
-                    fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder:
+                  (context)=>ProductDetailsScreen(
+                  product: Routes.fakeProduct
+              )));
+            },
+            child:    Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    child: Image.network(
+                      occasion.image ?? '',
+                      width: 140,
+                      height: 160,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Text(occasion.name ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
-              ],
+                  const SizedBox(height: 6),
+                  Text(occasion.name ?? '',
+                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                ],
+              ),
             ),
           );
+
+
         },
       ),
     );

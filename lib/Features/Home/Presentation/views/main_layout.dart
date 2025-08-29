@@ -1,9 +1,11 @@
+import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/card_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/categories_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/profile_tab.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class MainLayout extends StatefulWidget {
@@ -17,7 +19,9 @@ class _HomePageState extends State<MainLayout> {
   int selectedIndex = 0;
 
   final List<Widget> tabs = [
-    HomeTab(),CategoriesTab(),
+    HomeTab(),
+    CategoriesPage(categoryList: Routes.fakeCategories,
+        produdctsList: Routes.fakeProducts!),
     CartTab(),ProfileTab()
   ];
 

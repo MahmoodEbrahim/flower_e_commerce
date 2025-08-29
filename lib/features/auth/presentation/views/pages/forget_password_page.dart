@@ -29,15 +29,14 @@ class ForgetPasswordPage extends StatelessWidget {
           backgroundColor: AppColors.White,
           appBar: AppBar(
             backgroundColor: AppColors.White,
-            leading: IconButton(onPressed: () => Navigator.of(context).pop(),icon: Icon(Icons.arrow_back_ios),),
+            leading: IconButton(onPressed: () =>
+                Navigator.of(context).pop(),icon: Icon(Icons.arrow_back_ios),),
 
             title: Text(local.password,style: getMediumStyle
               (color: AppColors.black,fontSize: FontSize.s20,),
             ),),
           body: Padding(
             padding:  EdgeInsets.symmetric(horizontal: 24),
-
-
             child:Form(
               key: formKey,
               child: Column(

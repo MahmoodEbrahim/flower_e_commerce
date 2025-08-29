@@ -1,3 +1,5 @@
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 class BestSellerEntity {
   BestSellerEntity({
     this.id,
@@ -21,4 +23,12 @@ class BestSellerEntity {
   int? quantity;
   String? category;
   String? occasion;
+
+  ProductsEntity toEntity(){
+    return ProductsEntity(
+      id: id,imgCover: imgCover,images: images,price: price,description: description,
+      priceAfterDiscount: priceAfterDiscount,quantity: quantity,category: category,
+      occasion: occasion,title: title
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/search_box.dart';
@@ -28,9 +29,10 @@ class CustumSearchBar extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               Expanded(flex: 1,
-                  child: IconButton(onPressed: (Navigator.of(context).pop), icon: Icon(Icons.arrow_back))),
+                  child: IconButton(onPressed: (){
+                    Navigator.of(context).pushNamed(AppRoutes.home);
+                  }, icon: Icon(Icons.arrow_back))),
               Expanded(
                   flex: 4,
                   child: SearchBox(

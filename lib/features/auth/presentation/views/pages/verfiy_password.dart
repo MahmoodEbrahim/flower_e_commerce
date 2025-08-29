@@ -37,7 +37,7 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
         ForgetPasswordRequest(email: widget.email ?? ''),
       );
 
-      Future.delayed(Duration(seconds: 30), () {
+      Future.delayed(Duration(seconds: 20), () {
         setState(() {
           isButtonEnabled = true;
         });
@@ -51,7 +51,7 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
   @override
   Widget build(BuildContext context) {
     var local=AppLocalizations.of(context)!;
-  
+
     return   BlocProvider(create: (context)=>getIt<ForgetPasswordBCubit>(),
       child:  Scaffold(
         backgroundColor: AppColors.White,
@@ -91,8 +91,8 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
               SizedBox(height: 26.h),
               BlocListener<ForgetPasswordBCubit,ForgetPasswordStates>(
                   listener: (context,state){
-                   
-                    if(state.verfiyPasswordResponse!=null && isButtonEnabled){
+
+                    if(state.verfiyPasswordResponse!=null ){
 
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context)=>ResetPasswordPage(

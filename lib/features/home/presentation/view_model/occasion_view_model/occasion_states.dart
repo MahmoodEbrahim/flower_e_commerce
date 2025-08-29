@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_details_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 @immutable
 class OccasionStates extends Equatable{
  final RequestState requestState;
- final List<  ProductDetailsEntity>productsDetials;
+ final List<ProductsEntity>productsDetials;
  final String? errorMessage;
  OccasionStates({
    this.productsDetials=const [],
@@ -14,7 +14,7 @@ class OccasionStates extends Equatable{
 });
  OccasionStates copyWith({
     RequestState? requestState,
-    List<  ProductDetailsEntity>?productsDetials,
+    List< ProductsEntity>?productsDetials,
     String? errorMessage
 }){
    return OccasionStates(

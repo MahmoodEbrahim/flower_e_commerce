@@ -12,7 +12,7 @@ class NoProducts extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 160.0,),
+        SizedBox(height: 180.0,),
         Icon(CupertinoIcons.info_circle_fill,size: 60,color: AppColors.Pink,),
         SizedBox(height: 20.0,),
 Text("No Products Found",
