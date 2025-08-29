@@ -1,5 +1,4 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
-import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/common_widgets/no_products.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';

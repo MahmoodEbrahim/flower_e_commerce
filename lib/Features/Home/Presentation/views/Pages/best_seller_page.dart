@@ -2,15 +2,13 @@ import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
-import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
-import 'package:flutter/material.dart';
+
 
 import '../../../../../config/theme/common_widgets/custom_flower_card.dart' ;
 
 class BestSellerPage extends StatelessWidget{
-  BestSellerPage({this.bestSelller});
-List<BestSellerEntity>? bestSelller;
+  const BestSellerPage({super.key, this.bestSelller});
+final List<BestSellerEntity>? bestSelller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

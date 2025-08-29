@@ -41,7 +41,7 @@ class HomeModel {
       products: products?.map((product) => product.toEntity()).toList(),
       categories: categories?.map((category) => category.toEntity()).toList(),
       bestSeller: bestSeller?.map((bestSeller) => bestSeller.toEntity()).toList(),
-      occasions: occasions?.map((occasion) => occasion.toEntity()).toList(),
+      //occasions: occasions?.map((occasion) => occasion.toEntity()).toList(),
     );
   }
 }

@@ -70,10 +70,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
     gh.factory<_i81.SignupPage>(() => _i81.SignupPage(key: gh<_i409.Key>()));
-    gh.factory<_i522.AuthApiService>(
-        () => _i522.AuthApiService(gh<_i361.Dio>()));
     gh.factory<_i220.HomeApiService>(
         () => _i220.HomeApiService(gh<_i361.Dio>()));
+    gh.factory<_i522.AuthApiService>(
+        () => _i522.AuthApiService(gh<_i361.Dio>()));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
     gh.factory<_i541.HomeRepository>(

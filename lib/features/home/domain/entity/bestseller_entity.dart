@@ -13,6 +13,7 @@ class BestSellerEntity {
     this.category,
     this.occasion,
   });
+
   String? id;
   String? title;
   String? description;
@@ -24,11 +25,19 @@ class BestSellerEntity {
   String? category;
   String? occasion;
 
-  ProductsEntity toEntity(){
+  
+  ProductsEntity toEntity() {
     return ProductsEntity(
-      id: id,imgCover: imgCover,images: images,price: price,description: description,
-      priceAfterDiscount: priceAfterDiscount,quantity: quantity,category: category,
-      occasion: occasion,title: title
+      id: id,
+      title: title,
+      description: description,
+      imgCover: imgCover,
+      images: images ?? [],
+      price: price,
+      priceAfterDiscount: priceAfterDiscount,
+      quantity: quantity,
+      category: category,
+      occasion: occasion,
     );
   }
 }
