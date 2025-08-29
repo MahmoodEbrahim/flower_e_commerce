@@ -11,7 +11,18 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
 
 import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/occasions_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/main_layout.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/occasions_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/product_details_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/tabs/categories_tab.dart';
 import 'package:flutter/material.dart';
 
 abstract class Routes {
@@ -285,15 +296,23 @@ abstract class Routes {
     ),
   ];
 
-  static Route onGenerate(RouteSettings settings) {
-    final url = Uri.parse(settings.name ?? '/');
-
-    switch (url.path) {
-
-
+  static Route<dynamic> onGenerate(RouteSettings settings) {
+    final url = Uri.parse(settings.name ?? '/');    switch (settings.name) {
       case AppRoutes.home:
+        // final args = settings.arguments as List<ProductsEntity>;
+        return MaterialPageRoute(builder: (context) => MainLayout(),);
+
+      case AppRoutes.bestSellers:
+        // final args = settings.arguments as List<BestSellerEntity>;
         return MaterialPageRoute(
-          builder: (context) => HomePage());
+          builder: (_) => BestSellerPage(),
+        );
+
+      case AppRoutes.occasions:
+        // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+          builder: (_) => OccasionsPage()
+        );
 
       case AppRoutes.catergories:
         return MaterialPageRoute(
@@ -308,11 +327,22 @@ abstract class Routes {
           builder: (context) => ProductDetailsScreen(  product: product,),
         );
 
+      case AppRoutes.productByCat:
+        final args = settings.arguments as Map<String, dynamic>;
+        final categoryId = args["catId"] as String;
+        final categoryName = args["catName"] as String;
+        return MaterialPageRoute(
+          builder: (context) => ProductsCategory(
+            catId: categoryId,
+            catName: categoryName,
+          ),
+        );
 
-         case AppRoutes.login:
+
+      case AppRoutes.login:
         return MaterialPageRoute(builder: (context) => LoginPage());
 
-    
+
 
       case AppRoutes.signup:
         return MaterialPageRoute(builder: (context) =>  SignupPage());
@@ -327,10 +357,15 @@ abstract class Routes {
           builder: (context) => ResetPasswordPage(),
         );
 
+
       default:
         return MaterialPageRoute(
-          builder: (context) => const Scaffold(body: Text("No Route Page")),
+          builder: (context) => Scaffold(
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ),
         );
     }
   }
 }
+
+

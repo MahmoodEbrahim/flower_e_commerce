@@ -25,7 +25,7 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
 
     switch (res) {
       case ApiSucessResult<List<ProductsEntity>>():
-     
+
         emit(state.copyWith(
             isLoading: false, errorMessage: null, products: res.sucessResult));
       case ApiFailedResult<List<ProductsEntity>>():

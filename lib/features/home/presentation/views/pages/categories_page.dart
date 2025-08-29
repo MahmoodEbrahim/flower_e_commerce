@@ -5,7 +5,6 @@ import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
-
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
@@ -31,12 +30,18 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   void initState() {
-    CategoriesEntity newCategory = CategoriesEntity(id: "", name: "All");
-    widget.categoryList.insert(0, newCategory);
-    categoriesViewModel
-        .add(GetAllProductsEvent(products: widget.produdctsList));
     super.initState();
+
+    final hasAllCategory = widget.categoryList.any((cat) => cat.name == "All");
+
+    if (!hasAllCategory) {
+      CategoriesEntity newCategory = CategoriesEntity(id: "", name: "All");
+      widget.categoryList.insert(0, newCategory);
+    }
+
+    categoriesViewModel.add(GetAllProductsEvent(products: widget.produdctsList));
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +92,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   ),
                                   itemCount: products.length,
                                   itemBuilder: (context, index) {
-                                 
+
                                     return GestureDetector(
                                       onTap: () {
                                         Navigator.pushNamed(context, AppRoutes.details,
