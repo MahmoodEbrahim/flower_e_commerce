@@ -1,4 +1,3 @@
-import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/home/api/models/bestseller_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/categories_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/occasions_model.dart';
@@ -10,15 +9,15 @@ part 'home_model.g.dart';
 
 @JsonSerializable()
 class HomeModel {
-  @JsonKey(name: JsonSerlizableConstants.messageKey)
+  @JsonKey(name: "message")
   final String? message;
-  @JsonKey(name: JsonSerlizableConstants.productsKey)
+  @JsonKey(name: "products")
   final List<ProductModel>? products;
-  @JsonKey(name: JsonSerlizableConstants.categoriesKey)
+  @JsonKey(name: "categories")
   final List<CategoriesModel>? categories;
-  @JsonKey(name: JsonSerlizableConstants.bestSellerKey)
+  @JsonKey(name: "bestSeller")
   final List<BestsellerModel>? bestSeller;
-  @JsonKey(name: JsonSerlizableConstants.occasionKey)
+  @JsonKey(name: "occasions")
   final List<OccasionsModel>? occasions;
 
   HomeModel ({
@@ -46,7 +45,6 @@ class HomeModel {
     );
   }
 }
-
 
 
 
