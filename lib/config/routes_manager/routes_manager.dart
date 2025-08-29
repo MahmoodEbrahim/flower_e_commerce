@@ -1,9 +1,18 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
+import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
+
 import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasion_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flutter/material.dart';
 
@@ -290,9 +299,23 @@ abstract class Routes {
             (context)=>const OccasionPage());
 
 
+  static Route<dynamic> onGenerate(RouteSettings settings) {
+    final url = Uri.parse(settings.name ?? '/');    switch (settings.name) {
       case AppRoutes.home:
+        // final args = settings.arguments as List<ProductsEntity>;
+        return MaterialPageRoute(builder: (context) => MainLayout(),);
+
+      case AppRoutes.bestSellers:
+        // final args = settings.arguments as List<BestSellerEntity>;
         return MaterialPageRoute(
-          builder: (context) => HomePage());
+          builder: (_) => BestSellerPage(),
+        );
+
+      case AppRoutes.occasions:
+        // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+          builder: (_) => OccasionsPage()
+        );
 
       case AppRoutes.catergories:
         return MaterialPageRoute(
@@ -307,10 +330,45 @@ abstract class Routes {
           builder: (context) => ProductDetailsScreen(  product: product,),
         );
 
+      case AppRoutes.productByCat:
+        final args = settings.arguments as Map<String, dynamic>;
+        final categoryId = args["catId"] as String;
+        final categoryName = args["catName"] as String;
+        return MaterialPageRoute(
+          builder: (context) => ProductsCategory(
+            catId: categoryId,
+            catName: categoryName,
+          ),
+        );
+
+
+      case AppRoutes.login:
+        return MaterialPageRoute(builder: (context) => LoginPage());
+
+
+
+      case AppRoutes.signup:
+        return MaterialPageRoute(builder: (context) =>  SignupPage());
+      case AppRoutes.forgetPass:
+        return MaterialPageRoute(
+            builder: (context) =>  ForgetPasswordPage());
+      case AppRoutes.verfiyPassword:
+        return MaterialPageRoute(builder: (context) => VerifyPasswordPage());
+      //ResetPasswordPage
+      case AppRoutes.resetPassword:
+        return MaterialPageRoute(
+          builder: (context) => ResetPasswordPage(),
+        );
+
+
       default:
         return MaterialPageRoute(
-          builder: (context) => const Scaffold(body: Text("No Route Page")),
+          builder: (context) => Scaffold(
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ),
         );
     }
   }
 }
+
+

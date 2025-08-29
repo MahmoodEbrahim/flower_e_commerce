@@ -8,25 +8,49 @@ import 'package:flutter/material.dart';
 import 'config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'config/theme/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'config/theme/app_theme.dart';
+import 'features/auth/api/source/user_local_storage.dart';
+import 'features/auth/domain/entity/login_model.dart';
+import 'features/auth/domain/entity/user_model.dart';
+
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
+  await configureDependencies();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(LoginModelAdapter());
+  await UserLocalStorage.init();
   runApp(
-   DevicePreview(builder: (context)=> MyApp())
+      DevicePreview(builder: (context)=> MyApp())
+
   );}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-       onGenerateRoute:Routes.onGenerate,
-      initialRoute:AppRoutes.occasion ,
-      theme: AppTheme.lightTheme,
+    final isLoggedIn = UserLocalStorage.isLoggedIn();
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp(
+
+        initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: Routes.onGenerate,
+        theme: AppTheme.lightTheme,
+      ),
+
     );
   }
 }

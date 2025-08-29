@@ -8,7 +8,7 @@ class ApiSucessResult<T> extends ApiResult<T> {
 
 class ApiFailedResult<T> extends ApiResult<T> {
   String errorMessage;
+
   ApiFailedResult(this.errorMessage);
 
-  
 }
