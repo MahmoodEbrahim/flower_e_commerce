@@ -20,7 +20,8 @@ class _HomePageState extends State<MainLayout> {
 
   final List<Widget> tabs = [
     HomeTab(),
-    CategoriesPage(categoryList: Routes.fakeCategories,
+    CategoriesPage(
+        categoryList: Routes.fakeCategories,
         produdctsList: Routes.fakeProducts!),
     CartTab(),ProfileTab()
   ];

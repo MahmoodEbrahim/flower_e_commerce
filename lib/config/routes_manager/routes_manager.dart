@@ -325,11 +325,13 @@ static Route<dynamic> onGenerate(RouteSettings settings) {
           builder: (_) => OccasionPage()
         );
 //AllProductsPage
-      case AppRoutes.occasions:
-      // final args = settings.arguments as List<OccasionsEntity>;
-        return MaterialPageRoute(
-            builder: (_) => OccasionPage()
-        );
+    case AppRoutes.catergories:
+    return MaterialPageRoute(
+    builder: (context) => CategoriesPage(
+    categoryList: fakeCategories,
+    produdctsList: fakeProducts!,
+    ));
+
       case AppRoutes.allProducts:
         return MaterialPageRoute(
             builder: (context) => AllProductsPage());
@@ -338,7 +340,6 @@ static Route<dynamic> onGenerate(RouteSettings settings) {
         final product = settings.arguments as ProductsEntity;
         return MaterialPageRoute(
           builder: (context) => ProductDetailsScreen(
-
 
           ),
         );

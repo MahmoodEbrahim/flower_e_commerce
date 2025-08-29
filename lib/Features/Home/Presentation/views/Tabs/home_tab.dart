@@ -330,10 +330,10 @@ class HomeTab extends StatelessWidget {
           final occasion = occasions[index];
           return GestureDetector(
             onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder:
-                  (context)=>ProductDetailsScreen(
-                  product: Routes.fakeProduct
-              )));
+              // Navigator.of(context).push(MaterialPageRoute(builder:
+              //     (context)=>ProductDetailsScreen(
+              //     product: Routes.fakeProduct
+              // )));
             },
             child:    Container(
               margin: const EdgeInsets.symmetric(horizontal: 8),
