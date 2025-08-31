@@ -1,7 +1,7 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
-import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
-import 'package:flower_e_commerce/config/theme/common_widgets/no_products.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/custom_flower_card.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/no_products.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
@@ -9,8 +9,6 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/pages/product_details_page.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_search_bar.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +41,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
       widget.categoryList.insert(0, newCategory);
     }
 
-    categoriesViewModel.add(GetAllProductsEvent(products: widget.produdctsList));
+    categoriesViewModel
+        .add(GetAllProductsEvent(products: widget.produdctsList));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,52 +72,55 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
-
-                              children:
-                              [
-                                SizedBox(height: 230.0,),
-                                LoadingAnimationWidget.inkDrop(color: AppColors.Pink,
-                                    size: 50)
-                              ],);
+                              children: [
+                                SizedBox(
+                                  height: 230.0,
+                                ),
+                                LoadingAnimationWidget.inkDrop(
+                                    color: AppColors.Pink, size: 50)
+                              ],
+                            );
                           }
                           if (state.errorMessage != null) {
                             return Center(
                               child: Text(state.errorMessage!),
                             );
                           }
-                          if (state.products != null ) {
+                          if (state.products != null) {
                             final products = state.products!;
 
-                            return state.products!.isEmpty?NoProducts() :SizedBox(
-                              child: GridView.builder(
-                                  shrinkWrap: true,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 10,
-                                    crossAxisSpacing: 10,
-                                    childAspectRatio: 0.6,
-                                  ),
-                                  itemCount: products.length,
-                                  itemBuilder: (context, index) {
-
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push
-                                          (MaterialPageRoute(builder: (context)=>ProductDetailsScreen(
-                                          product: state.products![index],
-                                        )));
-                                      },
-                                      child: CustomCardFlower(
-                                        image: products[index].imgCover ?? "",
-                                        title: products[index].title ?? "",
-                                        newPrice:
-                                        products[index].priceAfterDiscount,
-                                        oldPrice: products[index].price ?? 0,
-                                      )
-                                    );
-                                  }),
-                            );
+                            return state.products!.isEmpty
+                                ? NoProducts()
+                                : SizedBox(
+                                    child: GridView.builder(
+                                        shrinkWrap: true,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 10,
+                                          crossAxisSpacing: 10,
+                                          childAspectRatio: 0.6,
+                                        ),
+                                        itemCount: products.length,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pushNamed(
+                                                    AppRoutes.details,arguments: products[index]);
+                                              },
+                                              child: CustomCardFlower(
+                                                image:
+                                                    products[index].imgCover ??
+                                                        "",
+                                                title:
+                                                    products[index].title ?? "",
+                                                newPrice: products[index]
+                                                    .priceAfterDiscount,
+                                                oldPrice:
+                                                    products[index].price ?? 0,
+                                              ));
+                                        }),
+                                  );
                           } else {
                             return Center(
                               child: Text(t.noProducts),

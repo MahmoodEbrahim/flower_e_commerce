@@ -1,14 +1,13 @@
-import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/pages/cart_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/card_tab.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/Tabs/categories_tab.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/profile_tab.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/tabs/categories_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
 
@@ -20,12 +19,10 @@ class _HomePageState extends State<MainLayout> {
   int selectedIndex = 0;
 
   final List<Widget> tabs = [
-    HomeTab(),
-    CategoriesPage(
-        categoryList: Routes.fakeCategories,
-        produdctsList: Routes.fakeProducts!),
-    CartPage()
-    ,ProfileTab()
+    HomePage(),
+    CategoriesTab(),
+    CartTab(),
+    ProfileTab()
   ];
 
   @override
@@ -35,7 +32,7 @@ class _HomePageState extends State<MainLayout> {
         navigationBarTheme: NavigationBarThemeData(
           indicatorColor: Colors.transparent,
           labelTextStyle: WidgetStatePropertyAll(
-            TextStyle(color:Colors.pink),
+            TextStyle(color: Colors.pink),
           ),
         ),
       ),
@@ -64,7 +61,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.HomeTab,
+              label: StringsManager.homeTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.homeicon,
                 colorFilter: ColorFilter.mode(
@@ -85,7 +82,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.CategoriesTab,
+              label: StringsManager.categoriesTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.categoriesicon,
                 colorFilter: ColorFilter.mode(
@@ -106,7 +103,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.CartTab,
+              label: StringsManager.cartTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.carticon,
                 colorFilter: ColorFilter.mode(
@@ -127,7 +124,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.ProfileTab,
+              label: StringsManager.profileTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.profileicon,
                 colorFilter: ColorFilter.mode(
@@ -143,10 +140,4 @@ class _HomePageState extends State<MainLayout> {
       ),
     );
   }
-  }
-
-
-
-
-
-
+}
