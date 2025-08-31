@@ -15,4 +15,7 @@ abstract class AppRoutes {
   static const String productByCat="productByCat";
 //AllProductsPage
   static const String allProducts="/AllProductsPage";
+  static const String cart="/cart";
+
+
 }
