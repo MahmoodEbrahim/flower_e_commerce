@@ -26,11 +26,12 @@ class ChangePasswordScreen extends StatelessWidget {
     var cuurentpasswordController=TextEditingController();
     var newPassword=TextEditingController();
     var formKey=GlobalKey<FormState>();
+    final token=UserLocalStorage.getToken();
+    print("token is $token");
     return  BlocProvider(create: (context)=>getIt<ChangePasswordBloc>(),
     child:  BlocConsumer<ChangePasswordBloc,ChangePasswordStates>
       (builder: (context,state){
-      final token=UserLocalStorage.getToken();
-      print("token is $token");
+
 return   Scaffold(
     backgroundColor: AppColors.White,
     appBar: AppBar(
@@ -78,8 +79,8 @@ if(formKey.currentState!.validate()){
 
   context.read<ChangePasswordBloc>().add(GetChangePasswordEvent(
       changePasswordRequest: ChangePasswordRequest(
-        password: cuurentpasswordController.text,
-        newPassword: newPassword.text
+        password: cuurentpasswordController.text.trim(),
+        newPassword: newPassword.text.trim()
       ), token: token! ));
 }
                 },)

@@ -16,8 +16,10 @@ class ProfileRemoteDataSourceImp implements ProfileRemoteDataSource {
   Future<ApiResult<ChangePasswordResponse>>
  changePassword(ChangePasswordRequest request,String token) async{
   try{
-    final response=await _profileApiService.changePassword
-      (request, "Bearer $token");
+    final response = await _profileApiService.changePassword(
+      {"password": request.password, "newPassword": request.newPassword},
+      "Bearer $token",
+    );
 if(response.message=="success"){
 return ApiSucessResult(response);
 }else{

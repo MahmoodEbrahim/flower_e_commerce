@@ -15,16 +15,15 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent,ChangePasswordStates>{
       emit(state.copyWith(
         requestState: RequestState.init
       ));
-      final result=await _getChangePasswordUseCase.changePassword(event.changePasswordRequest, event.token);
+      final result=await _getChangePasswordUseCase.
+      changePassword(event.changePasswordRequest, event.token);
       switch(result){
         case ApiSucessResult<ChangePasswordResponse>():
           emit(state.copyWith(
        requestState: RequestState.success,
        changePasswordResponse: result.sucessResult
           ));
-
-
-        case ApiFailedResult<ChangePasswordResponse>():
+          case ApiFailedResult<ChangePasswordResponse>():
           emit(state.copyWith(
             requestState: RequestState.error,
             errorMessage: result.errorMessage,

@@ -20,7 +20,7 @@ abstract class ProfileApiService {
   factory ProfileApiService(Dio dio) = _ProfileApiService;
 @PATCH(ApiEndPoints.changePasswordEndPoint)
   Future<ChangePasswordResponse>changePassword(
-    @Body()ChangePasswordRequest,
+    @Body()Map<String, dynamic> request,
     @Header(ApiParameters.authorization) String token
     );
 }
