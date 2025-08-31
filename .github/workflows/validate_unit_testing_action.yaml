@@ -3,11 +3,14 @@ name: Validate unit testing
 on:
   push:
     branches:
-      - '**'
+      - developments
+      - master
+
   pull_request:
     branches:
       - developments
       - master
+
 
 jobs:
   test:
