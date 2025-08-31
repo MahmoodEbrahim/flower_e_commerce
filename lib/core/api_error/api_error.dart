@@ -14,7 +14,7 @@ class ServerFailure extends  ApiFailedResult {
       case DioExceptionType.receiveTimeout:
         return ServerFailure("receiveTimeout with Api Server");
       case DioExceptionType.badCertificate:
-      // TODO: Handle this case.
+     
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(dioException.response!.statusCode,
             dioException.response!.data);
@@ -27,11 +27,10 @@ class ServerFailure extends  ApiFailedResult {
           return ServerFailure('No Internet Connection');
         }
         return ServerFailure('Unexpected Error, Please try again!');
-      default:
-        return ServerFailure('Opps There was an Error, Please try again');
+     
     }
   }
-  factory ServerFailure.fromResponse(dynamic? statusCode, dynamic response) {
+  factory ServerFailure.fromResponse(dynamic statusCode, dynamic response) {
     if (statusCode == "400" || statusCode == "401" || statusCode == "403") {
       return ServerFailure(response['error']);
     } else if (statusCode == '404') {

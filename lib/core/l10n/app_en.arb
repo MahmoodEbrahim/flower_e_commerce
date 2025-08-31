@@ -1,20 +1,19 @@
 {
-    "@@locale": "en",
-    "occasion": "Occasion",
-    "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers",
+  "@@locale": "en",
+  "occasion": "Occasion",
+  "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers",
   "allCategory": "All",
   "noProducts": "No Products Found",
   "loading": "Loading...",
   "errorMessage": "Something went wrong",
-  "search":"search",
-  "addToCart":"Add to cart",
-    "egp":"EGP",
-    "status":"Status: ",
-    "inStock":"In stock",
-    "outOfStock":"Out of stock",
-    "includeTax":"All prices include tax",
-    "description":"Description",
-
+  "search": "search",
+  "addToCart": "Add to cart",
+  "egp": "EGP",
+  "status": "Status: ",
+  "inStock": "In stock",
+  "outOfStock": "Out of stock",
+  "includeTax": "All prices include tax",
+  "description": "Description",
 
   "login": "Login",
   "email": "Email",
@@ -43,9 +42,7 @@
   "newpassword": "New password",
   "passwordresetlinksentsuccessfully": "Password reset link sent successfully",
 
-
-
-   "gender": "Gender",
+  "gender": "Gender",
   "female": "Female",
   "male": "Male",
   "pleaseSelectGender": "Please select the gender",
@@ -55,7 +52,6 @@
   "enterLastName": "Enter last name",
 
   "enterEmail": "Enter your email",
-  
   "enterPassword": "Enter password",
   "confirmPassword": "Confirm Password",
   "enterConfirmPassword": "Confirm password",
@@ -63,13 +59,22 @@
   "enterPhoneNumber": "Enter phone number",
   "creatingAccountAgreement": "Creating an account, you agree to our ",
   "termsAndConditions": "Terms & Conditions",
-  "alreadyHaveAccount": "Already have an account? "
+  "alreadyHaveAccount": "Already have an account? ",
 
+  "allProducts": "All Products",
+  "bloomWithOurExquisiteAllProducts": "Bloom with our exquisite all Products",
+   "bestSeller": "Best Seller",
 
-
-    
-
-
-
-
+   "appTitle": "🌸 Flowery",
+  
+  "deliveryLocation": "Deliver to 2XVP+XC - Sheikh Zayed",
+  "categories": "Categories",
+  
+  "occasions": "Occasions",
+  "products": "Products",
+  "error":"error",
+  "address":"Deliver to 2XVP+XC - Sheikh Zayed ",
+   "noProductsFound": "No Products found.",
+   "seeAll":"see all"
+ 
 }

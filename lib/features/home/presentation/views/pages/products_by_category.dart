@@ -1,9 +1,8 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
-import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/custom_flower_card.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';

@@ -6,7 +6,6 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../../config/routes_manager/routes_manager.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final PageController controller = PageController();
   final ProductsEntity? product;
