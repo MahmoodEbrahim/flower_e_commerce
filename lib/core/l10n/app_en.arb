@@ -63,11 +63,11 @@
   "enterPhoneNumber": "Enter phone number",
   "creatingAccountAgreement": "Creating an account, you agree to our ",
   "termsAndConditions": "Terms & Conditions",
-  "alreadyHaveAccount": "Already have an account? "
+  "alreadyHaveAccount": "Already have an account? ",
 
-
-
-    
+"currentPassword": "Current password",
+  "newPassword": "New password",
+  "passwordChangeSuccessfuly": "✅ Password Change Successfuly",
 
 
 

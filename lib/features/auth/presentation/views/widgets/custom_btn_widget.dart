@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBtnWidget extends StatelessWidget {
-   CustomBtnWidget({super.key,required this.txt,this.onPressed});
+   CustomBtnWidget({super.key,required this.txt,
+     this.bg=AppColors.Pink,
+     this.onPressed});
   void Function()?onPressed;
   final String txt;
+  Color bg;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -13,7 +16,7 @@ class CustomBtnWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24.r)
           ),
-          backgroundColor: AppColors.Pink,
+          backgroundColor:bg,
           foregroundColor: AppColors.White,
           fixedSize: Size(double.infinity, 48.h),
           

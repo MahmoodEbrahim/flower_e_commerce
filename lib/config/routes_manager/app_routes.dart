@@ -13,6 +13,7 @@ abstract class AppRoutes {
   static const String bestSellers='bestSellers';
   static const String occasions='/occasions';
   static const String productByCat="productByCat";
-//AllProductsPage
+//ChangePasswordScreen
   static const String allProducts="/AllProductsPage";
+  static const String changePassword="/ChangePasswordScreen";
 }

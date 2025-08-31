@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-
-        initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+initialRoute: AppRoutes.login,
+      //  initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
