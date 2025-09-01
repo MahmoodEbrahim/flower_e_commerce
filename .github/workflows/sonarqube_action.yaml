@@ -1,4 +1,5 @@
 name: SonarQube Analysis
+
 on:
   push:
   pull_request:
@@ -42,6 +43,7 @@ jobs:
             -Dsonar.dart.analyzer.mode=FLUTTER
             -Dsonar.branch.name=${{github.ref_name}}
 
+
       - name: SonarQube Quality Gate Check
         uses: SonarSource/sonarqube-quality-gate-action@master
         id: quality-gate-check
@@ -49,7 +51,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        continue-on-error: true
+        
+
+
 
 
 
