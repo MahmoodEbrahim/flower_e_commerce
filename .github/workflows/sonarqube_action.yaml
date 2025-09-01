@@ -44,14 +44,17 @@ jobs:
             -Dsonar.branch.name=${{github.ref_name}}
 
 
-      - name: SonarQube Quality Gate Check
-        uses: SonarSource/sonarqube-quality-gate-action@master
-        id: quality-gate-check
-        timeout-minutes: 10
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        
+    - name: SonarQube Quality Gate Check
+      uses: SonarSource/sonarqube-quality-gate-action@master
+      id: quality-gate-check
+      timeout-minutes: 10
+      with:
+        path_to_report_file: ".scannerwork/report-task.txt"  
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+
 
 
 
