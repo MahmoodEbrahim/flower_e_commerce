@@ -109,15 +109,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                                     AppRoutes.details,arguments: products[index]);
                                               },
                                               child: CustomCardFlower(
-                                                image:
-                                                    products[index].imgCover ??
-                                                        "",
-                                                title:
-                                                    products[index].title ?? "",
-                                                newPrice: products[index]
-                                                    .priceAfterDiscount,
-                                                oldPrice:
-                                                    products[index].price ?? 0,
+                                               productsEntity: products[index]
                                               ));
                                         }),
                                   );

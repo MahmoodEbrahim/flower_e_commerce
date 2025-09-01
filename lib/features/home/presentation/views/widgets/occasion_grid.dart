@@ -21,9 +21,7 @@ class OccasionGrid extends StatelessWidget {
               ProductDetailsScreen(product: occasion[index])));
         },
         child: CustomCardFlower(
-          image: occasion[index].imgCover!,title: occasion[index].title!,
-          newPrice: occasion[index].priceAfterDiscount,
-          oldPrice: occasion[index].price??900,
+        productsEntity: occasion[index],
 
         )
       );
