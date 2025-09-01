@@ -17,6 +17,8 @@ class CartPage extends StatelessWidget {
   CartPage({super.key});
 
   final CartViewModel cartViewModel = getIt.get<CartViewModel>();
+  ValueNotifier<int> price = ValueNotifier<int>(0);
+  ValueNotifier<int> priceAfterFee = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class CartPage extends StatelessWidget {
           leading: IconButton(
               constraints: BoxConstraints(),
               padding: EdgeInsets.zero,
-              onPressed: ()=>Navigator.of(context).pushNamed(AppRoutes.home),
+              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
               icon: Icon(Icons.arrow_back_ios)),
         ),
         body: Padding(
@@ -41,15 +43,21 @@ class CartPage extends StatelessWidget {
               DeliveryLocation(),
               SizedBox(
                 height: 400,
-                child: BlocBuilder<CartViewModel, CartStates>(
-                  builder: (context, state) {
+                child: BlocConsumer<CartViewModel, CartStates>(
+                 
+                  listener: (context, state) {
                    
-                    if (state.isLoading) {
-                   
-                      return CommonLoading();
+                    if (state.price != null) {
+                      
+                      price.value = state.price!;
+                      priceAfterFee.value = state.priceAfterFee!;
                     }
-                    if (state.products.isNotEmpty) {
-                      return CardSection(products: state.products,);
+                  },
+                  builder: (context, state) {
+                    if (state.products.isNotEmpty || state.products.isEmpty) {
+                      return CardSection(
+                        products: state.products,
+                      );
                     }
                     if (state.errorMessage != null) {
                       return Center(
@@ -61,47 +69,14 @@ class CartPage extends StatelessWidget {
                   },
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                child: SizedBox(
-                    child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Sub Total"),
-                        Text("100\$"),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Delivery Fee"),
-                        Text("10\$"),
-                      ],
-                    ),
-                    Divider(
-                      color: AppColors.black[20]!,
-                      thickness: 1,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Total",
-                            style: getBoldStyle(
-                                color: AppColors.Black,
-                                fontSize: FontSize.s16)),
-                        Text(
-                          "110\$",
-                          style: getBoldStyle(
-                              color: AppColors.Black, fontSize: FontSize.s16),
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
-              ),
+              ValueListenableBuilder(
+                  valueListenable: price,
+                  builder: (context, value, child) {
+                    return TotalCalculationPart(
+                      price: price.value,
+                      priceWithFee: priceAfterFee.value,
+                    );
+                  }),
               Row(
                 children: [
                   Expanded(
@@ -122,6 +97,59 @@ class CartPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TotalCalculationPart extends StatelessWidget {
+  final int price;
+  final int priceWithFee;
+  const TotalCalculationPart({
+    super.key,
+    required this.price,
+    required this.priceWithFee,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+      child: SizedBox(
+          child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Sub Total"),
+              Text("$price\$"),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Delivery Fee"),
+              Text("10\$"),
+            ],
+          ),
+          Divider(
+            color: AppColors.black[20]!,
+            thickness: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Total",
+                  style: getBoldStyle(
+                      color: AppColors.Black, fontSize: FontSize.s16)),
+              Text(
+                "$priceWithFee\$",
+                style: getBoldStyle(
+                    color: AppColors.Black, fontSize: FontSize.s16),
+              ),
+            ],
+          ),
+        ],
+      )),
     );
   }
 }
