@@ -43,10 +43,8 @@ class AllProductsPage extends StatelessWidget {
                       ProductDetailsScreen(product: allProducts![index])));
             },
             child: CustomCardFlower(
-              newPrice: allProducts![index].priceAfterDiscount,
-              image: allProducts![index].imgCover!,
-              title: allProducts![index].title!,
-              oldPrice: allProducts![index].price!,
+              productsEntity: allProducts![index],
+            
             ),
           );
         },

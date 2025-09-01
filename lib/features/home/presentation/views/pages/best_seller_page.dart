@@ -34,19 +34,15 @@ class BestSellerPage extends StatelessWidget {
         ),
         itemCount: bestSelller!.length,
         itemBuilder: (context, index) {
+          final product = bestSelller![index].toEntity();
           return GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
-                        product: bestSelller![index].toEntity(),
+                        product:product,
                       )));
             },
-            child: CustomCardFlower(
-              newPrice: bestSelller![index].priceAfterDiscount,
-              image: bestSelller![index].imgCover!,
-              title: bestSelller![index].title!,
-              oldPrice: bestSelller![index].price!,
-            ),
+            child: CustomCardFlower(productsEntity: product),
           );
         },
       ),
