@@ -1,11 +1,14 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class DetailsSection extends StatelessWidget {
+  final ProductsEntity product;
   const DetailsSection({
     super.key,
+    required this.product
   });
 
   @override
@@ -14,40 +17,60 @@ class DetailsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Red roses",style: getBoldStyle(color: AppColors.Black,fontSize: FontSize.s16),),
-            IconButton(
-                constraints: BoxConstraints(),
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-                icon:
-                    Icon(Icons.delete_outline_rounded,color: AppColors.red,))
+            Expanded(
+              flex: 8,
+              
+              child: Text(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+                product.title!,
+                style:
+                    getBoldStyle(color: AppColors.Black, fontSize: FontSize.s16),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                  constraints: BoxConstraints(),
+                  padding: EdgeInsets.zero,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.delete_outline_rounded,
+                    color: AppColors.red,
+                  )),
+            )
           ],
         ),
-        
-        Text("15 Pink Rose Bouquent"),
-    
-        SizedBox(height: 20,),
-        
+        Text(product.title!,  maxLines: 1,
+            overflow: TextOverflow.ellipsis,),
+        SizedBox(
+          height: 20,
+        ),
         Row(
-          mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("EGP 600",style: getBoldStyle(color: AppColors.Black,fontSize: FontSize.s16),),
+            Text(
+              'EGP ${product.priceAfterDiscount??product.price} '
+              ,
+              style:
+                  getBoldStyle(color: AppColors.Black, fontSize: FontSize.s16),
+            ),
             Row(
               children: [
-    
                 IconButton(
                     constraints: BoxConstraints(),
                     padding: EdgeInsets.zero,
                     onPressed: () {},
-                    icon: Icon(Icons
-                        .remove)),
+                    icon: Icon(Icons.remove)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text("1",style: getBoldStyle(color: AppColors.Black,fontSize: FontSize.s16),),
+                  child: Text(
+                    "1",
+                    style: getBoldStyle(
+                        color: AppColors.Black, fontSize: FontSize.s16),
+                  ),
                 ),
                 IconButton(
                     constraints: BoxConstraints(),
@@ -58,7 +81,6 @@ class DetailsSection extends StatelessWidget {
             )
           ],
         ),
-     
       ],
     );
   }

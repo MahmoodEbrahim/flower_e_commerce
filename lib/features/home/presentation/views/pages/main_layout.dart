@@ -21,7 +21,7 @@ class _HomePageState extends State<MainLayout> {
   final List<Widget> tabs = [
     HomePage(),
     CategoriesTab(),
-    CartTab(),
+    CartPage(),
     ProfileTab()
   ];
 
