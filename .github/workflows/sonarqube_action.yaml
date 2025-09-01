@@ -30,7 +30,6 @@ jobs:
       - name: Run tests
         run: flutter test --coverage
 
-      # Run SonarQube scan
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
         env:
@@ -48,12 +47,7 @@ jobs:
         uses: SonarSource/sonarqube-quality-gate-action@master
         id: quality-gate-check
         timeout-minutes: 10
-       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         continue-on-error: true
-          
-
-
-
