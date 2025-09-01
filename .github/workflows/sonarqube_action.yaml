@@ -1,0 +1,58 @@
+name: SonarQube Analysis
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+
+      - run: flutter --version
+
+      - name: Install packages
+        run: flutter pub get
+
+      - name: Add Flutter to PATH
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      # Run SonarQube scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=MahmoodEbrahim_flower_e_commerce
+            -Dsonar.sources=lib
+            -Dsonar.tests=test
+            -Dsonar.dart.analyzer.mode=FLUTTER
+            -Dsonar.branch.name=${{ github.ref_name }}
+
+      - name: SonarQube Quality Gate Check
+        uses: SonarSource/sonarqube-quality-gate-action@master
+        id: quality-gate-check
+        timeout-minutes: 10
+        env:
+          SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets. SONAR_HOST_URL }}
+        continue-on-error: true
+          
+
+
+
