@@ -1,0 +1,33 @@
+name: Flutter Unit Testing Action
+
+on:
+  workflow_dispatch:
+  branches: 
+   
+   
+  pull_request:
+   
+    
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+    - name: Set up Flutter
+            uses: subosito/flutter-action@v1.5.3
+            with:
+              flutter-version: '3.35.2' # 
+              channel: 'stable'
+
+      - name: Install packages
+        run: flutter pub get
+
+      - name: Run generator
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Run tests
+        run: flutter test test
