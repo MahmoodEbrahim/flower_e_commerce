@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/assets_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
@@ -9,61 +10,69 @@ import 'package:flower_e_commerce/features/profile/presentation/views/widgets/pr
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class ProfileMainScreen extends StatefulWidget {
-  const ProfileMainScreen({super.key});
+class ProfileMainPage extends StatefulWidget {
+  const ProfileMainPage({super.key});
 
   @override
-  State<ProfileMainScreen> createState() => _ProfileMainScreenState();
+  State<ProfileMainPage> createState() => _ProfileMainScreenState();
 }
 
-class _ProfileMainScreenState extends State<ProfileMainScreen> {
+class _ProfileMainScreenState extends State<ProfileMainPage> {
   LoginModel? user;
   bool isNotificationEnabled = true;
+  String appVersion = '';
 
   @override
   void initState() {
     super.initState();
     user = UserLocalStorage.getUser();
+    _loadVersion();
+  }
+
+  Future<void> _loadVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = '${info.version} - (${info.buildNumber})';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              ImageAssets.flower,
-              height: 35,
-              width: 35,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              locale.flowery,
-              style: GoogleFonts.imFellEnglish(
-                fontWeight: FontWeightManager.regular,
-                fontSize: FontSize.s24,
-                color: AppColors.Pink,
+        appBar: AppBar(
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                ImageAssets.flower,
+                height: 35,
+                width: 35,
               ),
+              const SizedBox(width: 6),
+              Text(
+                t.flowery,
+                style: GoogleFonts.imFellEnglish(
+                  fontWeight: FontWeightManager.regular,
+                  fontSize: FontSize.s24,
+                  color: AppColors.Pink,
+                ),
+              ),
+            ],
+          ),
+          actions: const [
+            Icon(
+              Icons.notifications_none,
+              size: 30,
+              color: AppColors.gray,
             ),
           ],
+          actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
         ),
-        actions: const [
-          Icon(
-            Icons.notifications_none,
-            size: 30,
-            color: AppColors.gray,
-          ),
-        ],
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const SizedBox(height: 10),
           Center(
             child: CircleAvatar(
@@ -81,7 +90,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                user?.user.firstName ?? locale.guest,
+                user?.user.firstName ?? t.guest,
                 style: getMediumStyle(
                   color: AppColors.Black,
                   fontSize: FontSize.s18,
@@ -90,7 +99,8 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
               const SizedBox(width: 5),
               GestureDetector(
                 onTap: () {
-                  ///Navigator to edit profile
+                  // Navigator.pushNamed(context, AppRoutes.editUser,
+                  // arguments: user);
                 },
                 child: SvgPicture.asset(
                   ImageAssets.pen,
@@ -113,7 +123,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
               ProfileItem(
                 leading:
                     SvgPicture.asset(ImageAssets.list, height: 25, width: 25),
-                title: locale.myOrders,
+                title: t.myOrders,
                 showArrow: true,
                 onTap: () {
                   // navigator
@@ -122,15 +132,17 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
               ProfileItem(
                 leading: SvgPicture.asset(ImageAssets.location,
                     height: 25, width: 25),
-                title: locale.savedAddress,
+                title: t.savedAddress,
                 showArrow: true,
                 onTap: () {
                   // navigator
                 },
               ),
-              const Divider( height: 20,),
+              const Divider(
+                height: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.only(left: 15,right: 5),
+                padding: const EdgeInsets.only(left: 15, right: 5),
                 child: Row(
                   children: [
                     Switch(
@@ -145,8 +157,10 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       inactiveThumbColor: AppColors.gray,
                       inactiveTrackColor: AppColors.White,
                     ),
-                    SizedBox(width: 3,),
-                    Text(locale.notification,
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Text(t.notification,
                         style: getRegularStyle(
                             color: AppColors.Black, fontSize: FontSize.s16)),
                     const Spacer(),
@@ -160,12 +174,14 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                   ],
                 ),
               ),
-              const Divider(height: 20,),
+              const Divider(
+                height: 20,
+              ),
               ProfileItem(
                 leading: SvgPicture.asset(ImageAssets.translate, height: 20),
-                title: locale.language,
+                title: t.language,
                 trailing: Text(
-                  locale.english,
+                  t.english,
                   style: getRegularStyle(
                     color: AppColors.Pink,
                     fontSize: FontSize.s16,
@@ -176,32 +192,41 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                 },
               ),
               ProfileItem(
-                title: locale.aboutUs,
+                title: t.aboutUs,
                 showArrow: true,
                 onTap: () {
-                  // navigator
+                  Navigator.pushNamed(context, AppRoutes.about);
                 },
               ),
               ProfileItem(
-                title: locale.termsAndConditions,
+                title: t.termsAndConditions,
                 showArrow: true,
                 onTap: () {
-                  // navigator
+                  Navigator.pushNamed(context, AppRoutes.termsAndCondition);
                 },
               ),
               const Divider(),
               ProfileItem(
                 leading: SvgPicture.asset(ImageAssets.logout, height: 20),
-                title: locale.logout,
+                title: t.logout,
                 trailing: SvgPicture.asset(ImageAssets.logout, height: 30),
                 onTap: () {
                   // navigator
                 },
               ),
             ],
-          )
-        ],
-      ),
-    );
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text('${t.version}$appVersion',
+                    style: getRegularStyle(
+                        color: AppColors.gray, fontSize: FontSize.s14)),
+              ),
+            ),
+          ),
+        ]));
   }
 }
