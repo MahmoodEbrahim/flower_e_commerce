@@ -38,6 +38,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=MahmoodEbrahim_flower_e_commerce
+            -Dsonar.organization=mahmoodebrahim
             -Dsonar.sources=lib
             -Dsonar.tests=test
             -Dsonar.dart.analyzer.mode=FLUTTER
