@@ -180,8 +180,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'Creating an account, you agree to our ';
 
   @override
-  String get termsAndConditions => 'Terms & Conditions';
+  String get termsAndConditions => 'Terms & conditions';
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get flowery => 'Flowery';
+
+  @override
+  String get guest => 'Guest';
+
+  @override
+  String get myOrders => 'My orders';
+
+  @override
+  String get savedAddress => 'Saved address';
+
+  @override
+  String get notification => 'Notifications';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get aboutUs => 'About us';
+
+  @override
+  String get logout => 'Logout';
 }

@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../config/routes_manager/app_routes.dart';
+
 class ProfileMainScreen extends StatefulWidget {
   const ProfileMainScreen({super.key});
 
@@ -195,7 +197,12 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                 title: locale.logout,
                 trailing: SvgPicture.asset(ImageAssets.logout, height: 30),
                 onTap: () {
-                  // navigator
+                  UserLocalStorage.clearUser();
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoutes.home,
+                        (route) => false,
+                  );
                 },
               ),
             ],
