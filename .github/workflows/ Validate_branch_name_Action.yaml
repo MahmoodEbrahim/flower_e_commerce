@@ -19,12 +19,12 @@ jobs:
           BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's/refs\/heads\///g')
           echo "Validating branch name: $BRANCH_NAME"
           
-          # Add your validation logic here
+          
           if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|release)\/[a-zA-Z0-9_-]+$ ]]; then
             echo "Branch name is valid. "
             exit 0
           else
             echo "Branch name is not valid. "
-            echo "Branch names must start with 'feature/', 'bugfix/', or 'release/' followed by a description (e.g., 'feature/new-login-page')."
+            echo "Branch names must start with 'feature/', 'bugfix/', or 'release/' followed by a description (e.g., ' feature/ECOM-27-Initialize Project')."
             exit 1
           fi
