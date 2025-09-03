@@ -20,7 +20,7 @@ jobs:
           echo "Validating branch name: $BRANCH_NAME"
           
           
-          if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|release)\/[a-zA-Z0-9_-]+$ ]]; then
+          if [[ "$BRANCH_NAME" =~ ^(Feature|bugfix|release)\/[a-zA-Z0-9_-]+$ ]]; then
             echo "Branch name is valid. "
             exit 0
           else
