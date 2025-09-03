@@ -6,6 +6,8 @@ import 'package:flower_e_commerce/core/utils/constants/api_parameters.dart';
 import 'package:flower_e_commerce/features/home/api/models/category_products_response_dto.dart';
 import 'package:flower_e_commerce/features/home/api/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/product_by_occasion.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/edit_profile_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
 
 
@@ -25,4 +27,10 @@ abstract class ProfileApiService {
 @Header("Authorization")String token,
   @Part(name: 'photo')File photo
     );
+@PUT(ApiEndPoints.editProfileEndPoint)
+  Future<EditProfileResponsea>editProfile(
+    @Header("Authorization")String token,
+    @Body()EditProfileRequest request
+    );
+
 }

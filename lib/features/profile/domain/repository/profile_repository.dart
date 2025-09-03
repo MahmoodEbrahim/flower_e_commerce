@@ -2,6 +2,8 @@
 import 'dart:io';
 
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/edit_profile_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
 
 abstract interface class ProfileRepository {
@@ -9,4 +11,6 @@ abstract interface class ProfileRepository {
 
       String token,File photo
       );
+  Future<ApiResult<EditProfileResponsea>>
+  editProfile(String token, EditProfileRequest request);
 }

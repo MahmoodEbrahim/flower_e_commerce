@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_error/api_error.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/profile/api/client/profile_api_service.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/edit_profile_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
 import 'package:flower_e_commerce/features/profile/data/source/profile_remote_data_source.dart';
 import 'package:injectable/injectable.dart';
@@ -27,5 +29,20 @@ if(error is DioException){
   return ApiFailedResult(error.toString());
 }
   }
+  }
+  @override
+  Future<ApiResult<EditProfileResponsea>>
+  editProfile(String token, EditProfileRequest request)async {
+    try{
+      final response=await _profileApiService.editProfile
+        ("Bearer $token", request);
+      return ApiSucessResult(response);
+    }catch(error){
+      if(error is DioException){
+        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+      }else{
+        return ApiFailedResult(error.toString());
+      }
+    }
   }
 }
