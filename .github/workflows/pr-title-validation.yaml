@@ -31,9 +31,10 @@ jobs:
             test
           # Optional: Define allowed scopes (e.g., ui, api, auth)
           scopes: |
-            ui
             api
             auth
+            home
+            profile
             core
           # Regex to enforce PR title format: type(scope): description AB#xxx
           subjectPattern: ^.* AB#\d+$
