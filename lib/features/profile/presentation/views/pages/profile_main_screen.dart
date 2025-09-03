@@ -197,12 +197,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                 title: locale.logout,
                 trailing: SvgPicture.asset(ImageAssets.logout, height: 30),
                 onTap: () {
-                  UserLocalStorage.clearUser();
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    AppRoutes.home,
-                        (route) => false,
-                  );
+                  showLogoutDialog(context);
                 },
               ),
             ],
@@ -211,4 +206,80 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       ),
     );
   }
+}
+void showLogoutDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "LOGOUT",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Confirm logout!!",
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Cancel button
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
+                    ),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+
+                  // Logout button
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      UserLocalStorage.clearUser();
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        AppRoutes.home,
+                            (route) => false,
+                      );                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
+                    ),
+                    child: const Text("Logout"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
