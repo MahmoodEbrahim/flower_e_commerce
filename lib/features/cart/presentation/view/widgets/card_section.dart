@@ -5,19 +5,19 @@ import 'package:flower_e_commerce/features/cart/presentation/view/widgets/image_
 
 import 'package:flutter/material.dart';
 
-
 class CardSection extends StatelessWidget {
-  final List<CartEntity> products;
-  const CardSection({super.key, required this.products});
+  final CartEntity cartEntity;
+  const CardSection({super.key, required this.cartEntity});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          final product = products[index].productModel;
+    final cartItemList = cartEntity.cartItems;
+    final price = cartEntity.totalPrice!;
 
-          final cartentity = products[index];
+    return ListView.builder(
+        itemCount: cartItemList!.length,
+        itemBuilder: (context, index) {
+          final cartItem = cartItemList[index];
           return Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             padding: EdgeInsets.all(5),
@@ -32,12 +32,12 @@ class CardSection extends StatelessWidget {
                 child: Row(
                   children: [
                     CardImage(
-                      productImage: product.imgCover!,
+                      productImage: cartItem.product!.imgCover!,
                     ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: DetailsSection(cartEntity: cartentity),
+                        child: DetailsSection(cartItem: cartItem,price:price),
                       ),
                     )
                   ],

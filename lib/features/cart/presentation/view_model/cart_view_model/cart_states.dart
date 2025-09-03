@@ -1,34 +1,29 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flower_e_commerce/features/cart/domain/entity/cart_response_entity.dart';
 
+class CartStates extends Equatable {
+   String? errorMessage;
+   bool isLoading;
+   CartResponseEntity? cartResonse;
 
-class CartStates {
-  String? errorMessage;
-  bool isLoading;
-  List<CartEntity> products;
-  int? price;
-  int? priceAfterFee;
-  CartStates({
+   CartStates({
     this.errorMessage,
     this.isLoading = true,
-    this.products = const [],
-    this.price=0,
-    this.priceAfterFee=0,
+    this.cartResonse,
   });
 
   CartStates copyWith({
     String? errorMessage,
     bool? isLoading,
-    List<CartEntity>? products,
-     int? price,
-  int? priceAfterFee
+    CartResponseEntity? cart,
   }) {
     return CartStates(
-      errorMessage: errorMessage,
+      errorMessage: errorMessage ,
       isLoading: isLoading ?? this.isLoading,
-      products: products ?? this.products,
-      price: price,
-      priceAfterFee: priceAfterFee
+      cartResonse: cart 
     );
   }
+
+  @override
+  List<Object?> get props => [errorMessage, isLoading, cartResonse];
 }

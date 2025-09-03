@@ -435,6 +435,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already have an account? '**
   String get alreadyHaveAccount;
+
+  /// No description provided for @allProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'All Products'**
+  String get allProducts;
+
+  /// No description provided for @bloomWithOurExquisiteAllProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Bloom with our exquisite all Products'**
+  String get bloomWithOurExquisiteAllProducts;
+
+  /// No description provided for @bestSeller.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Seller'**
+  String get bestSeller;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🌸 Flowery'**
+  String get appTitle;
+
+  /// No description provided for @deliveryLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver to 2XVP+XC - Sheikh Zayed'**
+  String get deliveryLocation;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @occasions.
+  ///
+  /// In en, this message translates to:
+  /// **'Occasions'**
+  String get occasions;
+
+  /// No description provided for @products.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get products;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'error'**
+  String get error;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver to 2XVP+XC - Sheikh Zayed '**
+  String get address;
+
+  /// No description provided for @noProductsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Products found.'**
+  String get noProductsFound;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'see all'**
+  String get seeAll;
 }
 
 class _AppLocalizationsDelegate

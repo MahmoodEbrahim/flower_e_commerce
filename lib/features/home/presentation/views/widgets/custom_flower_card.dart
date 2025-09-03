@@ -4,6 +4,7 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/features/cart/domain/entity/cart_item_request_entity.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view_model/cart_view_model/cart_events.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view_model/cart_view_model/cart_view_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
@@ -100,8 +101,16 @@ class CustomCardFlower extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  cartViewModel
-                      .add(AddProductsToCartEvent(product: productsEntity));
+                  CartItemRequestEntity cartItemRequestEntity =
+                            CartItemRequestEntity(
+                              product: productsEntity.id,
+                              quantity: 1
+
+                            );
+                        // go to cart
+
+                        cartViewModel.add(AddToCartEvent(
+                            cartItemRequestEntity: cartItemRequestEntity));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
