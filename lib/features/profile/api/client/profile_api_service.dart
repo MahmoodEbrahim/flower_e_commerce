@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/utils/constants/api_end_points.dart';
 import 'package:flower_e_commerce/core/utils/constants/api_parameters.dart';
-import 'package:flower_e_commerce/features/home/api/models/category_products_response_dto.dart';
-import 'package:flower_e_commerce/features/home/api/models/home_model.dart';
-import 'package:flower_e_commerce/features/home/api/models/product_by_occasion.dart';
 import 'package:flower_e_commerce/features/profile/api/models/change_password/response/change_password_response.dart';
 
 
