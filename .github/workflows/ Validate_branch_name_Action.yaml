@@ -16,7 +16,7 @@ jobs:
 
       - name: Validate branch name
         run: |
-          BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's/refs\/heads\///g')
+          BRANCH_NAME="${{ github.head_ref }}"
           echo "Validating branch name: $BRANCH_NAME"
           
           
