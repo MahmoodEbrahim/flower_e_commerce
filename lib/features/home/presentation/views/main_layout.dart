@@ -6,6 +6,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/Tabs/categori
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/profile_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class MainLayout extends StatefulWidget {
@@ -23,7 +24,7 @@ class _HomePageState extends State<MainLayout> {
     CategoriesPage(
         categoryList: Routes.fakeCategories,
         produdctsList: Routes.fakeProducts!),
-    CartTab(),ProfileTab()
+      CartTab(),EditProfilePage()
   ];
 
   @override

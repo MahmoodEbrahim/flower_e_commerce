@@ -17,7 +17,8 @@ class ProfileRemoteDataSourceImp implements ProfileRemoteDataSource {
   Future<ApiResult<UploadProfilePhotoResponse>>
  uploadPhoto(String token, File photo) async{
   try{
-final response=await _profileApiService.uploadPhoto(token, photo);
+final response=await _profileApiService.uploadPhoto
+  ("Bearer $token", photo);
 return ApiSucessResult(response);
   }catch(error){
 if(error is DioException){
