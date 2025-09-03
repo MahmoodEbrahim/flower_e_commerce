@@ -184,4 +184,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get editProfile => 'Edit profile';
 }

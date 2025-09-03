@@ -13,6 +13,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/categor
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasion_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class Routes {
@@ -323,6 +324,11 @@ static Route<dynamic> onGenerate(RouteSettings settings) {
         // final args = settings.arguments as List<OccasionsEntity>;
         return MaterialPageRoute(
           builder: (_) => OccasionPage()
+        );
+      case AppRoutes.editProfilePage:
+      // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+            builder: (_) => EditProfilePage()
         );
 //AllProductsPage
     case AppRoutes.catergories:
