@@ -256,7 +256,7 @@ class _OccasionPageState extends State<OccasionPage> {
 
            backgroundColor: AppColors.White,
            body: SafeArea(child:
-           Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 16.0),
+           Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
              child:  Column(
                children: [
                  Row(

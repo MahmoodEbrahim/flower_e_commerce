@@ -5,22 +5,22 @@ import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/widgets/logout_dialog.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import '../../../../../config/routes_manager/app_routes.dart';
 
-class ProfileMainScreen extends StatefulWidget {
-  const ProfileMainScreen({super.key});
+class ProfileMainPage extends StatefulWidget {
+  const ProfileMainPage({super.key});
 
   @override
-  State<ProfileMainScreen> createState() => _ProfileMainScreenState();
+  State<ProfileMainPage> createState() => _ProfileMainScreenState();
 }
 
-class _ProfileMainScreenState extends State<ProfileMainScreen> {
+class _ProfileMainScreenState extends State<ProfileMainPage> {
   LoginModel? user;
   bool isNotificationEnabled = true;
   String appVersion = '';
@@ -207,11 +207,14 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                 leading: SvgPicture.asset(ImageAssets.logout, height: 20),
                 title: t.logout,
                 trailing: SvgPicture.asset(ImageAssets.logout, height: 30),
-                onTap: user == null
-                    ? null
-                    : () {
-                  showLogoutDialog(context);
-                },
+                  onTap: user == null
+                      ? null
+                      : () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const LogoutDialog(),
+                    );
+                  },
               ),
 
             ],
@@ -229,80 +232,4 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
           ),
         ]));
   }
-}
-void showLogoutDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "LOGOUT",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Confirm logout!!",
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Cancel button
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 24),
-                    ),
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-
-                  // Logout button
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      UserLocalStorage.clearUser();
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.home,
-                            (route) => false,
-                      );                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 24),
-                    ),
-                    child: const Text("Logout"),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
 }

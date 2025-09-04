@@ -71,5 +71,7 @@
     "errorLoadingData": "Error loading data",
     "noDataFound": "No data found",
     "noSectionsFound": "No sections found",
-    "version" :"V "
+    "version" :"V ",
+    "confirmLogout": "Confirm logout!!",
+      "cancel": "Cancel"
 }
