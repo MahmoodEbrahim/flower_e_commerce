@@ -75,6 +75,13 @@
   "error":"error",
   "address":"Deliver to 2XVP+XC - Sheikh Zayed ",
    "noProductsFound": "No Products found.",
-   "seeAll":"see all"
+   "seeAll":"see all",
+   "cart":"cart",
+   "checkout":"CheckOut",
+   "deliver_to":"deliver to",
+   "bigAddress":"2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed",
+   "subTotal":"Sub total",
+   "deliveryFee":"Delivery fee",
+   "total":"Total"
  
 }
