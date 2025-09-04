@@ -8,7 +8,6 @@ import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart'
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
@@ -29,198 +28,6 @@ class EditProfilePage extends StatefulWidget {
   State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-// class _EditProfilePageState extends State<EditProfilePage> {
-//   Future<File> _saveTemporaryFile(XFile pickedFile) async {
-//     final directory = await getApplicationDocumentsDirectory();
-//     final fileName = DateTime.now().millisecondsSinceEpoch.toString() + '.jpg';
-//     final savedFile = await File('${directory.path}/$fileName').writeAsBytes(await pickedFile.readAsBytes());
-//     return savedFile;
-//   }
-//
-//   File? savedFile;
-//
-//     LoginModel userModel=UserLocalStorage.getUser()!;
-//
-//   final token =UserLocalStorage.getToken();
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     var local=AppLocalizations.of(context)!;
-//
-//     String? _gender=userModel.user.gender;
-//     print("token is $token");
-//      return BlocProvider(create: (context)=>getIt<EditProfileBloc>(),
-//     child:  Scaffold(
-//       backgroundColor: AppColors.White,
-//       appBar: AppBar(
-//         backgroundColor: AppColors.White,
-//         leading: IconButton(
-//           icon: Icon(Icons.arrow_back_ios,
-//               color: AppColors.black[60]),
-//           onPressed: () => Navigator.pop(context),
-//         ),
-//         title: Text(
-//           local.editProfile,
-//           style: getMediumStyle(color: AppColors.black,
-//               fontSize: FontSize.s20),
-//         ),
-//         actions: [
-//           Stack(
-//             alignment: AlignmentDirectional.topEnd,
-//             children: [
-//               Icon(CupertinoIcons.bell
-//                 ,color: AppColors.Black,size: 40.0,),
-//               CircleAvatar(
-//                 backgroundColor: AppColors.red,
-//                 radius: 10,
-//                 child: Text("3",style: TextStyle(
-//                     color: AppColors.White
-//                 ),),
-//               )
-//             ],
-//           ),
-//           SizedBox(width: 20.w,)
-//         ],
-//       ),
-//       body:BlocConsumer<EditProfileBloc,EditProfileStates>
-//         (builder: (context,state){
-//           return     Padding(padding: EdgeInsets.symmetric(
-//             horizontal: 24.0,
-//           ),child:   Column(
-//             children: [
-//               GestureDetector(
-//                   onTap: ()async{
-//                     final picker = ImagePicker();
-//                     final pickedFile = await picker.
-//                     pickImage(source: ImageSource.camera);
-//                     if (pickedFile != null) {
-//                       savedFile = await _saveTemporaryFile(pickedFile);
-//                       final bloc = context.read<EditProfileBloc>();
-//                       if (token != null) {
-//                         bloc.add(GetUploadProfileEvent(
-//                             photo: savedFile!, token: token!));
-//                       } else {
-//                         print("Token is null, upload aborted");
-//                       }
-//                     }
-//                   },
-//                   child:  Stack(
-//                     alignment: Alignment.bottomRight,
-//                     children: [
-//                       CircleAvatar(
-//                         radius: 50.r,
-//                         backgroundImage:state.uploadProfilePhotoResponse==null ?
-//                         NetworkImage(userModel.user.photo==null?
-//                         "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg":userModel.user.photo!):FileImage(savedFile!),
-//                       ),
-//                       Container(
-//                         width: 30.w,
-//                         height: 30.h,
-//                         decoration: BoxDecoration(
-//                             color: AppColors.lightPink,
-//                             borderRadius: BorderRadius.circular(8.r)
-//                         ),
-//                         child: Icon(CupertinoIcons.camera,color: AppColors.Black,),
-//                       )
-//                     ],
-//                   )
-//               ),
-//               SizedBox(height: 20.0,),
-//               Row(
-//                 children: [
-//                   Expanded(child:CustomTxtFieldWidget(
-//                       controller: TextEditingController(
-//                         text:userModel.user.firstName
-//                       ),
-//                       lbl: "First Name", hint: "First Name"),),
-//                   SizedBox(width: 20.0,),
-//
-//
-//                   Expanded(child:                   CustomTxtFieldWidget(
-//                      controller: TextEditingController(
-//         text:userModel.user.lastName
-//         ),
-//                       lbl: "Last Name", hint: "Last Name"))
-//                 ],
-//               ),
-//               SizedBox(height: 20.0,),
-//               CustomTxtFieldWidget(
-//
-//                   controller: TextEditingController(
-//                     text: userModel.user.email
-//                   ),
-//                   lbl: "E-mail", hint: "E-mail"),
-//               SizedBox(height: 20.0,),
-//               CustomTxtFieldWidget(
-//                   controller: TextEditingController(
-//                       text: userModel.user.phone
-//                   ),
-//                   lbl: "Phone", hint: "Phone"),
-//               SizedBox(height: 20.0,),
-//               CustomTxtFieldWidget(
-//                 controller: TextEditingController(
-//
-//                 ),
-//                 lbl: "Password", hint: "",isPass: true,isSuffix: true,),
-//               SizedBox(height: 20.0,),
-//               Row(
-//                 children: [
-//                   Text("Gender", style: getMediumStyle(color: AppColors.black, fontSize: FontSize.s16)),
-//                   SizedBox(width: 20.0),
-//                   Expanded(
-//                     child: Row(
-//                       children: [
-//                         Radio<String>(
-//                           value: 'Female',
-//                           groupValue: _gender,
-//                           onChanged: (value) {
-//                             setState(() {
-//                               _gender = value;
-//                             });
-//                           },
-//                         ),
-//                         Text("Female"),
-//                         Radio<String>(
-//                           value: 'Male',
-//                           groupValue: _gender,
-//                           onChanged: (value) {
-//                             setState(() {
-//                               _gender = value;
-//                             });
-//                           },
-//                         ),
-//                         Text("Male"),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//
-//               SizedBox(height: 20.0,),
-//               CustomBtnWidget(txt: "Update",onPressed: (){
-//
-//               },)
-//
-//             ],
-//           ),);
-//
-//
-//       }, listener: (context,state){
-// if(state.uploadPhotoState==RequestState.success){
-// print("Success in upload photo");
-// }
-// if(state.uploadPhotoState==RequestState.error){
-//   print("Error ${state.errorMessageUploadPhoto}");
-// }
-//       })
-//
-//
-//     )
-//     )
-//      ;
-//   }
-// }
 class _EditProfilePageState extends State<EditProfilePage> {
   Future<File> _saveTemporaryFile(XFile pickedFile) async {
     final directory = await getApplicationDocumentsDirectory();
@@ -232,7 +39,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   File? savedFile;
   LoginModel userModel = UserLocalStorage.getUser()!;
   final token = UserLocalStorage.getToken();
-  String? _gender; // Initialize as null, set in initState
+  String? _gender;
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -248,7 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _emailController.text = userModel.user.email ?? '';
     _passwordController.text=userModel.user.Id??'';
     _phoneController.text = userModel.user.phone ?? '';
-    _gender = userModel.user.gender; // Initialize gender
+    _gender = userModel.user.gender;
   }
 
   @override
@@ -349,16 +156,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Expanded(
                         child: CustomTxtFieldWidget(
                           controller: _firstNameController,
-                          lbl: "First Name",
-                          hint: "First Name",
+                          lbl: local.firstName,
+                          hint: local.firstName,
                         ),
                       ),
                       SizedBox(width: 20.0),
                       Expanded(
                         child: CustomTxtFieldWidget(
                           controller: _lastNameController,
-                          lbl: "Last Name",
-                          hint: "Last Name",
+                          lbl: local.lastName,
+                          hint:local.lastName,
                         ),
                       ),
                     ],
@@ -366,20 +173,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   SizedBox(height: 20.0),
                   CustomTxtFieldWidget(
                     controller: _emailController,
-                    lbl: "E-mail",
-                    hint: "E-mail",
+                    lbl: local.email,
+                    hint:local.email,
                   ),
                   SizedBox(height: 20.0),
                   CustomTxtFieldWidget(
                     controller: _phoneController,
-                    lbl: "Phone",
-                    hint: "Phone",
+                    lbl: local.phoneNumber,
+                    hint:local.phoneNumber,
                   ),
                   SizedBox(height: 20.0),
                   CustomTxtFieldWidget(
                     controller: _passwordController,
-                    lbl: "",
-                    hint: "Password",
+                   lbl: "",
+                    hint: local.password,
                     isPass: true,
                     isSuffix: true,
                   ),
@@ -387,7 +194,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Row(
                     children: [
                       Text(
-                        "Gender",
+                     local.gender,
                         style: getMediumStyle(color: AppColors.black, fontSize: FontSize.s16),
                       ),
                       SizedBox(width: 20.0),
@@ -396,24 +203,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           children: [
                             Radio<String>(
                               activeColor: AppColors.Pink,
+                              focusColor: AppColors.Pink,
+                              fillColor: WidgetStateProperty.all(AppColors.Pink),
                               value: 'female',
                               groupValue: _gender,
-                              onChanged: (value) {
-                                setState(() {
-                                  _gender = value;
-                                });
-                              },
+                              onChanged: null,
                             ),
-                            Text("Female"),
+                            Text(local.female),
                             Radio<String>(
                               value: 'male',
+                              focusColor: AppColors.Pink,
+                              fillColor: WidgetStateProperty.all(AppColors.Pink),
                               activeColor: AppColors.Pink,
                               groupValue: _gender,
-                              onChanged: (value) {
-                                setState(() {
-                                  _gender = value;
-                                });
-                              },
+                                onChanged: null,
                             ),
                             Text("Male"),
                           ],
@@ -423,7 +226,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   SizedBox(height: 20.0),
                   CustomBtnWidget(
-                    txt: "Update",
+                    txt: local.update,
 
                     onPressed: () {
                       if (token != null) {
@@ -461,7 +264,7 @@ firstName: _firstNameController.text,
               print("Profile updated successfully");
 
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Profile updated successfully")),
+                SnackBar(content: Text(local.profileUpdatedSuccessfully)),
               );
             }
             if (state.editProfileState == RequestState.error) {

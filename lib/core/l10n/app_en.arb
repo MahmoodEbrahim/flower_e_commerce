@@ -42,6 +42,8 @@
   "confirmpassword": "Confirm password",
   "newpassword": "New password",
   "passwordresetlinksentsuccessfully": "Password reset link sent successfully",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "update": "Update",
 
 
 
@@ -53,9 +55,8 @@
   "enterFirstName": "Enter first name",
   "lastName": "Last Name",
   "enterLastName": "Enter last name",
-
   "enterEmail": "Enter your email",
-  
+  "Phone": "Phone",
   "enterPassword": "Enter password",
   "confirmPassword": "Confirm Password",
   "enterConfirmPassword": "Confirm password",

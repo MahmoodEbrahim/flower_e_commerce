@@ -134,6 +134,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password reset link sent successfully';
 
   @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String get update => 'Update';
+
+  @override
   String get gender => 'Gender';
 
   @override

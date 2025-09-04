@@ -334,6 +334,18 @@ abstract class AppLocalizations {
   /// **'Password reset link sent successfully'**
   String get passwordresetlinksentsuccessfully;
 
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
   /// No description provided for @gender.
   ///
   /// In en, this message translates to:
