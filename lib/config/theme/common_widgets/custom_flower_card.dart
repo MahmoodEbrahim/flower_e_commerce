@@ -35,7 +35,7 @@ class CustomCardFlower extends StatelessWidget {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
 
-          borderRadius: BorderRadiusGeometry.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
 
 
           border: Border.all(width: 1.0, color: AppColors.midGray)),

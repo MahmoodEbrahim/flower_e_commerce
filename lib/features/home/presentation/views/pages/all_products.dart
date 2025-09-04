@@ -1,10 +1,5 @@
-import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
-import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../config/theme/common_widgets/custom_flower_card.dart' ;
