@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/widgets/card_section.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/widgets/common_loading.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/widgets/delivery_location.dart';
@@ -15,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartPage extends StatefulWidget {
-  CartPage({super.key});
+  const CartPage({super.key});
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -34,12 +35,13 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return BlocProvider.value(
       value: cartViewModel,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.White,
-          title: Text("Cart"),
+          title: Text(t.cart),
           titleSpacing: 0,
           scrolledUnderElevation: 0,
           leading: IconButton(
@@ -97,7 +99,7 @@ class _CartPageState extends State<CartPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              "CheckOut",
+                              t.checkout,
                               style: getRegularStyle(
                                   color: AppColors.White,
                                   fontSize: FontSize.s16),

@@ -1,16 +1,17 @@
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_item.dart';
 import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'cart_item_model.g.dart';
 @JsonSerializable()
 class CartItemModel {
-    @JsonKey(name: "product")
+    @JsonKey(name: JsonSerlizableConstants.productKey)
     ProductModel? product;
-    @JsonKey(name: "price")
+    @JsonKey(name: JsonSerlizableConstants.priceKey)
     int? price;
-    @JsonKey(name: "quantity")
+    @JsonKey(name: JsonSerlizableConstants.quantityKey)
     int? quantity;
-    @JsonKey(name: "_id")
+    @JsonKey(name: JsonSerlizableConstants.id)
     String? id;
 
     CartItemModel({

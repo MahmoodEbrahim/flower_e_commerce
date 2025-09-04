@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_item_request_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,9 +7,9 @@ part 'cart_item_request_model.g.dart';
 
 @JsonSerializable()
 class CartItemRequestModel extends Equatable {
-  @JsonKey(name: "product")
+  @JsonKey(name: JsonSerlizableConstants.productKey)
   final String? product;
-  @JsonKey(name: "quantity")
+  @JsonKey(name: JsonSerlizableConstants.quantityKey)
   final int? quantity;
 
   const CartItemRequestModel({

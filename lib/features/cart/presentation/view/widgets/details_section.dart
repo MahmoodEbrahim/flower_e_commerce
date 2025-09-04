@@ -2,6 +2,7 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_item.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/updated_quatity_request_entity.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/updated_request_body.dart';
@@ -18,6 +19,7 @@ class DetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       final t = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -62,7 +64,7 @@ class DetailsSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'EGP ${cartItem.price} ',
+              '${t.egp} ${cartItem.price} ',
               style:
                   getBoldStyle(color: AppColors.Black, fontSize: FontSize.s16),
             ),

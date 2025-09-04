@@ -1,6 +1,7 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryLocation extends StatelessWidget {
@@ -10,6 +11,7 @@ class DeliveryLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       final t = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -20,12 +22,12 @@ class DeliveryLocation extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis, 
             text: TextSpan(
-              text: "Deliver to ",
+              text: t.deliver_to,
               style: getRegularStyle(color: AppColors.Black,fontSize: FontSize.s14),
               children: [
                 TextSpan(
                   text:
-                      " 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed",
+                      t.bigAddress,
                   style: getBoldStyle(color: AppColors.Black,fontSize: FontSize.s16),
                 ),
               ],

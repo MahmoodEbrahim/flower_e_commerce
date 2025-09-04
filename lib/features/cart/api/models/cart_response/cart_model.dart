@@ -1,25 +1,26 @@
 
+import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/cart/api/models/cart_response/cart_item_model.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'cart_model.g.dart';
 @JsonSerializable()
 class CartModel {
-    @JsonKey(name: "user")
+    @JsonKey(name: JsonSerlizableConstants.user)
     String? user;
-    @JsonKey(name: "cartItems")
+    @JsonKey(name: JsonSerlizableConstants.cartItemsKey)
     List<CartItemModel>? cartItems;
-    @JsonKey(name: "_id")
+    @JsonKey(name: JsonSerlizableConstants.id)
     String? id;
-    @JsonKey(name: "appliedCoupons")
+    @JsonKey(name: JsonSerlizableConstants.appliedCouponsKey)
     List<dynamic>? appliedCoupons;
-    @JsonKey(name: "totalPrice")
+    @JsonKey(name: JsonSerlizableConstants.totalPriceKey)
     int? totalPrice;
-    @JsonKey(name: "createdAt")
+    @JsonKey(name: JsonSerlizableConstants.createdAt)
     DateTime? createdAt;
-    @JsonKey(name: "updatedAt")
+    @JsonKey(name: JsonSerlizableConstants.updatedAtKey)
     DateTime? updatedAt;
-    @JsonKey(name: "__v")
+    @JsonKey(name: JsonSerlizableConstants.vKey)
     int? v;
 
     CartModel({

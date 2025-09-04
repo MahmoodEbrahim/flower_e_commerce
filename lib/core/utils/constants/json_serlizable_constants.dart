@@ -59,4 +59,20 @@ class JsonSerlizableConstants {
   static const String statusJsonKey="status";
 
 
+
+
+ 
+static const String productKey = "product";
+static const String userKey = "user";
+  static const String cartItemsKey = "cartItems";
+
+  static const String appliedCouponsKey = "appliedCoupons";
+  static const String totalPriceKey = "totalPrice";
+    static const String numOfCartItemsKey = "numOfCartItems";
+  static const String cartKey = "cart";
+
+
+
+
+
 }

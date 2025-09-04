@@ -1,6 +1,7 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class TotalCalculationPart extends StatelessWidget {
@@ -13,6 +14,7 @@ class TotalCalculationPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       final t = AppLocalizations.of(context)!;
     int delivery = 10;
     bool isPriceEqualZero = false;
     if (price == 0) {
@@ -26,14 +28,14 @@ class TotalCalculationPart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Sub Total"),
+              Text(t.subTotal),
               Text("$price\$"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Delivery Fee"),
+              Text(t.deliveryFee),
               Text("$delivery\$"),
             ],
           ),
@@ -44,7 +46,7 @@ class TotalCalculationPart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Total",
+              Text(t.total,
                   style: getBoldStyle(
                       color: AppColors.Black, fontSize: FontSize.s16)),
               Text(

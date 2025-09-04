@@ -15,16 +15,16 @@ abstract class CartApiService {
   factory CartApiService(Dio dio) = _CartApiService;
 
 
-  @POST("cart")
+  @POST(ApiEndPoints.cartEndPoint)
     Future<CartResponseDto> addProductToCart(@Body() CartItemRequestModel cartRequestModel);
 
-@GET("cart")
+@GET(ApiEndPoints.cartEndPoint)
 Future<CartResponseDto> getCartUser();
 
-@DELETE("/cart/{id}")
+@DELETE("/${ApiEndPoints.cartEndPoint}/{id}")
 Future<CartResponseDto> deleteItemFromCart(@Path("id") String itemId);
 
-@PUT("/cart/{id}")
+@PUT("/${ApiEndPoints.cartEndPoint}/{id}")
 Future<CartResponseDto> updateQuantity(
   @Path("id") String itemId,
   @Body() UpdatedRequestBodyModel quantity,

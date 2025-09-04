@@ -259,7 +259,7 @@ void main() {
       },
       act: (bloc) => bloc.add(DeleteItemFromCartEvent(itemId: "item1")),
       expect: () => [
-        CartStates(isLoading: true, errorMessage: null, cartResonse: null),
+       
         CartStates(isLoading: false, errorMessage: null, cartResonse: fakeCartResponse),
       ],
       verify: (_) {
@@ -286,7 +286,7 @@ void main() {
       },
       act: (bloc) => bloc.add(DeleteItemFromCartEvent(itemId: "item1")),
       expect: () => [
-        CartStates(isLoading: true, errorMessage: null, cartResonse: null),
+       
         CartStates(
           isLoading: false,
           errorMessage: "error",

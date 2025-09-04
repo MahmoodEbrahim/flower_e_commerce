@@ -164,7 +164,7 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
 
   Future<void> _deleteItemFromCart(
       DeleteItemFromCartEvent event, Emitter emit) async {
-    emit(state.copyWith(isLoading: true));
+  
     final res =
         await _deleteItemFromCartUseCase.deleteItemFromCart(event.itemId);
 
