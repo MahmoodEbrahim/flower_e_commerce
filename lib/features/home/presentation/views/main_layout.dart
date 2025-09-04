@@ -1,5 +1,4 @@
 import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
-import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/card_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
@@ -7,6 +6,8 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/categor
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/profile_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../config/theme/assets_manger.dart';
+
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
 
@@ -22,7 +23,7 @@ class _HomePageState extends State<MainLayout> {
     CategoriesPage(
         categoryList: Routes.fakeCategories,
         produdctsList: Routes.fakeProducts!),
-    CartTab(),ProfileMainScreen()
+    CartTab(),ProfileMainPage()
   ];
 
   @override
@@ -53,7 +54,7 @@ class _HomePageState extends State<MainLayout> {
           destinations: [
             NavigationDestination(
               icon: SvgPicture.asset(
-                AssetsManager.homeicon,
+                ImageAssets.homeicon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -63,7 +64,7 @@ class _HomePageState extends State<MainLayout> {
               ),
               label: StringsManager.HomeTab,
               selectedIcon: SvgPicture.asset(
-                AssetsManager.homeicon,
+                ImageAssets.homeicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -74,7 +75,7 @@ class _HomePageState extends State<MainLayout> {
             ),
             NavigationDestination(
               icon: SvgPicture.asset(
-                AssetsManager.categoriesicon,
+                ImageAssets.categoriesicon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -84,7 +85,7 @@ class _HomePageState extends State<MainLayout> {
               ),
               label: StringsManager.CategoriesTab,
               selectedIcon: SvgPicture.asset(
-                AssetsManager.categoriesicon,
+                ImageAssets.categoriesicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -95,7 +96,7 @@ class _HomePageState extends State<MainLayout> {
             ),
             NavigationDestination(
               icon: SvgPicture.asset(
-                AssetsManager.carticon,
+                ImageAssets.carticon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -105,7 +106,7 @@ class _HomePageState extends State<MainLayout> {
               ),
               label: StringsManager.CartTab,
               selectedIcon: SvgPicture.asset(
-                AssetsManager.carticon,
+                ImageAssets.carticon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -116,7 +117,7 @@ class _HomePageState extends State<MainLayout> {
             ),
             NavigationDestination(
               icon: SvgPicture.asset(
-                AssetsManager.profileicon,
+                ImageAssets.profileicon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -126,7 +127,7 @@ class _HomePageState extends State<MainLayout> {
               ),
               label: StringsManager.ProfileTab,
               selectedIcon: SvgPicture.asset(
-                AssetsManager.profileicon,
+                ImageAssets.profileicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,

@@ -67,5 +67,9 @@
     "arabic":"Arabic",
     "aboutUs": "About us",
     "termsAndConditions": "Terms & conditions",
-    "logout": "Logout"
+    "logout": "Logout",
+    "errorLoadingData": "Error loading data",
+    "noDataFound": "No data found",
+    "noSectionsFound": "No sections found",
+    "version" :"V "
 }
