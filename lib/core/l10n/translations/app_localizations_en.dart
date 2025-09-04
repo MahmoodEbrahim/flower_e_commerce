@@ -184,4 +184,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get allProducts => 'All Products';
+
+  @override
+  String get bloomWithOurExquisiteAllProducts =>
+      'Bloom with our exquisite all Products';
+
+  @override
+  String get bestSeller => 'Best Seller';
+
+  @override
+  String get appTitle => '🌸 Flowery';
+
+  @override
+  String get deliveryLocation => 'Deliver to 2XVP+XC - Sheikh Zayed';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get occasions => 'Occasions';
+
+  @override
+  String get products => 'Products';
+
+  @override
+  String get error => 'error';
+
+  @override
+  String get address => 'Deliver to 2XVP+XC - Sheikh Zayed ';
+
+  @override
+  String get noProductsFound => 'No Products found.';
+
+  @override
+  String get seeAll => 'see all';
 }

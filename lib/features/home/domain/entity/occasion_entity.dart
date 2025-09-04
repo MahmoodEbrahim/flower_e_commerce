@@ -7,11 +7,12 @@ class OccasionsEntity {
     this.slug,
     this.image,
   });
-
   String? id;
   String? name;
   String? slug;
   String? image;
+
+  
   ProductsEntity toEntity(){
     return ProductsEntity(
         id: id,imgCover: image,images: [image!,image!,image!],title: name

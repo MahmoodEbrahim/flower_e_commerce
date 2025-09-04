@@ -61,7 +61,9 @@ class CustumSearchBar extends StatelessWidget {
                           Icons.menu,
                           color: AppColors.gray,
                         )),
-                  ))
+                  )),
+
+             
             ],
           ),
         ),
