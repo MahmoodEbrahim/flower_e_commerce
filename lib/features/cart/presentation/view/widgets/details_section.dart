@@ -33,7 +33,7 @@ class DetailsSection extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 cartItem.product!.title!,
                 style: getBoldStyle(
-                    color: AppColors.Black, fontSize: FontSize.s16),
+                    color: AppColors.black, fontSize: FontSize.s16),
               ),
             ),
             Expanded(
@@ -66,7 +66,7 @@ class DetailsSection extends StatelessWidget {
             Text(
               '${t.egp} ${cartItem.price} ',
               style:
-                  getBoldStyle(color: AppColors.Black, fontSize: FontSize.s16),
+                  getBoldStyle(color: AppColors.black, fontSize: FontSize.s16),
             ),
             Row(
               children: [
@@ -98,7 +98,7 @@ class DetailsSection extends StatelessWidget {
                   child: Text(
                     "${cartItem.quantity}",
                     style: getBoldStyle(
-                        color: AppColors.Black, fontSize: FontSize.s16),
+                        color: AppColors.black, fontSize: FontSize.s16),
                   ),
                 ),
                 IconButton(

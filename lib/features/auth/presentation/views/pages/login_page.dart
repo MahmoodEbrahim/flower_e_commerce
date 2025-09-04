@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
       
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.white,
           title: Text(locale.login)),
         body: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
@@ -135,7 +135,7 @@ class LoginPage extends StatelessWidget {
                           child: Text(
                             locale.login,
                             style: getMediumStyle(
-                                color: AppColors.White, fontSize: FontSize.s20),
+                                color: AppColors.white, fontSize: FontSize.s20),
                           ),
                         ),
                       ),
@@ -154,7 +154,7 @@ class LoginPage extends StatelessWidget {
                             style: AppTheme.lightTheme.elevatedButtonTheme.style
                                 ?.copyWith(
                                     backgroundColor:
-                                        WidgetStatePropertyAll(AppColors.White),
+                                        WidgetStatePropertyAll(AppColors.white),
                                     side: WidgetStateProperty.all(
                                         BorderSide(color: AppColors.gray))),
                             child: Text(
@@ -185,11 +185,11 @@ class LoginPage extends StatelessWidget {
                                 },
                               text: locale.signUp,
                               style: getRegularStyle(
-                                color: AppColors.Pink,
+                                color: AppColors.pink,
                                 fontSize: FontSize.s16,
                               ).copyWith(
                                 decoration: TextDecoration.underline,
-                                decorationColor: AppColors.Pink,
+                                decorationColor: AppColors.pink,
                               ),
                             ),
                           ]),

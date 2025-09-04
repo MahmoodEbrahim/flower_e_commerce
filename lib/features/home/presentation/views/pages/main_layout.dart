@@ -1,11 +1,13 @@
+import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
-import 'package:flower_e_commerce/features/cart/presentation/view/pages/cart_page.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/card_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/profile_tab.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/tabs/categories_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainLayout extends StatefulWidget {
@@ -16,14 +18,39 @@ class MainLayout extends StatefulWidget {
 }
 
 class _HomePageState extends State<MainLayout> {
-  int selectedIndex = 0;
+  late CategoriesViewModel categoriesViewModel =
+      getIt.get<CategoriesViewModel>();
 
-  final List<Widget> tabs = [
-    HomePage(),
-    CategoriesTab(),
-    CartPage(),
-    ProfileTab()
-  ];
+  int selectedIndex = 0;
+  late final List<Widget> tabs;
+  int? catIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    tabs = [
+      BlocProvider.value(
+        value: categoriesViewModel,
+        child: HomePage(
+          onChangeTab: (value) {
+            setState(() {
+              selectedIndex = value.tabIndex;
+              catIndex = value.categoryIndex;
+            
+            });
+          },
+        ),
+      ),
+      BlocProvider.value(
+        value: categoriesViewModel,
+        child: CategoriesPage(
+          catIndex: catIndex,
+        ),
+      ),
+      CartTab(),
+      ProfileTab(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

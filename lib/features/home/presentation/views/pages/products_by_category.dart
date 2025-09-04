@@ -24,8 +24,8 @@ class _ProductsCategoryState extends State<ProductsCategory> {
 
   @override
   void initState() {
-    categoriesViewModel
-        .add(GetAllProductsOfCategoriesEvent(catId: widget.catId));
+    // categoriesViewModel
+    //     .add(GetAllProductsOfCategoriesEvent(catId: widget.catId));
     super.initState();
   }
 
@@ -35,14 +35,14 @@ class _ProductsCategoryState extends State<ProductsCategory> {
     return BlocProvider.value(
       value: categoriesViewModel,
       child: Scaffold(
-        backgroundColor: AppColors.White,
+        backgroundColor: AppColors.white,
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
                 toolbarHeight: 50,
-                backgroundColor: AppColors.White,
+                backgroundColor: AppColors.white,
                 pinned: false,
                 floating: true,
                 centerTitle: false,

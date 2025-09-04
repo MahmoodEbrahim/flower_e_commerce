@@ -15,7 +15,7 @@ class CustumSearchBar extends StatelessWidget {
     return
       SliverAppBar(
         toolbarHeight: 30,
-        backgroundColor: AppColors.White,
+        backgroundColor: AppColors.white,
         centerTitle: false,
         pinned: false,
         floating: true,
@@ -61,7 +61,9 @@ class CustumSearchBar extends StatelessWidget {
                           Icons.menu,
                           color: AppColors.gray,
                         )),
-                  ))
+                  )),
+
+             
             ],
           ),
         ),

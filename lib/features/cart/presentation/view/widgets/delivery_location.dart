@@ -23,12 +23,12 @@ class DeliveryLocation extends StatelessWidget {
             overflow: TextOverflow.ellipsis, 
             text: TextSpan(
               text: t.deliver_to,
-              style: getRegularStyle(color: AppColors.Black,fontSize: FontSize.s14),
+              style: getRegularStyle(color: AppColors.black,fontSize: FontSize.s14),
               children: [
                 TextSpan(
                   text:
                       t.bigAddress,
-                  style: getBoldStyle(color: AppColors.Black,fontSize: FontSize.s16),
+                  style: getBoldStyle(color: AppColors.black,fontSize: FontSize.s16),
                 ),
               ],
             ),

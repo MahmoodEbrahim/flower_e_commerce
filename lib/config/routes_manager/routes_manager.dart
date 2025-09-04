@@ -6,7 +6,6 @@ import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_p
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/pages/cart_page.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
@@ -24,9 +23,8 @@ abstract class Routes {
     switch (settings.name) {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => MainLayout());
-   
 
-    case AppRoutes.cart:
+      case AppRoutes.cart:
         return MaterialPageRoute(
           builder: (context) => CartPage(),
         );
@@ -45,14 +43,8 @@ abstract class Routes {
         );
 
       case AppRoutes.catergories:
-        final args = settings.arguments as Map<String, dynamic>;
-        final categoryList = args[Constants.catList] as List<CategoriesEntity>;
-        final productsList = args[Constants.productList] as List<ProductsEntity>;
         return MaterialPageRoute(
-          builder: (context) => CategoriesPage(
-            categoryList: categoryList,
-            produdctsList: productsList,
-          ),
+          builder: (context) => CategoriesPage(),
         );
 
       case AppRoutes.allProducts:

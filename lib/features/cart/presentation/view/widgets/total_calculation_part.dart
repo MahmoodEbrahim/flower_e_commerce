@@ -40,7 +40,7 @@ class TotalCalculationPart extends StatelessWidget {
             ],
           ),
           Divider(
-            color: AppColors.black[20]!,
+            color: AppColors.blackColor[20]!,
             thickness: 1,
           ),
           Row(
@@ -48,11 +48,11 @@ class TotalCalculationPart extends StatelessWidget {
             children: [
               Text(t.total,
                   style: getBoldStyle(
-                      color: AppColors.Black, fontSize: FontSize.s16)),
+                      color: AppColors.black, fontSize: FontSize.s16)),
               Text(
                 isPriceEqualZero?'0 \$':'${price+delivery} \$',
                 style: getBoldStyle(
-                    color: AppColors.Black, fontSize: FontSize.s16),
+                    color: AppColors.black, fontSize: FontSize.s16),
               ),
             ],
           ),

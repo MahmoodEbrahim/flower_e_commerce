@@ -23,7 +23,7 @@ class CardSection extends StatelessWidget {
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: BoxBorder.all(color: AppColors.black[20]!)),
+                border: BoxBorder.all(color: AppColors.blackColor[20]!)),
             width: double.infinity,
             child: InkWell(
               onTap: () {},

@@ -40,7 +40,7 @@ class _CartPageState extends State<CartPage> {
       value: cartViewModel,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.white,
           title: Text(t.cart),
           titleSpacing: 0,
           scrolledUnderElevation: 0,
@@ -101,7 +101,7 @@ class _CartPageState extends State<CartPage> {
                             child: Text(
                               t.checkout,
                               style: getRegularStyle(
-                                  color: AppColors.White,
+                                  color: AppColors.white,
                                   fontSize: FontSize.s16),
                             ),
                           ))),

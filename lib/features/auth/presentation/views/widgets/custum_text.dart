@@ -30,7 +30,7 @@ class CustumText extends StatelessWidget {
             TextSpan(
                 style:getBoldStyle(
                   
-                  color: color ?? AppColors.Black,fontSize: fontSize??FontSize.s14).copyWith(decoration:TextDecoration.underline ),
+                  color: color ?? AppColors.black,fontSize: fontSize??FontSize.s14).copyWith(decoration:TextDecoration.underline ),
                 text: secondryText,
                 recognizer: TapGestureRecognizer()..onTap = onTab)
           ])),
