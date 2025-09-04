@@ -555,6 +555,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update'**
   String get update;
+
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @passwordChangeSuccessfuly.
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Password Change Successfuly'**
+  String get passwordChangeSuccessfuly;
 }
 
 class _AppLocalizationsDelegate

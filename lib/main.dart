@@ -13,9 +13,8 @@ import 'package:hive_flutter/adapters.dart';
 import 'features/auth/api/source/user_local_storage.dart';
 import 'features/auth/domain/entity/login_model.dart';
 import 'features/auth/domain/entity/user_model.dart';
-
-
-
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
@@ -24,7 +23,7 @@ void main() async {
   Hive.registerAdapter(LoginModelAdapter());
   await UserLocalStorage.init();
   runApp(
-     MyApp()
+      DevicePreview(builder: (context)=> MyApp())
 
   );}
 
@@ -33,14 +32,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final isLoggedIn = UserLocalStorage.isLoggedIn();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-initialRoute: AppRoutes.login,
-       // initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+
+        initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,

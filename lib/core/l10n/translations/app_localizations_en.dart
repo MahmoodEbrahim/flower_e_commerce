@@ -244,4 +244,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get update => 'Update';
+
+  @override
+  String get currentPassword => 'Current password';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get passwordChangeSuccessfuly => '✅ Password Change Successfuly';
 }

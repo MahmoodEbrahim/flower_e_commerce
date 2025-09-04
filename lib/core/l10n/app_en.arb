@@ -80,11 +80,13 @@
       "cancel": "Cancel",
   "editProfile": "Edit profile",
   "profileUpdatedSuccessfully": "Profile updated successfully",
-  "update": "Update"
+  "update": "Update",
 
+  "alreadyHaveAccount": "Already have an account? ",
 
-
-
+"currentPassword": "Current password",
+  "newPassword": "New password",
+  "passwordChangeSuccessfuly": "✅ Password Change Successfuly"
 
 
 
