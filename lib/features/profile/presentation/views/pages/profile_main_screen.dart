@@ -100,8 +100,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
               const SizedBox(width: 5),
               GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, AppRoutes.editUser,
-                  // arguments: user);
+              Navigator.of(context).pushNamed(AppRoutes.editProfilePage);
                 },
                 child: SvgPicture.asset(
                   ImageAssets.pen,

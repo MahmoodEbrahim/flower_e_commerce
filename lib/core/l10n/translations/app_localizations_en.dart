@@ -134,12 +134,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password reset link sent successfully';
 
   @override
-  String get profileUpdatedSuccessfully => 'Profile updated successfully';
-
-  @override
-  String get update => 'Update';
-
-  @override
   String get gender => 'Gender';
 
   @override
@@ -167,6 +161,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterEmail => 'Enter your email';
 
   @override
+  String get phone => 'Phone';
+
+  @override
   String get enterPassword => 'Enter password';
 
   @override
@@ -190,9 +187,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
-
-  @override
-  String get editProfile => 'Edit profile';
 
   @override
   String get flowery => 'Flowery';
@@ -223,4 +217,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get noDataFound => 'No data found';
+
+  @override
+  String get noSectionsFound => 'No sections found';
+
+  @override
+  String get version => 'V ';
+
+  @override
+  String get confirmLogout => 'Confirm logout!!';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String get update => 'Update';
 }

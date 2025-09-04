@@ -53,7 +53,7 @@
   "enterLastName": "Enter last name",
 
   "enterEmail": "Enter your email",
-  "Phone": "Phone",
+  "phone": "Phone",
   "enterPassword": "Enter password",
   "confirmPassword": "Confirm Password",
   "enterConfirmPassword": "Confirm password",
@@ -71,16 +71,16 @@
     "english":"English",
     "arabic":"Arabic",
     "aboutUs": "About us",
-    "termsAndConditions": "Terms & conditions",
     "logout": "Logout",
     "errorLoadingData": "Error loading data",
     "noDataFound": "No data found",
     "noSectionsFound": "No sections found",
     "version" :"V ",
     "confirmLogout": "Confirm logout!!",
-      "cancel": "Cancel"
-  "alreadyHaveAccount": "Already have an account? ",
-  "editProfile": "Edit profile"
+      "cancel": "Cancel",
+  "editProfile": "Edit profile",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "update": "Update"
 
 
 

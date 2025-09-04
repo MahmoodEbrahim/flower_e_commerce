@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -126,16 +128,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         }
                       }
                     },
-                    child: Stack(
+                    child:
+                    Stack(
                       alignment: Alignment.bottomRight,
                       children: [
                         CircleAvatar(
                           radius: 50.r,
+
                           backgroundImage: state.uploadProfilePhotoResponse == null
-                              ? NetworkImage(
-                              userModel.user.photo == null
-                                  ? "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg"
-                                  : userModel.user.photo!)
+
+                              ? CachedNetworkImageProvider(
+                            userModel.user.photo == null
+                              ? "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg"
+                              : userModel.user.photo!,)
+
+
                               : FileImage(savedFile!),
                         ),
                         Container(
@@ -218,7 +225,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               groupValue: _gender,
                                 onChanged: null,
                             ),
-                            Text("Male"),
+                            Text(local.male),
                           ],
                         ),
                       ),
@@ -255,6 +262,7 @@ firstName: _firstNameController.text,
           },
           listener: (context, state) {
             if (state.uploadPhotoState == RequestState.success) {
+
               print("Success in upload photo");
             }
             if (state.uploadPhotoState == RequestState.error) {
@@ -269,7 +277,6 @@ firstName: _firstNameController.text,
             }
             if (state.editProfileState == RequestState.error) {
               print("Error ${state.errorMessageEditProfile}");
-              // Show error message to the user
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Error: ${state.errorMessageEditProfile}")),
               );

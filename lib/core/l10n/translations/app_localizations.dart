@@ -334,18 +334,6 @@ abstract class AppLocalizations {
   /// **'Password reset link sent successfully'**
   String get passwordresetlinksentsuccessfully;
 
-  /// No description provided for @profileUpdatedSuccessfully.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile updated successfully'**
-  String get profileUpdatedSuccessfully;
-
-  /// No description provided for @update.
-  ///
-  /// In en, this message translates to:
-  /// **'Update'**
-  String get update;
-
   /// No description provided for @gender.
   ///
   /// In en, this message translates to:
@@ -399,6 +387,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter your email'**
   String get enterEmail;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
 
   /// No description provided for @enterPassword.
   ///
@@ -508,11 +502,59 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// No description provided for @noDataFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found'**
+  String get noDataFound;
+
+  /// No description provided for @noSectionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No sections found'**
+  String get noSectionsFound;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'V '**
+  String get version;
+
+  /// No description provided for @confirmLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm logout!!'**
+  String get confirmLogout;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
   /// No description provided for @editProfile.
   ///
   /// In en, this message translates to:
   /// **'Edit profile'**
   String get editProfile;
+
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
 }
 
 class _AppLocalizationsDelegate

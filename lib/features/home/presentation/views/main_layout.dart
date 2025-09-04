@@ -6,6 +6,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/Tabs/categori
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/edit_profile_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/profile_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../config/theme/assets_manger.dart';
