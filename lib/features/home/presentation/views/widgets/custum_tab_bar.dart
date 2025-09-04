@@ -46,7 +46,7 @@ class _CustumTabBarState extends State<CustumTabBar> {
 
   void _sendEvent(CategoriesViewModel categoriesViewModel, int index) {
     final selectedCategory = widget.categoryList[index];
-    print(index);
+   
     if (index==0) {
       categoriesViewModel.add(
         GetAllProductsEvent(products: widget.allProducts),

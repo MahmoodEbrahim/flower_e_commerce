@@ -8,7 +8,6 @@ import 'package:flower_e_commerce/features/cart/presentation/view_model/cart_vie
 import 'package:flower_e_commerce/features/cart/presentation/view_model/cart_view_model/cart_view_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsScreen extends StatelessWidget {

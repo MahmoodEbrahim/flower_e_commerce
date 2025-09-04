@@ -30,7 +30,7 @@ void main() {
     test('should return entity with correct cartItems when cartItems are provided', () {
       // arrange
       final productModel = ProductModel(
-        Id: "prod123",
+        iid: "prod123",
         title: "Red Flower",
         description: "A red flower",
         imgCover: "https://example.com/img.png",

@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomTxtFieldWidget extends StatelessWidget {
 
      bool isPass;

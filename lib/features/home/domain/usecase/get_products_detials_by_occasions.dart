@@ -4,7 +4,7 @@ import 'package:flower_e_commerce/features/home/domain/repository/home_repositor
 import 'package:injectable/injectable.dart';
 @injectable
 class GetProductDetialsByOccasionUseCase{
-  HomeRepository _homeRepository;
+  final HomeRepository _homeRepository;
   GetProductDetialsByOccasionUseCase(this._homeRepository);
   Future<ApiResult<List<ProductsEntity>>>
   getProductsDetialsByOccasions(String occasionId)async{

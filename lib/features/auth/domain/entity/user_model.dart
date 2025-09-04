@@ -5,7 +5,7 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class UserModel {
   @HiveField(0)
-  final String? Id;
+  final String? iid;
 
   @HiveField(1)
   final String? firstName;
@@ -36,7 +36,7 @@ class UserModel {
 
 
   UserModel({
-    this.Id,
+    this.iid,
     this.firstName,
     this.lastName,
     this.email,

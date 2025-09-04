@@ -73,9 +73,9 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       (VerfiyPasswordRequest request) async {
     try {
       final response = await authApiService.verfiyPassword(request);
-      print("before response ${response.status}");
+     
       if (response.status == "Success") {
-        print( "${response.status} as ApiSucessResult).data");
+      
         return ApiSucessResult(response);
       } else {
         return ApiFailedResult(ServerFailure(response.status??

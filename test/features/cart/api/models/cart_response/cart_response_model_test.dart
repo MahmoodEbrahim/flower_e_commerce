@@ -26,7 +26,7 @@ void main() {
     test('should return entity with correct cart when cart is provided', () {
       // arrange
       final productModel = ProductModel(
-        Id: "prod123",
+        iid: "prod123",
         id: "prod123",
         title: "Red Flower",
         description: "A red flower",

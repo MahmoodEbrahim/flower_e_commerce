@@ -2,6 +2,7 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class CustomBtnWidget extends StatelessWidget {
    CustomBtnWidget({super.key,required this.txt,this.onPressed});
   void Function()?onPressed;

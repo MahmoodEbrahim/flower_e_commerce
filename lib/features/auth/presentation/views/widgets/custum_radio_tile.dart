@@ -50,7 +50,8 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                       )),
                   Expanded(
                       flex: 9,
-                      child: RadioListTile(
+                      child:
+                       RadioListTile(
                           value: "female",
                           fillColor: WidgetStateProperty.all(AppColors.pink),
                           title: Text(
@@ -63,7 +64,9 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                             widget.groupValue.value = val;
                             state.didChange(val);
                               
-                          })),
+                          })
+                          
+                          ),
                   Expanded(
                       flex: 8,
                       child: RadioListTile(
