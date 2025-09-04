@@ -46,7 +46,7 @@ class CustomCardFlower extends StatelessWidget {
               fit: BoxFit.cover,
               placeholder: (context, _) => Center(
                   child: LoadingAnimationWidget.inkDrop(
-                      color: AppColors.Pink, size: 24)),
+                      color: AppColors.pink, size: 24)),
               errorWidget: (context, _, error) => Center(
                 child: Icon(
                   Icons.image_not_supported_rounded,
@@ -62,7 +62,7 @@ class CustomCardFlower extends StatelessWidget {
               productsEntity.title!,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: getRegularStyle(color: AppColors.black[60]!, fontSize: 12.0),
+              style: getRegularStyle(color: AppColors.blackColor[60]!, fontSize: 12.0),
             ),
             SizedBox(
               height: 5.0,
@@ -73,17 +73,17 @@ class CustomCardFlower extends StatelessWidget {
                 if (isThereDiscount)
                   Text("${t.egp} ${productsEntity.priceAfterDiscount} ",
                       style: getBoldStyle(
-                        color: AppColors.black[60]!,
+                        color: AppColors.blackColor[60]!,
                         fontSize: FontSize.s16,
                       )),
                 Text("${productsEntity.price}",
                     style: isThereDiscount
                         ? getRegularStyle(
-                            color: AppColors.black[60]!,
+                            color: AppColors.blackColor[60]!,
                             fontSize: FontSize.s12,
                           ).copyWith(decoration: TextDecoration.lineThrough)
                         : getBoldStyle(
-                            color: AppColors.black[60]!,
+                            color: AppColors.blackColor[60]!,
                             fontSize: FontSize.s16,
                           )),
                 if (isThereDiscount)
@@ -104,7 +104,7 @@ class CustomCardFlower extends StatelessWidget {
                   children: [
                     Icon(
                       CupertinoIcons.cart,
-                      color: AppColors.White,
+                      color: AppColors.white,
                     ),
                     SizedBox(
                       width: 7.0,
@@ -112,7 +112,7 @@ class CustomCardFlower extends StatelessWidget {
                     Text(
                       t.addToCart,
                       style:
-                          getMediumStyle(color: AppColors.White, fontSize: 13.0),
+                          getMediumStyle(color: AppColors.white, fontSize: 13.0),
                     )
                   ],
                 ))
