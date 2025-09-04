@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
+import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/edit_profile_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
 import 'package:flower_e_commerce/features/profile/data/repository/profile_repository_imp.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,9 +25,13 @@ setUp((){
   provideDummy<ApiResult<UploadProfilePhotoResponse>>(
       ApiFailedResult<UploadProfilePhotoResponse>("Dummy Error")
   );
+  provideDummy<ApiResult<EditProfileResponsea>>(
+      ApiFailedResult<EditProfileResponsea>("Dummy Error")
+  );
 });
-  group("Upload Photo", (){
-    const String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhhMjE4MjVhOGJjYTMwN2Y5ZGU5MzY1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTY3NDU4OTV9.l-rqns6hgcyes9JCw4fRD6u2Z0LiAbEHYSovpsFjb7E";
+const String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhhMjE4MjVhOGJjYTMwN2Y5ZGU5MzY1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTY3NDU4OTV9.l-rqns6hgcyes9JCw4fRD6u2Z0LiAbEHYSovpsFjb7E";
+
+  group("Upload Photo Repositry", (){
 final successResponse=UploadProfilePhotoResponse(
   message: "success"
 );
@@ -49,4 +55,46 @@ final successResponse=UploadProfilePhotoResponse(
     });
 
 });
+  group("Edit Profile Repositry", (){
+    EditProfileRequest request=EditProfileRequest(
+        firstName: "mariam",
+        lastName: "Mohmed",
+        email: "mariammohmed.25720@gmail.com",
+        phone: "+201061728082"
+    );
+    final successResponse=EditProfileResponsea(
+        message: "success",user: User(
+        Id: "68a21825a8bca307f9de9365",
+        firstName: "mariam",
+        lastName: "Mohmed",
+        email: "mariammohmed.25720@gmail.com",
+        password: "T8lSnOaFaPjq6q",
+        gender: "female",
+        phone: "+201061728082",
+        photo: "https://flower.elevateegy.com/uploads/b6bfe840-15b4-49aa-aba2-1b14b314744f-1756969431858.jpg",
+        role: "user",
+        wishlist: [],
+        addresses: [],
+        createdAt: "2025-08-17T17:57:57.084Z",
+        passwordChangedAt: "2025-08-31T11:56:33.668Z"
+    )
+    );
+    test("should return ApiResultsuccess when data source success ", ()async{
+      when(mockProfileRemoteDataSource.editProfile(token, request)).thenAnswer((_)async
+      =>ApiSucessResult<EditProfileResponsea>(successResponse));
+      final result=await profileRepositoryImp.editProfile(token, request);
+      expect(result, isA<ApiSucessResult<EditProfileResponsea>>());
+      expect((result as ApiSucessResult).sucessResult, successResponse);
+      verify(mockProfileRemoteDataSource.editProfile(token, request)).called(1);
+    });
+    test("should return ApiFailedsuccess when data source failed", ()async{
+      final exception = Exception('Upload failed');
+      when(mockProfileRemoteDataSource.editProfile(token, request)).thenAnswer((_)async=>ApiFailedResult(exception.toString()));
+      final result=await profileRepositoryImp.editProfile(token, request);
+      expect(result, isA<ApiFailedResult<EditProfileResponsea>>());
+      expect((result as ApiFailedResult).errorMessage, exception.toString());
+      verify(mockProfileRemoteDataSource.editProfile(token, request)).called(1);
+    });
+
+  });
 }
