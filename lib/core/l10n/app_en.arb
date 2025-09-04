@@ -40,6 +40,9 @@
   "confirmpassword": "Confirm password",
   "newpassword": "New password",
   "passwordresetlinksentsuccessfully": "Password reset link sent successfully",
+
+
+
    "gender": "Gender",
   "female": "Female",
   "male": "Male",
@@ -48,7 +51,9 @@
   "enterFirstName": "Enter first name",
   "lastName": "Last Name",
   "enterLastName": "Enter last name",
+
   "enterEmail": "Enter your email",
+  "Phone": "Phone",
   "enterPassword": "Enter password",
   "confirmPassword": "Confirm Password",
   "enterConfirmPassword": "Confirm password",
@@ -74,4 +79,14 @@
     "version" :"V ",
     "confirmLogout": "Confirm logout!!",
       "cancel": "Cancel"
+  "alreadyHaveAccount": "Already have an account? ",
+  "editProfile": "Edit profile"
+
+
+
+
+
+
+
+
 }

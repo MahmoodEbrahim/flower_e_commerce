@@ -334,6 +334,18 @@ abstract class AppLocalizations {
   /// **'Password reset link sent successfully'**
   String get passwordresetlinksentsuccessfully;
 
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
   /// No description provided for @gender.
   ///
   /// In en, this message translates to:
@@ -427,7 +439,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsAndConditions.
   ///
   /// In en, this message translates to:
-  /// **'Terms & conditions'**
+  /// **'Terms & Conditions'**
   String get termsAndConditions;
 
   /// No description provided for @alreadyHaveAccount.
@@ -495,6 +507,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get editProfile;
 }
 
 class _AppLocalizationsDelegate

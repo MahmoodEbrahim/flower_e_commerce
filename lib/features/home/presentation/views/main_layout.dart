@@ -1,9 +1,11 @@
 import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
+import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/card_tab.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/Tabs/categories_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
-import 'package:flower_e_commerce/features/profile/presentation/views/pages/profile_main_screen.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../config/theme/assets_manger.dart';
@@ -85,7 +87,7 @@ class _HomePageState extends State<MainLayout> {
               ),
               label: StringsManager.CategoriesTab,
               selectedIcon: SvgPicture.asset(
-                ImageAssets.categoriesicon,
+                AssetsManager.categoriesicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,

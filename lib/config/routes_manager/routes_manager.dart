@@ -15,6 +15,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/product
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class Routes {
@@ -309,8 +310,6 @@ static ProductsEntity fakeProduct=  ProductsEntity(
 
 
 );
-
-
 static Route<dynamic> onGenerate(RouteSettings settings) {
     final url = Uri.parse(settings.name ?? '/');    switch (settings.name) {
       case AppRoutes.home:
@@ -327,6 +326,11 @@ static Route<dynamic> onGenerate(RouteSettings settings) {
         // final args = settings.arguments as List<OccasionsEntity>;
         return MaterialPageRoute(
           builder: (_) => OccasionPage()
+        );
+      case AppRoutes.editProfilePage:
+      // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+            builder: (_) => EditProfilePage()
         );
 //AllProductsPage
     case AppRoutes.catergories:

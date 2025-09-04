@@ -134,6 +134,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password reset link sent successfully';
 
   @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String get update => 'Update';
+
+  @override
   String get gender => 'Gender';
 
   @override
@@ -180,10 +186,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Creating an account, you agree to our ';
 
   @override
-  String get termsAndConditions => 'Terms & conditions';
+  String get termsAndConditions => 'Terms & Conditions';
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get editProfile => 'Edit profile';
 
   @override
   String get flowery => 'Flowery';
