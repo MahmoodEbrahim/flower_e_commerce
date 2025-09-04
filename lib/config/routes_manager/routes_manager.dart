@@ -39,13 +39,12 @@ abstract class Routes {
         );
 
       case AppRoutes.catergories:
-        final args = settings.arguments as Map<String, dynamic>;
-        final categoryList = args[Constants.catList] as List<CategoriesEntity>;
-        final productsList = args[Constants.productList] as List<ProductsEntity>;
+       // final args = settings.arguments as Map<String, dynamic>;
+        // final categoryList = args[Constants.catList] as List<CategoriesEntity>;
+        // final productsList = args[Constants.productList] as List<ProductsEntity>;
         return MaterialPageRoute(
           builder: (context) => CategoriesPage(
-            categoryList: categoryList,
-            produdctsList: productsList,
+           
           ),
         );
 

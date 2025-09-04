@@ -24,8 +24,8 @@ class _ProductsCategoryState extends State<ProductsCategory> {
 
   @override
   void initState() {
-    categoriesViewModel
-        .add(GetAllProductsOfCategoriesEvent(catId: widget.catId));
+    // categoriesViewModel
+    //     .add(GetAllProductsOfCategoriesEvent(catId: widget.catId));
     super.initState();
   }
 

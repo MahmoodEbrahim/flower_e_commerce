@@ -1,0 +1,46 @@
+name: Validate PR Title
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+jobs:
+  validate-pr-title:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      statuses: write
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Define allowed types (e.g., feat, fix, chore, docs)
+          types: |
+            feat
+            fix
+            chore
+            docs
+            style
+            refactor
+            perf
+            test
+          # Optional: Define allowed scopes (e.g., ui, api, auth)
+          scopes: |
+            api
+            auth
+            home
+            profile
+            core
+          # Regex to enforce PR title format: type(scope): description AB#xxx
+          subjectPattern: ^.* AB#\d+$
+          subjectPatternError: |
+            The PR title must follow the format: `type(scope): description AB#xxx`
+            Example: `feat(ui): add login screen AB#123`
+          # Validate single commit matches PR title if squash and merge is used
+          validateSingleCommit: true
+          validateSingleCommitMatchesPrTitle: true
