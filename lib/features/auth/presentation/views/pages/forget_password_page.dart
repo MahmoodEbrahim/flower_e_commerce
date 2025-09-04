@@ -43,7 +43,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 26.h,),
                   Text(local.forgetPassword,textAlign: TextAlign.center,
-                    style: getMediumStyle(color: AppColors.black!,
+                    style: getMediumStyle(color: AppColors.black,
                         fontSize: FontSize.s18),),
                   SizedBox(height: 16.h,),
                   Text(local.pleaseenteryouremailassociatedtoyouraccount,textAlign: TextAlign.center,

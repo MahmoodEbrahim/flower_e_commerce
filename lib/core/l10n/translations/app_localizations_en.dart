@@ -221,4 +221,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get seeAll => 'see all';
+
+  @override
+  String get cart => 'cart';
+
+  @override
+  String get checkout => 'CheckOut';
+
+  @override
+  String get deliver_to => 'deliver to';
+
+  @override
+  String get bigAddress =>
+      '2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed';
+
+  @override
+  String get subTotal => 'Sub total';
+
+  @override
+  String get deliveryFee => 'Delivery fee';
+
+  @override
+  String get total => 'Total';
 }
