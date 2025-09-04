@@ -196,10 +196,13 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                 leading: SvgPicture.asset(ImageAssets.logout, height: 20),
                 title: locale.logout,
                 trailing: SvgPicture.asset(ImageAssets.logout, height: 30),
-                onTap: () {
+                onTap: user == null
+                    ? null
+                    : () {
                   showLogoutDialog(context);
                 },
               ),
+
             ],
           )
         ],
