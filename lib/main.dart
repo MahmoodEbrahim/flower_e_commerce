@@ -23,7 +23,9 @@ void main() async {
   Hive.registerAdapter(LoginModelAdapter());
   await UserLocalStorage.init();
   runApp(
-      DevicePreview(builder: (context)=> MyApp())
+      //DevicePreview(builder: (context)=>
+          MyApp()
+      //)
 
   );}
 

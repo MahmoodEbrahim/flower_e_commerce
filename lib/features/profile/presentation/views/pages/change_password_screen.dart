@@ -55,23 +55,25 @@ return   Scaffold(
             children: [
               SizedBox(height: 24.h,),
               CustomTxtFieldWidget(
+                isPass: true,
                   controller: cuurentpasswordController,
                   validator: Validator.validatePassword,
                   lbl: local.currentPassword, hint: local.currentPassword),
               SizedBox(height: 20.h,),
               CustomTxtFieldWidget(
+                  isPass: true,
                   controller: newPassword,
                   validator: Validator.validatePassword,
                   lbl: local.newpassword, hint: local.newpassword),
               SizedBox(height: 20.h,),
               CustomTxtFieldWidget(
-
+                  isPass: true,
                   lbl: local.confirmpassword,
                   validator:(value)=> Validator.validateConfirmPassword
                     (value, newPassword.text),
                   hint: local.confirmpassword),
               SizedBox(height: 30.h,),
-              CustomBtnWidget(txt: "Update",
+              CustomBtnWidget(txt: local.update,
                 bg: AppColors.black[30]!,
                 onPressed: (){
 if(formKey.currentState!.validate()){

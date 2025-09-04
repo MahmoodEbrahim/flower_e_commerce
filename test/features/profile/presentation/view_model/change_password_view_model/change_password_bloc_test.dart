@@ -12,7 +12,9 @@ import 'package:mockito/mockito.dart';
 import 'package:bloc_test/bloc_test.dart';
 
 import 'change_password_bloc_test.mocks.dart';
+
 @GenerateMocks([GetChangePasswordUseCase])
+
 void main() {
   late MockGetChangePasswordUseCase mockGetChangePasswordUseCase;
   late ChangePasswordBloc changePasswordBloc;
@@ -71,9 +73,9 @@ void main() {
               errorMessage: failureResponse.message!
           )
         ],verify: (_){
-        
-    verify(mockGetChangePasswordUseCase.changePassword(request, token)).called(1); 
+
+    verify(mockGetChangePasswordUseCase.changePassword(request, token)).called(1);
         });
-    
+
   });
 }

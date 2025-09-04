@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -26,7 +27,7 @@ class CustomTxtFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-obscuringCharacter: "⭐",
+obscuringCharacter: "*",
 
 
       validator: validator,
@@ -34,9 +35,14 @@ obscuringCharacter: "⭐",
       obscureText: isPass,
       decoration: InputDecoration(
         suffixIcon:isSuffix?
-      Align(
-        alignment: Alignment.centerRight,
-        child:   Text("Change   ",style: getMediumStyle(color: AppColors.Pink),),):null,
+      GestureDetector(
+        onTap: (){
+          Navigator.of(context).pushNamed(AppRoutes.changePassword);
+        },
+        child: Align(
+          alignment: Alignment.centerRight,
+          child:   Text("Change   ",style: getMediumStyle(color: AppColors.Pink),),),
+      ):null,
           label: Text(
             lbl,
             style:
