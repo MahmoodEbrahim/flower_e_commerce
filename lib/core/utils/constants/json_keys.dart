@@ -1,4 +1,4 @@
-class JsonKeys {
+abstract class JsonKeys {
   // Main JSON keys
   static const String about = 'about_app';
   static const String terms = 'terms_and_conditions';
