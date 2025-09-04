@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final isLoggedIn = UserLocalStorage.isLoggedIn();
     return ScreenUtilInit(
       designSize: const Size(375, 812),

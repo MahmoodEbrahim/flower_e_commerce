@@ -14,6 +14,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/occasio
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/di/di.dart';
 
 class HomeTab extends StatelessWidget {
@@ -26,9 +27,27 @@ class HomeTab extends StatelessWidget {
           builder: (context, state) {
             if (state is HomeInitialState) {
               BlocProvider.of<HomeBloc>(context).add(GetHomeDataEvent());
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:
+                  [
+                    SizedBox(height: 200.0,),
+                    LoadingAnimationWidget.inkDrop(color: AppColors.Pink,size: 50)
+                  ],),
+              );
             } else if (state is HomeLoadingState) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:
+                  [
+                    SizedBox(height: 200.0,),
+                    LoadingAnimationWidget.inkDrop(color: AppColors.Pink,size: 50)
+                  ],),
+              );
             } else if (state is HomeErrorState) {
               return Center(child: Text('Error: ${state.message}'));
             } else if (state is HomeSuccessState) {
