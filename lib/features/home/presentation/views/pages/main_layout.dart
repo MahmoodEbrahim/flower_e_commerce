@@ -23,6 +23,7 @@ class _HomePageState extends State<MainLayout> {
 
   int selectedIndex = 0;
   late final List<Widget> tabs;
+  int? catIndex;
 
   @override
   void initState() {
@@ -33,14 +34,18 @@ class _HomePageState extends State<MainLayout> {
         child: HomePage(
           onChangeTab: (value) {
             setState(() {
-              selectedIndex = value;
+              selectedIndex = value.tabIndex;
+              catIndex = value.categoryIndex;
+            
             });
           },
         ),
       ),
       BlocProvider.value(
         value: categoriesViewModel,
-        child: CategoriesPage(),
+        child: CategoriesPage(
+          catIndex: catIndex,
+        ),
       ),
       CartTab(),
       ProfileTab(),

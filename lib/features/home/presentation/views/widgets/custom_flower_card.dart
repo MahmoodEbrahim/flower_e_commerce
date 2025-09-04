@@ -33,95 +33,90 @@ class CustomCardFlower extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadiusGeometry.circular(8.0),
           border: Border.all(width: 1.0, color: AppColors.midGray)),
-      child: InkWell(
-        onTap: () {
-          
-        },
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CachedNetworkImage(
-                imageUrl: productsEntity.imgCover!,
-                width: 147.0,
-                height: 131.0,
-                fit: BoxFit.cover,
-                placeholder: (context, _) => Center(
-                    child: LoadingAnimationWidget.inkDrop(
-                        color: AppColors.Pink, size: 24)),
-                errorWidget: (context, _, error) => Center(
-                  child: Icon(
-                    Icons.image_not_supported_rounded,
-                    color: AppColors.gray,
-                    size: 24.0,
-                  ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CachedNetworkImage(
+              imageUrl: productsEntity.imgCover!,
+              width: 147.0,
+              height: 131.0,
+              fit: BoxFit.cover,
+              placeholder: (context, _) => Center(
+                  child: LoadingAnimationWidget.inkDrop(
+                      color: AppColors.Pink, size: 24)),
+              errorWidget: (context, _, error) => Center(
+                child: Icon(
+                  Icons.image_not_supported_rounded,
+                  color: AppColors.gray,
+                  size: 24.0,
                 ),
               ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                productsEntity.title!,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: getRegularStyle(color: AppColors.black[60]!, fontSize: 12.0),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (isThereDiscount)
-                    Text("${t.egp} ${productsEntity.priceAfterDiscount} ",
-                        style: getBoldStyle(
-                          color: AppColors.black[60]!,
-                          fontSize: FontSize.s16,
-                        )),
-                  Text("${productsEntity.price}",
-                      style: isThereDiscount
-                          ? getRegularStyle(
-                              color: AppColors.black[60]!,
-                              fontSize: FontSize.s12,
-                            ).copyWith(decoration: TextDecoration.lineThrough)
-                          : getBoldStyle(
-                              color: AppColors.black[60]!,
-                              fontSize: FontSize.s16,
-                            )),
-                  if (isThereDiscount)
-                    Text(
-                      "$discount%",
-                      style:
-                          getRegularStyle(color: AppColors.green, fontSize: 12.0),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              productsEntity.title!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: getRegularStyle(color: AppColors.black[60]!, fontSize: 12.0),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (isThereDiscount)
+                  Text("${t.egp} ${productsEntity.priceAfterDiscount} ",
+                      style: getBoldStyle(
+                        color: AppColors.black[60]!,
+                        fontSize: FontSize.s16,
+                      )),
+                Text("${productsEntity.price}",
+                    style: isThereDiscount
+                        ? getRegularStyle(
+                            color: AppColors.black[60]!,
+                            fontSize: FontSize.s12,
+                          ).copyWith(decoration: TextDecoration.lineThrough)
+                        : getBoldStyle(
+                            color: AppColors.black[60]!,
+                            fontSize: FontSize.s16,
+                          )),
+                if (isThereDiscount)
+                  Text(
+                    "$discount%",
+                    style:
+                        getRegularStyle(color: AppColors.green, fontSize: 12.0),
+                  ),
+              ],
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      CupertinoIcons.cart,
+                      color: AppColors.White,
                     ),
-                ],
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.cart,
-                        color: AppColors.White,
-                      ),
-                      SizedBox(
-                        width: 7.0,
-                      ),
-                      Text(
-                        t.addToCart,
-                        style:
-                            getMediumStyle(color: AppColors.White, fontSize: 13.0),
-                      )
-                    ],
-                  ))
-            ],
-          ),
+                    SizedBox(
+                      width: 7.0,
+                    ),
+                    Text(
+                      t.addToCart,
+                      style:
+                          getMediumStyle(color: AppColors.White, fontSize: 13.0),
+                    )
+                  ],
+                ))
+          ],
         ),
       ),
     );

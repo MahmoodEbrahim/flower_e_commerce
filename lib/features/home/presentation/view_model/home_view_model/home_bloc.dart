@@ -1,5 +1,7 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flower_e_commerce/features/home/domain/usecase/get_home_data_usecase.dart';
@@ -18,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvents, HomeStates> {
       switch (result) {
         case ApiSucessResult<HomeEntity>():
           emit(HomeSuccessState(result.sucessResult));
+
         case ApiFailedResult<HomeEntity>():
           emit(HomeErrorState(result.errorMessage));
       }

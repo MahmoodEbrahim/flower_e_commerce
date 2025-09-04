@@ -6,20 +6,23 @@ abstract class CategoriesEvent {}
 
 class GetAllProductsOfCategoriesEvent extends CategoriesEvent {
   String catId;
-   List<CategoriesEntity> categories;
-  GetAllProductsOfCategoriesEvent({
-    required this.categories,
-    required this.catId,
-  });
+  List<CategoriesEntity>? categories;
+  int? index;
+  GetAllProductsOfCategoriesEvent(
+      {this.categories, required this.catId, this.index});
 }
 
 class GetAllProductsEvent extends CategoriesEvent {
   List<ProductsEntity> products;
   List<CategoriesEntity>? categories;
- 
-  GetAllProductsEvent({
-    required this.products,
-     this.categories
-  });
-  
+  List<ProductsEntity>? allproducts;
+
+
+  GetAllProductsEvent({required this.products, this.categories,this.allproducts});
+}
+
+class SelectCatIndexEvent extends CategoriesEvent {
+  int index;
+
+  SelectCatIndexEvent({required this.index});
 }
