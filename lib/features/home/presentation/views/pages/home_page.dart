@@ -2,6 +2,8 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/build_best_seller_list.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/build_categories_list.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/home_view_model/home_bloc.dart';
@@ -16,10 +18,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/di/di.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final void Function(int)? onChangeTab;
+  const HomePage({super.key, this.onChangeTab});
 
   @override
   Widget build(BuildContext context) {
+    final categoriesViewModel = context.read<CategoriesViewModel>();
     final t = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocProvider(
@@ -59,6 +63,10 @@ class HomePage extends StatelessWidget {
               return Center(child: Text('${t.error}: ${state.message}'));
             } else if (state is HomeSuccessState) {
               final homeData = state.homeResponse;
+              categoriesViewModel.add(GetAllProductsEvent(
+                  products: homeData.products!,
+                  categories: homeData.categories!));
+
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(12),
                 child: SafeArea(
@@ -107,7 +115,7 @@ class HomePage extends StatelessWidget {
                         children: [
                           const Icon(Icons.location_on_outlined, size: 24),
                           const SizedBox(width: 6),
-                           Text(
+                          Text(
                             t.address,
                             style: TextStyle(fontSize: 18),
                           ),
@@ -118,15 +126,10 @@ class HomePage extends StatelessWidget {
 
                       // Categories
                       buildSectionTitle(t.categories, () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.catergories,
-                          arguments: {
-                            Constants.catList: homeData.categories,
-                            Constants.productList: homeData.products,
-                          },
-                        );
-                      },context),
+                        if (onChangeTab != null) {
+                          onChangeTab!(1);
+                        }
+                      }, context),
                       buildCategoriesList(homeData.categories),
 
                       // Best Seller
@@ -138,7 +141,7 @@ class HomePage extends StatelessWidget {
                             Constants.bestSeller: homeData.bestSeller,
                           },
                         );
-                      },context),
+                      }, context),
                       buildBestSellerList(homeData.bestSeller, context),
 
                       // Occasions
@@ -150,7 +153,7 @@ class HomePage extends StatelessWidget {
                             Constants.occasions: homeData.occasions,
                           },
                         );
-                      },context),
+                      }, context),
                       buildOccasionsList(homeData.occasions),
 
                       // Products
@@ -162,8 +165,8 @@ class HomePage extends StatelessWidget {
                             Constants.allProducts: homeData.products,
                           },
                         );
-                      },context),
-                      buildProductsList(homeData.products,context),
+                      }, context),
+                      buildProductsList(homeData.products, context),
                     ],
                   ),
                 ),

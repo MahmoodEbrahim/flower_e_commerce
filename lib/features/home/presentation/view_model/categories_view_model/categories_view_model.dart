@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
+@singleton
 class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
   final GetProductsByCategoryIdUseCase _getProductsByCategoryIdUseCase;
   CategoriesViewModel(
@@ -25,10 +26,14 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
 
     switch (res) {
       case ApiSucessResult<List<ProductsEntity>>():
-
+        
         emit(state.copyWith(
-            isLoading: false, errorMessage: null, products: res.sucessResult));
+            isLoading: false,
+            errorMessage: null,
+            products: res.sucessResult,
+            categories: event.categories));
       case ApiFailedResult<List<ProductsEntity>>():
+     
         emit(state.copyWith(
             isLoading: false, errorMessage: res.errorMessage, products: null));
     }
@@ -36,7 +41,11 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
 
   void _getAllProducts(GetAllProductsEvent event, Emitter emit) {
     emit(state.copyWith(isLoading: true));
+
     emit(state.copyWith(
-        products: event.products, errorMessage: null, isLoading: false));
+        products: event.products,
+        errorMessage: null,
+        isLoading: false,
+        categories: event.categories));
   }
 }
