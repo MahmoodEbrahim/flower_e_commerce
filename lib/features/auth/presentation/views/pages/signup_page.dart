@@ -31,12 +31,12 @@ class SignupPage extends StatelessWidget {
           }
         },
         child: Scaffold(
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.white,
           appBar: AppBar(
             leading: IconButton(
                 onPressed: () => Navigator.of(context).popAndPushNamed(AppRoutes.login),
                 icon: Icon(Icons.arrow_back_ios)),
-            backgroundColor: AppColors.White,
+            backgroundColor: AppColors.white,
             title: Text(t.signUp),
           ),
           body: Column(

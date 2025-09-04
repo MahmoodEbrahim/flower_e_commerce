@@ -57,8 +57,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   effect: ScrollingDotsEffect(
                     dotHeight: 10,
                     dotWidth: 10,
-                    dotColor: AppColors.white[70] ?? AppColors.white,
-                    activeDotColor: AppColors.Pink,
+                    dotColor: AppColors.white ?? AppColors.white,
+                    activeDotColor: AppColors.pink,
                     activeDotScale: 1.3,
                   ),
                 ),
@@ -80,19 +80,19 @@ class ProductDetailsScreen extends StatelessWidget {
                     children: [
                       Text("${locale.egp} ${product!.price}",
                           style: getSemiBoldStyle(
-                              color: AppColors.Black, fontSize: FontSize.s20)),
+                              color: AppColors.black, fontSize: FontSize.s20)),
                       Text.rich(TextSpan(children: [
                         TextSpan(
                             text: locale.status,
                             style: getBoldStyle(
-                                color: AppColors.Black,
+                                color: AppColors.black,
                                 fontSize: FontSize.s20)),
                         TextSpan(
                             text: (product!.quantity!<=0)
                                 ? locale.outOfStock
                                 : locale.inStock,
                             style: getMediumStyle(
-                                color: AppColors.Black,
+                                color: AppColors.black,
                                 fontSize: FontSize.s16)),
                       ]))
                     ],
@@ -104,15 +104,15 @@ class ProductDetailsScreen extends StatelessWidget {
                   SizedBox(height: 5),
                   Text("${product!.title}",
                       style: getBoldStyle(
-                          color: AppColors.Black, fontSize: FontSize.s16)),
+                          color: AppColors.black, fontSize: FontSize.s16)),
                   SizedBox(height: 15),
                   Text(locale.description,
                       style: getBoldStyle(
-                          color: AppColors.Black, fontSize: FontSize.s16)),
+                          color: AppColors.black, fontSize: FontSize.s16)),
                   SizedBox(height: 5),
                   Text("${product!.description}",
                       style: getMediumStyle(
-                          color: AppColors.Black, fontSize: FontSize.s16)),
+                          color: AppColors.black, fontSize: FontSize.s16)),
                   SizedBox(height: 90),
                   SizedBox(
                     width: double.infinity,
@@ -121,7 +121,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       onPressed: () {},
                       child: Text(locale.addToCart,
                           style: getMediumStyle(
-                              color: AppColors.White, fontSize: FontSize.s18)),
+                              color: AppColors.white, fontSize: FontSize.s18)),
                     ),
                   ),
                   SizedBox(

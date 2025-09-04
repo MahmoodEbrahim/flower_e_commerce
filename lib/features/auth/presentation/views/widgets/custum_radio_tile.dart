@@ -46,13 +46,13 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                       child: Text(
                         t.gender,
                         style: getBoldStyle(
-                            fontSize: FontSize.s18, color: AppColors.Black),
+                            fontSize: FontSize.s18, color: AppColors.black),
                       )),
                   Expanded(
                       flex: 9,
                       child: RadioListTile(
                           value: "female",
-                          fillColor: WidgetStateProperty.all(AppColors.Pink),
+                          fillColor: WidgetStateProperty.all(AppColors.pink),
                           title: Text(
                             t.female,
                             style: getRegularStyle(
@@ -67,7 +67,7 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                   Expanded(
                       flex: 8,
                       child: RadioListTile(
-                          fillColor: WidgetStateProperty.all(AppColors.Pink),
+                          fillColor: WidgetStateProperty.all(AppColors.pink),
                           value: "male",
                           title: Text(
                             t.male,

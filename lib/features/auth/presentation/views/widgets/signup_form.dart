@@ -167,7 +167,7 @@ class _SignupFormState extends State<SignupForm> {
             CustumText(
               primaryText: local.alreadyHaveAccount,
               secondryText: local.login,
-              color: AppColors.Pink,
+              color: AppColors.pink,
               fontSize: FontSize.s18,
               onTab: () {
                 Navigator.of(context).pushNamed(AppRoutes.login);

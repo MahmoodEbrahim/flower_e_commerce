@@ -38,7 +38,7 @@ class _OccasionPageState extends State<OccasionPage> {
           ),
         ),
       child: Scaffold(
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.white,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
@@ -58,7 +58,7 @@ class _OccasionPageState extends State<OccasionPage> {
                             icon: Icon(
                               Icons.arrow_back_ios_new,
                               size: 28.0,
-                              color: AppColors.lightBlack,
+                              color: AppColors.black,
                             ),
                           ),
                           SizedBox(
@@ -70,13 +70,13 @@ class _OccasionPageState extends State<OccasionPage> {
                               Text(
                                 local!.occasion,
                                 style: getMediumStyle(
-                                    color: AppColors.lightBlack,
+                                    color: AppColors.black,
                                     fontSize: 20.0),
                               ),
                               Text(
                                 local.bloomWithOurExquisitebestSellers,
                                 style: getMediumStyle(
-                                    color: AppColors.white[90]!,
+                                    color: AppColors.white!,
                                     fontSize: 13.0),
                               ),
                             ],
@@ -95,7 +95,7 @@ class _OccasionPageState extends State<OccasionPage> {
                           currIndex = index;
                           setState(() {});
                         },
-                        indicatorColor: AppColors.Pink,
+                        indicatorColor: AppColors.pink,
                         tabAlignment: TabAlignment.start,
                         isScrollable: true,
                         indicatorWeight: 2,
@@ -125,7 +125,7 @@ class _OccasionPageState extends State<OccasionPage> {
                               height: 200.0,
                             ),
                             LoadingAnimationWidget.inkDrop(
-                                color: AppColors.Pink, size: 50)
+                                color: AppColors.pink, size: 50)
                           ],
                         );
                       case RequestState.loading:
@@ -137,7 +137,7 @@ class _OccasionPageState extends State<OccasionPage> {
                               height: 230.0,
                             ),
                             LoadingAnimationWidget.inkDrop(
-                                color: AppColors.Pink, size: 50)
+                                color: AppColors.pink, size: 50)
                           ],
                         );
 

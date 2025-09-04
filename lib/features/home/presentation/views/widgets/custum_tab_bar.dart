@@ -59,8 +59,8 @@ class _CustumTabBarState extends State<CustumTabBar> {
                         border: Border(
                           bottom: BorderSide(
                             color: index == value
-                                ? AppColors.Pink
-                                : AppColors.midGray,
+                                ? AppColors.pink
+                                : AppColors.gray,
                             width: 2,
                           ),
                         ),
@@ -70,8 +70,8 @@ class _CustumTabBarState extends State<CustumTabBar> {
                         style: getRegularStyle(
                           fontSize: FontSize.s16,
                           color: index == value
-                              ? AppColors.Pink
-                              : AppColors.midGray,
+                              ? AppColors.pink
+                              : AppColors.gray,
                         ),
                       ),
                     );
