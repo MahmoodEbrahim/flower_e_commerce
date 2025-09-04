@@ -20,7 +20,7 @@ class OccasionTab extends StatelessWidget {
               Text(
                 title,
                 style: getRegularStyle(
-                  color: AppColors.midGray,
+                  color: AppColors.gray,
                   fontSize: 20.0,
                 ).copyWith(height: 2.1),
               ),
@@ -30,7 +30,7 @@ class OccasionTab extends StatelessWidget {
                 bottom: -12,
                 child: Container(
                   height: 15.2,
-                  color: AppColors.midGray,
+                  color: AppColors.gray,
                 ),
               ),
             ],
@@ -38,7 +38,7 @@ class OccasionTab extends StatelessWidget {
         : Text(
             title,
             style: getRegularStyle(
-                    color: isSelected ? AppColors.Pink : AppColors.midGray,
+                    color: isSelected ? AppColors.pink : AppColors.gray,
                     fontSize: 20.0)
                 .copyWith(height: 2),
           );

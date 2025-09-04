@@ -54,11 +54,11 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
 
     return   BlocProvider(create: (context)=>getIt<ForgetPasswordBCubit>(),
       child:  Scaffold(
-        backgroundColor: AppColors.White,
+        backgroundColor: AppColors.white,
         appBar: AppBar(
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.white,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 20.sp, color: AppColors.black[60]),
+            icon: Icon(Icons.arrow_back_ios, size: 20.sp, color: AppColors.black),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -75,7 +75,7 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
                 local.forgetPassword,
                 textAlign: TextAlign.center,
                 style: getMediumStyle(
-                  color: AppColors.black[50]!,
+                  color: AppColors.black!,
                   fontSize: FontSize.s18,
                 ),
               ),
@@ -127,20 +127,20 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
                         fieldHeight: 50,
                         fieldWidth: 50,
                         activeColor:
-                        AppColors.lightGray,
+                        AppColors.gray,
                         inactiveColor: AppColors
-                            .lightGray,
+                            .gray,
                         selectedColor:
-                        AppColors.lightGray,
+                        AppColors.gray,
                         activeFillColor:
-                        AppColors.lightGray,
+                        AppColors.gray,
                         inactiveFillColor:
-                        AppColors.lightGray,
+                        AppColors.gray,
                         selectedFillColor:
-                        AppColors.lightGray,
+                        AppColors.gray,
                         borderWidth: 1,
                       ),
-                      cursorColor: AppColors.lightGray, // Cursor color
+                      cursorColor: AppColors.gray, // Cursor color
                       onCompleted: (value) {
 
                         c.read<ForgetPasswordBCubit>().verfiyPassword(
@@ -170,14 +170,14 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
                       _resendCode(c):null,
                       child:isLoading? Center(child:
                       CircularProgressIndicator(
-                        color: AppColors.Pink,
+                        color: AppColors.pink,
                       ),):Text(
                         local.resend,
                         style: TextStyle(
                           fontSize: FontSize.s16,
-                          color: isButtonEnabled? AppColors.Pink:AppColors.gray,
+                          color: isButtonEnabled? AppColors.pink:AppColors.gray,
                           decoration: TextDecoration.underline,
-                          decorationColor:isButtonEnabled? AppColors.Pink:AppColors.gray,
+                          decorationColor:isButtonEnabled? AppColors.pink:AppColors.gray,
                         ),
                       ),
                     );

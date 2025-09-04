@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 230.0),
                     LoadingAnimationWidget.inkDrop(
-                      color: AppColors.Pink,
+                      color: AppColors.pink,
                       size: 50,
                     ),
                   ],
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 230.0),
                     LoadingAnimationWidget.inkDrop(
-                      color: AppColors.Pink,
+                      color: AppColors.pink,
                       size: 50,
                     ),
                   ],

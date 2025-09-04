@@ -23,7 +23,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.White,
+      backgroundColor: AppColors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: CustomScrollView(
@@ -51,7 +51,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       height: 230.0,
                       child: Center(
                         child: LoadingAnimationWidget.inkDrop(
-                          color: AppColors.Pink,
+                          color: AppColors.pink,
                           size: 50,
                         ),
                       ),

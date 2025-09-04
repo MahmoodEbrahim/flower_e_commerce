@@ -19,7 +19,7 @@ class NoProducts extends StatelessWidget {
         Icon(
           CupertinoIcons.info_circle_fill,
           size: 60,
-          color: AppColors.Pink,
+          color: AppColors.pink,
         ),
         SizedBox(
           height: 20.0,

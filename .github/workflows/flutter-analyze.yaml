@@ -1,0 +1,52 @@
+name: Validate PR Title
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  branches:
+    - developments
+
+jobs:
+  validate-pr-title:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # Updated to allow commenting
+      statuses: write
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            chore
+            docs
+            style
+            refactor
+            perf
+            test
+          scopes: |
+            profile
+            home
+            auth
+            core
+          subjectPattern: ^.* AB#\d+$
+          subjectPatternError: |
+            The PR title must follow the format: `type(scope): description AB#xxx`
+            Example: `feat(ui): add login screen AB#123`
+          validateSingleCommit: true
+          validateSingleCommitMatchesPrTitle: true
+      - name: Comment on invalid PR title
+        if: failure() # Run only if validation fails
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: 'PR Title Check'
+          message: |
+            ### ❌ Invalid PR Title
+            The PR title does not match the required format: `type: description AB#xxx`.
+            Please update the title (e.g., `feat: add feature AB#123`).
