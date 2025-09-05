@@ -184,4 +184,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get changelanguage => 'Change Language';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get languagecode => 'en';
 }

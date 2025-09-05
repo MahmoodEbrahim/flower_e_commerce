@@ -70,6 +70,14 @@ class AppTheme {
               fontSize: FontSize.s12
           ),
           type: BottomNavigationBarType.fixed
-      )
+      ),
+    textTheme: TextTheme(
+
+      titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: AppColors.black),
+      bodyLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.Pink),
+      bodyMedium: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.black),
+      bodySmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: AppColors.Pink),
+
+    )
   );
 }

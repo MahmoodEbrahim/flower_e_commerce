@@ -1,21 +1,19 @@
 {
-    "@@locale": "en",
-    "occasion": "Occasion",
-    "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers",
+  "@@locale": "en",
+  "occasion": "Occasion",
+  "bloomWithOurExquisitebestSellers": "Bloom with our exquisite best sellers",
   "allCategory": "All",
   "noProducts": "No Products Found",
   "loading": "Loading...",
   "errorMessage": "Something went wrong",
-  "search":"search",
-  "addToCart":"Add to cart",
-    "egp":"EGP",
-    "status":"Status: ",
-    "inStock":"In stock",
-    "outOfStock":"Out of stock",
-    "includeTax":"All prices include tax",
-    "description":"Description",
-
-
+  "search": "search",
+  "addToCart": "Add to cart",
+  "egp": "EGP",
+  "status": "Status: ",
+  "inStock": "In stock",
+  "outOfStock": "Out of stock",
+  "includeTax": "All prices include tax",
+  "description": "Description",
   "login": "Login",
   "email": "Email",
   "enterYourEmail": "Enter your email",
@@ -42,10 +40,7 @@
   "confirmpassword": "Confirm password",
   "newpassword": "New password",
   "passwordresetlinksentsuccessfully": "Password reset link sent successfully",
-
-
-
-   "gender": "Gender",
+  "gender": "Gender",
   "female": "Female",
   "male": "Male",
   "pleaseSelectGender": "Please select the gender",
@@ -53,9 +48,7 @@
   "enterFirstName": "Enter first name",
   "lastName": "Last Name",
   "enterLastName": "Enter last name",
-
   "enterEmail": "Enter your email",
-  
   "enterPassword": "Enter password",
   "confirmPassword": "Confirm Password",
   "enterConfirmPassword": "Confirm password",
@@ -63,13 +56,10 @@
   "enterPhoneNumber": "Enter phone number",
   "creatingAccountAgreement": "Creating an account, you agree to our ",
   "termsAndConditions": "Terms & Conditions",
-  "alreadyHaveAccount": "Already have an account? "
-
-
-
-    
-
-
-
-
+  "alreadyHaveAccount": "Already have an account? ",
+  "changelanguage": "Change Language",
+  "arabic": "Arabic",
+  "english": "English",
+  "language": "Language",
+  "languagecode": "en"
 }

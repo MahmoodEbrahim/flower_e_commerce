@@ -12,6 +12,7 @@ abstract class AppColors {
   static const Color lightBlack=Color(0xFF0C1015);
   static const Color lightPink=Color(0xFFF9ECF0);
   static const Color Pink=Color(0xFFD21E6A);
+  static const Color darkGrey=Color(0xFF434343);
 
 
   static MaterialColor pink=MaterialColor(0xFF02369C, <int , Color>{
