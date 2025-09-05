@@ -13,6 +13,20 @@ class LoginModel {
 
   LoginModel({
     required this.user,
-    required this.token,
+    required  this.token,
   });
+  // UserModel toEntity(){
+  //   return UserModel(
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     phone: user.phone,
+  //     photo: user.photo,
+  //     email: user.email,
+  //     Id: user.Id,
+  //     gender: user.gender,
+  //     role: user.role,
+  //     addresses: user.addresses,
+  //     wishlist: user.wishlist
+  //   );
+  // }
 }

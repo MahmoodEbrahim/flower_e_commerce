@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';
@@ -47,4 +48,21 @@ class UserModel {
     this.wishlist,
     this.addresses,
   });
+//   LoginModel toEntity(){
+//     return LoginModel(
+//
+// user: UserModel(
+//   lastName: lastName,
+//   firstName: firstName,
+//   email: email,
+//   gender: gender,
+//   phone: phone,
+//   photo: photo,
+//   role: role,
+//   addresses: addresses,
+//   wishlist: wishlist,
+//   Id: Id
+// ),token: ""
+//     );
+//   }
 }

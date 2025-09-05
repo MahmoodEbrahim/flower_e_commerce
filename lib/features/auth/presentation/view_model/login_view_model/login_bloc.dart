@@ -25,6 +25,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             loginState: RequestState.success,
             user: result.sucessResult,
           ));
+          await UserLocalStorage.saveToken(result.sucessResult.token!);
+          await UserLocalStorage.saveUser(result.sucessResult,);
+
           if (state.rememberMe) {
             await UserLocalStorage.saveUser(result.sucessResult);
           }

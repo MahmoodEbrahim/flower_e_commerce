@@ -14,4 +14,7 @@ abstract class ApiEndPoints {
   //resetPassword
   static const String resetPasswordEndPoint = "resetPassword";
   static const String cartEndPoint = "cart";
+  static const String editProfileEndPoint = "auth/editProfile";
+  static const String uploadProfileEndPoint = "auth/upload-photo";
+  static const String changePasswordEndPoint = "auth/change-password";
 }

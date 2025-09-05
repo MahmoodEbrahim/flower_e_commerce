@@ -19,8 +19,8 @@ abstract class HomeApiService {
 
   @GET(ApiEndPoints.productsEndPoint)
   Future<CategoryProductsResponseDto> getProductsByCategoryId(
-    @Query("category") String categoryId,
-  );
+      @Query("category") String categoryId,
+      );
   @GET(ApiEndPoints.productsByOccasionEndPoint)
   Future<ProductByOccasionDto> getProductsDetialsByOccasions(
       @Query(ApiParameters.productsByOccasionParameter)String occasionId

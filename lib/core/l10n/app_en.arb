@@ -52,6 +52,7 @@
   "enterLastName": "Enter last name",
 
   "enterEmail": "Enter your email",
+  "phone": "Phone",
   "enterPassword": "Enter password",
   "confirmPassword": "Confirm Password",
   "enterConfirmPassword": "Confirm password",
@@ -83,5 +84,38 @@
    "subTotal":"Sub total",
    "deliveryFee":"Delivery fee",
    "total":"Total"
- 
+
+   "seeAll":"see all",
+
+  "alreadyHaveAccount": "Already have an account? ",
+  "flowery": "Flowery",
+  "guest":"Guest",
+    "myOrders": "My orders",
+    "savedAddress": "Saved address",
+    "notification": "Notifications",
+    "language": "Language",
+    "english":"English",
+    "arabic":"Arabic",
+    "aboutUs": "About us",
+    "termsAndConditions": "Terms & conditions",
+    "logout": "Logout",
+    "errorLoadingData": "Error loading data",
+    "noDataFound": "No data found",
+    "noSectionsFound": "No sections found",
+    "version" :"V ",
+    "confirmLogout": "Confirm logout!!",
+      "cancel": "Cancel",
+  "editProfile": "Edit profile",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "update": "Update",
+
+  "alreadyHaveAccount": "Already have an account? ",
+
+"currentPassword": "Current password",
+  "newPassword": "New password",
+  "passwordChangeSuccessfuly": "✅ Password Change Successfuly"
+
+
+
+
 }

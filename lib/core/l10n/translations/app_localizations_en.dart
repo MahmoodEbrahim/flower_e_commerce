@@ -161,6 +161,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterEmail => 'Enter your email';
 
   @override
+  String get phone => 'Phone';
+
+  @override
   String get enterPassword => 'Enter password';
 
   @override
@@ -180,7 +183,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Creating an account, you agree to our ';
 
   @override
-  String get termsAndConditions => 'Terms & Conditions';
+  String get termsAndConditions => 'Terms & conditions';
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
@@ -223,24 +226,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get seeAll => 'see all';
 
   @override
-  String get cart => 'cart';
+  String get flowery => 'Flowery';
 
   @override
-  String get checkout => 'CheckOut';
+  String get guest => 'Guest';
 
   @override
-  String get deliver_to => 'deliver to';
+  String get myOrders => 'My orders';
 
   @override
-  String get bigAddress =>
-      '2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed';
+  String get savedAddress => 'Saved address';
 
   @override
-  String get subTotal => 'Sub total';
+  String get notification => 'Notifications';
 
   @override
-  String get deliveryFee => 'Delivery fee';
+  String get language => 'Language';
 
   @override
-  String get total => 'Total';
+  String get english => 'English';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get aboutUs => 'About us';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get noDataFound => 'No data found';
+
+  @override
+  String get noSectionsFound => 'No sections found';
+
+  @override
+  String get version => 'V ';
+
+  @override
+  String get confirmLogout => 'Confirm logout!!';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get currentPassword => 'Current password';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get passwordChangeSuccessfuly => '✅ Password Change Successfuly';
 }
