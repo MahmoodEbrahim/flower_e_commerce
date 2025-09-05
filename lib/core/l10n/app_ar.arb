@@ -100,5 +100,9 @@
   "currentPassword": "كلمة المرور الحالية",
   "newPassword": "كلمة المرور الجديدة",
   "passwordChangeSuccessfuly": "✅ تم تغيير كلمة المرور بنجاح",
-  "changelanguage": "تغيير اللغة"
+  "changelanguage": "تغيير اللغة",
+  "homeTab": "الرئيسية",
+  "hategoriesTab": "الفئات",
+  "cartTab": "السلة",
+  "profileTab": "الملف الشخصي"
 }

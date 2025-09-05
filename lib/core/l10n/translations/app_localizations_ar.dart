@@ -314,4 +314,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get changelanguage => 'تغيير اللغة';
+
+  @override
+  String get homeTab => 'الرئيسية';
+
+  @override
+  String get categoriesTab => 'Categories';
+
+  @override
+  String get cartTab => 'السلة';
+
+  @override
+  String get profileTab => 'الملف الشخصي';
 }

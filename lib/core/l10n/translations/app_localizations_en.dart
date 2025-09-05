@@ -315,4 +315,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changelanguage => 'Change Language';
+
+  @override
+  String get homeTab => 'Home';
+
+  @override
+  String get categoriesTab => 'Categories';
+
+  @override
+  String get cartTab => 'Cart';
+
+  @override
+  String get profileTab => 'Profile';
 }

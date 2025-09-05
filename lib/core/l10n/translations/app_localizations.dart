@@ -697,6 +697,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change Language'**
   String get changelanguage;
+
+  /// No description provided for @homeTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTab;
+
+  /// No description provided for @categoriesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesTab;
+
+  /// No description provided for @cartTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart'**
+  String get cartTab;
+
+  /// No description provided for @profileTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTab;
 }
 
 class _AppLocalizationsDelegate

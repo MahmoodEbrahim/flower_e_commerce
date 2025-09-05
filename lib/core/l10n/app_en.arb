@@ -114,5 +114,9 @@
 "currentPassword": "Current password",
   "newPassword": "New password",
   "passwordChangeSuccessfuly": "✅ Password Change Successfuly",
-  "changelanguage": "Change Language"
+  "changelanguage": "Change Language",
+  "homeTab": "Home",
+  "categoriesTab": "Categories",
+  "cartTab": "Cart",
+  "profileTab": "Profile"
 }

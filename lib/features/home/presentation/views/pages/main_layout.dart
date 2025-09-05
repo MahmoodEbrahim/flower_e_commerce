@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/pages/cart_page.dart';
@@ -55,6 +56,7 @@ class _HomePageState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
+    var local=AppLocalizations.of(context)!;
     return Theme(
       data: Theme.of(context).copyWith(
         navigationBarTheme: NavigationBarThemeData(
@@ -89,7 +91,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.homeTab,
+              label: local.homeTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.homeicon,
                 colorFilter: ColorFilter.mode(
@@ -110,7 +112,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.categoriesTab,
+              label: local.categoriesTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.categoriesicon,
                 colorFilter: ColorFilter.mode(
@@ -131,7 +133,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.cartTab,
+              label: local.cartTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.carticon,
                 colorFilter: ColorFilter.mode(
@@ -152,7 +154,7 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.profileTab,
+              label: local.profileTab,
               selectedIcon: SvgPicture.asset(
                 AssetsManager.profileicon,
                 colorFilter: ColorFilter.mode(
