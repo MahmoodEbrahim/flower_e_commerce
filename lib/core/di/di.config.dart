@@ -62,6 +62,25 @@ import '../../features/home/presentation/view_model/home_view_model/home_bloc.da
     as _i191;
 import '../../features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart'
     as _i1010;
+import '../../features/profile/api/client/profile_api_service.dart' as _i495;
+import '../../features/profile/api/source/profile_remote_data_source_imp.dart'
+    as _i532;
+import '../../features/profile/data/repository/profile_repository_imp.dart'
+    as _i335;
+import '../../features/profile/data/source/profile_remote_data_source.dart'
+    as _i502;
+import '../../features/profile/domain/repository/profile_repository.dart'
+    as _i364;
+import '../../features/profile/domain/usecase/get_change_password_use_case.dart'
+    as _i568;
+import '../../features/profile/domain/usecase/get_edit_profile_use_case.dart'
+    as _i227;
+import '../../features/profile/domain/usecase/get_upload_profile_photo_use_case.dart'
+    as _i342;
+import '../../features/profile/presentation/view_model/change_password_view_model/change_password_bloc.dart'
+    as _i207;
+import '../../features/profile/presentation/view_model/edit_profile/edit_profile_bloc.dart'
+    as _i878;
 import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -81,16 +100,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
     gh.factory<_i522.AuthApiService>(
         () => _i522.AuthApiService(gh<_i361.Dio>()));
-    gh.factory<_i220.HomeApiService>(
-        () => _i220.HomeApiService(gh<_i361.Dio>()));
     gh.factory<_i942.CartApiService>(
         () => _i942.CartApiService(gh<_i361.Dio>()));
+    gh.factory<_i220.HomeApiService>(
+        () => _i220.HomeApiService(gh<_i361.Dio>()));
+    gh.factory<_i495.ProfileApiService>(
+        () => _i495.ProfileApiService(gh<_i361.Dio>()));
     gh.factory<_i751.CartRemoteDataSouce>(
         () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
     gh.factory<_i26.CartRepository>(
         () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
+    gh.factory<_i502.ProfileRemoteDataSource>(
+        () => _i532.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
     gh.factory<_i541.HomeRepository>(
         () => _i342.HomeRepositoryImp(gh<_i557.HomeRemoteDataSource>()));
     gh.factory<_i438.GetProductsByCategoryIdUseCase>(
@@ -114,6 +137,8 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i583.GetProductDetialsByOccasionUseCase>()));
     gh.factory<_i604.CategoriesViewModel>(() =>
         _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
+    gh.factory<_i364.ProfileRepository>(
+        () => _i335.ProfileRepositoryImp(gh<_i502.ProfileRemoteDataSource>()));
     gh.factory<_i961.AuthRepository>(
         () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
     gh.singleton<_i861.CartViewModel>(() => _i861.CartViewModel(
@@ -124,6 +149,12 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i191.HomeBloc>(
         () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
+    gh.factory<_i568.GetChangePasswordUseCase>(
+        () => _i568.GetChangePasswordUseCase(gh<_i364.ProfileRepository>()));
+    gh.factory<_i227.GetEditProfileUseCase>(
+        () => _i227.GetEditProfileUseCase(gh<_i364.ProfileRepository>()));
+    gh.factory<_i342.GetUploadPhotoProfileUseCase>(() =>
+        _i342.GetUploadPhotoProfileUseCase(gh<_i364.ProfileRepository>()));
     gh.factory<_i472.SignupUsecase>(
         () => _i472.SignupUsecase(gh<_i961.AuthRepository>()));
     gh.factory<_i240.ForgetPasswordUseCase>(
@@ -141,6 +172,12 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i644.LoginBloc>(
         () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
+    gh.factory<_i207.ChangePasswordBloc>(
+        () => _i207.ChangePasswordBloc(gh<_i568.GetChangePasswordUseCase>()));
+    gh.factory<_i878.EditProfileBloc>(() => _i878.EditProfileBloc(
+          gh<_i342.GetUploadPhotoProfileUseCase>(),
+          gh<_i227.GetEditProfileUseCase>(),
+        ));
     gh.factory<_i401.SignupViewModel>(
         () => _i401.SignupViewModel(gh<_i472.SignupUsecase>()));
     return this;

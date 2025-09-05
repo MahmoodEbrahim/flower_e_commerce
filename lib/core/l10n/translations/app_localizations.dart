@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('en'),
+  ];
 
   /// No description provided for @occasion.
   ///
@@ -514,6 +518,48 @@ abstract class AppLocalizations {
   /// **'see all'**
   String get seeAll;
 
+  /// No description provided for @cart.
+  ///
+  /// In en, this message translates to:
+  /// **'cart'**
+  String get cart;
+
+  /// No description provided for @checkout.
+  ///
+  /// In en, this message translates to:
+  /// **'CheckOut'**
+  String get checkout;
+
+  /// No description provided for @deliver_to.
+  ///
+  /// In en, this message translates to:
+  /// **'deliver to'**
+  String get deliver_to;
+
+  /// No description provided for @bigAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed'**
+  String get bigAddress;
+
+  /// No description provided for @subTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub total'**
+  String get subTotal;
+
+  /// No description provided for @deliveryFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery fee'**
+  String get deliveryFee;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
   /// No description provided for @flowery.
   ///
   /// In en, this message translates to:
@@ -645,6 +691,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'✅ Password Change Successfuly'**
   String get passwordChangeSuccessfuly;
+
+  /// No description provided for @changelanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Language'**
+  String get changelanguage;
 }
 
 class _AppLocalizationsDelegate
@@ -658,7 +710,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -667,6 +719,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
     case 'en':
       return AppLocalizationsEn();
   }

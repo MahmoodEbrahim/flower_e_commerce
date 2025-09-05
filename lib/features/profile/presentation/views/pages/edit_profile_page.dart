@@ -57,7 +57,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameController.text = userModel.user.firstName ?? '';
     _lastNameController.text = userModel.user.lastName ?? '';
     _emailController.text = userModel.user.email ?? '';
-    _passwordController.text = userModel.user.Id ?? '';
+   // _passwordController.text = userModel.user.Id ?? '';
     _phoneController.text = userModel.user.phone ?? '';
     _gender = userModel.user.gender;
   }
@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _lastNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _passwordController.dispose();
+  //  _passwordController.dispose();
     super.dispose();
   }
 
@@ -284,10 +284,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
             }
             if (state.editProfileState == RequestState.success) {
               print("Profile updated successfully");
-
+              final updatedUser = LoginModel(
+                token: token!,
+                user: userModel.user.copyWith(
+                  firstName: _firstNameController.text,
+                  lastName: _lastNameController.text,
+                  email: _emailController.text,
+                  phone: _phoneController.text,
+                ),
+              );
+              UserLocalStorage.saveUser(updatedUser);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(local.profileUpdatedSuccessfully)),
               );
+
+
+              Navigator.of(context).pop();
             }
             if (state.editProfileState == RequestState.error) {
               print("Error ${state.errorMessageEditProfile}");

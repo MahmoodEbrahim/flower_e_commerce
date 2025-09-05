@@ -83,9 +83,9 @@
    "bigAddress":"2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed",
    "subTotal":"Sub total",
    "deliveryFee":"Delivery fee",
-   "total":"Total"
+   "total":"Total",
 
-   "seeAll":"see all",
+
 
   "alreadyHaveAccount": "Already have an account? ",
   "flowery": "Flowery",
@@ -113,9 +113,6 @@
 
 "currentPassword": "Current password",
   "newPassword": "New password",
-  "passwordChangeSuccessfuly": "✅ Password Change Successfuly"
-
-
-
-
+  "passwordChangeSuccessfuly": "✅ Password Change Successfuly",
+  "changelanguage": "Change Language"
 }

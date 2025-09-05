@@ -48,21 +48,29 @@ class UserModel {
     this.wishlist,
     this.addresses,
   });
-//   LoginModel toEntity(){
-//     return LoginModel(
-//
-// user: UserModel(
-//   lastName: lastName,
-//   firstName: firstName,
-//   email: email,
-//   gender: gender,
-//   phone: phone,
-//   photo: photo,
-//   role: role,
-//   addresses: addresses,
-//   wishlist: wishlist,
-//   Id: Id
-// ),token: ""
-//     );
-//   }
+  UserModel copyWith({
+    String? iid,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? gender,
+    String? phone,
+    String? photo,
+    String? role,
+    List<dynamic>? wishlist,
+    List<dynamic>? addresses,
+  }) {
+    return UserModel(
+      iid: iid ?? this.iid,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      gender: gender ?? this.gender,
+      phone: phone ?? this.phone,
+      photo: photo ?? this.photo,
+      role: role ?? this.role,
+      wishlist: wishlist ?? this.wishlist,
+      addresses: addresses ?? this.addresses,
+    );
+  }
 }
