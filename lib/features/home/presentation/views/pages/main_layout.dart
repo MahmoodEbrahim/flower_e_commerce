@@ -1,12 +1,14 @@
-import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/core/utils/constants/string_manager.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/Tabs/card_tab.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/Tabs/home_tab.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/Tabs/profile_tab.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
-import 'package:flower_e_commerce/features/profile/presentation/views/pages/profile_main_screen.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../config/theme/assets_manger.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -16,15 +18,39 @@ class MainLayout extends StatefulWidget {
 }
 
 class _HomePageState extends State<MainLayout> {
-  int selectedIndex = 0;
+  late CategoriesViewModel categoriesViewModel =
+      getIt.get<CategoriesViewModel>();
 
-  final List<Widget> tabs = [
-    HomeTab(),
-    CategoriesPage(
-        categoryList: Routes.fakeCategories,
-        produdctsList: Routes.fakeProducts!),
-    CartTab(),ProfileMainPage()
-  ];
+  int selectedIndex = 0;
+  late final List<Widget> tabs;
+  int? catIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    tabs = [
+      BlocProvider.value(
+        value: categoriesViewModel,
+        child: HomePage(
+          onChangeTab: (value) {
+            setState(() {
+              selectedIndex = value.tabIndex;
+              catIndex = value.categoryIndex;
+            
+            });
+          },
+        ),
+      ),
+      BlocProvider.value(
+        value: categoriesViewModel,
+        child: CategoriesPage(
+          catIndex: catIndex,
+        ),
+      ),
+      CartTab(),
+      ProfileTab(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +59,7 @@ class _HomePageState extends State<MainLayout> {
         navigationBarTheme: NavigationBarThemeData(
           indicatorColor: Colors.transparent,
           labelTextStyle: WidgetStatePropertyAll(
-            TextStyle(color:Colors.pink),
+            TextStyle(color: Colors.pink),
           ),
         ),
       ),
@@ -54,7 +80,7 @@ class _HomePageState extends State<MainLayout> {
           destinations: [
             NavigationDestination(
               icon: SvgPicture.asset(
-                ImageAssets.homeicon,
+                AssetsManager.homeicon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -62,9 +88,9 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.HomeTab,
+              label: StringsManager.homeTab,
               selectedIcon: SvgPicture.asset(
-                ImageAssets.homeicon,
+                AssetsManager.homeicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -75,7 +101,7 @@ class _HomePageState extends State<MainLayout> {
             ),
             NavigationDestination(
               icon: SvgPicture.asset(
-                ImageAssets.categoriesicon,
+                AssetsManager.categoriesicon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -83,9 +109,9 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.CategoriesTab,
+              label: StringsManager.categoriesTab,
               selectedIcon: SvgPicture.asset(
-                ImageAssets.categoriesicon,
+                AssetsManager.categoriesicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -96,7 +122,7 @@ class _HomePageState extends State<MainLayout> {
             ),
             NavigationDestination(
               icon: SvgPicture.asset(
-                ImageAssets.carticon,
+                AssetsManager.carticon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -104,9 +130,9 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.CartTab,
+              label: StringsManager.cartTab,
               selectedIcon: SvgPicture.asset(
-                ImageAssets.carticon,
+                AssetsManager.carticon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -117,7 +143,7 @@ class _HomePageState extends State<MainLayout> {
             ),
             NavigationDestination(
               icon: SvgPicture.asset(
-                ImageAssets.profileicon,
+                AssetsManager.profileicon,
                 colorFilter: const ColorFilter.mode(
                   Colors.grey,
                   BlendMode.srcIn,
@@ -125,9 +151,9 @@ class _HomePageState extends State<MainLayout> {
                 width: 26,
                 height: 26,
               ),
-              label: StringsManager.ProfileTab,
+              label: StringsManager.profileTab,
               selectedIcon: SvgPicture.asset(
-                ImageAssets.profileicon,
+                AssetsManager.profileicon,
                 colorFilter: ColorFilter.mode(
                   Colors.pink,
                   BlendMode.srcIn,
@@ -141,10 +167,4 @@ class _HomePageState extends State<MainLayout> {
       ),
     );
   }
-  }
-
-
-
-
-
-
+}

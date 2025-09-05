@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const Color White=Color(0xFFF9F9F9);
+  static const Color white=Color(0xFFF9F9F9);
   static const Color gray=Color(0xFF535353);
-  static const Color midGray=Color(0xFFA6A6A6);
-    static const Color lightGray=Color(0xFFCFCFCF);
   static const Color red=Color(0xFFCC1010);
+  static const Color midGray=Color(0xFFA6A6A6);
   static const Color green=Color(0xFF11CE19);
-  static const Color Black=Color(0xFF000000);
-  //#0C1015
-  static const Color lightBlack=Color(0xFF0C1015);
+  static const Color black=Color(0xFF000000);
   static const Color lightPink=Color(0xFFF9ECF0);
-  static const Color Pink=Color(0xFFD21E6A);
+  static const Color pink=Color(0xFFD21E6A);
 
 
-  static MaterialColor pink=MaterialColor(0xFF02369C, <int , Color>{
+  static MaterialColor pinkColor=MaterialColor(0xFF02369C, <int , Color>{
     10: Color(0xFFf6d2e1),
     20: Color(0xFFf0b4cd),
     30: Color(0xFFe98fb5),
@@ -28,7 +25,7 @@ abstract class AppColors {
   });
 
 
-  static MaterialColor black=MaterialColor(0xFF0f0f0f, <int , Color>{
+  static MaterialColor blackColor=MaterialColor(0xFF0f0f0f, <int , Color>{
     10: Color(0xFFcfcfcf),
     20: Color(0xFFafafaf),
     30: Color(0xFF878787),
@@ -42,7 +39,7 @@ abstract class AppColors {
   });
 
 
-  static MaterialColor white=MaterialColor(0xFF0f0f0f, <int , Color>{
+  static MaterialColor whiteColor=MaterialColor(0xFF0f0f0f, <int , Color>{
     10: Color(0xFFfefefe),
     20: Color(0xFFfdfdfd),
     30: Color(0xFFfcfcfc),

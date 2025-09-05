@@ -1,9 +1,8 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
-import 'package:flower_e_commerce/config/theme/common_widgets/custom_flower_card.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/custom_flower_card.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
@@ -25,8 +24,8 @@ class _ProductsCategoryState extends State<ProductsCategory> {
 
   @override
   void initState() {
-    categoriesViewModel
-        .add(GetAllProductsOfCategoriesEvent(catId: widget.catId));
+    // categoriesViewModel
+    //     .add(GetAllProductsOfCategoriesEvent(catId: widget.catId));
     super.initState();
   }
 
@@ -36,14 +35,14 @@ class _ProductsCategoryState extends State<ProductsCategory> {
     return BlocProvider.value(
       value: categoriesViewModel,
       child: Scaffold(
-        backgroundColor: AppColors.White,
+        backgroundColor: AppColors.white,
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
                 toolbarHeight: 50,
-                backgroundColor: AppColors.White,
+                backgroundColor: AppColors.white,
                 pinned: false,
                 floating: true,
                 centerTitle: false,
@@ -97,11 +96,7 @@ class _ProductsCategoryState extends State<ProductsCategory> {
                                               arguments: products[index]);
                                         },
                                         child: CustomCardFlower(
-                                          image: products[index].imgCover ?? "",
-                                          title: products[index].title ?? "",
-                                          newPrice: products[index]
-                                              .priceAfterDiscount,
-                                          oldPrice: products[index].price ?? 0,
+                                        productsEntity: products[index],
                                         ));
                                   }),
                             );

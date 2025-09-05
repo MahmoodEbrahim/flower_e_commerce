@@ -6,7 +6,6 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../../config/routes_manager/routes_manager.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final PageController controller = PageController();
   final ProductsEntity? product;
@@ -16,53 +15,60 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: AppColors.White,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            backgroundColor: AppColors.lightPink,
-            floating: true,
-            leading: GestureDetector(
-              child: Icon(Icons.arrow_back_ios),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ), // custom icon
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              color: AppColors.lightPink,
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: PageView(
+        SliverAppBar(
+        backgroundColor: AppColors.lightPink,
+        expandedHeight: MediaQuery.of(context).size.height * 0.5,
+        pinned: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios,size: 35,),
+          onPressed: () => Navigator.pop(context),
+        ),
+        flexibleSpace: FlexibleSpaceBar(
+          background: Container(
+            color: AppColors.lightPink,
+            margin: EdgeInsets.only(top: 50),
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    width: 300,
+                    height: 550,
+                    child:  PageView(
                       controller: controller,
                       children: product!.images!
                           .map(
                             (imageUrl) =>
-                            Image.network(imageUrl, fit: BoxFit.contain),
+                                AspectRatio(
+                                  aspectRatio: 4/3,
+                                  child: Image.network(imageUrl, fit: BoxFit.contain),
+                                )
                       )
                           .toList(),
                     ),
+                  )
+                ),
+                SizedBox(height: 8),
+                SmoothPageIndicator(
+                  controller: controller,
+                  count: product!.images!.length,
+                  effect: ScrollingDotsEffect(
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    dotColor: AppColors.white ?? AppColors.white,
+                    activeDotColor: AppColors.pink,
+                    activeDotScale: 1.3,
                   ),
-                  SizedBox(height: 8),
-                  SmoothPageIndicator(
-                    controller: controller,
-                    count: product!.images!.length,
-                    effect: ScrollingDotsEffect(
-                      dotHeight: 10,
-                      dotWidth: 10,
-                      dotColor: AppColors.white[70] ?? AppColors.white,
-                      activeDotColor: AppColors.Pink,
-                      activeDotScale: 1.3,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                ],
-              ),
+                ),
+                SizedBox(height: 8),
+              ],
             ),
           ),
+        ),
+      ),
+
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(15),
@@ -74,19 +80,19 @@ class ProductDetailsScreen extends StatelessWidget {
                     children: [
                       Text("${locale.egp} ${product!.price}",
                           style: getSemiBoldStyle(
-                              color: AppColors.Black, fontSize: FontSize.s20)),
+                              color: AppColors.black, fontSize: FontSize.s20)),
                       Text.rich(TextSpan(children: [
                         TextSpan(
                             text: locale.status,
                             style: getBoldStyle(
-                                color: AppColors.Black,
+                                color: AppColors.black,
                                 fontSize: FontSize.s20)),
                         TextSpan(
                             text: (product!.quantity!<=0)
                                 ? locale.outOfStock
                                 : locale.inStock,
                             style: getMediumStyle(
-                                color: AppColors.Black,
+                                color: AppColors.black,
                                 fontSize: FontSize.s16)),
                       ]))
                     ],
@@ -98,15 +104,15 @@ class ProductDetailsScreen extends StatelessWidget {
                   SizedBox(height: 5),
                   Text("${product!.title}",
                       style: getBoldStyle(
-                          color: AppColors.Black, fontSize: FontSize.s16)),
+                          color: AppColors.black, fontSize: FontSize.s16)),
                   SizedBox(height: 15),
                   Text(locale.description,
                       style: getBoldStyle(
-                          color: AppColors.Black, fontSize: FontSize.s16)),
+                          color: AppColors.black, fontSize: FontSize.s16)),
                   SizedBox(height: 5),
                   Text("${product!.description}",
                       style: getMediumStyle(
-                          color: AppColors.Black, fontSize: FontSize.s16)),
+                          color: AppColors.black, fontSize: FontSize.s16)),
                   SizedBox(height: 90),
                   SizedBox(
                     width: double.infinity,
@@ -115,7 +121,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       onPressed: () {},
                       child: Text(locale.addToCart,
                           style: getMediumStyle(
-                              color: AppColors.White, fontSize: FontSize.s18)),
+                              color: AppColors.white, fontSize: FontSize.s18)),
                     ),
                   ),
                   SizedBox(

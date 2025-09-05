@@ -25,12 +25,12 @@ class ResetPasswordPage extends StatelessWidget {
     return BlocProvider(
       create: (context)=>getIt<ForgetPasswordBCubit>(),
       child: Scaffold(
-          backgroundColor: AppColors.White,
+          backgroundColor: AppColors.white,
           appBar: AppBar(
-            backgroundColor: AppColors.White,
+            backgroundColor: AppColors.white,
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios,
-                  color: AppColors.black[60]),
+                  color: AppColors.black),
               onPressed: () => Navigator.pop(context),
             ),
             title: Text(
@@ -49,7 +49,7 @@ class ResetPasswordPage extends StatelessWidget {
                     local.resetpassword,
                     textAlign: TextAlign.center,
                     style: getMediumStyle(
-                      color: AppColors.black[50]!,
+                      color: AppColors.black!,
                       fontSize: FontSize.s18,
                     ),
                   ),

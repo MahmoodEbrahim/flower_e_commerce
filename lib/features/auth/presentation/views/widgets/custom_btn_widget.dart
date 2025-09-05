@@ -13,8 +13,8 @@ class CustomBtnWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24.r)
           ),
-          backgroundColor: AppColors.Pink,
-          foregroundColor: AppColors.White,
+          backgroundColor: AppColors.pink,
+          foregroundColor: AppColors.white,
           fixedSize: Size(double.infinity, 48.h),
           
         ),
