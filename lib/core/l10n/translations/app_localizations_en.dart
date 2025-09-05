@@ -161,6 +161,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterEmail => 'Enter your email';
 
   @override
+  String get phone => 'Phone';
+
+  @override
   String get enterPassword => 'Enter password';
 
   @override
@@ -184,6 +187,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get allProducts => 'All Products';
+
+  @override
+  String get bloomWithOurExquisiteAllProducts =>
+      'Bloom with our exquisite all Products';
+
+  @override
+  String get bestSeller => 'Best Seller';
+
+  @override
+  String get appTitle => '🌸 Flowery';
+
+  @override
+  String get deliveryLocation => 'Deliver to 2XVP+XC - Sheikh Zayed';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get occasions => 'Occasions';
+
+  @override
+  String get products => 'Products';
+
+  @override
+  String get error => 'error';
+
+  @override
+  String get address => 'Deliver to 2XVP+XC - Sheikh Zayed ';
+
+  @override
+  String get noProductsFound => 'No Products found.';
+
+  @override
+  String get seeAll => 'see all';
 
   @override
   String get flowery => 'Flowery';
@@ -214,4 +254,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get noDataFound => 'No data found';
+
+  @override
+  String get noSectionsFound => 'No sections found';
+
+  @override
+  String get version => 'V ';
+
+  @override
+  String get confirmLogout => 'Confirm logout!!';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get currentPassword => 'Current password';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get passwordChangeSuccessfuly => '✅ Password Change Successfuly';
 }

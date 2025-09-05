@@ -62,7 +62,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -85,11 +85,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -388,6 +388,12 @@ abstract class AppLocalizations {
   /// **'Enter your email'**
   String get enterEmail;
 
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
   /// No description provided for @enterPassword.
   ///
   /// In en, this message translates to:
@@ -435,6 +441,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already have an account? '**
   String get alreadyHaveAccount;
+
+  /// No description provided for @allProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'All Products'**
+  String get allProducts;
+
+  /// No description provided for @bloomWithOurExquisiteAllProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Bloom with our exquisite all Products'**
+  String get bloomWithOurExquisiteAllProducts;
+
+  /// No description provided for @bestSeller.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Seller'**
+  String get bestSeller;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🌸 Flowery'**
+  String get appTitle;
+
+  /// No description provided for @deliveryLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver to 2XVP+XC - Sheikh Zayed'**
+  String get deliveryLocation;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @occasions.
+  ///
+  /// In en, this message translates to:
+  /// **'Occasions'**
+  String get occasions;
+
+  /// No description provided for @products.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get products;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'error'**
+  String get error;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver to 2XVP+XC - Sheikh Zayed '**
+  String get address;
+
+  /// No description provided for @noProductsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Products found.'**
+  String get noProductsFound;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'see all'**
+  String get seeAll;
 
   /// No description provided for @flowery.
   ///
@@ -495,6 +573,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// No description provided for @noDataFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found'**
+  String get noDataFound;
+
+  /// No description provided for @noSectionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No sections found'**
+  String get noSectionsFound;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'V '**
+  String get version;
+
+  /// No description provided for @confirmLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm logout!!'**
+  String get confirmLogout;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get editProfile;
+
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @passwordChangeSuccessfuly.
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Password Change Successfuly'**
+  String get passwordChangeSuccessfuly;
 }
 
 class _AppLocalizationsDelegate
@@ -522,8 +672,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

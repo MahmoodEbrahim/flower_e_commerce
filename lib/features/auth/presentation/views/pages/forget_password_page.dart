@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
@@ -93,6 +94,13 @@ class ForgetPasswordPage extends StatelessWidget {
                     },
 
                   )
+                  ,SizedBox(height: 30.h,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(AppRoutes.changePassword);
+                    },
+                    child:Text("Reset Password") ,)
+                  
                 ],
               ),
             ),

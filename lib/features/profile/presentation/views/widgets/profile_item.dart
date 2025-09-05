@@ -33,7 +33,7 @@ class ProfileItem extends StatelessWidget {
             Text(
               title,
               style: getRegularStyle(
-                color: AppColors.Black,
+                color: AppColors.black,
                 fontSize: FontSize.s16,
               ),
             ),
@@ -41,7 +41,7 @@ class ProfileItem extends StatelessWidget {
             if (trailing != null) trailing!,
             if (showArrow)
               const Icon(Icons.arrow_forward_ios_rounded,
-                  size: 20, color: AppColors.Black),
+                  size: 20, color: AppColors.black),
           ],
         ),
       ),

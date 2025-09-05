@@ -31,6 +31,7 @@ class UserLocalStorage {
     var box = Hive.box<String>(tokenKey);
     await box.delete(tokenKey);
   }
+
   static Future<void> clearUser() async {
     var box = Hive.box<LoginModel>(boxName);
     await box.delete('user');

@@ -1,6 +1,5 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
-import 'package:flower_e_commerce/config/theme/common_widgets/no_products.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
@@ -16,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/di/di.dart';
+import '../widgets/no_products.dart';
 
 class HomeTab extends StatelessWidget {
   @override
@@ -34,7 +34,7 @@ class HomeTab extends StatelessWidget {
                   children:
                   [
                     SizedBox(height: 200.0,),
-                    LoadingAnimationWidget.inkDrop(color: AppColors.Pink,size: 50)
+                    LoadingAnimationWidget.inkDrop(color: AppColors.lightPink,size: 50)
                   ],),
               );
             } else if (state is HomeLoadingState) {
@@ -45,7 +45,7 @@ class HomeTab extends StatelessWidget {
                   children:
                   [
                     SizedBox(height: 200.0,),
-                    LoadingAnimationWidget.inkDrop(color: AppColors.Pink,size: 50)
+                    LoadingAnimationWidget.inkDrop(color: AppColors.lightPink,size: 50)
                   ],),
               );
             } else if (state is HomeErrorState) {

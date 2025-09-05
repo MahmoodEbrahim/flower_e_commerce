@@ -21,10 +21,10 @@ class TermsAndConditionPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            backgroundColor: AppColors.White,
+            backgroundColor: AppColors.white,
             body: Center(
               child: LoadingAnimationWidget.inkDrop(
-                color: AppColors.Pink,
+                color: AppColors.pink,
                 size: 50,
               ),
             ),

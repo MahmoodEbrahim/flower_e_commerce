@@ -28,7 +28,7 @@ class LogoutDialog extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               t.confirmLogout, //
-                style: getRegularStyle(color: AppColors.Black,fontSize: FontSize.s16)
+                style: getRegularStyle(color: AppColors.black,fontSize: FontSize.s16)
             ),
             const SizedBox(height: 20),
             Row(
@@ -72,7 +72,7 @@ class LogoutDialog extends StatelessWidget {
                         vertical: 12, horizontal: 24),
                   ),
                   child: Text(t.logout,
-                      style: getMediumStyle(color: AppColors.White)),
+                      style: getMediumStyle(color: AppColors.white)),
                 ),
               ],
             ),

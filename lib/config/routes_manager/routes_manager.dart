@@ -6,7 +6,6 @@ import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/main_layout.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/all_products.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/best_seller_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/categories_page.dart';
@@ -16,10 +15,17 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/product
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
 import 'package:flutter/material.dart';
+import '../../core/utils/constants/constants.dart';
+import '../../features/home/domain/entity/bestseller_entity.dart';
+import '../../features/home/domain/entity/occasion_entity.dart';
+import '../../features/home/presentation/views/pages/main_layout.dart';
+import '../../features/profile/presentation/views/pages/change_password_screen.dart';
+import '../../features/profile/presentation/views/pages/edit_profile_page.dart';
 
 abstract class Routes {
-  static Route<dynamic> onGenerate(RouteSettings settings) {
-    switch (settings.name) {
+
+static Route<dynamic> onGenerate(RouteSettings settings) {
+    final url = Uri.parse(settings.name ?? '/');    switch (settings.name) {
       case AppRoutes.home:
         // final args = settings.arguments as List<ProductsEntity>;
         return MaterialPageRoute(builder: (context) => MainLayout(),);
@@ -47,6 +53,21 @@ abstract class Routes {
 
           ),
         );
+      case AppRoutes.editProfilePage:
+      // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+            builder: (_) => EditProfilePage()
+        );
+      case AppRoutes.changePassword:
+      // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+            builder: (_) => ChangePasswordScreen()
+        );
+//AllProductsPage
+    case AppRoutes.catergories:
+    return MaterialPageRoute(
+    builder: (context) => CategoriesPage(
+    ));
 
       case AppRoutes.allProducts:
         final args = settings.arguments as Map<String, dynamic>;

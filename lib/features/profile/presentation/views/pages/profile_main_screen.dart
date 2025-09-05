@@ -59,7 +59,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                 style: GoogleFonts.imFellEnglish(
                   fontWeight: FontWeightManager.regular,
                   fontSize: FontSize.s24,
-                  color: AppColors.Pink,
+                  color: AppColors.pink,
                 ),
               ),
             ],
@@ -82,7 +82,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
               child: const Icon(
                 Icons.person_outline,
                 size: 50,
-                color: AppColors.Pink,
+                color: AppColors.pink,
               ),
             ),
           ),
@@ -93,15 +93,14 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
               Text(
                 user?.user.firstName ?? t.guest,
                 style: getMediumStyle(
-                  color: AppColors.Black,
+                  color: AppColors.black,
                   fontSize: FontSize.s18,
                 ),
               ),
               const SizedBox(width: 5),
               GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, AppRoutes.editUser,
-                  // arguments: user);
+              Navigator.of(context).pushNamed(AppRoutes.editProfilePage);
                 },
                 child: SvgPicture.asset(
                   ImageAssets.pen,
@@ -151,24 +150,24 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                           isNotificationEnabled = value;
                         });
                       },
-                      activeColor: AppColors.White,
-                      activeTrackColor: AppColors.Pink,
+                      activeColor: AppColors.white,
+                      activeTrackColor: AppColors.pink,
                       inactiveThumbColor: AppColors.gray,
-                      inactiveTrackColor: AppColors.White,
+                      inactiveTrackColor: AppColors.white,
                     ),
                     SizedBox(
                       width: 3,
                     ),
                     Text(t.notification,
                         style: getRegularStyle(
-                            color: AppColors.Black, fontSize: FontSize.s16)),
+                            color: AppColors.black, fontSize: FontSize.s16)),
                     const Spacer(),
                     IconButton(
                       onPressed: () {
                         ///navigator
                       },
                       icon: const Icon(Icons.arrow_forward_ios_rounded,
-                          size: 20, color: AppColors.Black),
+                          size: 20, color: AppColors.black),
                     )
                   ],
                 ),
@@ -180,7 +179,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                 trailing: Text(
                   t.english,
                   style: getRegularStyle(
-                    color: AppColors.Pink,
+                    color: AppColors.pink,
                     fontSize: FontSize.s16,
                   ),
                 ),
