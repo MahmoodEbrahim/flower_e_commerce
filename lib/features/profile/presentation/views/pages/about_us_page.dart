@@ -120,6 +120,19 @@ class AboutUsPage extends StatelessWidget {
 
         return Scaffold(
           extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+
+            shadowColor: Colors.transparent,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.transparent,
+                size: 24,
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),),
           body: Padding(
             padding: const EdgeInsetsDirectional.only(top: 20),
             child: SingleChildScrollView(
