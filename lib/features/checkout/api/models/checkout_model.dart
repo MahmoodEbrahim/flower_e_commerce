@@ -1,3 +1,3 @@
-class checkoutmodel{
+class CheckoutModel{
 
 }

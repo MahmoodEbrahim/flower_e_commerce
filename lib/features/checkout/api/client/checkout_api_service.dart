@@ -1,3 +1,17 @@
-class Checkoutapiservice{
+import 'package:dio/dio.dart';
+import 'package:flower_e_commerce/core/utils/constants/api_end_points.dart';
+import 'package:injectable/injectable.dart';
+import 'package:retrofit/retrofit.dart';
+
+import '../models/checkout_model.dart';
+
+part 'checkout_api_service.g.dart';
+
+@RestApi(baseUrl: ApiEndPoints.apiUrl)
+@injectable
+abstract class CheckoutApiService {
+  @factoryMethod
+  factory CheckoutApiService(Dio dio) = _CheckoutApiService;
+
 
 }
