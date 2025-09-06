@@ -75,7 +75,7 @@ class TermsAndConditionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final currentLocale = Localizations.localeOf(context).languageCode; // <-- هنا
+    final currentLocale = Localizations.localeOf(context).languageCode;
 
     return FutureBuilder<Map<String, dynamic>>(
       future: loadJson(JsonAssets.terms),
@@ -110,8 +110,6 @@ class TermsAndConditionPage extends StatelessWidget {
 
         final sections =
         sectionsJson.map((e) => GenericSectionModel.fromJson(e)).toList();
-        final firstSection = sections.first; // أول سيكشن
-        final otherSections = sections.skip(1).toList();
         return Scaffold(
           extendBodyBehindAppBar: true,
             appBar: AppBar(

@@ -12,12 +12,11 @@ import 'get_upload_profile_photo_use_case_test.mocks.dart';
 
 @GenerateMocks([ProfileRepository])
 void main() {
-  late GetUploadPhotoProfileUseCase useCase;
   late MockProfileRepository mockProfileRepository;
 
   setUp((){
     mockProfileRepository = MockProfileRepository();
-    useCase = GetUploadPhotoProfileUseCase(mockProfileRepository);
+    GetUploadPhotoProfileUseCase(mockProfileRepository);
     provideDummy<ApiResult<UploadProfilePhotoResponse>>(
         ApiFailedResult<UploadProfilePhotoResponse>("Dummy Error")
     );

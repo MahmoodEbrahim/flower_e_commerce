@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/json_helpers/hex_to color.dart';
+import '../../../../../core/utils/json_helpers/hex_to_color.dart';
 import '../../../../../core/utils/json_helpers/parse_font_weight.dart';
 import '../../../../../core/utils/json_helpers/parse_text_style.dart';
 import 'package:flower_e_commerce/features/profile/api/models/generic_section_model.dart';
@@ -44,7 +44,7 @@ Widget buildGenericSection(GenericSectionModel section, String locale) {
     ));
   } else if (content is List) {
     children.addAll(
-      (content as List).map<Widget>(
+      (content).map<Widget>(
             (paragraph) => Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(

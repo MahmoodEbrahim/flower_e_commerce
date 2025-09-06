@@ -1,4 +1,3 @@
-import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';

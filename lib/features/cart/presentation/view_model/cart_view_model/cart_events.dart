@@ -63,5 +63,5 @@ class UpdateQuatityItemCEvent extends CartEvents {
     required this.updatedReq,
   });
 
-  
 }
+class ClearCartErrorEvent extends CartEvents {}

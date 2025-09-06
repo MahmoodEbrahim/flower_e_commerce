@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LanguageRow extends StatelessWidget {
-  String title;
-  String value;
-  String selected;
-  void Function(String?) onChanged;
-  LanguageRow({required this.title,required this.onChanged,required this.selected , required this.value,});
+  final String title;
+  final String value;
+  final String selected;
+  final void Function(String?) onChanged;
+  const LanguageRow({
+    super.key,
+    required this.title,
+    required this.onChanged,
+    required this.selected,
+    required this.value,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(

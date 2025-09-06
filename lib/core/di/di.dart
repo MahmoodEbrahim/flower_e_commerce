@@ -18,11 +18,9 @@ Dio getDio() {
   );
   dio.interceptors.add(InterceptorsWrapper(
     onRequest: (options, handler) {
-      print('Request: ${options.method} ${options.uri}, Headers: ${options.headers}, Data: ${options.data}');
       return handler.next(options);
     },
     onError: (e, handler) {
-      print('Error: ${e.message}, Response: ${e.response?.data}');
       return handler.next(e);
     },
   ));

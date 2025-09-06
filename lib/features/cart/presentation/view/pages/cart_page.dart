@@ -67,7 +67,7 @@ class _CartPageState extends State<CartPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.errorMessage!)));
 
-                      state.errorMessage = null;
+                      context.read<CartViewModel>().add(ClearCartErrorEvent());
                     }
                   },
                   builder: (context, state) {

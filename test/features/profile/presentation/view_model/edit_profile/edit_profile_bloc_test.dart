@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
@@ -10,7 +9,6 @@ import 'package:flower_e_commerce/features/profile/domain/usecase/get_upload_pro
 import 'package:flower_e_commerce/features/profile/presentation/view_model/edit_profile/edit_profile_bloc.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/edit_profile/edit_profile_events.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/edit_profile/edit_profile_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -82,7 +80,7 @@ group("Edit Profile Bloc", (){
   );
   final successResponse=EditProfileResponsea(
     message: "success",user: User(
-      Id: "68a21825a8bca307f9de9365",
+      id: "68a21825a8bca307f9de9365",
       firstName: "mariam",
       lastName: "Mohmed",
       email: "mariammohmed.25720@gmail.com",

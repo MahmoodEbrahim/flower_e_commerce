@@ -77,7 +77,7 @@ class ProductModel {
 
   ProductsEntity toEntity() {
     return ProductsEntity(
-      id: iid,
+      id: id,
       title: title,
       description: description,
       imgCover: imgCover,

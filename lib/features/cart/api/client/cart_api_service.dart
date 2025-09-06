@@ -12,29 +12,22 @@ part 'cart_api_service.g.dart';
 @injectable
 abstract class CartApiService {
   @factoryMethod
-  factory CartApiService(Dio dio) = _CartApiService;
-
+  factory CartApiService(Dio dio, {String baseUrl}) = _CartApiService;
 
   @POST(ApiEndPoints.cartEndPoint)
-    Future<CartResponseDto> addProductToCart(@Body() CartItemRequestModel cartRequestModel);
+  Future<CartResponseDto> addProductToCart(
+      @Body() CartItemRequestModel cartRequestModel,
+      );
 
-@GET(ApiEndPoints.cartEndPoint)
-Future<CartResponseDto> getCartUser();
+  @GET(ApiEndPoints.cartEndPoint)
+  Future<CartResponseDto> getCartUser();
 
-@DELETE("/${ApiEndPoints.cartEndPoint}/{id}")
-Future<CartResponseDto> deleteItemFromCart(@Path("id") String itemId);
+  @DELETE("${ApiEndPoints.cartEndPoint}/{id}")
+  Future<CartResponseDto> deleteItemFromCart(@Path("id") String itemId);
 
-@PUT("/${ApiEndPoints.cartEndPoint}/{id}")
-Future<CartResponseDto> updateQuantity(
-  @Path("id") String itemId,
-  @Body() UpdatedRequestBodyModel quantity,
-);
-
-
-
-
-
-
-
-
+  @PUT("${ApiEndPoints.cartEndPoint}/{id}")
+  Future<CartResponseDto> updateQuantity(
+      @Path("id") String itemId,
+      @Body() UpdatedRequestBodyModel quantity,
+      );
 }

@@ -7,7 +7,7 @@ class TokenInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final LoginModel? user = UserLocalStorage.getUser();
 
-    if (user != null && user.token!.isNotEmpty) {
+    if (user != null && user.token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer ${user.token}';
     }
 

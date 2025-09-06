@@ -6,7 +6,6 @@ import 'package:flower_e_commerce/features/auth/domain/usecase/login_usecase.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
-
 import 'login_event.dart';
 part 'login_state.dart';
 
@@ -25,7 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             loginState: RequestState.success,
             user: result.sucessResult,
           ));
-          await UserLocalStorage.saveToken(result.sucessResult.token!);
+          await UserLocalStorage.saveToken(result.sucessResult.token);
           await UserLocalStorage.saveUser(result.sucessResult,);
 
           if (state.rememberMe) {

@@ -19,10 +19,6 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/product
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
 import 'package:flutter/material.dart';
-import '../../core/utils/constants/constants.dart';
-import '../../features/home/domain/entity/bestseller_entity.dart';
-import '../../features/home/domain/entity/occasion_entity.dart';
-import '../../features/home/presentation/views/pages/main_layout.dart';
 import '../../features/profile/presentation/views/pages/change_password_screen.dart';
 import '../../features/profile/presentation/views/pages/edit_profile_page.dart';
 
@@ -67,11 +63,6 @@ abstract class Routes {
         return MaterialPageRoute(
             builder: (_) => ChangePasswordScreen()
         );
-//AllProductsPage
-    case AppRoutes.catergories:
-    return MaterialPageRoute(
-    builder: (context) => CategoriesPage(
-    ));
 
       case AppRoutes.allProducts:
         final args = settings.arguments as Map<String, dynamic>;

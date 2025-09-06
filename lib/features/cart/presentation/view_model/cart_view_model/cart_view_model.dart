@@ -131,6 +131,10 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
     on<GetCartItemsEvent>(_getCartItems);
     on<DeleteItemFromCartEvent>(_deleteItemFromCart);
     on<UpdateQuatityItemCEvent>(_updateQuanity);
+    on<ClearCartErrorEvent>((event, emit) {
+      emit(state.copyWith(errorMessage: null));
+    });
+
   }
 
   Future<void> _addToCart(AddToCartEvent event, Emitter emit) async {

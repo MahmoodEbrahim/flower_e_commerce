@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -135,7 +134,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           );
                         } else {
-                          print("Token is null, upload aborted");
+                          debugPrint("Token is null, upload aborted");
                         }
                       }
                     },
@@ -275,41 +274,44 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             );
           },
-          listener: (context, state) {
-            if (state.uploadPhotoState == RequestState.success) {
-              print("Success in upload photo");
-            }
-            if (state.uploadPhotoState == RequestState.error) {
-              print("Error ${state.errorMessageUploadPhoto}");
-            }
-            if (state.editProfileState == RequestState.success) {
-              print("Profile updated successfully");
-              final updatedUser = LoginModel(
-                token: token!,
-                user: userModel.user.copyWith(
-                  firstName: _firstNameController.text,
-                  lastName: _lastNameController.text,
-                  email: _emailController.text,
-                  phone: _phoneController.text,
-                ),
-              );
-              UserLocalStorage.saveUser(updatedUser);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(local.profileUpdatedSuccessfully)),
-              );
+            listener: (context, state) {
+              if (state.uploadPhotoState == RequestState.success) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(local.profileUpdatedSuccessfully)),
+                );
+              }
 
+              if (state.uploadPhotoState == RequestState.error) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Error: ${state.errorMessageUploadPhoto}")),
+                );
+              }
 
-              Navigator.of(context).pop();
+              if (state.editProfileState == RequestState.success) {
+                final updatedUser = LoginModel(
+                  token: token!,
+                  user: userModel.user.copyWith(
+                    firstName: _firstNameController.text,
+                    lastName: _lastNameController.text,
+                    email: _emailController.text,
+                    phone: _phoneController.text,
+                  ),
+                );
+                UserLocalStorage.saveUser(updatedUser);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(local.profileUpdatedSuccessfully)),
+                );
+
+                Navigator.of(context).pop();
+              }
+
+              if (state.editProfileState == RequestState.error) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Error: ${state.errorMessageEditProfile}")),
+                );
+              }
             }
-            if (state.editProfileState == RequestState.error) {
-              print("Error ${state.errorMessageEditProfile}");
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Error: ${state.errorMessageEditProfile}"),
-                ),
-              );
-            }
-          },
         ),
       ),
     );
