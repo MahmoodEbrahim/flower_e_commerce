@@ -8,8 +8,51 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dio/dio.dart' as _i361;
+import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
+
+import '../../features/auth/api/client/auth_api_service.dart' as _i522;
+import '../../features/auth/api/source/auth_remote_data_souce_imp.dart'
+    as _i669;
+import '../../features/auth/data/repository/auth_repository_imp.dart' as _i794;
+import '../../features/auth/data/source/auth_remote_data_source.dart' as _i777;
+import '../../features/auth/domain/repository/auth_repository.dart' as _i961;
+import '../../features/auth/domain/usecase/forget_password_use_case.dart'
+    as _i240;
+import '../../features/auth/domain/usecase/login_usecase.dart' as _i911;
+import '../../features/auth/domain/usecase/reset_password_use_case.dart'
+    as _i878;
+import '../../features/auth/domain/usecase/signup_usecase.dart' as _i472;
+import '../../features/auth/domain/usecase/verfiy_password_use_case.dart'
+    as _i197;
+import '../../features/auth/presentation/view_model/forget_password/forget_password_cubit.dart'
+    as _i1028;
+import '../../features/auth/presentation/view_model/login_view_model/login_bloc.dart'
+    as _i644;
+import '../../features/auth/presentation/view_model/signup_view_model/signup_view_model.dart'
+    as _i401;
+import '../../features/auth/presentation/views/pages/signup_page.dart' as _i81;
+import '../../features/home/api/client/home_api_service.dart' as _i220;
+import '../../features/home/api/source/home_remote_data_source_imp.dart'
+    as _i265;
+import '../../features/home/data/repository/home_repository_imp.dart' as _i342;
+import '../../features/home/data/source/home_remote_data_source.dart' as _i557;
+import '../../features/home/domain/repository/home_repository.dart' as _i541;
+import '../../features/home/domain/usecase/get_home_data_usecase.dart' as _i630;
+import '../../features/home/domain/usecase/get_products_by_category_id._usecase.dart'
+    as _i438;
+import '../../features/home/domain/usecase/get_products_detials_by_occasions.dart'
+    as _i583;
+import '../../features/home/presentation/view_model/categories_view_model/categories_view_model.dart'
+    as _i604;
+import '../../features/home/presentation/view_model/home_view_model/home_bloc.dart'
+    as _i191;
+import '../../features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart'
+    as _i1010;
+import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -17,11 +60,62 @@ extension GetItInjectableX on _i174.GetIt {
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    _i526.GetItHelper(
+    final gh = _i526.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
+    final dioModule = _$DioModule();
+    gh.lazySingleton<_i528.PrettyDioLogger>(() => dioModule.prettyDioLogger);
+    gh.lazySingleton<_i361.Dio>(
+        () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
+    gh.factory<_i81.SignupPage>(() => _i81.SignupPage(key: gh<_i409.Key>()));
+    gh.factory<_i522.AuthApiService>(
+        () => _i522.AuthApiService(gh<_i361.Dio>()));
+    gh.factory<_i220.HomeApiService>(
+        () => _i220.HomeApiService(gh<_i361.Dio>()));
+    gh.factory<_i557.HomeRemoteDataSource>(
+        () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
+    gh.factory<_i541.HomeRepository>(
+        () => _i342.HomeRepositoryImp(gh<_i557.HomeRemoteDataSource>()));
+    gh.factory<_i438.GetProductsByCategoryIdUseCase>(
+        () => _i438.GetProductsByCategoryIdUseCase(gh<_i541.HomeRepository>()));
+    gh.factory<_i583.GetProductDetialsByOccasionUseCase>(() =>
+        _i583.GetProductDetialsByOccasionUseCase(gh<_i541.HomeRepository>()));
+    gh.factory<_i777.AuthRemoteDataSource>(
+        () => _i669.AuthRemoteDataSourceImp(gh<_i522.AuthApiService>()));
+    gh.factory<_i630.GetHomeDataUseCase>(
+        () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
+    gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
+        _i1010.ProductsDetialsOccasionBloc(
+            gh<_i583.GetProductDetialsByOccasionUseCase>()));
+    gh.factory<_i604.CategoriesViewModel>(() =>
+        _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
+    gh.factory<_i961.AuthRepository>(
+        () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
+    gh.factory<_i191.HomeBloc>(
+        () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
+    gh.factory<_i472.SignupUsecase>(
+        () => _i472.SignupUsecase(gh<_i961.AuthRepository>()));
+    gh.factory<_i240.ForgetPasswordUseCase>(
+        () => _i240.ForgetPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i878.ResetPasswordUseCase>(
+        () => _i878.ResetPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i197.VerfiyPasswordUseCase>(
+        () => _i197.VerfiyPasswordUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i911.LoginUsecase>(
+        () => _i911.LoginUsecase(gh<_i961.AuthRepository>()));
+    gh.factory<_i1028.ForgetPasswordBCubit>(() => _i1028.ForgetPasswordBCubit(
+          gh<_i240.ForgetPasswordUseCase>(),
+          gh<_i878.ResetPasswordUseCase>(),
+          gh<_i197.VerfiyPasswordUseCase>(),
+        ));
+    gh.factory<_i644.LoginBloc>(
+        () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
+    gh.factory<_i401.SignupViewModel>(
+        () => _i401.SignupViewModel(gh<_i472.SignupUsecase>()));
     return this;
   }
 }
+
+class _$DioModule extends _i288.DioModule {}
