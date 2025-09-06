@@ -45,6 +45,19 @@ import '../../features/cart/domain/usecase/get_cart_of_user.dart' as _i29;
 import '../../features/cart/domain/usecase/update_quatity.dart' as _i598;
 import '../../features/cart/presentation/view_model/cart_view_model/cart_view_model.dart'
     as _i861;
+import '../../features/checkout/api/client/checkout_api_service.dart' as _i252;
+import '../../features/checkout/api/source/checkout_remote_data_source_imp.dart'
+    as _i13;
+import '../../features/checkout/data/source/checkout_remote_data_source.dart'
+    as _i335;
+import '../../features/checkout/domain/repository/checkout_repository.dart'
+    as _i730;
+import '../../features/checkout/domain/repository/checkout_repository_imp.dart'
+    as _i38;
+import '../../features/checkout/domain/usecase/get_checkout_data_usecase.dart'
+    as _i330;
+import '../../features/checkout/domain/usecase/get_orders_by_checkout_url_usecase.dart'
+    as _i27;
 import '../../features/home/api/client/home_api_service.dart' as _i220;
 import '../../features/home/api/source/home_remote_data_source_imp.dart'
     as _i265;
@@ -100,6 +113,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
     gh.factory<_i522.AuthApiService>(
         () => _i522.AuthApiService(gh<_i361.Dio>()));
+    gh.factory<_i252.CheckoutApiService>(
+        () => _i252.CheckoutApiService(gh<_i361.Dio>()));
     gh.factory<_i220.HomeApiService>(
         () => _i220.HomeApiService(gh<_i361.Dio>()));
     gh.factory<_i495.ProfileApiService>(
@@ -120,6 +135,14 @@ extension GetItInjectableX on _i174.GetIt {
         _i583.GetProductDetialsByOccasionUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i777.AuthRemoteDataSource>(
         () => _i669.AuthRemoteDataSourceImp(gh<_i522.AuthApiService>()));
+    gh.factory<_i335.CheckoutRemoteDataSource>(
+        () => _i13.CheckoutRemoteDataSourceImp(gh<_i252.CheckoutApiService>()));
+    gh.factory<_i730.CheckoutRepository>(
+        () => _i38.CheckoutRepositoryImp(gh<_i335.CheckoutRemoteDataSource>()));
+    gh.factory<_i27.GetOrdersByCheckoutUrlUseCase>(() =>
+        _i27.GetOrdersByCheckoutUrlUseCase(gh<_i730.CheckoutRepository>()));
+    gh.factory<_i330.GetCheckoutDataUseCase>(
+        () => _i330.GetCheckoutDataUseCase(gh<_i730.CheckoutRepository>()));
     gh.factory<_i630.GetHomeDataUseCase>(
         () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
