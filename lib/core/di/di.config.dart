@@ -52,7 +52,7 @@ import '../../features/checkout/data/source/checkout_remote_data_source.dart'
     as _i335;
 import '../../features/checkout/domain/repository/checkout_repository.dart'
     as _i730;
-import '../../features/checkout/domain/repository/checkout_repository_imp.dart'
+import '../../features/checkout/data/repository/checkout_repository_imp.dart'
     as _i38;
 import '../../features/checkout/domain/usecase/get_checkout_data_usecase.dart'
     as _i330;
