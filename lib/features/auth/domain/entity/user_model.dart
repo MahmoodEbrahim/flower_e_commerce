@@ -5,7 +5,7 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class UserModel {
   @HiveField(0)
-  final String? Id;
+  final String? iid;
 
   @HiveField(1)
   final String? firstName;
@@ -36,7 +36,7 @@ class UserModel {
 
 
   UserModel({
-    this.Id,
+    this.iid,
     this.firstName,
     this.lastName,
     this.email,
@@ -47,4 +47,29 @@ class UserModel {
     this.wishlist,
     this.addresses,
   });
+  UserModel copyWith({
+    String? iid,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? gender,
+    String? phone,
+    String? photo,
+    String? role,
+    List<dynamic>? wishlist,
+    List<dynamic>? addresses,
+  }) {
+    return UserModel(
+      iid: iid ?? this.iid,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      gender: gender ?? this.gender,
+      phone: phone ?? this.phone,
+      photo: photo ?? this.photo,
+      role: role ?? this.role,
+      wishlist: wishlist ?? this.wishlist,
+      addresses: addresses ?? this.addresses,
+    );
+  }
 }

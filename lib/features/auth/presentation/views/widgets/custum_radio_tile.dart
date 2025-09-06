@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
@@ -8,13 +7,13 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 class CustumRadioTile extends StatefulWidget {
   final String? value;
   final ValueNotifier<String?> groupValue;
-  
+
 
   const CustumRadioTile({
     super.key,
     this.value,
     required this.groupValue,
-  
+
   });
 
   @override
@@ -50,7 +49,8 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                       )),
                   Expanded(
                       flex: 9,
-                      child: RadioListTile(
+                      child:
+                       RadioListTile(
                           value: "female",
                           fillColor: WidgetStateProperty.all(AppColors.pink),
                           title: Text(
@@ -62,8 +62,10 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                           onChanged: (val) {
                             widget.groupValue.value = val;
                             state.didChange(val);
-                              
-                          })),
+
+                          })
+
+                          ),
                   Expanded(
                       flex: 8,
                       child: RadioListTile(
@@ -78,7 +80,7 @@ class _CustumRadioTileState extends State<CustumRadioTile> {
                           onChanged: (val) {
                             widget.groupValue.value = val;
                             state.didChange(val);
-                           
+
                           })),
                 ],
               ),

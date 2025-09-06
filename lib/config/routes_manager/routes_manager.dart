@@ -5,7 +5,7 @@ import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_p
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/cart/presentation/view/pages/cart_page.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/bestseller_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/occasion_entity.dart';
@@ -16,7 +16,11 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/categor
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasion_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
 import 'package:flutter/material.dart';
+import '../../features/profile/presentation/views/pages/change_password_screen.dart';
+import '../../features/profile/presentation/views/pages/edit_profile_page.dart';
 
 abstract class Routes {
   static Route<dynamic> onGenerate(RouteSettings settings) {
@@ -24,6 +28,10 @@ abstract class Routes {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => MainLayout());
 
+      case AppRoutes.cart:
+        return MaterialPageRoute(
+          builder: (context) => CartPage(),
+        );
       case AppRoutes.bestSellers:
         final args = settings.arguments as Map<String, dynamic>;
         final bestSeller = args[Constants.bestSeller] as List<BestSellerEntity>;
@@ -43,9 +51,17 @@ abstract class Routes {
         // final categoryList = args[Constants.catList] as List<CategoriesEntity>;
         // final productsList = args[Constants.productList] as List<ProductsEntity>;
         return MaterialPageRoute(
-          builder: (context) => CategoriesPage(
-           
-          ),
+          builder: (context) => CategoriesPage(),
+        );
+      case AppRoutes.editProfilePage:
+      // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+            builder: (_) => EditProfilePage()
+        );
+      case AppRoutes.changePassword:
+      // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(
+            builder: (_) => ChangePasswordScreen()
         );
 
       case AppRoutes.allProducts:
@@ -84,6 +100,13 @@ abstract class Routes {
 
       case AppRoutes.resetPassword:
         return MaterialPageRoute(builder: (context) => ResetPasswordPage());
+
+      case AppRoutes.about:
+        return MaterialPageRoute(builder: (context) => AboutUsPage(),);
+
+      case AppRoutes.termsAndCondition:
+        return MaterialPageRoute(builder: (context) => TermsAndConditionPage(),);
+
 
       default:
         return MaterialPageRoute(

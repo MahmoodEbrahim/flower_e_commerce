@@ -8,7 +8,7 @@ part 'occasions_model.g.dart';
 @JsonSerializable()
 class OccasionsModel {
   @JsonKey(name: JsonSerlizableConstants.dashedIdKey)
-  final String? Id;
+  final String? iid;
   @JsonKey(name: JsonSerlizableConstants.nameKey)
   final String? name;
   @JsonKey(name: JsonSerlizableConstants.slugKey)
@@ -23,7 +23,7 @@ class OccasionsModel {
   final bool? isSuperAdmin;
 
   OccasionsModel ({
-    this.Id,
+    this.iid,
     this.name,
     this.slug,
     this.image,
@@ -42,7 +42,7 @@ class OccasionsModel {
 
   OccasionsEntity toEntity() {
     return OccasionsEntity(
-      id: Id,
+      id: iid,
       name: name,
       image: image,
     );

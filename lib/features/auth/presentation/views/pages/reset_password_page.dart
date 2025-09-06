@@ -49,7 +49,7 @@ class ResetPasswordPage extends StatelessWidget {
                     local.resetpassword,
                     textAlign: TextAlign.center,
                     style: getMediumStyle(
-                      color: AppColors.black!,
+                      color: AppColors.black,
                       fontSize: FontSize.s18,
                     ),
                   ),

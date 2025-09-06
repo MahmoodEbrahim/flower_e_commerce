@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
@@ -43,7 +44,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 26.h,),
                   Text(local.forgetPassword,textAlign: TextAlign.center,
-                    style: getMediumStyle(color: AppColors.black!,
+                    style: getMediumStyle(color: AppColors.black,
                         fontSize: FontSize.s18),),
                   SizedBox(height: 16.h,),
                   Text(local.pleaseenteryouremailassociatedtoyouraccount,textAlign: TextAlign.center,
@@ -93,6 +94,13 @@ class ForgetPasswordPage extends StatelessWidget {
                     },
 
                   )
+                  ,SizedBox(height: 30.h,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(AppRoutes.changePassword);
+                    },
+                    child:Text("Reset Password") ,)
+                  
                 ],
               ),
             ),

@@ -75,7 +75,7 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
                 local.forgetPassword,
                 textAlign: TextAlign.center,
                 style: getMediumStyle(
-                  color: AppColors.black!,
+                  color: AppColors.black,
                   fontSize: FontSize.s18,
                 ),
               ),

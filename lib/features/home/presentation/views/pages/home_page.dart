@@ -2,6 +2,7 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_page_parameter.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/build_best_seller_list.dart';
@@ -18,7 +19,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/di/di.dart';
 
 class HomePage extends StatelessWidget {
-  final void Function(int)? onChangeTab;
+  final void Function(CategoriesPageParameter)? onChangeTab;
   const HomePage({super.key, this.onChangeTab});
 
   @override
@@ -63,9 +64,7 @@ class HomePage extends StatelessWidget {
               return Center(child: Text('${t.error}: ${state.message}'));
             } else if (state is HomeSuccessState) {
               final homeData = state.homeResponse;
-              categoriesViewModel.add(GetAllProductsEvent(
-                  products: homeData.products!,
-                  categories: homeData.categories!));
+              categoriesViewModel.add(GetAllProductsEvent(products: homeData.products!,categories: homeData.categories!,allproducts: homeData.products!));
 
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(12),
@@ -127,10 +126,10 @@ class HomePage extends StatelessWidget {
                       // Categories
                       buildSectionTitle(t.categories, () {
                         if (onChangeTab != null) {
-                          onChangeTab!(1);
+                          onChangeTab!(CategoriesPageParameter(tabIndex: 1));
                         }
                       }, context),
-                      buildCategoriesList(homeData.categories),
+                      buildCategoriesList(homeData.categories,onChangeTab,categoriesViewModel),
 
                       // Best Seller
                       buildSectionTitle(t.bestSeller, () {

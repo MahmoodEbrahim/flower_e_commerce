@@ -18,6 +18,7 @@ String signupRequestDtoToJson(SignupRequestDto data) =>
     json.encode(data.toJson());
 
 @JsonSerializable()
+// ignore: must_be_immutable
 class SignupRequestDto extends Equatable {
   @JsonKey(name: JsonSerlizableConstants.firstName)
   String? firstName;

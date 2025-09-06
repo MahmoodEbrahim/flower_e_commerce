@@ -16,6 +16,7 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
   ) : super(CategoryState()) {
     on<GetAllProductsOfCategoriesEvent>(_getProductsById);
     on<GetAllProductsEvent>(_getAllProducts);
+    on<SelectCatIndexEvent>(_selectIndex);
   }
 
   void _getProductsById(
@@ -26,14 +27,12 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
 
     switch (res) {
       case ApiSucessResult<List<ProductsEntity>>():
-        
         emit(state.copyWith(
             isLoading: false,
             errorMessage: null,
             products: res.sucessResult,
             categories: event.categories));
       case ApiFailedResult<List<ProductsEntity>>():
-     
         emit(state.copyWith(
             isLoading: false, errorMessage: res.errorMessage, products: null));
     }
@@ -46,6 +45,12 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
         products: event.products,
         errorMessage: null,
         isLoading: false,
-        categories: event.categories));
+        categories: event.categories,
+        allProducts: event.allproducts
+        ));
+  }
+
+  void _selectIndex(SelectCatIndexEvent event, Emitter emit) {
+    emit(state.copyWith(index: event.index));
   }
 }

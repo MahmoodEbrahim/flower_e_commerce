@@ -7,7 +7,7 @@ part 'categories_model.g.dart';
 @JsonSerializable()
 class CategoriesModel {
   @JsonKey(name: JsonSerlizableConstants.dashedIdKey)
-  final String? Id;
+  final String? iid;
   @JsonKey(name: JsonSerlizableConstants.nameKey)
   final String? name;
   @JsonKey(name: JsonSerlizableConstants.slugKey)
@@ -22,7 +22,7 @@ class CategoriesModel {
   final bool? isSuperAdmin;
 
   CategoriesModel ({
-    this.Id,
+    this.iid,
     this.name,
     this.slug,
     this.image,
@@ -41,7 +41,7 @@ class CategoriesModel {
 
   CategoriesEntity toEntity() {
     return CategoriesEntity(
-      id: Id,
+      id: iid,
       name: name,
       image: image,
     );

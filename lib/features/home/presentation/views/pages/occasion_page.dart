@@ -76,7 +76,7 @@ class _OccasionPageState extends State<OccasionPage> {
                               Text(
                                 local.bloomWithOurExquisitebestSellers,
                                 style: getMediumStyle(
-                                    color: AppColors.white!,
+                                    color: AppColors.white,
                                     fontSize: 13.0),
                               ),
                             ],

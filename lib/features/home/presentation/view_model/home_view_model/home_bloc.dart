@@ -18,6 +18,7 @@ class HomeBloc extends Bloc<HomeEvents, HomeStates> {
       switch (result) {
         case ApiSucessResult<HomeEntity>():
           emit(HomeSuccessState(result.sucessResult));
+
         case ApiFailedResult<HomeEntity>():
           emit(HomeErrorState(result.errorMessage));
       }

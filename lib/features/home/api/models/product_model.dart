@@ -11,7 +11,7 @@ class ProductModel {
   @JsonKey(name: JsonSerlizableConstants.rateCountKey)
   final int? rateCount;
   @JsonKey(name: JsonSerlizableConstants.dashedIdKey)
-  final String? Id;
+  final String? iid;
   @JsonKey(name: JsonSerlizableConstants.titleKey)
   final String? title;
   @JsonKey(name: JsonSerlizableConstants.slugKey)
@@ -48,7 +48,7 @@ class ProductModel {
   ProductModel ({
     this.rateAvg,
     this.rateCount,
-    this.Id,
+    this.iid,
     this.title,
     this.slug,
     this.description,

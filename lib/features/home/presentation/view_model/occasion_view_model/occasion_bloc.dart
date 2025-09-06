@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 @injectable
 class ProductsDetialsOccasionBloc extends
 Bloc<ProductsDetialsOccasionEvent,OccasionStates>{
-  GetProductDetialsByOccasionUseCase _byOccasionUseCase;
+  final GetProductDetialsByOccasionUseCase _byOccasionUseCase;
   ProductsDetialsOccasionBloc(this._byOccasionUseCase):super(OccasionStates()){
     on<GetProductsDetialsByOccasionEvent>((event, emit) async {
     emit(state.copyWith(requestState: RequestState.init));

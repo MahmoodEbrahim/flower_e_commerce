@@ -1,7 +1,6 @@
 // To parse this JSON data, do
 //
-//     final CategoryProductsResponseDtoresponseDto = responseDtoFromJson(jsonString);
-
+//     final CategoryProductsResponseDtoresponseDto = responseDtoFromJson(jsonString);  
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/home/api/models/meta_data_dto.dart';

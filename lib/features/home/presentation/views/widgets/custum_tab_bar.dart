@@ -1,21 +1,25 @@
-import 'package:flower_e_commerce/config/theme/app_color.dart';
-import 'package:flower_e_commerce/config/theme/font_manger.dart';
-import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
-import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
-import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/categories_entity.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 
 class CustumTabBar extends StatefulWidget {
   final List<CategoriesEntity> categoryList;
   final List<ProductsEntity> produdctsList;
+  final List<ProductsEntity> allProducts;
+
+  final int? myIndex;
 
   const CustumTabBar({
     super.key,
     required this.categoryList,
     required this.produdctsList,
+    required  this.allProducts,
+
+    this.myIndex,
   });
 
   @override
@@ -23,11 +27,44 @@ class CustumTabBar extends StatefulWidget {
 }
 
 class _CustumTabBarState extends State<CustumTabBar> {
-  final ValueNotifier<int> catIndex = ValueNotifier<int>(0);
+  late final ValueNotifier<int> catIndex;
+
+  @override
+  void initState() {
+    super.initState();
+
+    CategoriesEntity allCategory = CategoriesEntity(id: "", name: "All");
+    if (widget.categoryList.isEmpty || widget.categoryList[0].id != "") {
+      widget.categoryList.insert(0, allCategory);
+    }
+
+    catIndex = ValueNotifier<int>(widget.myIndex ?? 0);
+
+    final categoriesViewModel = context.read<CategoriesViewModel>();
+    _sendEvent(categoriesViewModel, catIndex.value);
+  }
+
+  void _sendEvent(CategoriesViewModel categoriesViewModel, int index) {
+    final selectedCategory = widget.categoryList[index];
+   
+    if (index==0) {
+      categoriesViewModel.add(
+        GetAllProductsEvent(products: widget.allProducts),
+      );
+    } else {
+      categoriesViewModel.add(
+        GetAllProductsOfCategoriesEvent(
+          catId: selectedCategory.id!,
+          categories: widget.categoryList,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final categoriesViewModel = context.read<CategoriesViewModel>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
@@ -42,12 +79,8 @@ class _CustumTabBarState extends State<CustumTabBar> {
               child: InkWell(
                 onTap: () {
                   catIndex.value = index;
-                  categoriesViewModel.add(
-                    GetAllProductsOfCategoriesEvent(
-                      catId: widget.categoryList[index].id!,
-                      categories: widget.categoryList,
-                    ),
-                  );
+
+                  _sendEvent(categoriesViewModel, index);
                 },
                 child: ValueListenableBuilder<int>(
                   valueListenable: catIndex,
@@ -67,8 +100,8 @@ class _CustumTabBarState extends State<CustumTabBar> {
                       ),
                       child: Text(
                         widget.categoryList[index].name!,
-                        style: getRegularStyle(
-                          fontSize: FontSize.s16,
+                        style: TextStyle(
+                          fontSize: 16,
                           color: index == value
                               ? AppColors.pink
                               : AppColors.gray,

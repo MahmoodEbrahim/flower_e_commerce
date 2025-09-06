@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CategoriesPage extends StatefulWidget {
-  const CategoriesPage({super.key});
+  final int? catIndex;
+
+  const CategoriesPage({super.key, this.catIndex});
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
@@ -27,24 +29,22 @@ class _CategoriesPageState extends State<CategoriesPage> {
         child: CustomScrollView(
           slivers: [
             CustumSearchBar(),
-
-      
-            
             SliverToBoxAdapter(
               child: BlocBuilder<CategoriesViewModel, CategoryState>(
                 builder: (context, state) {
+                 
+
                   return CustumTabBar(
                     categoryList: state.categories ?? [],
                     produdctsList: state.products ?? [],
+                    allProducts: state.allProducts!,
+                    myIndex: state.index,
                   );
                 },
               ),
             ),
-
-        
             SliverToBoxAdapter(
               child: BlocBuilder<CategoriesViewModel, CategoryState>(
-              
                 builder: (context, state) {
                   if (state.isLoading) {
                     return SizedBox(
@@ -66,7 +66,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,

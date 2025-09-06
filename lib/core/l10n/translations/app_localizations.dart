@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 
 // ignore_for_file: type=lint
@@ -62,7 +63,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -85,14 +86,17 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('en'),
+  ];
 
   /// No description provided for @occasion.
   ///
@@ -388,6 +392,12 @@ abstract class AppLocalizations {
   /// **'Enter your email'**
   String get enterEmail;
 
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
   /// No description provided for @enterPassword.
   ///
   /// In en, this message translates to:
@@ -427,7 +437,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsAndConditions.
   ///
   /// In en, this message translates to:
-  /// **'Terms & Conditions'**
+  /// **'Terms & conditions'**
   String get termsAndConditions;
 
   /// No description provided for @alreadyHaveAccount.
@@ -507,6 +517,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'see all'**
   String get seeAll;
+
+  /// No description provided for @cart.
+  ///
+  /// In en, this message translates to:
+  /// **'cart'**
+  String get cart;
+
+  /// No description provided for @checkout.
+  ///
+  /// In en, this message translates to:
+  /// **'CheckOut'**
+  String get checkout;
+
+  /// No description provided for @deliver_to.
+  ///
+  /// In en, this message translates to:
+  /// **'deliver to'**
+  String get deliver_to;
+
+  /// No description provided for @bigAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed 2XVP+XC - Sheikh Zayed'**
+  String get bigAddress;
+
+  /// No description provided for @subTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub total'**
+  String get subTotal;
+
+  /// No description provided for @deliveryFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery fee'**
+  String get deliveryFee;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @flowery.
+  ///
+  /// In en, this message translates to:
+  /// **'Flowery'**
+  String get flowery;
+
+  /// No description provided for @guest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get guest;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'My orders'**
+  String get myOrders;
+
+  /// No description provided for @savedAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved address'**
+  String get savedAddress;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notification;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get arabic;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About us'**
+  String get aboutUs;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// No description provided for @noDataFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found'**
+  String get noDataFound;
+
+  /// No description provided for @noSectionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No sections found'**
+  String get noSectionsFound;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'V '**
+  String get version;
+
+  /// No description provided for @confirmLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm logout!!'**
+  String get confirmLogout;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get editProfile;
+
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @passwordChangeSuccessfuly.
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Password Change Successfuly'**
+  String get passwordChangeSuccessfuly;
+
+  /// No description provided for @changelanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Language'**
+  String get changelanguage;
+
+  /// No description provided for @homeTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTab;
+
+  /// No description provided for @categoriesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesTab;
+
+  /// No description provided for @cartTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart'**
+  String get cartTab;
+
+  /// No description provided for @profileTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTab;
 }
 
 class _AppLocalizationsDelegate
@@ -520,7 +734,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -529,13 +743,16 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
     case 'en':
       return AppLocalizationsEn();
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

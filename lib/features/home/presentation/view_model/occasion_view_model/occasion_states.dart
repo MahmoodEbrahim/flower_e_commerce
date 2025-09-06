@@ -7,7 +7,7 @@ class OccasionStates extends Equatable{
  final RequestState requestState;
  final List<ProductsEntity>productsDetials;
  final String? errorMessage;
- OccasionStates({
+ const OccasionStates({
    this.productsDetials=const [],
    this.requestState=RequestState.loading,
    this.errorMessage
