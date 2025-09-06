@@ -266,7 +266,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           GetEditProfileEvent(token: token!, request: request),
                         );
                       } else {
-                        print("Token is null, update aborted");
+                        debugPrint("Token is null, upload aborted");
                       }
                     },
                   ),

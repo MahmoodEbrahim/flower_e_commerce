@@ -27,7 +27,7 @@ class ChangePasswordScreen extends StatelessWidget {
     var newPassword = TextEditingController();
     var formKey = GlobalKey<FormState>();
     final token = UserLocalStorage.getToken();
-    print("token is $token");
+    debugPrint("token is $token");
     return BlocProvider(
       create: (context) => getIt<ChangePasswordBloc>(),
       child: BlocConsumer<ChangePasswordBloc, ChangePasswordStates>(
