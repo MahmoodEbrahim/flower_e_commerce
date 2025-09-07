@@ -30,12 +30,7 @@ jobs:
             perf
             test
           # Optional: Define allowed scopes (e.g., ui, api, auth)
-          scopes: |
-            api
-            auth
-            home
-            profile
-            core
+          scopes: "*"
           # Regex to enforce PR title format: type(scope): description AB#xxx
           subjectPattern: ^.* AB#\d+$
           subjectPatternError: |
