@@ -7,4 +7,7 @@ abstract interface class AddressRemoteDataSource{
 Future<ApiResult<AddressEntity>>
 addAddress(AddAdressRequest request,String token);
 Future<ApiResult <List<AddressEntity>>>getAllAddress(String token);
+
+Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id);
+
 }

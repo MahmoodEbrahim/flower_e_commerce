@@ -15,29 +15,33 @@ final AddressEntity addressEntity;
       decoration: BoxDecoration(
         
         border: Border.all(
-          color:AppColors.gray ,width:2.w
+          color: AppColors.white ,width:1.w
         ),
 
       ),
       child:Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
         Row(
           children: [
-            Icon(Icons.location_on_outlined,size: 20.0,color: AppColors.black,),
+            Icon(Icons.location_on_outlined,size: 26.0,color: AppColors.black,),
             SizedBox(width: 10.w,),
             Text(addressEntity.city!,style:
             getMediumStyle(color: AppColors.black,fontSize: 16.sp),),
             Spacer(),
             IconButton(onPressed: (){},
                 icon: Icon(CupertinoIcons.delete_simple,color: AppColors.red,))
-,   SizedBox(width: 7.w,),
+,
             IconButton(onPressed: (){},
-                icon: Icon(Icons.edit,color: AppColors.black,))
+                icon: Icon(Icons.mode_edit_outline,size: 20.sp,color: AppColors.black,))
           ],
         ),
-          Text(addressEntity.street!,style: getRegularStyle(color: AppColors.midGray,
+          SizedBox(height: 6.h,),
+          Text(addressEntity.street!,
+            style: getRegularStyle(color: AppColors.midGray,
           fontSize: 13.sp
-          ),)
+          ),),
+
         ],
       ) ,
     );

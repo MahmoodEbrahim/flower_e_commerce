@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/core/utils/constants/api_parameters.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/add_address_responsea.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/get_all_address_response.dart';
+import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -24,5 +25,11 @@ abstract class AddressesApiServices{
     @Header(ApiParameters.authorization)String token
     )
 ;
+@DELETE("${ApiEndPoints.addressEndPoint}/{id}")
+
+Future<RemoveAddressDto>deleteAddress(
+@Header(ApiParameters.authorization)String token,
+    @Path("id") String id,
+    );
 
 }

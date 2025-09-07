@@ -20,11 +20,11 @@ import '../../features/address/data/data_source/adress_data_source.dart'
     as _i535;
 import '../../features/address/data/repositry/address_repositry_impl.dart'
     as _i246;
-import '../../features/address/data/use_case/get_add_address_use_case.dart'
-    as _i258;
-import '../../features/address/data/use_case/get_all_address_use_case.dart'
-    as _i371;
 import '../../features/address/domain/repositry/address_repositry.dart' as _i52;
+import '../../features/address/domain/use_case/get_add_address_use_case.dart'
+    as _i671;
+import '../../features/address/domain/use_case/get_all_address_use_case.dart'
+    as _i808;
 import '../../features/address/presentation/view_model/address_bloc.dart'
     as _i1057;
 import '../../features/auth/api/client/auth_api_service.dart' as _i522;
@@ -130,12 +130,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i246.AddressRepositryImpl(gh<_i535.AddressRemoteDataSource>()));
     gh.factory<_i26.CartRepository>(
         () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
-    gh.factory<_i258.GetAddAddressUseCase>(
-        () => _i258.GetAddAddressUseCase(gh<_i52.AddressRepositry>()));
-    gh.factory<_i371.GetAllAddressesUseCase>(
-        () => _i371.GetAllAddressesUseCase(gh<_i52.AddressRepositry>()));
-    gh.factory<_i1057.AddressBloc>(
-        () => _i1057.AddressBloc(gh<_i258.GetAddAddressUseCase>()));
+    gh.factory<_i671.GetAddAddressUseCase>(
+        () => _i671.GetAddAddressUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i808.GetAllAddressesUseCase>(
+        () => _i808.GetAllAddressesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
+          gh<_i671.GetAddAddressUseCase>(),
+          gh<_i808.GetAllAddressesUseCase>(),
+        ));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
     gh.factory<_i502.ProfileRemoteDataSource>(

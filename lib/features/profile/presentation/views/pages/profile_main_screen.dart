@@ -164,7 +164,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     showArrow: true,
                     onTap: () {
                       // navigator
-                      Navigator.of(context).pushNamed(AppRoutes.addAddress);
+                      Navigator.of(context).pushNamed(AppRoutes.saveAddress);
                     },
                   ),
                   const Divider(height: 20),

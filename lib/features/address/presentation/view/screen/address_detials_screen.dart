@@ -30,7 +30,6 @@ class AddAddressDetialsScreen extends StatelessWidget {
     return BlocProvider(create: (context)=>getIt.get<AddressBloc>(),
       child:Scaffold(
         appBar:   AppBar(
-
           leading: IconButton(onPressed: ()=>Navigator.pop(context),
               icon: Icon(Icons.arrow_back_ios_new_sharp)),
         ),

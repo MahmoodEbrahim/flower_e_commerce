@@ -1,15 +1,18 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
-import 'package:flower_e_commerce/features/address/data/use_case/get_add_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/use_case/get_all_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../domain/use_case/get_add_address_use_case.dart';
 @injectable
 class AddressBloc extends Bloc<AddressEvent,AddressState>{
 GetAddAddressUseCase _addressUseCase;
-AddressBloc(this._addressUseCase):super(AddressState()){
+GetAllAddressesUseCase _getAllAddressesUseCase;
+AddressBloc(this._addressUseCase,this._getAllAddressesUseCase):super(AddressState()){
   on<GetAddAddressEvent>((event,emit)async{
     emit(state.copyWith(
       addAddressRequestState: RequestState.loading
@@ -28,6 +31,26 @@ AddressBloc(this._addressUseCase):super(AddressState()){
             addAddressRequestState: RequestState.error
         ));
     }
+  });
+  on<GetAllddressEvent>((event,emit)async{
+    emit(state.copyWith(
+      getAddressRequestState: RequestState.loading
+    ));
+    final result=await _getAllAddressesUseCase.getAllAddress(event.token);
+    switch(result){
+
+      case ApiSucessResult<List<AddressEntity>>():
+      emit(state.copyWith(
+        addresses: result.sucessResult,
+        getAddressRequestState: RequestState.success
+      ));
+      case ApiFailedResult<List<AddressEntity>>():
+        emit(state.copyWith(
+            getAddressErrorMessage: result.errorMessage,
+            getAddressRequestState: RequestState.error
+        ));
+    }
+
   });
 }
 }

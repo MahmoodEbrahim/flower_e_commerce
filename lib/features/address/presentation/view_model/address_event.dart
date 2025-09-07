@@ -17,3 +17,13 @@ class GetAddAddressEvent extends AddressEvent{
   // TODO: implement props
   List<Object?> get props => [request,token];
 }
+class GetAllddressEvent extends AddressEvent{
+  final String token;
+  GetAllddressEvent({
+
+    required this.token
+  });
+  @override
+  // TODO: implement props
+  List<Object?> get props => [token];
+}
