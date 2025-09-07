@@ -81,11 +81,12 @@ void main() async {
   Hive.registerAdapter(LoginModelAdapter());
   await UserLocalStorage.init();
   runApp(
-      DevicePreview(builder: (context) =>
+    //  DevicePreview(builder: (context) =>
           BlocProvider(
             create: (context) => LanguageCubit()..getLanguage(),
             child: MyApp(),
-          ))
+          )
+  //)
 
   );
 }
@@ -105,9 +106,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           final lang = context.read<LanguageCubit>().currentLanguage;
           return MaterialApp(
-
-
-             initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+            initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
             locale: Locale(lang),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

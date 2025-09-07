@@ -1,5 +1,7 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/address/presentation/view/screen/address_detials_screen.dart';
+import 'package:flower_e_commerce/features/address/presentation/view/screen/saved_address.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
@@ -27,10 +29,16 @@ abstract class Routes {
     switch (settings.name) {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => MainLayout());
-
+//SavedAddress
+      case AppRoutes.saveAddress:
+        return MaterialPageRoute(builder: (context) => SavedAddress());
       case AppRoutes.cart:
         return MaterialPageRoute(
           builder: (context) => CartPage(),
+        );
+      case AppRoutes.addAddress:
+        return MaterialPageRoute(
+          builder: (context) => AddAddressDetialsScreen(),
         );
       case AppRoutes.bestSellers:
         final args = settings.arguments as Map<String, dynamic>;
