@@ -16,5 +16,6 @@
   "license": "ISC",
   "devDependencies": {
     "husky": "^9.1.7"
-  }
+  },
+  "type": "commonjs"
 }
