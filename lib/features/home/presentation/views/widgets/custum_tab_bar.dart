@@ -64,7 +64,7 @@ class _CustumTabBarState extends State<CustumTabBar> {
   @override
   Widget build(BuildContext context) {
     final categoriesViewModel = context.read<CategoriesViewModel>();
-
+   
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
