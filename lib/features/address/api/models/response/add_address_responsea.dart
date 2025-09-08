@@ -8,7 +8,7 @@ class AddAddressResponse {
   @JsonKey(name: "message")
   final String? message;
   @JsonKey(name: "address")
-  final Address? address;
+  final List<Address>? address;
 
   AddAddressResponse ({
     this.message,
@@ -61,7 +61,7 @@ class Address {
   AddressEntity toEntity(){
     return AddressEntity(
       street: street,phone: phone,lat: lat,long: long,username: username,
-      city: city,
+      city: city,id: Id
     );
   }
 }

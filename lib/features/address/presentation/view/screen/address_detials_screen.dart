@@ -40,6 +40,7 @@ class AddAddressDetialsScreen extends StatelessWidget {
                 print("sucess");
                 print(state.addressEntity);
               }
+
             } ,
             builder: (context,state){
           return   Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -74,6 +75,7 @@ username: userName.text,
                    lat: lat.text,
                   phone: phone.text,
                   street: "elfalel",
+
                 ), token: token!));
               },)
             ],

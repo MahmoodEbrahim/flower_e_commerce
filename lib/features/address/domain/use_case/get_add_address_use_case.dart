@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 class GetAddAddressUseCase{
 AddressRepositry _addressRepositry;
 GetAddAddressUseCase(this._addressRepositry);
-Future<ApiResult<AddressEntity>> addAddress(AddAdressRequest
+Future<ApiResult<List<AddressEntity>>> addAddress(AddAdressRequest
 request, String token) async{
   return await _addressRepositry.addAddress(request, token);
 }

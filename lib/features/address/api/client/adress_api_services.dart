@@ -26,7 +26,6 @@ abstract class AddressesApiServices{
     )
 ;
 @DELETE("${ApiEndPoints.addressEndPoint}/{id}")
-
 Future<RemoveAddressDto>deleteAddress(
 @Header(ApiParameters.authorization)String token,
     @Path("id") String id,

@@ -27,3 +27,14 @@ class GetAllddressEvent extends AddressEvent{
   // TODO: implement props
   List<Object?> get props => [token];
 }
+class DeleteAddressEvent extends AddressEvent{
+  final String token;
+  final String id;
+  DeleteAddressEvent({
+    required this.id,
+    required this.token
+  });
+  @override
+  // TODO: implement props
+  List<Object?> get props => [token,id];
+}
