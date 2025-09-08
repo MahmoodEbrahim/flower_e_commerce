@@ -11,6 +11,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   String selectedPayment = "cash";
   String selectedAddress = "home";
   bool isGift = false;
+  final ValueNotifier<int> price = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +39,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 const Icon(Icons.access_time, size: 20),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    "Instant, Arrive by 03 Sep 2024, 11:00 AM",
-                    style: TextStyle(color: Colors.green[700]),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Instant,",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        " Arrive by 03 Sep 2024, 11:00 AM",
+                        style: TextStyle(color: Colors.green[700]),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -104,24 +113,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             const Divider(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text("Sub Total"),
-                Text("100\$"),
+              children: [
+                const Text("Sub Total"),
+                Text("${price.value}\$"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children:  [
                 Text("Delivery Fee"),
-                Text("10\$"),
+                Text("${price.value}\$"),
               ],
             ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children:  [
                 Text("Total", style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("110\$", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text("${price.value}\$", style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(height: 24),

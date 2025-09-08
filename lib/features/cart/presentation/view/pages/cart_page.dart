@@ -96,7 +96,8 @@ class _CartPageState extends State<CartPage> {
                   Expanded(
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.checkoutscreen,arguments: {'totalPrice': price.value},);
+                            Navigator.pushNamed(context, AppRoutes.checkoutscreen,
+                              arguments: {'totalPrice': price.value},);
 
                           },
                           child: Padding(
