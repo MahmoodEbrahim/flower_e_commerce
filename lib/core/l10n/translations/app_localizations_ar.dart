@@ -326,4 +326,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profileTab => 'الملف الشخصي';
+
+  @override
+  String get typeSomething => 'اكتب شيئًا للبحث...';
+
+  @override
+  String get noProductsFor => 'لا توجد منتجات لـ ';
 }

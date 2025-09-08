@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../widgets/search_box.dart';
+
 class CategoriesPage extends StatefulWidget {
   final int? catIndex;
 
@@ -28,12 +30,36 @@ class _CategoriesPageState extends State<CategoriesPage> {
         padding: const EdgeInsets.all(20.0),
         child: CustomScrollView(
           slivers: [
-            CustumSearchBar(),
+            SliverAppBar(
+              title: Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: CustumSearchBar(readOnly: true),
+                  ),
+                  SizedBox(width: 10,),
+                  Expanded(
+                    flex: 1,
+                    child: SearchBox(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.menu, color: AppColors.gray),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              pinned: false,
+              floating: true,
+              backgroundColor: AppColors.white,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              toolbarHeight: 50,
+              // automaticallyImplyLeading: false,
+            ),
             SliverToBoxAdapter(
               child: BlocBuilder<CategoriesViewModel, CategoryState>(
                 builder: (context, state) {
-                 
-
                   return CustumTabBar(
                     categoryList: state.categories ?? [],
                     produdctsList: state.products ?? [],
@@ -68,11 +94,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.6,
-                      ),
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 0.6,
+                          ),
                       itemCount: state.products!.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(

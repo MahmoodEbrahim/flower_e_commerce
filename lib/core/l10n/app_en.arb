@@ -118,5 +118,8 @@
   "homeTab": "Home",
   "categoriesTab": "Categories",
   "cartTab": "Cart",
-  "profileTab": "Profile"
+  "profileTab": "Profile",
+  "typeSomething": "Type something to search...",
+  "noProductsFor":"No products found for "
+
 }

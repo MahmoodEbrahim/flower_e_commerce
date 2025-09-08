@@ -21,6 +21,7 @@ abstract class HomeApiService {
   Future<CategoryProductsResponseDto> getProductsByCategoryId(
       @Query("category") String categoryId,
       );
+
   @GET(ApiEndPoints.productsByOccasionEndPoint)
   Future<ProductByOccasionDto> getProductsDetialsByOccasions(
       @Query(ApiParameters.productsByOccasionParameter)String occasionId
@@ -28,4 +29,9 @@ abstract class HomeApiService {
 
   @GET('home')
   Future<HomeModel> getHomeData();
+
+  @GET(ApiEndPoints.productsEndPoint)
+  Future<CategoryProductsResponseDto> searchProducts(
+      @Query(ApiParameters.search) String keyword,
+      );
 }
