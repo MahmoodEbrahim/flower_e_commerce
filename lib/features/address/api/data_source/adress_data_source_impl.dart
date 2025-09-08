@@ -15,7 +15,7 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource{
   Future<ApiResult<List<AddressEntity>>> addAddress(AddAdressRequest request, String token) async{
    try{
      final response=await _apiServices.addAddress(request, "Bearer $token");
-     final address=response.address?.map((e)=>e.toEntity()).toList();
+     final address=response.address?.map((e)=>e.toEntity()).toList()??[];
      return ApiSucessResult(address!);
    }catch(error){
     if(error is DioException){
@@ -52,5 +52,21 @@ try{
       return ApiFailedResult(error.toString());
     }
   }
+  }
+  @override
+  Future<ApiResult<List<AddressEntity>>> updateAddress
+      (String token, String id, AddAdressRequest request) async{
+   try{
+     final response=await _apiServices.updateAddress(token, id, request);
+     final addresses=response.addresses?.map((e)=>e.toEntity()).toList()??[];
+     return ApiSucessResult(addresses);
+   }catch(error){
+     if(error is DioException){
+       return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+     }
+     else {
+       return ApiFailedResult(error.toString());
+     }
+   }
   }
 }

@@ -55,7 +55,9 @@ print("token ${token}");
                       );
 
 
+
                       valueListenable.value = !value;
+                      context.read<AddressBloc>().add(GetAllddressEvent(token: token));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Missing token or id")),

@@ -7,4 +7,6 @@ abstract interface class AddressRepositry{
   Future<ApiResult<List<AddressEntity>>> addAddress(AddAdressRequest request, String token);
   Future<ApiResult <List<AddressEntity>>> getAllAddress(String token);
   Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id);
+  Future<ApiResult<List<AddressEntity>>> updateAddress
+      (String token, String id, AddAdressRequest request);
 }

@@ -17,12 +17,16 @@ class AddressRepositryImpl implements AddressRepositry{
 
   @override
   Future<ApiResult<List<AddressEntity>>> getAllAddress(String token) async{
-    // TODO: implement getAllAddress
   return await _addressRemoteDataSource.getAllAddress(token);
   }
   @override
   Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id)async {
-    // TODO: implement removeAddress
     return await _addressRemoteDataSource.removeAddress(token, id);
+  }
+  @override
+  Future<ApiResult<List<AddressEntity>>> updateAddress(String token, String id,
+      AddAdressRequest request )async{
+    // TODO: implement updateAddress
+    return await _addressRemoteDataSource.updateAddress(token, id, request);
   }
 }

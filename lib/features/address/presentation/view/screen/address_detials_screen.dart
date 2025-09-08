@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
@@ -37,9 +38,12 @@ class AddAddressDetialsScreen extends StatelessWidget {
 
             listener:(context,state){
               if(state.addAddressRequestState==RequestState.success){
-                print("sucess");
                 print(state.addressEntity);
+                Navigator.of(context).pushNamed(AppRoutes.saveAddress);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("location added Successfuly")));
               }
+            
 
             } ,
             builder: (context,state){

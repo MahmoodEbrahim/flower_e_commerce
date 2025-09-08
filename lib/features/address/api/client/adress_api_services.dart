@@ -30,5 +30,12 @@ Future<RemoveAddressDto>deleteAddress(
 @Header(ApiParameters.authorization)String token,
     @Path("id") String id,
     );
+@PATCH("${ApiEndPoints.addressEndPoint}/{id}")
+Future<GetAllAddressResponse>updateAddress(
+    @Header(ApiParameters.authorization)String token,
+    @Path("id") String id,
+    @Body()AddAdressRequest request,
+
+    );
 
 }

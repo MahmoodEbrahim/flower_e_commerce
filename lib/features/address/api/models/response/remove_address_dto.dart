@@ -9,7 +9,7 @@ class RemoveAddressDto {
   final String? message;
 
   @JsonKey(name: "address")
-  final List<Address>? address;
+  final List<Address1>? address;
 
   RemoveAddressDto({
     this.message,
@@ -23,7 +23,7 @@ class RemoveAddressDto {
 }
 
 @JsonSerializable()
-class Address {
+class Address1 {
   @JsonKey(name: "street")
   final String? street;
 
@@ -45,7 +45,7 @@ class Address {
   @JsonKey(name: "_id")
   final String? id;
 
-  Address({
+  Address1({
     this.street,
     this.phone,
     this.city,
@@ -55,10 +55,10 @@ class Address {
     this.id,
   });
 
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
+  factory Address1.fromJson(Map<String, dynamic> json) =>
+      _$Address1FromJson(json);
 
-  Map<String, dynamic> toJson() => _$AddressToJson(this);
+  Map<String, dynamic> toJson() => _$Address1ToJson(this);
 
   AddressEntity toEntity() {
     return AddressEntity(
@@ -73,8 +73,8 @@ class Address {
   }
 
 
-  factory Address.fromEntity(AddressEntity entity) {
-    return Address(
+  factory Address1.fromEntity(AddressEntity entity) {
+    return Address1(
       id: entity.id,
       street: entity.street,
       phone: entity.phone,
@@ -86,7 +86,7 @@ class Address {
   }
 
 
-  Address copyWith({
+  Address1 copyWith({
     String? id,
     String? street,
     String? phone,
@@ -95,7 +95,7 @@ class Address {
     String? long,
     String? username,
   }) {
-    return Address(
+    return Address1(
       id: id ?? this.id,
       street: street ?? this.street,
       phone: phone ?? this.phone,
