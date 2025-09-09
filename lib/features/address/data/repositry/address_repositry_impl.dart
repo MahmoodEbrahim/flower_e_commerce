@@ -3,6 +3,8 @@ import 'package:flower_e_commerce/features/address/api/models/request/add_adress
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/repositry/address_repositry.dart';
 import 'package:injectable/injectable.dart';
 @Injectable(as: AddressRepositry)
@@ -26,7 +28,14 @@ class AddressRepositryImpl implements AddressRepositry{
   @override
   Future<ApiResult<List<AddressEntity>>> updateAddress(String token, String id,
       AddAdressRequest request )async{
-    // TODO: implement updateAddress
     return await _addressRemoteDataSource.updateAddress(token, id, request);
+  }
+  @override
+  Future<ApiResult<List<GovernorateEntity>>> getGovernorates() async{
+    return await _addressRemoteDataSource.getGovernorates();
+  }
+@override
+  Future<ApiResult<List<StateEntity>>> getStates(String governateId)async {
+return await _addressRemoteDataSource.getStates(governateId);
   }
 }

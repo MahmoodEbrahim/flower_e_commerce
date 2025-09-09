@@ -106,9 +106,9 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           final lang = context.read<LanguageCubit>().currentLanguage;
           return MaterialApp(
-          //  initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
-         //   initialRoute: AppRoutes.login,
-            home: MapSample(),
+           initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+          //  initialRoute: AppRoutes.login,
+         //   home: MapSample(),
             locale: Locale(lang),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

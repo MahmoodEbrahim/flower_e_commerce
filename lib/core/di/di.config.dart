@@ -25,8 +25,14 @@ import '../../features/address/domain/use_case/get_add_address_use_case.dart'
     as _i671;
 import '../../features/address/domain/use_case/get_all_address_use_case.dart'
     as _i808;
+import '../../features/address/domain/use_case/get_all_cities_use_case.dart'
+    as _i188;
+import '../../features/address/domain/use_case/get_all_governorate_use_case.dart'
+    as _i648;
 import '../../features/address/domain/use_case/get_delete_address_use_case.dart'
     as _i104;
+import '../../features/address/domain/use_case/get_update_address_use_case.dart'
+    as _i91;
 import '../../features/address/presentation/view_model/address_bloc.dart'
     as _i1057;
 import '../../features/auth/api/client/auth_api_service.dart' as _i522;
@@ -138,6 +144,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i808.GetAllAddressesUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i104.GetDeleteAddressUseCase>(
         () => _i104.GetDeleteAddressUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i648.GetAllGovernorateUseCase>(
+        () => _i648.GetAllGovernorateUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i91.GetUpdateAddressUseCase>(
+        () => _i91.GetUpdateAddressUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i188.GetAllStatesUseCase>(
+        () => _i188.GetAllStatesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
+          gh<_i671.GetAddAddressUseCase>(),
+          gh<_i808.GetAllAddressesUseCase>(),
+          gh<_i104.GetDeleteAddressUseCase>(),
+          gh<_i648.GetAllGovernorateUseCase>(),
+          gh<_i188.GetAllStatesUseCase>(),
+        ));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
     gh.factory<_i502.ProfileRemoteDataSource>(
@@ -163,11 +182,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
         _i1010.ProductsDetialsOccasionBloc(
             gh<_i583.GetProductDetialsByOccasionUseCase>()));
-    gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
-          gh<_i671.GetAddAddressUseCase>(),
-          gh<_i808.GetAllAddressesUseCase>(),
-          gh<_i104.GetDeleteAddressUseCase>(),
-        ));
     gh.factory<_i604.CategoriesViewModel>(() =>
         _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
     gh.factory<_i364.ProfileRepository>(

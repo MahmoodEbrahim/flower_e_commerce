@@ -38,3 +38,15 @@ class DeleteAddressEvent extends AddressEvent{
   // TODO: implement props
   List<Object?> get props => [token,id];
 }
+class GetGovernorateEvent extends AddressEvent{
+  @override
+  // TODO: implement props
+  List<Object?> get props =>[];
+}
+class GetStatesEvent extends AddressEvent{
+  String governateId;
+  GetStatesEvent({required this.governateId});
+  @override
+  // TODO: implement props
+  List<Object?> get props =>[governateId];
+}

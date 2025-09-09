@@ -167,5 +167,49 @@ test("return ApiFailedResult when api failed On Throw Exception ", ()async{
   verify(mockAddressesApiServices.deleteAddress("Bearer $token", id)).called(1);
 });
   });
+  group("Update Address Test ", (){
+    const String id="68bea7d4a8bca307f9e2e8ec";
+    test("return ApiSuccessResult when call api success", ()async{
+    
+      final successResponse=GetAllAddressResponse(
+          message: "success",addresses: [
+        Addresses(
+            street: "Home",
+            phone: "01010700700",
+            city: "Benha",
+            lat:"z",
+            long:"z",
+            username:"ahmedmuti",
+            Id: "68beb36ca8bca307f9e2e9fb"
+        )
+
+      ]
+      );
+      when(mockAddressesApiServices.updateAddress("Bearer $token", id, any)).thenAnswer((_)async=>successResponse);
+final result=await addressRemoteDataSource.updateAddress(token, id, request);
+expect(result, isA<ApiSucessResult<List<AddressEntity>>>());
+expect((result as ApiSucessResult).sucessResult, successResponse.addresses?.map((e)=>e.toEntity()).toList());
+verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).called(1);
+    });
+    test("return ApiFailed Result when api call failed  on Dio Exception", ()async{
+final dioException=DioException(requestOptions: RequestOptions(
+  path: ""
+),type: DioExceptionType.connectionTimeout);
+when(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).thenThrow(dioException);
+final result=await addressRemoteDataSource.updateAddress(token, id, request);
+expect(result, isA<ApiFailedResult>());
+expect((result as ApiFailedResult).errorMessage, "ServerFailure with Api Server");
+verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).called(1);
+    });
+    test("return ApiFailed Result when call api and failed on Throw Exception", ()async{
+      final exception=Exception("Throw Exception");
+      when(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).thenThrow(exception);
+      final result=await addressRemoteDataSource.updateAddress(token, id, request);
+      expect(result, isA<ApiFailedResult>());
+      expect((result as ApiFailedResult).errorMessage, exception.toString());
+      verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).called(1);
+    });
+  });
+
 });
 }

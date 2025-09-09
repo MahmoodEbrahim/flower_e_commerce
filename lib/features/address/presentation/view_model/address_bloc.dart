@@ -2,7 +2,11 @@ import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_address_use_case.dart';
+import 'package:flower_e_commerce/features/address/domain/use_case/get_all_cities_use_case.dart';
+import 'package:flower_e_commerce/features/address/domain/use_case/get_all_governorate_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_delete_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
@@ -15,7 +19,10 @@ class AddressBloc extends Bloc<AddressEvent,AddressState>{
 GetAddAddressUseCase _addressUseCase;
 GetAllAddressesUseCase _getAllAddressesUseCase;
 GetDeleteAddressUseCase _deleteAddressUseCase;
-AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddressUseCase):super(AddressState()){
+GetAllGovernorateUseCase _getAllGovernorateUseCase;
+GetAllStatesUseCase _allStatesUseCase;
+AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddressUseCase,
+    this._getAllGovernorateUseCase,this._allStatesUseCase):super(AddressState()){
   on<GetAddAddressEvent>((event,emit)async{
     emit(state.copyWith(
       addAddressRequestState: RequestState.loading
@@ -72,6 +79,43 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
             deleteAddressRequestState: RequestState.error,
           deleteAddressErrorMessage: result.errorMessage
         ));
+    }
+  });
+  on<GetGovernorateEvent>((event,emit)async{
+    emit(state.copyWith(
+      governorateRequestState: RequestState.loading
+    ));
+    final result=await _getAllGovernorateUseCase.getGovernorates();
+    switch(result){
+      case ApiSucessResult<List<GovernorateEntity>>():
+    emit(state.copyWith(
+      governorateRequestState: RequestState.success,
+      governorates: result.sucessResult
+    ));
+      case ApiFailedResult<List<GovernorateEntity>>():
+        emit(state.copyWith(
+            governorateRequestState: RequestState.error,
+            governateErrorMessage: result.errorMessage
+        ));
+    }
+  });
+  on<GetStatesEvent>((event,emit)async{
+    emit(state.copyWith(
+      stateRequestState: RequestState.loading
+    ));
+    final result=await _allStatesUseCase.getStates(event.governateId);
+    switch(result){
+      case ApiSucessResult<List<StateEntity>>():
+
+      emit(state.copyWith(
+        stateRequestState: RequestState.success,
+        states: result.sucessResult
+      ));
+      case ApiFailedResult<List<StateEntity>>():
+emit(state.copyWith(
+  stateRequestState: RequestState.error,
+  stateErrorMessage: result.errorMessage
+));
     }
   });
 }
