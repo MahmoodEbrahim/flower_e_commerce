@@ -8,20 +8,70 @@ import 'package:flower_e_commerce/features/address/api/models/response/get_all_a
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart' hide Address;
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
-import '../../../cart/presentation/view_model/cart_view_model/cart_view_model_test.mocks.dart';
 import 'adress_data_source_impl_test.mocks.dart';
-@GenerateMocks([AddressesApiServices])
+import 'package:flutter/services.dart';
+
+import 'dart:convert';
+@GenerateMocks([AddressesApiServices,AssetBundle])
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
 late MockAddressesApiServices mockAddressesApiServices;
 late AddressRemoteDataSource addressRemoteDataSource;
+late MockAssetBundle mockAssetBundle;
 setUp((){
   mockAddressesApiServices=MockAddressesApiServices();
   addressRemoteDataSource=AddressRemoteDataSourceImpl(mockAddressesApiServices);
+  mockAssetBundle=MockAssetBundle();
+  ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+      'plugins.flutter.io/path_provider' , ( methodCall) async => null,);
+
 });
+//fake governorates
+final governoratesJson = '''
+    [
+      {"data": [
+        {"id": "1", "governorate_name_ar": "القاهرة", "governorate_name_en": "Cairo"},
+        {"id": "2", "governorate_name_ar": "الجيزة", "governorate_name_en": "Giza"}
+      ]}
+    ]
+  ''';
+//fake states
+final statesJson = '''
+    [
+      {"data": [
+        {"id": "1", "governorate_id": "1", "city_name_ar": "مدينة نصر", "city_name_en": "Nasr City"},
+        {"id": "2", "governorate_id": "2", "city_name_ar": "الدقي", "city_name_en": "Dokki"}
+      ]}
+    ]
+  ''';
+//fake countries
+final countriesJson = '''
+    [
+      {
+        "isoCode": "EG",
+        "name": "Egypt",
+        "phoneCode": "+20",
+        "flag": "🇪🇬",
+        "currency": "EGP",
+        "latitude": "30.0444",
+        "longitude": "31.2357",
+        "timezones": [
+          {
+            "zoneName": "Africa/Cairo",
+            "gmtOffset": 7200,
+            "gmtOffsetName": "UTC+02:00",
+            "abbreviation": "EET",
+            "tzName": "Eastern European Time"
+          }
+        ]
+      }
+    ]
+  ''';
+
 group("Address RemoteDataSource test", (){
   const String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhhMjE4MjVhOGJjYTMwN2Y5ZGU5MzY1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTczMjU5MDl9.HKOPAn1Jc4jKqfmts8nPMvcBb1MLoDqP4olR2ND9pLk";
 AddAdressRequest request=AddAdressRequest(
@@ -210,6 +260,24 @@ verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).cal
       verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).called(1);
     });
   });
+  group("Governorates", (){
+    test("return ApiSuccessResult when call json get governorates and succeess", ()async{
+when(mockAssetBundle.loadString("assets/json/cities.json")).thenAnswer((_)async=>governoratesJson);
+final result=await addressRemoteDataSource.getGovernorates();
+expect(result , isA<ApiSucessResult<List<GovernorateEntity>>>());
+final data=(result as ApiSucessResult).sucessResult;
+expect(data.length, 27);
+     expect(data.first.nameEn, "Cairo") ;
+    });
+  });
+test("return ApiFailedResult when call json get governates fails on throw exception",
+    ()async{
+  final exception=Exception("Throw Exception");
+      when(mockAssetBundle.loadString(any)).thenThrow(exception);
+      final result=await addressRemoteDataSource.getGovernorates();
+      expect(result, isA<ApiFailedResult>());
+      expect((result as ApiFailedResult).errorMessage, exception.toString());
 
+    });
 });
 }

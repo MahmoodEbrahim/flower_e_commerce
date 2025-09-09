@@ -76,14 +76,6 @@ try{
      }
    }
   }
-
-
-
-
-
-
-
-
   @override
   Future<ApiResult<List<GovernorateEntity>>> getGovernorates() async{
    try{

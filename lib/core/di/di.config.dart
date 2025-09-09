@@ -144,16 +144,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i671.GetAddAddressUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i808.GetAllAddressesUseCase>(
         () => _i808.GetAllAddressesUseCase(gh<_i52.AddressRepositry>()));
-    gh.factory<_i104.GetDeleteAddressUseCase>(
-        () => _i104.GetDeleteAddressUseCase(gh<_i52.AddressRepositry>()));
-    gh.factory<_i648.GetAllGovernorateUseCase>(
-        () => _i648.GetAllGovernorateUseCase(gh<_i52.AddressRepositry>()));
-    gh.factory<_i91.GetUpdateAddressUseCase>(
-        () => _i91.GetUpdateAddressUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i188.GetAllStatesUseCase>(
         () => _i188.GetAllStatesUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i946.GetAllCountriesUseCase>(
         () => _i946.GetAllCountriesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i648.GetAllGovernorateUseCase>(
+        () => _i648.GetAllGovernorateUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i104.GetDeleteAddressUseCase>(
+        () => _i104.GetDeleteAddressUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i91.GetUpdateAddressUseCase>(
+        () => _i91.GetUpdateAddressUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
           gh<_i671.GetAddAddressUseCase>(),
           gh<_i808.GetAllAddressesUseCase>(),
