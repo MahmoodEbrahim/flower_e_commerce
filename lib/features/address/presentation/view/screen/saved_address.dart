@@ -12,6 +12,8 @@ import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class SavedAddress extends StatelessWidget {
   const SavedAddress({super.key});
@@ -40,19 +42,35 @@ class SavedAddress extends StatelessWidget {
           builder: (context,state){
        return Padding(padding: EdgeInsets.symmetric(
          horizontal: 20.0
-       ),child:   Column(
+       ),child:state.getAddressRequestState==RequestState.loading?
+      Center(child:  LoadingAnimationWidget.inkDrop(color: AppColors.pink,
+          size: 50.sp),)
+           :
+
+       Column(
          children: [
-           Expanded(child:  ListView.separated(itemBuilder: (context,index){
+    state.addresses.isEmpty?       Center(
+      child:Column(
+           children: [
+             SizedBox(height: MediaQuery.of(context).size.height*0.2,),
+             Lottie.asset("assets/json/search_location.json",fit: BoxFit.cover,
+                 height: 200.h,width: 300.w
+             ),
+         ],
+       )
+
+
+    ):       Expanded(child:  ListView.separated(itemBuilder: (context,index){
              return CustomAddressWidget(addressEntity: state.addresses[index]);
            },
              separatorBuilder: (context,index){
                return SizedBox(height: 16.h,);
              },itemCount:state.addresses.length ,)),
-           SizedBox(height: 20.h,),
+           Spacer(),
            CustomBtnWidget(txt: "Add New Address",onPressed: (){
              Navigator.of(context).pushNamed(AppRoutes.addAddress);
            },),
-           SizedBox(height: 20.h,),
+           SizedBox(height: 40.h,),
 
          ],
        ),);

@@ -4,6 +4,7 @@ import 'package:flower_e_commerce/features/address/api/models/response/remove_ad
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/repositry/address_repositry.dart';
 import 'package:injectable/injectable.dart';
@@ -37,5 +38,10 @@ class AddressRepositryImpl implements AddressRepositry{
 @override
   Future<ApiResult<List<StateEntity>>> getStates(String governateId)async {
 return await _addressRemoteDataSource.getStates(governateId);
+
+  }
+@override
+  Future<ApiResult<List<CountryEntity>>> getCountries()async {
+return await _addressRemoteDataSource.getCountries();
   }
 }

@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 
 class AddressState extends Equatable{
@@ -21,6 +22,9 @@ final   List<AddressEntity>? addressEntity;
  final RequestState stateRequestState;
  final String? stateErrorMessage;
  final  List<StateEntity> states;
+ final RequestState countryRequestState;
+ final String? countryErrorMessage;
+ final  List<CountryEntity> countries;
  AddressState({
    this.addAddressRequestState=RequestState.loading,
    this.addressEntity,
@@ -37,7 +41,9 @@ final   List<AddressEntity>? addressEntity;
    this.stateRequestState=RequestState.loading,
    this.stateErrorMessage,
    this.states=const [],
-
+this.countryRequestState=RequestState.loading,
+   this.countryErrorMessage,
+   this.countries=const []
 });
  AddressState copyWith({
     RequestState? addAddressRequestState,
@@ -54,7 +60,10 @@ final   List<AddressEntity>? addressEntity;
      List<GovernorateEntity>? governorates,
     RequestState? stateRequestState,
     String? stateErrorMessage,
-     List<StateEntity>? states
+     List<StateEntity>? states,
+    RequestState? countryRequestState,
+    String? countryErrorMessage,
+     List<CountryEntity>? countries,
 }){
    return AddressState(
      addAddressRequestState: addAddressRequestState??this.addAddressRequestState,
@@ -71,7 +80,10 @@ final   List<AddressEntity>? addressEntity;
      governateErrorMessage: governateErrorMessage??this.governateErrorMessage,
      stateRequestState: stateRequestState??this.stateRequestState,
      states: states??this.states,
-     stateErrorMessage: stateErrorMessage??this.stateErrorMessage
+     stateErrorMessage: stateErrorMessage??this.stateErrorMessage,
+     countryRequestState: countryRequestState??this.countryRequestState,
+     countries: countries??this.countries,
+     countryErrorMessage: countryErrorMessage??this.countryErrorMessage
    );
  }
  @override
@@ -80,6 +92,7 @@ final   List<AddressEntity>? addressEntity;
      getAddressRequestState,addresses,getAddressErrorMessage,
        deleteAddressErrorMessage,deleteAddressRequestState,removeAddressDto,
        governorates,governateErrorMessage,governorateRequestState,
-       stateErrorMessage,stateRequestState,states
+       stateErrorMessage,stateRequestState,states,
+       countryErrorMessage,countryErrorMessage,countryRequestState
      ];
 }

@@ -27,6 +27,8 @@ import '../../features/address/domain/use_case/get_all_address_use_case.dart'
     as _i808;
 import '../../features/address/domain/use_case/get_all_cities_use_case.dart'
     as _i188;
+import '../../features/address/domain/use_case/get_all_countries_use_case.dart'
+    as _i946;
 import '../../features/address/domain/use_case/get_all_governorate_use_case.dart'
     as _i648;
 import '../../features/address/domain/use_case/get_delete_address_use_case.dart'
@@ -150,12 +152,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i91.GetUpdateAddressUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i188.GetAllStatesUseCase>(
         () => _i188.GetAllStatesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i946.GetAllCountriesUseCase>(
+        () => _i946.GetAllCountriesUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
           gh<_i671.GetAddAddressUseCase>(),
           gh<_i808.GetAllAddressesUseCase>(),
           gh<_i104.GetDeleteAddressUseCase>(),
           gh<_i648.GetAllGovernorateUseCase>(),
           gh<_i188.GetAllStatesUseCase>(),
+          gh<_i946.GetAllCountriesUseCase>(),
         ));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));

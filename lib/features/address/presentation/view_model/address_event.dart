@@ -50,3 +50,8 @@ class GetStatesEvent extends AddressEvent{
   // TODO: implement props
   List<Object?> get props =>[governateId];
 }
+class GetCountriesEvent extends AddressEvent{
+  @override
+  // TODO: implement props
+  List<Object?> get props =>[];
+}

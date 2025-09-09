@@ -1,116 +1,13 @@
 
-
-// class AddAddressDetialsScreen extends StatelessWidget {
-//   const AddAddressDetialsScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final token=UserLocalStorage.getToken();
-//     var addressController=TextEditingController();
-//     var street=TextEditingController();
-//
-//     var phone=TextEditingController();
-//
-//     var lang=TextEditingController();
-//     var lat=TextEditingController();
-//     var userName=TextEditingController();
-//     late final selectedCiy;
-//     return BlocProvider(create: (context)=>getIt.get<AddressBloc>()
-//       ..add(GetGovernorateEvent()),
-//       child:Scaffold(
-//         appBar:   AppBar(
-//           leading: IconButton(onPressed: ()=>Navigator.pop(context),
-//               icon: Icon(Icons.arrow_back_ios_new_sharp)),
-//         ),
-//         body: BlocConsumer<AddressBloc,  AddressState>(
-//
-//             listener:(context,state){
-//               if(state.addAddressRequestState==RequestState.success){
-//                 print(state.addressEntity);
-//                 Navigator.of(context).pushNamed(AppRoutes.saveAddress);
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                     SnackBar(content: Text("location added Successfuly")));
-//               }
-//
-//
-//             } ,
-//             builder: (context,state){
-//           return   Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-//             child:   Column(
-//             children: [
-//               CustomTxtFieldWidget(lbl: "Enter the Address", hint: "Address",
-//                 controller: addressController,),
-//               SizedBox(height: 16.h,),
-//               CustomTxtFieldWidget(lbl: "Enter the Phone", hint: "Phone number",controller: phone,),
-//               SizedBox(height: 16.h,),
-//
-//               CustomTxtFieldWidget(lbl: "Enter the recipient name",
-//                   hint: "Recipient name",controller: userName,),
-//               SizedBox(height: 16.h,),
-//               Row(
-//                 children: [
-//                   //here
-//                   Expanded(child:
-//                 DropdownButtonFormField<String>
-//                   (
-//                     value: state.governorates?.isNotEmpty == true
-//                         ? state.governorates!.first.id
-//                         : null,
-//                     decoration: InputDecoration(
-//                       labelText: "City",
-// border: OutlineInputBorder()
-//                     ),
-//                     items: state.governorates.map((governate){
-// return DropdownMenuItem(
-//     value: governate.id,
-//     child:Text(governate.nameEn,style:
-// getRegularStyle(color: AppColors.gray),));
-//                     }).toList(),
-//                     onChanged: (value){
-//                       selectedCiy=value;
-//
-//                     })
-//                   ),
-//                   SizedBox(width: 16.h,),
-//                   Expanded(child: CustomTxtFieldWidget(lbl: "Enter the area",
-//                       hint: "Area",controller: lat,),)
-//
-//                 ],
-//               ),
-//               SizedBox(height: 24.h,),
-//               CustomBtnWidget(txt: "Save Address",onPressed: (){
-//             //    final selectedCiy=state.governorates.firstWhere((e)=>e.id==(state.governorates.first.id));
-//                 context.read<AddressBloc>()..add
-//                   (GetAddAddressEvent(request: AddAdressRequest(
-// username: userName.text,
-//                      city: selectedCiy.nameEn??"",
-//                   long: "lang",
-//                    lat: lat.text,
-//                   phone: phone.text,
-//                   street: "elfalel",
-//
-//                 ), token: token!));
-//               },)
-//             ],
-//           ),);
-//         })
-//
-//
-//
-//     ) ,);
-//
-//
-//   }
-// }
 import 'dart:convert';
-
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
+import 'package:flower_e_commerce/core/utils/validator.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
-import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_bloc.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
@@ -130,14 +27,14 @@ class AddAddressDetialsScreen extends StatefulWidget {
 }
 
 class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
-  final addressController = TextEditingController();
+
 
   final phone = TextEditingController();
-  final lang = TextEditingController();
-  final lat = TextEditingController();
   final userName = TextEditingController();
+  var formKey=GlobalKey<FormState>();
   String? selectedCity;
 String?selectedStreet;
+  String? selectedAddress ;
   @override
   void initState() {
     super.initState();
@@ -147,27 +44,25 @@ String?selectedStreet;
   @override
   Widget build(BuildContext context) {
     final token = UserLocalStorage.getToken();
-
     return BlocProvider(
       create: (context) => getIt.get<AddressBloc>()
-        ..add(GetGovernorateEvent())
+        ..add(GetGovernorateEvent())..add(GetCountriesEvent())
       ,
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_ios_new_sharp),
-              ),
+            backgroundColor: Colors.white,
+            appBar:   AppBar(
+              backgroundColor: Colors.white,
+              title: Text("Address",style: getMediumStyle(color: AppColors.black,
+                  fontSize:20.sp ),),
+              leading: IconButton(onPressed: ()=>Navigator.pop(context),
+                  icon: Icon(Icons.arrow_back_ios_new_sharp)),
             ),
             body: BlocConsumer<AddressBloc, AddressState>(
               listener: (context, state) {
-                if (state.addAddressRequestState == RequestState.success) {
+                if (state.addAddressRequestState == RequestState.success ) {
                   Navigator.of(context).pushNamed(AppRoutes.saveAddress);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Location added Successfully")),
-                  );
                 }
                 if(state.stateRequestState==RequestState.success){
                   print("##########################");
@@ -181,22 +76,49 @@ String?selectedStreet;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: SingleChildScrollView(
-                    child: Column(
+                    child: Form(
+                      key: formKey,
+                      child:      Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomTxtFieldWidget(
-                            lbl: "Enter the Address",
-                            hint: "Address",
-                            controller: addressController),
+                        SizedBox(height: 16.h),
+                        DropdownButtonFormField<String>(
+                            value: selectedAddress,
+                            decoration: InputDecoration(
+                                labelText: "Address",
+                                border: OutlineInputBorder()
+                            ),
+                            items: state.countries.map((e)=>
+                                DropdownMenuItem<String>(
+                                    value: e.isoCode,
+
+                                    child: Text(e.name,
+                                      style: getRegularStyle(color: AppColors.gray,
+                                          fontSize: 14.sp),))).toList(),
+                            validator: (value){
+                              if(value!.isEmpty ||value==null){
+                                return "address must be not empty";
+                              }else{
+                                return null;
+                              }
+                            },
+                            onChanged: (value){
+                              selectedAddress=value;
+                              setState(() {
+
+                              });
+                            }),
                         SizedBox(height: 16.h),
                         CustomTxtFieldWidget(
                             lbl: "Enter the Phone",
                             hint: "Phone number",
+                            validator: Validator.validatePhoneNumber,
                             controller: phone),
                         SizedBox(height: 16.h),
                         CustomTxtFieldWidget(
                             lbl: "Enter the recipient name",
                             hint: "Recipient name",
+                            validator: Validator.validateUsername,
                             controller: userName),
                         SizedBox(height: 16.h),
                         Row(
@@ -236,42 +158,42 @@ String?selectedStreet;
                               ),
                             ),
                             SizedBox(width: 16.h),
-                            ///here gork i should call event GetStatesEvent
+
                             Expanded(
-                              child: DropdownButtonFormField<String>
-                                (
-validator: (value){
-  if(value!.isEmpty||value==null){
-    return "Please select an Area";
-  }else{
-    return null;
-  }
-},
-                                isExpanded: true,
-                                value: selectedStreet,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "Area"
-                                  ),
-                                  items: state.states?.asMap().entries?.map((entry){
-                        var index=entry.key;
-                        var val=entry.value;
-                        return DropdownMenuItem<String>(
-                            value: "$index-${val.cityId}",
-                            child: Text(val.cityNameEn,
-                            style: getRegularStyle(color: AppColors.gray,fontSize: 14.sp),
-                            ));
+                                child: DropdownButtonFormField<String>
+                                  (
+                                    validator: (value){
+                                      if(value!.isEmpty||value==null){
+                                        return "Please select an Area";
+                                      }else{
+                                        return null;
+                                      }
+                                    },
+                                    isExpanded: true,
+                                    value: selectedStreet,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: "Area"
+                                    ),
+                                    items: state.states?.asMap().entries?.map((entry){
+                                      var index=entry.key;
+                                      var val=entry.value;
+                                      return DropdownMenuItem<String>(
+                                          value: val.cityNameEn,
+                                          child: Text(val.cityNameEn,
+                                            style: getRegularStyle(color: AppColors.gray,fontSize: 14.sp),
+                                          ));
 
-                                  }).toList(), onChanged: (value){
-                               if(value!=null){
-                                 selectedStreet=value;
+                                    }).toList(), onChanged: (value){
+                                  if(value!=null){
+                                    selectedStreet=value;
 
-                                 setState(() {
+                                    setState(() {
 
-                                 });
-                               }
+                                    });
+                                  }
 
-                              })
+                                })
                             ),
                           ],
                         ),
@@ -279,32 +201,45 @@ validator: (value){
                         CustomBtnWidget(
                           txt: "Save Address",
                           onPressed: () {
-                            final selectedGovernorate = state.governorates?.
-                            firstWhere(
-                                  (g) => g.id == selectedCity,
-                              orElse: () => GovernorateEntity(id: '', nameAr: '', nameEn: ''),
-                            );
-                            final selectedArea=state.states.firstWhere((s)=>s.cityId==selectedStreet,
-                            orElse: ()=>StateEntity(cityId: "", governorateId: "",
-                                cityNameAr: "", cityNameEn: "")
-                            );
-                            context.read<AddressBloc>().add(
-                              GetAddAddressEvent(
-                                request: AddAdressRequest(
-                                  username: userName.text,
-                                  city: selectedGovernorate?.nameEn ?? '',
-                                  long: "lang",
-                                  lat: "lat",
-                                  phone: phone.text,
-                                  street: selectedArea.cityNameEn??"",
+                            if (formKey.currentState!.validate()) {
+                              final address = state.countries.firstWhere(
+                                    (c) => c.isoCode == selectedAddress,
+                                orElse: () => CountryEntity(
+                                  isoCode: "",
+                                  name: "",
+                                  phoneCode: "",
+                                  flag: "",
+                                  currency: "",
+                                  latitude: "",
+                                  longitude: "",
+                                  timezones: [],
                                 ),
-                                token: token!,
-                              ),
-                            );
+                              );
+                              final selectedGovernorate = state.governorates?.firstWhere(
+                                    (g) => g.id == selectedCity,
+                                orElse: () => GovernorateEntity(id: '', nameAr: '', nameEn: ''),
+                              );
+
+                              context.read<AddressBloc>().add(
+                                GetAddAddressEvent(
+                                  request: AddAdressRequest(
+                                    username: userName.text,
+                                    city: selectedGovernorate?.nameEn ?? '',
+                                    long: address.longitude,
+                                    lat: address.latitude,
+                                    phone: phone.text,
+                                    street: selectedStreet ?? "",
+                                  ),
+                                  token: token!,
+                                ),
+                              );
+                            }
                           },
+
                         ),
                       ],
-                    ),
+                    ),)
+
                   ),
                 );
               },

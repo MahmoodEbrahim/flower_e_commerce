@@ -4,6 +4,7 @@ import 'package:flower_e_commerce/features/address/api/models/request/add_adress
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 
 abstract interface class AddressRemoteDataSource{
@@ -15,5 +16,5 @@ Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id);
 Future<ApiResult <List<AddressEntity>>>updateAddress(String token,String id,AddAdressRequest request);
 Future<ApiResult<List<GovernorateEntity>>> getGovernorates();
 Future<ApiResult<List<StateEntity>>> getStates(String governateId);
-
+Future<ApiResult<List<CountryEntity>>> getCountries();
 }

@@ -9,7 +9,9 @@ import 'package:flower_e_commerce/features/address/api/models/response/remove_ad
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/time_zone.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 @Injectable(as:AddressRemoteDataSource )
@@ -74,13 +76,22 @@ try{
      }
    }
   }
+
+
+
+
+
+
+
+
   @override
   Future<ApiResult<List<GovernorateEntity>>> getGovernorates() async{
    try{
      final response=await rootBundle.loadString("assets/json/cities.json");
      final data=json.decode(response)as List<dynamic>;
      final governatesData=data[2]['data'] as List<dynamic>;
-     final governates=governatesData.map((json)=> GovernorateEntity(id: json["id"],
+     final governates=governatesData.map((json)=>
+         GovernorateEntity(id: json["id"],
          nameAr: json["governorate_name_ar"], nameEn: json["governorate_name_en"],)).toList();
      return ApiSucessResult(governates);
    }catch(error){
@@ -105,6 +116,28 @@ return ApiSucessResult(statesByCities);
     }catch(error){
       return ApiFailedResult(error.toString());
     }
+  }
+  @override
+  Future<ApiResult<List<CountryEntity>>> getCountries()async {
+    try{
+      final response=await rootBundle.loadString("assets/json/country.json");
+      final data=jsonDecode(response)as List<dynamic>;
 
+      final countries=data.map((json){
+final timezonesJson=json["timezones"] as List<dynamic>;
+final times=timezonesJson.map((e)=>Timezone(zoneName: e["zoneName"],
+    gmtOffset: e["gmtOffset"],
+    gmtOffsetName:e["gmtOffsetName"],
+    abbreviation: e["abbreviation"],
+    tzName: e["tzName"], )).toList();
+return CountryEntity(isoCode: json["isoCode"], name: json["name"],
+    phoneCode: json["phoneCode"], flag: json["flag"], currency: json["currency"],
+    latitude: json["latitude"], longitude: json["longitude"], timezones: times);
+
+      }).toList();
+    return ApiSucessResult(countries);
+    }catch(error){
+      return ApiFailedResult(error.toString());
+    }
   }
 }

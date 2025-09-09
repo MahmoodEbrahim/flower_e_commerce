@@ -3,9 +3,11 @@ import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_cities_use_case.dart';
+import 'package:flower_e_commerce/features/address/domain/use_case/get_all_countries_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_governorate_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_delete_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
@@ -21,8 +23,9 @@ GetAllAddressesUseCase _getAllAddressesUseCase;
 GetDeleteAddressUseCase _deleteAddressUseCase;
 GetAllGovernorateUseCase _getAllGovernorateUseCase;
 GetAllStatesUseCase _allStatesUseCase;
+GetAllCountriesUseCase _getAllCountriesUseCase;
 AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddressUseCase,
-    this._getAllGovernorateUseCase,this._allStatesUseCase):super(AddressState()){
+    this._getAllGovernorateUseCase,this._allStatesUseCase,this._getAllCountriesUseCase):super(AddressState()){
   on<GetAddAddressEvent>((event,emit)async{
     emit(state.copyWith(
       addAddressRequestState: RequestState.loading
@@ -116,6 +119,24 @@ emit(state.copyWith(
   stateRequestState: RequestState.error,
   stateErrorMessage: result.errorMessage
 ));
+    }
+  });
+  on<GetCountriesEvent>((event,emit)async{
+    emit(state.copyWith(
+      countryRequestState: RequestState.loading
+    ));
+    final result=await _getAllCountriesUseCase.getCountries();
+    switch(result){
+      case ApiSucessResult<List<CountryEntity>>():
+   emit(state.copyWith(
+     countryRequestState: RequestState.success,
+     countries: result.sucessResult
+   ));
+      case ApiFailedResult<List<CountryEntity>>():
+        emit(state.copyWith(
+            countryRequestState: RequestState.error,
+            countryErrorMessage: result.errorMessage
+        ));
     }
   });
 }
