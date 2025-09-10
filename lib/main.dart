@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
            initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
           //  initialRoute: AppRoutes.login,
-         //   home: MapSample(),
+           home: MapSample(),
             locale: Locale(lang),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

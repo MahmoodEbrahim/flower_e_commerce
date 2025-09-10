@@ -56,6 +56,11 @@ class SavedAddress extends StatelessWidget {
              Lottie.asset("assets/json/search_location.json",fit: BoxFit.cover,
                  height: 200.h,width: 300.w
              ),
+             SizedBox(height: 16.h,),
+             Text("No Saved Addresses Yet",style:
+             TextStyle(
+
+             ),)
          ],
        )
 

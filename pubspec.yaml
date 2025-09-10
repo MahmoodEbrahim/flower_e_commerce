@@ -47,6 +47,7 @@ dependencies:
   google_maps_flutter: ^2.13.1
   geocoding: ^4.0.0
   lottie: ^3.3.2
+  flutter_animate: ^4.5.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
