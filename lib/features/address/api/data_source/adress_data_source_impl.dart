@@ -77,22 +77,20 @@ try{
    }
   }
   @override
-  Future<ApiResult<List<GovernorateEntity>>> getGovernorates() async{
-   try{
+  Future<List<GovernorateEntity>> getGovernorates() async{
+
      final response=await rootBundle.loadString("assets/json/cities.json");
      final data=json.decode(response)as List<dynamic>;
      final governatesData=data[2]['data'] as List<dynamic>;
      final governates=governatesData.map((json)=>
          GovernorateEntity(id: json["id"],
          nameAr: json["governorate_name_ar"], nameEn: json["governorate_name_en"],)).toList();
-     return ApiSucessResult(governates);
-   }catch(error){
-     return ApiFailedResult(error.toString());
-   }
+     return governates;
+
   }
   @override
-  Future<ApiResult<List<StateEntity>>> getStates(String governateId)async {
-    try{
+  Future<List<StateEntity>> getStates(String governateId)async {
+
       final response=await rootBundle.loadString("assets/json/states.json");
       final data=jsonDecode(response)as List<dynamic>;
 final statesData=data[2]["data"]as List<dynamic>;
@@ -104,14 +102,12 @@ final states=statesData.map((json){
       cityNameEn: json["city_name_en"],);
 }).toList();
 final statesByCities=states.where((e)=>e.governorateId==governateId).toList();
-return ApiSucessResult(statesByCities);
-    }catch(error){
-      return ApiFailedResult(error.toString());
-    }
+return statesByCities;
+
   }
   @override
-  Future<ApiResult<List<CountryEntity>>> getCountries()async {
-    try{
+  Future<List<CountryEntity>> getCountries()async {
+
       final response=await rootBundle.loadString("assets/json/country.json");
       final data=jsonDecode(response)as List<dynamic>;
 
@@ -127,9 +123,7 @@ return CountryEntity(isoCode: json["isoCode"], name: json["name"],
     latitude: json["latitude"], longitude: json["longitude"], timezones: times);
 
       }).toList();
-    return ApiSucessResult(countries);
-    }catch(error){
-      return ApiFailedResult(error.toString());
-    }
+    return countries;
+
   }
 }

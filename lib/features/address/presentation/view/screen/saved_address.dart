@@ -10,8 +10,10 @@ import 'package:flower_e_commerce/features/address/presentation/view_model/addre
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
 
@@ -56,15 +58,15 @@ class SavedAddress extends StatelessWidget {
              Lottie.asset("assets/json/search_location.json",fit: BoxFit.cover,
                  height: 200.h,width: 300.w
              ),
-             SizedBox(height: 16.h,),
+             SizedBox(height: 60.h,),
              Text("No Saved Addresses Yet",style:
-             TextStyle(
+             getBoldStyle(color: AppColors.pink,fontSize: 16.sp).copyWith(
+               fontFamily: GoogleFonts.adamina().fontFamily
+             )).animate(
 
-             ),)
+             ).fadeIn()
          ],
        )
-
-
     ):       Expanded(child:  ListView.separated(itemBuilder: (context,index){
              return CustomAddressWidget(addressEntity: state.addresses[index]);
            },

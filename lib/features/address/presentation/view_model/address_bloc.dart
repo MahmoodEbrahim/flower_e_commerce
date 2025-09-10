@@ -90,16 +90,12 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
     ));
     final result=await _getAllGovernorateUseCase.getGovernorates();
     switch(result){
-      case ApiSucessResult<List<GovernorateEntity>>():
+      case List<GovernorateEntity>():
     emit(state.copyWith(
       governorateRequestState: RequestState.success,
-      governorates: result.sucessResult
+      governorates: result
     ));
-      case ApiFailedResult<List<GovernorateEntity>>():
-        emit(state.copyWith(
-            governorateRequestState: RequestState.error,
-            governateErrorMessage: result.errorMessage
-        ));
+
     }
   });
   on<GetStatesEvent>((event,emit)async{
@@ -108,17 +104,13 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
     ));
     final result=await _allStatesUseCase.getStates(event.governateId);
     switch(result){
-      case ApiSucessResult<List<StateEntity>>():
+      case List<StateEntity>():
 
       emit(state.copyWith(
         stateRequestState: RequestState.success,
-        states: result.sucessResult
+        states: result
       ));
-      case ApiFailedResult<List<StateEntity>>():
-emit(state.copyWith(
-  stateRequestState: RequestState.error,
-  stateErrorMessage: result.errorMessage
-));
+
     }
   });
   on<GetCountriesEvent>((event,emit)async{
@@ -127,16 +119,12 @@ emit(state.copyWith(
     ));
     final result=await _getAllCountriesUseCase.getCountries();
     switch(result){
-      case ApiSucessResult<List<CountryEntity>>():
+      case List<CountryEntity>():
    emit(state.copyWith(
      countryRequestState: RequestState.success,
-     countries: result.sucessResult
+     countries: result
    ));
-      case ApiFailedResult<List<CountryEntity>>():
-        emit(state.copyWith(
-            countryRequestState: RequestState.error,
-            countryErrorMessage: result.errorMessage
-        ));
+
     }
   });
 }

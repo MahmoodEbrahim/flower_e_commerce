@@ -32,16 +32,16 @@ class AddressRepositryImpl implements AddressRepositry{
     return await _addressRemoteDataSource.updateAddress(token, id, request);
   }
   @override
-  Future<ApiResult<List<GovernorateEntity>>> getGovernorates() async{
+  Future<List<GovernorateEntity>> getGovernorates() async{
     return await _addressRemoteDataSource.getGovernorates();
   }
 @override
-  Future<ApiResult<List<StateEntity>>> getStates(String governateId)async {
+  Future<List<StateEntity>> getStates(String governateId)async {
 return await _addressRemoteDataSource.getStates(governateId);
 
   }
 @override
-  Future<ApiResult<List<CountryEntity>>> getCountries()async {
+  Future<List<CountryEntity>> getCountries()async {
 return await _addressRemoteDataSource.getCountries();
   }
 }

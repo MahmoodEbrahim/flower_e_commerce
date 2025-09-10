@@ -8,6 +8,8 @@ import 'package:flower_e_commerce/features/address/api/models/response/get_all_a
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart' hide Address;
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -28,6 +30,15 @@ setUp((){
   mockAssetBundle=MockAssetBundle();
   ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       'plugins.flutter.io/path_provider' , ( methodCall) async => null,);
+  provideDummy<ApiResult<List<GovernorateEntity>>>(
+    ApiSucessResult<List<GovernorateEntity>>([]),
+  );
+  provideDummy<ApiResult<List<StateEntity>>>(
+    ApiSucessResult<List<StateEntity>>([]),
+  );
+  provideDummy<ApiResult<List<CountryEntity>>>(
+    ApiSucessResult<List<CountryEntity>>([]),
+  );
 
 });
 //fake governorates
@@ -43,32 +54,32 @@ final governoratesJson = '''
 final statesJson = '''
     [
       {"data": [
-        {"id": "1", "governorate_id": "1", "city_name_ar": "مدينة نصر", "city_name_en": "Nasr City"},
-        {"id": "2", "governorate_id": "2", "city_name_ar": "الدقي", "city_name_en": "Dokki"}
+        {"id": "1", "governorate_id": "1", "city_name_ar": "15 مايو", "city_name_en": "15 May"},
+        {"id": "2", "governorate_id": "2", "city_name_ar": "لبساتين", "city_name_en": "Al Basatin"}
       ]}
     ]
   ''';
 //fake countries
 final countriesJson = '''
     [
+       {
+    "isoCode": "AF",
+    "name": "Afghanistan",
+    "phoneCode": "93",
+    "flag": "🇦🇫",
+    "currency": "AFN",
+    "latitude": "33.00000000",
+    "longitude": "65.00000000",
+    "timezones": [
       {
-        "isoCode": "EG",
-        "name": "Egypt",
-        "phoneCode": "+20",
-        "flag": "🇪🇬",
-        "currency": "EGP",
-        "latitude": "30.0444",
-        "longitude": "31.2357",
-        "timezones": [
-          {
-            "zoneName": "Africa/Cairo",
-            "gmtOffset": 7200,
-            "gmtOffsetName": "UTC+02:00",
-            "abbreviation": "EET",
-            "tzName": "Eastern European Time"
-          }
-        ]
+        "zoneName": "Asia\/Kabul",
+        "gmtOffset": 16200,
+        "gmtOffsetName": "UTC+04:30",
+        "abbreviation": "AFT",
+        "tzName": "Afghanistan Time"
       }
+    ]
+  }
     ]
   ''';
 
@@ -260,24 +271,37 @@ verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).cal
       verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).called(1);
     });
   });
-  group("Governorates", (){
+  group("Governorates Data Source", (){
     test("return ApiSuccessResult when call json get governorates and succeess", ()async{
 when(mockAssetBundle.loadString("assets/json/cities.json")).thenAnswer((_)async=>governoratesJson);
 final result=await addressRemoteDataSource.getGovernorates();
-expect(result , isA<ApiSucessResult<List<GovernorateEntity>>>());
-final data=(result as ApiSucessResult).sucessResult;
+expect(result , isA<List<GovernorateEntity>>());
+final data=(result);
 expect(data.length, 27);
      expect(data.first.nameEn, "Cairo") ;
     });
   });
-test("return ApiFailedResult when call json get governates fails on throw exception",
-    ()async{
-  final exception=Exception("Throw Exception");
-      when(mockAssetBundle.loadString(any)).thenThrow(exception);
-      final result=await addressRemoteDataSource.getGovernorates();
-      expect(result, isA<ApiFailedResult>());
-      expect((result as ApiFailedResult).errorMessage, exception.toString());
+group("State  Data Source", (){
+  test("Should return ApiSuccessResult when load json",()async{
+    String governateId="1";
+    when(mockAssetBundle.loadString("assets/json/states.json")).thenAnswer((_)async=>statesJson);
+    final result=await addressRemoteDataSource.getStates(governateId);
+    expect(result, isA<List<StateEntity>>());
+    List<StateEntity> data=result ;
+    expect(data[0].cityNameEn, "15 May");
+    expect(data[0].cityNameAr, "15 مايو");
 
-    });
+  });
+});
+group("Country DataSource", (){
+  test("Should return ApiSuccessResult when load json", ()async{
+    when(mockAssetBundle.loadString("assets/json/country.json")).
+    thenAnswer((_)async=>countriesJson);
+final result=await addressRemoteDataSource.getCountries();
+expect(result, isA<List<CountryEntity>>());
+expect(result[0].name, "Afghanistan");
+expect(result[0].phoneCode, "93");
+  });
+});
 });
 }

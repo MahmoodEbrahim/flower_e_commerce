@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 class  GetAllStatesUseCase{
   AddressRepositry _addressRepositry;
   GetAllStatesUseCase(this._addressRepositry);
-  Future<ApiResult<List<StateEntity>>> getStates(String governateId)async{
+  Future<List<StateEntity>> getStates(String governateId)async{
     return await _addressRepositry.getStates(governateId);
   }
 }

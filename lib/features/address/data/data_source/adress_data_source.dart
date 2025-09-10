@@ -14,7 +14,7 @@ Future<ApiResult <List<AddressEntity>>>getAllAddress(String token);
 
 Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id);
 Future<ApiResult <List<AddressEntity>>>updateAddress(String token,String id,AddAdressRequest request);
-Future<ApiResult<List<GovernorateEntity>>> getGovernorates();
-Future<ApiResult<List<StateEntity>>> getStates(String governateId);
-Future<ApiResult<List<CountryEntity>>> getCountries();
+Future <List<GovernorateEntity>> getGovernorates();
+Future<List<StateEntity>> getStates(String governateId);
+Future<List<CountryEntity>> getCountries();
 }

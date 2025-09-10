@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 class GetAllGovernorateUseCase{
   AddressRepositry _addressRepositry;
   GetAllGovernorateUseCase(this._addressRepositry);
-  Future<ApiResult<List<GovernorateEntity>>> getGovernorates()async{
+  Future<List<GovernorateEntity>> getGovernorates()async{
     return await _addressRepositry.getGovernorates();
   }
 }
