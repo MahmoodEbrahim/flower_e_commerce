@@ -1,29 +1,57 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
-import 'package:flutter/material.dart' hide RadioGroup;
-import 'package:radio_group_v2/radio_group_v2.dart';
-
-
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
+import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/bottom_sheet_title.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/dragable_line.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/filter_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustumBootomSheet extends StatefulWidget {
- 
-  const CustumBootomSheet({super.key});
+  final ValueNotifier<String> catId;
+  final ValueNotifier<String?> selectedValue;
+  final BuildContext mycontext;
+  final AppLocalizations t;
+
+  const CustumBootomSheet({
+    super.key,
+    required this.catId,
+    required this.mycontext,
+    required this.selectedValue,
+    required this.t,
+  });
 
   @override
   State<CustumBootomSheet> createState() => _CustumBootomSheetState();
 }
 
 class _CustumBootomSheetState extends State<CustumBootomSheet> {
-  String? selectedValue;
-  final RadioGroupController<String> controller = RadioGroupController();
-  final List<String> options = [
-    "Lower Price",
-    "Highest Price",
-    "New",
-    "Old",
-    "Discount",
+  late   AppLocalizations local=widget.t;
+  late CategoriesViewModel categoriesViewModel;
+  late String? mySelectedValue;
+
+   late List<String> options = [
+    local.lowerPrice,
+    local.highestPrice,
+    local.newFilter,
+    local.old,
+    local.discount,
   ];
+  final List<String> filtersApi = ["price", "-price", "new", "old", "discount"];
+  int myIndex = 0;
+  String? sendCatId;
+
+  @override
+  void initState() {
+    super.initState();
+    mySelectedValue = widget.selectedValue.value;
+
+    categoriesViewModel = widget.mycontext.read<CategoriesViewModel>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,31 +60,10 @@ class _CustumBootomSheetState extends State<CustumBootomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              
-              child: Container(
-                width: 100,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: AppColors.gray,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-          
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "Sort by",
-              textAlign: TextAlign.start,
-              style: getBoldStyle(color: AppColors.pink, fontSize: FontSize.s20),
-            ),
-          ),
-       
+          DraagableLine(),
+
+          ButtomSheetTitle(),
+
           SizedBox(
             height: 300,
             child: ListView.builder(
@@ -83,10 +90,18 @@ class _CustumBootomSheetState extends State<CustumBootomSheet> {
                   child: RadioListTile<String>(
                     fillColor: WidgetStateProperty.all(AppColors.pink),
                     value: value,
-                    groupValue: selectedValue,
+                    selected: true,
+                    groupValue: mySelectedValue,
                     onChanged: (val) {
                       setState(() {
-                        selectedValue = val;
+                        mySelectedValue = val;
+                        widget.selectedValue.value = val;
+                        myIndex = index;
+                        if (widget.catId.value == "") {
+                          sendCatId = null;
+                        } else {
+                          sendCatId = widget.catId.value;
+                        }
                       });
                     },
                     title: Text(
@@ -105,30 +120,10 @@ class _CustumBootomSheetState extends State<CustumBootomSheet> {
 
           SizedBox(height: 10),
 
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.filter_alt_rounded),
-                      SizedBox(width: 5),
-                      Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Text("Filter"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          FilterButtom(categoriesViewModel: categoriesViewModel, filtersApi: filtersApi, myIndex: myIndex, sendCatId: sendCatId),
         ],
       ),
     );
   }
 }
+

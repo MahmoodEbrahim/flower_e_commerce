@@ -3,7 +3,6 @@ import 'package:flower_e_commerce/features/home/data/source/home_remote_data_sou
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 
-
 import 'package:flower_e_commerce/features/home/domain/repository/home_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,15 +11,16 @@ class HomeRepositoryImp implements HomeRepository {
   final HomeRemoteDataSource _homeRemoteDataSource;
   HomeRepositoryImp(this._homeRemoteDataSource);
   @override
-  Future<ApiResult<List<ProductsEntity>>> getProductsDetialsByOccasions
-      (String occasionId) async{
-
-return _homeRemoteDataSource.getProductsDetialsByOccasions(occasionId);
+  Future<ApiResult<List<ProductsEntity>>> getProductsDetialsByOccasions(
+    String occasionId,
+  ) async {
+    return _homeRemoteDataSource.getProductsDetialsByOccasions(occasionId);
   }
 
   @override
   Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
-      String catId) async {
+    String catId,
+  ) async {
     return await _homeRemoteDataSource.getProductsByCategoryId(catId);
   }
 
@@ -31,5 +31,13 @@ return _homeRemoteDataSource.getProductsDetialsByOccasions(occasionId);
     } catch (e) {
       return ApiFailedResult(e.toString());
     }
+  }
+
+  @override
+  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+    String filter,
+    String? catId,
+  ) async {
+    return await _homeRemoteDataSource.getSearchProducts(filter, catId);
   }
 }

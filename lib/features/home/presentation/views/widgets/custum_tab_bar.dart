@@ -6,18 +6,21 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 
+// ignore: must_be_immutable
 class CustumTabBar extends StatefulWidget {
   final List<CategoriesEntity> categoryList;
   final List<ProductsEntity> produdctsList;
   final List<ProductsEntity> allProducts;
+   ValueNotifier<String> catId;
 
   final int? myIndex;
 
-  const CustumTabBar({
+   CustumTabBar({
     super.key,
     required this.categoryList,
     required this.produdctsList,
-    required  this.allProducts,
+    required this.allProducts,
+    required this.catId,
 
     this.myIndex,
   });
@@ -46,8 +49,9 @@ class _CustumTabBarState extends State<CustumTabBar> {
 
   void _sendEvent(CategoriesViewModel categoriesViewModel, int index) {
     final selectedCategory = widget.categoryList[index];
-   
-    if (index==0) {
+    widget.catId.value = selectedCategory.id!;
+
+    if (index == 0) {
       categoriesViewModel.add(
         GetAllProductsEvent(products: widget.allProducts),
       );
@@ -64,7 +68,7 @@ class _CustumTabBarState extends State<CustumTabBar> {
   @override
   Widget build(BuildContext context) {
     final categoriesViewModel = context.read<CategoriesViewModel>();
-   
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(

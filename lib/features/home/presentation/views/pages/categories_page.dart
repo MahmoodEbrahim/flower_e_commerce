@@ -1,8 +1,9 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/core/widgets/common_error.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custom_flower_card.dart';
-import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_bootom_sheet.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_tab_bar.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/filter_part.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/no_products.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/category_state.dart';
@@ -21,6 +22,8 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   String? selectedOption;
+  ValueNotifier<String> catId = ValueNotifier<String>("");
+  final ValueNotifier<String?> selectedValue = ValueNotifier<String?>(null);
   final RadioGroupController<String> controller = RadioGroupController();
   @override
   Widget build(BuildContext context) {
@@ -33,18 +36,19 @@ class _CategoriesPageState extends State<CategoriesPage> {
             CustomScrollView(
               slivers: [
                 CustumSearchBar(),
-                // SliverToBoxAdapter(
-                //   child: BlocBuilder<CategoriesViewModel, CategoryState>(
-                //     builder: (context, state) {
-                //       return CustumTabBar(
-                //         categoryList: state.categories ?? [],
-                //         produdctsList: state.products ?? [],
-                //         allProducts: state.allProducts!,
-                //         myIndex: state.index,
-                //       );
-                //     },
-                //   ),
-                // ),
+                SliverToBoxAdapter(
+                  child: BlocBuilder<CategoriesViewModel, CategoryState>(
+                    builder: (context, state) {
+                      return CustumTabBar(
+                        categoryList: state.categories ?? [],
+                        produdctsList: state.products ?? [],
+                        allProducts: state.allProducts ?? [],
+                        catId: catId,
+                        myIndex: state.index,
+                      );
+                    },
+                  ),
+                ),
                 SliverToBoxAdapter(
                   child: BlocBuilder<CategoriesViewModel, CategoryState>(
                     builder: (context, state) {
@@ -60,7 +64,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         );
                       }
                       if (state.errorMessage != null) {
-                        return Center(child: Text(state.errorMessage!));
+                        return CustumError();
                       }
                       if (state.products != null &&
                           state.products!.isNotEmpty) {
@@ -97,29 +101,16 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 ),
               ],
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    showBottomSheet(
-                      backgroundColor: AppColors.white,
-                      context: context,
-                      builder: (context) => CustumBootomSheet(),
-                    );
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.filter_alt_rounded),
-                      SizedBox(width: 5),
-                      Text("Filter",),
-                    ],
-                  ),
-                ),
-              ),
+            ValueListenableBuilder(
+              valueListenable: catId,
+              builder: (context, value, child) {
+                selectedValue.value = null;
+                return FilterPart(
+                  catId: catId,
+                  myContext: context,
+                  selectedValue: selectedValue,
+                );
+              },
             ),
           ],
         ),
