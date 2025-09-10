@@ -22,7 +22,7 @@ final token=UserLocalStorage.getToken()!;
       decoration: BoxDecoration(
         
         border: Border.all(
-          color: AppColors.white ,width:1.w
+          color: AppColors.white ,width:3.w
         ),
 
       ),
@@ -78,9 +78,9 @@ print("token ${token}");
           ],
         ),
           SizedBox(height: 6.h,),
-          Text(addressEntity.street!,
+          Text("2XVP+XC- ${addressEntity.street!}",
             style: getRegularStyle(color: AppColors.midGray,
-          fontSize: 13.sp
+          fontSize: 14.sp
           ),),
 
         ],

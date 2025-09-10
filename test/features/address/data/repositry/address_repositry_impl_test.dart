@@ -7,7 +7,10 @@ import 'package:flower_e_commerce/features/address/api/models/response/remove_ad
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
 import 'package:flower_e_commerce/features/address/data/repositry/address_repositry_impl.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
-import 'package:flower_e_commerce/features/address/domain/repositry/address_repositry.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/time_zone.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -33,7 +36,47 @@ provideDummy<ApiResult<RemoveAddressDto>>(ApiFailedResult("Dummy Error"));
       username:"ahmedmuti"
   );
 const String id="68bea7d4a8bca307f9e2e8ec";
-
+//fake governorates
+  final governoratesJson = '''
+    [
+      {"data": [
+        {"id": "1", "governorate_name_ar": "القاهرة", "governorate_name_en": "Cairo"},
+        {"id": "2", "governorate_name_ar": "الجيزة", "governorate_name_en": "Giza"}
+      ]}
+    ]
+  ''';
+//fake states
+  final statesJson = '''
+    [
+      {"data": [
+        {"id": "1", "governorate_id": "1", "city_name_ar": "15 مايو", "city_name_en": "15 May"},
+        {"id": "2", "governorate_id": "2", "city_name_ar": "لبساتين", "city_name_en": "Al Basatin"}
+      ]}
+    ]
+  ''';
+//fake countries
+  final countriesJson = '''
+    [
+       {
+    "isoCode": "AF",
+    "name": "Afghanistan",
+    "phoneCode": "93",
+    "flag": "🇦🇫",
+    "currency": "AFN",
+    "latitude": "33.00000000",
+    "longitude": "65.00000000",
+    "timezones": [
+      {
+        "zoneName": "Asia\/Kabul",
+        "gmtOffset": 16200,
+        "gmtOffsetName": "UTC+04:30",
+        "abbreviation": "AFT",
+        "tzName": "Afghanistan Time"
+      }
+    ]
+  }
+    ]
+  ''';
 group("Address Repositry", (){
    final successResponse=AddAddressResponse(
        message: "success",address: [
@@ -146,6 +189,60 @@ verify(mockAddressRemoteDataSource.updateAddress(token, id, request)).called(1);
        expect(result, isA<ApiFailedResult>());
        expect((result as ApiFailedResult).errorMessage, errorMessage);
        verify(mockAddressRemoteDataSource.getAllAddress(token)).called(1);
+     });
+   });
+   group("Get Governate ", (){
+     test("return list of governorates when data source success", ()async{
+       final governorates=[
+         GovernorateEntity(id: "1", nameEn: "Cairo", nameAr: "القاهرة"),
+         GovernorateEntity(id: "2", nameEn: "Giza", nameAr: "الجيزة"),
+         GovernorateEntity(id: "3", nameEn: "Alexandria", nameAr: "الأسكندرية"),
+         GovernorateEntity(id: "4", nameEn: "Dakahlia", nameAr: "الدقهلية")
+
+       ];
+       when(mockAddressRemoteDataSource.getGovernorates()).thenAnswer((_)async=>governorates);
+       final result =await addressRepositry.getGovernorates();
+       expect(result, isA<List<GovernorateEntity>>());
+       expect(result.length, 4);
+       expect(result[0].nameEn, "Cairo");
+       verify(mockAddressRemoteDataSource.getGovernorates()).called(1);
+     });
+   });
+   group("Get Countries", (){
+     test("return list of countries when data source success", ()async{
+       final countries=[
+
+         CountryEntity(isoCode: "AF", name: "Afghanistan", phoneCode: "93", flag: "🇦🇫", currency: "AFN",
+             latitude: "33.00000000", longitude: "65.00000000", timezones: [
+               Timezone(
+                 zoneName: "Asia\/Kabul",
+                 gmtOffset: 16200,
+                 gmtOffsetName: "UTC+04:30",
+                 abbreviation: "AFT",
+                 tzName: "Afghanistan Time",
+               )
+             ])
+
+       ];
+       when(mockAddressRemoteDataSource.getCountries()).thenAnswer((_)async=>countries);
+       final result=await addressRepositry.getCountries();
+       expect(result.length, 1);
+       expect(result[0].name, "Afghanistan");
+       verify(mockAddressRemoteDataSource.getCountries()).called(1);
+     });
+   });
+   group("Get States", (){
+     test("return list of states when datasource success", ()async{
+       String governateId="1";
+       final states=[
+         StateEntity(cityId: "1", governorateId: "1", cityNameAr: "15 مايو", cityNameEn: "15 May")
+       ];
+       when(mockAddressRemoteDataSource.getStates(governateId)).thenAnswer((_)async=>states);
+       final result=await addressRepositry.getStates(governateId);
+       expect(result.length, 1);
+       expect(result[0].cityNameEn, "15 May");
+       verify(mockAddressRemoteDataSource.getStates(governateId)).called(1);
+
      });
    });
  });

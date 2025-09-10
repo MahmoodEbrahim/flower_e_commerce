@@ -10,44 +10,33 @@ class MapSample extends StatefulWidget {
   State<MapSample> createState() => MapSampleState();
 }
 class MapSampleState extends State<MapSample> {
-  final Completer<GoogleMapController> _controller =
-  Completer<GoogleMapController>();
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-  static const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(37.43296265331129, -122.08832357078792),
-    tilt: 59.440717697143555,
-    zoom: 19.151926040649414,
-  );
+CameraPosition _cameraPosition=CameraPosition(target: LatLng(30.098702, 31.911280
+),zoom: 14);
+  final Completer<GoogleMapController>_controller=Completer<GoogleMapController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        cameraTargetBounds: CameraTargetBounds(LatLngBounds
-          (southwest: LatLng(22.000049, 25.000037),
-            northeast: LatLng(31.637631, 25.091986))),
-        mapType: MapType.normal,
-        zoomControlsEnabled: true,
-        myLocationButtonEnabled: true,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+          mapType: MapType.normal,
+          initialCameraPosition: _cameraPosition,
+      onMapCreated: (GoogleMapController controller){
+       _controller.complete(controller);
+      },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        moveToCairo();
+      }),
+      
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  void moveToCairo()async {
+    final GoogleMapController controller=await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(target: LatLng(26.452896, 17.815801
+
+      ),zoom: 18)
+    ));
   }
+
 }

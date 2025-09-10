@@ -36,12 +36,12 @@ class AddressRepositryImpl implements AddressRepositry{
     return await _addressRemoteDataSource.getGovernorates();
   }
 @override
-  Future<List<StateEntity>> getStates(String governateId)async {
+Future<List<StateEntity>> getStates(String governateId)async {
 return await _addressRemoteDataSource.getStates(governateId);
 
   }
 @override
-  Future<List<CountryEntity>> getCountries()async {
+Future<List<CountryEntity>> getCountries()async {
 return await _addressRemoteDataSource.getCountries();
   }
 }

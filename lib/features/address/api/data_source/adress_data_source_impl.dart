@@ -78,19 +78,18 @@ try{
   }
   @override
   Future<List<GovernorateEntity>> getGovernorates() async{
-
-     final response=await rootBundle.loadString("assets/json/cities.json");
+   
+    final response=await rootBundle.loadString("assets/json/cities.json");
      final data=json.decode(response)as List<dynamic>;
      final governatesData=data[2]['data'] as List<dynamic>;
      final governates=governatesData.map((json)=>
          GovernorateEntity(id: json["id"],
          nameAr: json["governorate_name_ar"], nameEn: json["governorate_name_en"],)).toList();
      return governates;
-
   }
   @override
   Future<List<StateEntity>> getStates(String governateId)async {
-
+  
       final response=await rootBundle.loadString("assets/json/states.json");
       final data=jsonDecode(response)as List<dynamic>;
 final statesData=data[2]["data"]as List<dynamic>;
@@ -103,11 +102,11 @@ final states=statesData.map((json){
 }).toList();
 final statesByCities=states.where((e)=>e.governorateId==governateId).toList();
 return statesByCities;
-
+    
   }
   @override
   Future<List<CountryEntity>> getCountries()async {
-
+    
       final response=await rootBundle.loadString("assets/json/country.json");
       final data=jsonDecode(response)as List<dynamic>;
 
@@ -124,6 +123,5 @@ return CountryEntity(isoCode: json["isoCode"], name: json["name"],
 
       }).toList();
     return countries;
-
   }
 }

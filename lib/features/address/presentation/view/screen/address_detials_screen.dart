@@ -118,6 +118,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                           SizedBox(
                             height: 200.h,
                             child: GoogleMap(
+
                               onMapCreated: (controller) {
                                 mapController = controller;
                                 if (selectedLocation != null) {
