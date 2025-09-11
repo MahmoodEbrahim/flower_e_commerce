@@ -319,11 +319,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeTab => 'الرئيسية';
 
   @override
-  String get categoriesTab => 'Categories';
+  String get categoriesTab => 'الفئات';
 
   @override
   String get cartTab => 'السلة';
 
   @override
   String get profileTab => 'الملف الشخصي';
+
+  @override
+  String get orderPage => 'صفحة الطلب';
+
+  @override
+  String get active => 'نشط';
+
+  @override
+  String get completed => 'مكتمل';
+
+  @override
+  String get reorder => 'إعادة الطلب';
+
+  @override
+  String get trackorder => 'تتبع الطلب';
 }

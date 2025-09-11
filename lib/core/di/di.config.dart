@@ -62,6 +62,16 @@ import '../../features/home/presentation/view_model/home_view_model/home_bloc.da
     as _i191;
 import '../../features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart'
     as _i1010;
+import '../../features/orders/api/client/orders_api_service.dart' as _i136;
+import '../../features/orders/data/orders_remote_datasource.dart' as _i158;
+import '../../features/orders/data/orders_remote_datasource_impl.dart' as _i620;
+import '../../features/orders/data/repository/orders_remote_repo_impl.dart'
+    as _i45;
+import '../../features/orders/domain/repository/orders_repository.dart'
+    as _i798;
+import '../../features/orders/domain/usecase/get_orders_usecase.dart' as _i207;
+import '../../features/orders/presentation/view_model/Orders_View_model.dart'
+    as _i899;
 import '../../features/profile/api/client/profile_api_service.dart' as _i495;
 import '../../features/profile/api/source/profile_remote_data_source_imp.dart'
     as _i532;
@@ -104,10 +114,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i942.CartApiService(gh<_i361.Dio>()));
     gh.factory<_i220.HomeApiService>(
         () => _i220.HomeApiService(gh<_i361.Dio>()));
+    gh.factory<_i136.OrdersApiService>(
+        () => _i136.OrdersApiService(gh<_i361.Dio>()));
     gh.factory<_i495.ProfileApiService>(
         () => _i495.ProfileApiService(gh<_i361.Dio>()));
     gh.factory<_i751.CartRemoteDataSouce>(
         () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
+    gh.factory<_i158.OrdersRemoteDataSource>(() =>
+        _i620.OrdersRemoteDataSourceImpl(
+            ordersApiService: gh<_i136.OrdersApiService>()));
+    gh.factory<_i798.OrdersRepository>(() => _i45.OrdersRepoImpl(
+        ordersRemoteDataSource: gh<_i158.OrdersRemoteDataSource>()));
     gh.factory<_i26.CartRepository>(
         () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
     gh.factory<_i557.HomeRemoteDataSource>(
@@ -122,6 +139,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i583.GetProductDetialsByOccasionUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i777.AuthRemoteDataSource>(
         () => _i669.AuthRemoteDataSourceImp(gh<_i522.AuthApiService>()));
+    gh.factory<_i207.GetOrdersUseCase>(
+        () => _i207.GetOrdersUseCase(gh<_i798.OrdersRepository>()));
     gh.factory<_i738.AddToCartUsecase>(
         () => _i738.AddToCartUsecase(gh<_i26.CartRepository>()));
     gh.factory<_i472.DeleteItemFromCartUseCase>(
@@ -135,6 +154,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
         _i1010.ProductsDetialsOccasionBloc(
             gh<_i583.GetProductDetialsByOccasionUseCase>()));
+    gh.factory<_i899.OrdersViewModel>(
+        () => _i899.OrdersViewModel(gh<_i207.GetOrdersUseCase>()));
     gh.factory<_i604.CategoriesViewModel>(() =>
         _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
     gh.factory<_i364.ProfileRepository>(

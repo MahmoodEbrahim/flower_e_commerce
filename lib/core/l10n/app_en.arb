@@ -87,7 +87,6 @@
 
 
 
-  "alreadyHaveAccount": "Already have an account? ",
   "flowery": "Flowery",
   "guest":"Guest",
     "myOrders": "My orders",
@@ -109,7 +108,6 @@
   "profileUpdatedSuccessfully": "Profile updated successfully",
   "update": "Update",
 
-  "alreadyHaveAccount": "Already have an account? ",
 
 "currentPassword": "Current password",
   "newPassword": "New password",
@@ -118,5 +116,10 @@
   "homeTab": "Home",
   "categoriesTab": "Categories",
   "cartTab": "Cart",
-  "profileTab": "Profile"
+  "profileTab": "Profile",
+  "orderPage": "Order Page",
+  "active": "Active",
+  "completed": "Completed",
+  "reorder": "Reorder",
+  "trackorder": "Track order"
 }

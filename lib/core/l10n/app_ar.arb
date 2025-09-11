@@ -102,7 +102,13 @@
   "passwordChangeSuccessfuly": "✅ تم تغيير كلمة المرور بنجاح",
   "changelanguage": "تغيير اللغة",
   "homeTab": "الرئيسية",
-  "hategoriesTab": "الفئات",
+  "categoriesTab": "الفئات",
   "cartTab": "السلة",
-  "profileTab": "الملف الشخصي"
+  "profileTab": "الملف الشخصي",
+  "orderPage": "صفحة الطلب",
+  "active": "نشط",
+  "completed": "مكتمل",
+  "reorder": "إعادة الطلب",
+  "trackorder": "تتبع الطلب"
+
 }
