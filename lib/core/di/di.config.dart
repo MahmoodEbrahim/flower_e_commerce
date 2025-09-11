@@ -148,18 +148,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i495.ProfileApiService(gh<_i361.Dio>()));
     gh.factory<_i691.ProfileLocalDataSource>(
         () => _i752.ProfileLocalDataSourceImp());
-    gh.factory<_i368.ProfileRemoteDataSource>(
-        () => _i246.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
-    gh.factory<_i751.CartRemoteDataSouce>(
-        () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
-    gh.factory<_i26.CartRepository>(
-        () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
-    gh.factory<_i751.CartRemoteDataSouce>(
-        () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
-    gh.factory<_i26.CartRepository>(
-        () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
     gh.factory<_i535.AddressRemoteDataSource>(() =>
         _i107.AddressRemoteDataSourceImpl(gh<_i658.AddressesApiServices>()));
+    gh.factory<_i368.ProfileRemoteDataSource>(
+        () => _i246.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
     gh.factory<_i751.CartRemoteDataSouce>(
         () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
     gh.factory<_i52.AddressRepositry>(
@@ -182,8 +174,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i91.GetUpdateAddressUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
-    gh.factory<_i502.ProfileRemoteDataSource>(
-        () => _i532.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
     gh.factory<_i541.HomeRepository>(
         () => _i342.HomeRepositoryImp(gh<_i557.HomeRemoteDataSource>()));
     gh.factory<_i438.GetProductsByCategoryIdUseCase>(
@@ -210,14 +200,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i29.GetCartOfUserUseCase(gh<_i26.CartRepository>()));
     gh.factory<_i598.UpdateQuatityUseCase>(
         () => _i598.UpdateQuatityUseCase(gh<_i26.CartRepository>()));
-    gh.factory<_i738.AddToCartUsecase>(
-        () => _i738.AddToCartUsecase(gh<_i26.CartRepository>()));
-    gh.factory<_i472.DeleteItemFromCartUseCase>(
-        () => _i472.DeleteItemFromCartUseCase(gh<_i26.CartRepository>()));
-    gh.factory<_i29.GetCartOfUserUseCase>(
-        () => _i29.GetCartOfUserUseCase(gh<_i26.CartRepository>()));
-    gh.factory<_i598.UpdateQuatityUseCase>(
-        () => _i598.UpdateQuatityUseCase(gh<_i26.CartRepository>()));
     gh.factory<_i630.GetHomeDataUseCase>(
         () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
@@ -232,45 +214,36 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
         _i1010.ProductsDetialsOccasionBloc(
             gh<_i583.GetProductDetialsByOccasionUseCase>()));
-    gh.factory<_i604.CategoriesViewModel>(() =>
-        _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
-    gh.factory<_i630.GetHomeDataUseCase>(
-        () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
-    gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
-        _i1010.ProductsDetialsOccasionBloc(
-            gh<_i583.GetProductDetialsByOccasionUseCase>()));
-    gh.factory<_i604.CategoriesViewModel>(() => _i604.CategoriesViewModel(
-          gh<_i438.GetProductsByCategoryIdUseCase>(),
-          gh<_i206.GetSearchProductsUsecase>(),
-        ));
-    gh.factory<_i364.ProfileRepository>(
-        () => _i335.ProfileRepositoryImp(gh<_i502.ProfileRemoteDataSource>()));
-    gh.factory<_i26.CartRepository>(
-        () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
-    gh.factory<_i961.AuthRepository>(
-        () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
-    gh.singleton<_i861.CartViewModel>(() => _i861.CartViewModel(
-          gh<_i738.AddToCartUsecase>(),
-          gh<_i29.GetCartOfUserUseCase>(),
-          gh<_i472.DeleteItemFromCartUseCase>(),
-          gh<_i598.UpdateQuatityUseCase>(),
-        ));
-    gh.factory<_i191.HomeBloc>(
-        () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
-    gh.factory<_i738.AddToCartUsecase>(
-        () => _i738.AddToCartUsecase(gh<_i26.CartRepository>()));
-    gh.factory<_i472.DeleteItemFromCartUseCase>(
-        () => _i472.DeleteItemFromCartUseCase(gh<_i26.CartRepository>()));
-    gh.factory<_i29.GetCartOfUserUseCase>(
-        () => _i29.GetCartOfUserUseCase(gh<_i26.CartRepository>()));
-    gh.factory<_i598.UpdateQuatityUseCase>(
-        () => _i598.UpdateQuatityUseCase(gh<_i26.CartRepository>()));
+    gh.factory<_i487.GenerateJsonSectionsUseCase>(
+        () => _i487.GenerateJsonSectionsUseCase(gh<_i364.ProfileRepository>()));
     gh.factory<_i568.GetChangePasswordUseCase>(
         () => _i568.GetChangePasswordUseCase(gh<_i364.ProfileRepository>()));
     gh.factory<_i227.GetEditProfileUseCase>(
         () => _i227.GetEditProfileUseCase(gh<_i364.ProfileRepository>()));
     gh.factory<_i342.GetUploadPhotoProfileUseCase>(() =>
         _i342.GetUploadPhotoProfileUseCase(gh<_i364.ProfileRepository>()));
+    gh.factory<_i604.CategoriesViewModel>(() => _i604.CategoriesViewModel(
+          gh<_i438.GetProductsByCategoryIdUseCase>(),
+          gh<_i206.GetSearchProductsUsecase>(),
+        ));
+    gh.factory<_i207.ChangePasswordBloc>(
+        () => _i207.ChangePasswordBloc(gh<_i568.GetChangePasswordUseCase>()));
+    gh.factory<_i961.AuthRepository>(
+        () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
+    gh.factory<_i878.EditProfileBloc>(() => _i878.EditProfileBloc(
+          gh<_i342.GetUploadPhotoProfileUseCase>(),
+          gh<_i227.GetEditProfileUseCase>(),
+        ));
+    gh.singleton<_i861.CartViewModel>(() => _i861.CartViewModel(
+          gh<_i738.AddToCartUsecase>(),
+          gh<_i29.GetCartOfUserUseCase>(),
+          gh<_i472.DeleteItemFromCartUseCase>(),
+          gh<_i598.UpdateQuatityUseCase>(),
+        ));
+    gh.factory<_i1009.GenericJsonSectionBloc>(() =>
+        _i1009.GenericJsonSectionBloc(gh<_i487.GenerateJsonSectionsUseCase>()));
+    gh.factory<_i191.HomeBloc>(
+        () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
     gh.factory<_i472.SignupUsecase>(
         () => _i472.SignupUsecase(gh<_i961.AuthRepository>()));
     gh.factory<_i240.ForgetPasswordUseCase>(
@@ -288,18 +261,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i644.LoginBloc>(
         () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
-    gh.factory<_i207.ChangePasswordBloc>(
-        () => _i207.ChangePasswordBloc(gh<_i568.GetChangePasswordUseCase>()));
-    gh.factory<_i878.EditProfileBloc>(() => _i878.EditProfileBloc(
-          gh<_i342.GetUploadPhotoProfileUseCase>(),
-          gh<_i227.GetEditProfileUseCase>(),
-        ));
-    gh.singleton<_i861.CartViewModel>(() => _i861.CartViewModel(
-          gh<_i738.AddToCartUsecase>(),
-          gh<_i29.GetCartOfUserUseCase>(),
-          gh<_i472.DeleteItemFromCartUseCase>(),
-          gh<_i598.UpdateQuatityUseCase>(),
-        ));
     gh.factory<_i401.SignupViewModel>(
         () => _i401.SignupViewModel(gh<_i472.SignupUsecase>()));
     return this;
