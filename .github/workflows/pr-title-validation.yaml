@@ -29,7 +29,7 @@ jobs:
             perf
             test
           
-          subjectPattern: '^[a-z]+\(.*\): .+ [A-Z]+-\d+$'
+          subjectPattern: '^[a-z]+(\(.*\))?: .* [A-Za-z]+-\d+$'
           subjectPatternError: |
             The PR title must follow the format: `type(scope): description PREFIX-123`
             Example: `feat(ui): add login screen ABC-123`
