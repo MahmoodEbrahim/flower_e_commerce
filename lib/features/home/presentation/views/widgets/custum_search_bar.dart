@@ -23,38 +23,45 @@ class CustumSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    return SearchBox(
-      child: TextField(
-        controller: controller,
-        onTap: () {
-          if (readOnly) {
-            Navigator.pushNamed(context, AppRoutes.search);
-          }
-        },
-        onChanged: (keyword) {
-          if (keyword.isEmpty) {
-            context.read<SearchBloc>().add(ClearSearch());
-          } else {
-            context.read<SearchBloc>().add(SearchProductsEvent(keyword));
-          }
-        },
-        readOnly: readOnly,
-        decoration: InputDecoration(
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          border: InputBorder.none,
-          iconColor: AppColors.gray,
-          prefixIcon: Icon(Icons.search_outlined,color:AppColors.whiteColor[70]),
-          hintText: t.search,
-          hintStyle: TextStyle(color: AppColors.whiteColor[70]),
-          suffixIcon: suffixIcon != null
-              ? IconButton(
-                  onPressed: onPressed,
-                  icon: Icon(suffixIcon, color:AppColors.whiteColor[70],size:30),
-                )
-              : null,
+    return Column(
+      children: [
+      
+        SearchBox(
+          child: TextField(
+            controller: controller,
+            onTap: () {
+              if (readOnly) {
+                Navigator.pushNamed(context, AppRoutes.search);
+              }
+            },
+            onChanged: (keyword) {
+              if (keyword.isEmpty) {
+                context.read<SearchBloc>().add(ClearSearch());
+              } else {
+                context.read<SearchBloc>().add(SearchProductsEvent(keyword));
+              }
+            },
+            readOnly: readOnly,
+            decoration: InputDecoration(
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              border: InputBorder.none,
+              iconColor: AppColors.gray,
+              prefixIcon: Icon(Icons.search_outlined,color:AppColors.whiteColor[70]),
+              hintText: t.search,
+              hintStyle: TextStyle(color: AppColors.whiteColor[70]),
+              suffixIcon: suffixIcon != null
+                  ? IconButton(
+                      onPressed: onPressed,
+                      icon: Icon(suffixIcon, color:AppColors.whiteColor[70],size:30),
+                    )
+                  : null,
+            ),
+          ),
         ),
-      ),
+
+      
+      ],
     );
   }
 }

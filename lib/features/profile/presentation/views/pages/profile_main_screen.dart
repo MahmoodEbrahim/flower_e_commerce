@@ -56,7 +56,17 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
     final t = AppLocalizations.of(context)!;
     LanguageCubit cubit = BlocProvider.of<LanguageCubit>(context);
     return Scaffold(
-      appBar: AppBar(
+      appBar: 
+      
+      AppBar(
+         titleSpacing: 0,
+          scrolledUnderElevation: 0,
+          leading: IconButton(
+            constraints: BoxConstraints(),
+            padding: EdgeInsets.zero,
+            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
+            icon: Icon(Icons.arrow_back_ios),
+          ),
         backgroundColor: AppColors.white,
         title: Row(
           mainAxisSize: MainAxisSize.min,
