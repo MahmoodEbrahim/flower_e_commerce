@@ -17,7 +17,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/occasio
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/search_page.dart';
-import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
 import 'package:flutter/material.dart';
 import '../../features/profile/presentation/views/pages/change_password_screen.dart';
@@ -103,7 +103,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => ResetPasswordPage());
 
       case AppRoutes.about:
-        return MaterialPageRoute(builder: (context) => AboutUsPage(),);
+        return MaterialPageRoute(builder: (context) => AboutAppPage(),);
 
       case AppRoutes.termsAndCondition:
         return MaterialPageRoute(builder: (context) => TermsAndConditionPage(),);

@@ -14,6 +14,6 @@ class ImageAssets {
 
 class JsonAssets {
   static const String jsonBasePath = "assets/json";
-  static const String aboutUs = "$jsonBasePath/about.json";
+  static const String aboutApp = "$jsonBasePath/about.json";
   static const String terms = "$jsonBasePath/terms_and_conditions.json";
 }
