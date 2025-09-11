@@ -32,7 +32,7 @@ jobs:
           # Optional: Define allowed scopes (e.g., ui, api, auth)
           scopes: "*"
           # Regex to enforce PR title format: type(scope): description AB#xxx
-          subjectPattern: ^.* AB#\d+$
+          subjectPattern: ^.* [A-Za-z]+-\d+$
           subjectPatternError: |
             The PR title must follow the format: `type(scope): description AB#xxx`
             Example: `feat(ui): add login screen AB#123`
