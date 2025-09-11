@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -6,6 +7,9 @@ import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/core/utils/validator.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
+
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_bloc.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
@@ -20,45 +24,59 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class UpdateAddressScreen extends StatefulWidget {
-  final AddressEntity address;
+class UpdateAddressDetailsScreen extends StatefulWidget {
+  final AddressEntity address; // العنوان المراد تحديثه
 
-  const UpdateAddressScreen({super.key, required this.address});
+  const UpdateAddressDetailsScreen({
+    super.key,
+    required this.address,
+  });
 
   @override
-  State<UpdateAddressScreen> createState() => _UpdateAddressScreenState();
+  State<UpdateAddressDetailsScreen> createState() =>
+      _UpdateAddressDetailsScreenState();
 }
 
-class _UpdateAddressScreenState extends State<UpdateAddressScreen> {
-  final phone = TextEditingController();
-  final userName = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
+class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen> {
+  late final TextEditingController phone;
+  late final TextEditingController userName;
+  var formKey = GlobalKey<FormState>();
   String? selectedCity;
   String? selectedStreet;
-
+  final addressController = TextEditingController();
+  String? selectedAddress;
   GoogleMapController? mapController;
   LatLng? selectedLocation;
+  String? goverId;
   Set<Marker> markers = {};
 
   @override
   void initState() {
     super.initState();
 
-    phone.text = widget.address.phone ?? '';
-    userName.text = widget.address.username ?? '';
-    selectedCity = widget.address.city;
+    phone = TextEditingController(text: widget.address.phone);
+    userName = TextEditingController(text: widget.address.username);
     selectedStreet = widget.address.street;
-    selectedLocation = LatLng(
-      double.tryParse(widget.address.lat ?? '') ?? 30.0444,
-      double.tryParse(widget.address.long ?? '') ?? 31.2357,
-    );
 
-    markers.add(Marker(
-      markerId: const MarkerId('selected-location'),
-      position: selectedLocation!,
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-    ));
+    // تحديد الموقع على الخريطة
+    if (widget.address.lat != null && widget.address.long != null) {
+      selectedLocation = LatLng(
+        double.tryParse(widget.address.lat!) ?? 30.0444,
+        double.tryParse(widget.address.long!) ?? 31.2357,
+      );
+      markers.add(Marker(
+        markerId: const MarkerId('selected-location'),
+        position: selectedLocation!,
+      ));
+    }
+
+    addressController.addListener(_updateLocation);
+  }
+
+  void _updateLocation() async {
+    if (addressController.text.isNotEmpty) {
+      await _locateOnMap(addressController.text);
+    }
   }
 
   Future<void> _locateOnMap(String address) async {
@@ -72,7 +90,6 @@ class _UpdateAddressScreenState extends State<UpdateAddressScreen> {
           markers.add(Marker(
             markerId: const MarkerId('selected-location'),
             position: selectedLocation!,
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
           ));
         });
         if (mapController != null) {
@@ -87,152 +104,226 @@ class _UpdateAddressScreenState extends State<UpdateAddressScreen> {
   }
 
   @override
+  void dispose() {
+    phone.dispose();
+    userName.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final token = UserLocalStorage.getToken();
     return BlocProvider(
-      create: (context) => getIt.get<AddressBloc>()
+      create: (context) =>
+      getIt.get<AddressBloc>()
         ..add(GetGovernorateEvent())
-        ..add(GetCountriesEvent())..add(GetStatesEvent(governateId: selectedCity!)),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            "Update Address",
-            style: getMediumStyle(color: AppColors.black, fontSize: 20.sp),
-          ),
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios_new_sharp),
-          ),
-        ),
-        body: BlocBuilder<AddressBloc, AddressState>(
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 16.h),
-                      SizedBox(
-                        height: 200.h,
-                        child: GoogleMap(
-                          onMapCreated: (controller) {
-                            mapController = controller;
-                            if (selectedLocation != null) {
-                              mapController!.animateCamera(
-                                CameraUpdate.newLatLngZoom(
-                                    selectedLocation!, 14.0),
-                              );
-                            }
-                          },
-                          myLocationButtonEnabled: true,
-                          initialCameraPosition: CameraPosition(
-                            target: selectedLocation ?? const LatLng(30.0444, 31.2357),
-                            zoom: 14.0,
-                          ),
-                          markers: markers,
-                          onTap: (LatLng position) {
-                            setState(() {
-                              selectedLocation = position;
-                              markers.clear();
-                              markers.add(Marker(
-                                markerId: const MarkerId('selected-location'),
-                                position: position,
-                                icon: BitmapDescriptor.defaultMarkerWithHue(
-                                    BitmapDescriptor.hueRose),
-                              ));
-                            });
-                            mapController!.animateCamera(
-                              CameraUpdate.newLatLng(position),
-                            );
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
+        ..add(GetCountriesEvent()),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: Text(
+                "Update Address",
+                style: getMediumStyle(color: AppColors.black, fontSize: 20.sp),
+              ),
+              leading: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.arrow_back_ios_new_sharp),
+              ),
+            ),
+            body: BlocBuilder<AddressBloc, AddressState>(
+              builder: (context, state) {
+                // تحديد المدينة المحددة مسبقاً
+                if (selectedCity == null && state.governorates != null) {
+                  final currentGovernorate = state.governorates!.firstWhere(
+                        (g) => g.nameEn.toLowerCase() == widget.address.city?.toLowerCase(),
+                    orElse: () => GovernorateEntity(id: '', nameAr: '', nameEn: ''),
+                  );
+                  if (currentGovernorate.id.isNotEmpty) {
+                    selectedCity = currentGovernorate.id;
+                    goverId = currentGovernorate.id;
+                    // تحميل المناطق للمحافظة المحددة
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      context.read<AddressBloc>().add(GetStatesEvent(governateId: currentGovernorate.id));
+                    });
+                  }
+                }
 
-                      /// Phone
-                      CustomTxtFieldWidget(
-                        lbl: "Enter the Phone",
-                        hint: "Phone number",
-                        validator: Validator.validatePhoneNumber,
-                        controller: phone,
-                      ),
-                      SizedBox(height: 16.h),
-
-                      /// Username
-                      CustomTxtFieldWidget(
-                        lbl: "Enter the recipient name",
-                        hint: "Recipient name",
-                        validator: Validator.validateUsername,
-                        controller: userName,
-                      ),
-                      SizedBox(height: 16.h),
-
-                      /// City & Area
-                      /// City & Area
-                      Row(
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: DropdownButtonFormField<String>(
-                              value: selectedCity,
-                              decoration: const InputDecoration(
-                                labelText: "City",
-                                border: OutlineInputBorder(),
-                              ),
-                              items: (state.governorates ?? [])
-                                  .map((governorate) {
-                                return DropdownMenuItem<String>(
-                                  value: governorate.nameEn,
-                                  child: Text(
-                                    governorate.nameEn,
-                                    style: getRegularStyle(
-                                        color: AppColors.gray,
-                                        fontSize: 14.sp),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (String? value) {
-                                if (value != null) {
-                                  setState(() {
-                                    selectedCity = value;
-                                    selectedStreet = null; // Reset area when city changes
-                                  });
-                                  _locateOnMap(value);
-                                  context
-                                      .read<AddressBloc>()
-                                      .add(GetStatesEvent(governateId: value));
-
+                          SizedBox(height: 16.h),
+                          SizedBox(
+                            height: 200.h,
+                            child: GoogleMap(
+                              onMapCreated: (controller) {
+                                mapController = controller;
+                                if (selectedLocation != null) {
+                                  mapController!.animateCamera(
+                                    CameraUpdate.newLatLngZoom(
+                                        selectedLocation!, 14.0),
+                                  );
                                 }
                               },
-                              validator: (value) =>
-                              value == null ? 'Please select a city' : null,
-                              isExpanded: true,
+                              myLocationButtonEnabled: true,
+                              initialCameraPosition: CameraPosition(
+                                target: selectedLocation ??
+                                    const LatLng(30.0444, 31.2357), // Cairo
+                                zoom: 14.0,
+                              ),
+                              markers: markers,
+                              onTap: (LatLng position) {
+                                setState(() {
+                                  selectedLocation = position;
+                                  markers.clear();
+                                  markers.add(
+                                    Marker(
+                                      markerId:
+                                      const MarkerId('selected-location'),
+                                      position: position,
+                                    ),
+                                  );
+                                });
+                                mapController!.animateCamera(
+                                  CameraUpdate.newLatLng(position),
+                                );
+                              },
                             ),
                           ),
-                          SizedBox(width: 16.h),
-                          Expanded(
-                            child: BlocBuilder<AddressBloc, AddressState>(
-                              builder: (context, state) {
-                                // Ensure selectedStreet is valid (exists in state.states)
-                                final validSelectedStreet = (state.states ?? [])
-                                    .any((val) => val.cityNameEn == selectedStreet)
-                                    ? selectedStreet
-                                    : null;
+                          SizedBox(height: 16.h),
 
-                                return DropdownButtonFormField<String>(
+                          /// Country
+                          DropdownButtonFormField<String>(
+                            value: selectedAddress,
+                            decoration: const InputDecoration(
+                              labelText: "Address",
+                              border: OutlineInputBorder(),
+                            ),
+                            items: state.countries.map((e) {
+                              return DropdownMenuItem<String>(
+                                value: e.isoCode,
+                                child: Text(
+                                  e.name,
+                                  style: getRegularStyle(
+                                      color: AppColors.gray, fontSize: 14.sp),
+                                ),
+                              );
+                            }).toList(),
+                            validator: (value) =>
+                            value == null ? "address must be not empty" : null,
+                            onChanged: (value) {
+                              selectedAddress = value;
+                              setState(() {});
+                              final country = state.countries.firstWhere(
+                                    (c) => c.isoCode == value,
+                                orElse: () => CountryEntity(
+                                  isoCode: "",
+                                  name: "",
+                                  phoneCode: "",
+                                  flag: "",
+                                  currency: "",
+                                  latitude: "",
+                                  longitude: "",
+                                  timezones: [],
+                                ),
+                              );
+                              if (country.name.isNotEmpty) {
+                                _locateOnMap(country.name);
+                              }
+                            },
+                          ),
+                          SizedBox(height: 16.h),
+
+                          /// Phone
+                          CustomTxtFieldWidget(
+                            lbl: "Enter the Phone",
+                            hint: "Phone number",
+                            validator: Validator.validatePhoneNumber,
+                            controller: phone,
+                          ),
+                          SizedBox(height: 16.h),
+
+                          /// Username
+                          CustomTxtFieldWidget(
+                            lbl: "Enter the recipient name",
+                            hint: "Recipient name",
+                            validator: Validator.validateUsername,
+                            controller: userName,
+                          ),
+                          SizedBox(height: 16.h),
+
+                          /// City & Street
+                          Row(
+                            children: [
+                              Expanded(
+                                child: DropdownButtonFormField<String>(
+                                  value: selectedCity,
+                                  decoration: const InputDecoration(
+                                    labelText: "City",
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  items: state.governorates?.map((governorate) {
+                                    return DropdownMenuItem<String>(
+                                      value: governorate.id,
+                                      child: Text(
+                                        governorate.nameEn,
+                                        style: getRegularStyle(
+                                            color: AppColors.gray,
+                                            fontSize: 14.sp),
+                                      ),
+                                    );
+                                  }).toList() ??
+                                      [],
+                                  onChanged: (String? value) {
+                                    if (value != null) {
+                                      setState(() {
+                                        selectedCity = value;
+                                        selectedStreet = null;
+                                        goverId = value;
+                                      });
+                                      context
+                                          .read<AddressBloc>()
+                                          .add(GetStatesEvent(governateId: value));
+
+                                      final selectedGovernorate =
+                                      state.governorates?.firstWhere(
+                                            (g) => g.id == value,
+                                        orElse: () => GovernorateEntity(
+                                            id: '', nameAr: '', nameEn: ''),
+                                      );
+
+                                      if (selectedGovernorate != null &&
+                                          selectedGovernorate.nameEn.isNotEmpty) {
+                                        _locateOnMap(selectedGovernorate.nameEn);
+                                      }
+                                    }
+                                  },
                                   validator: (value) =>
-                                  value == null ? "Please select an Area" : null,
+                                  value == null ? 'Please select a city' : null,
                                   isExpanded: true,
-                                  value: validSelectedStreet,
+                                ),
+                              ),
+                              SizedBox(width: 16.h),
+                              Expanded(
+                                child: DropdownButtonFormField<String>(
+                                  validator: (value) => value == null
+                                      ? "Please select an Area"
+                                      : null,
+                                  isExpanded: true,
+                                  value: selectedStreet,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: "Area",
                                   ),
-                                  items: (state.states ?? []).map((val) {
+                                  items: state.states?.map((val) {
                                     return DropdownMenuItem<String>(
                                       value: val.cityNameEn,
                                       child: Text(
@@ -242,83 +333,92 @@ class _UpdateAddressScreenState extends State<UpdateAddressScreen> {
                                             fontSize: 14.sp),
                                       ),
                                     );
-                                  }).toList(),
+                                  }).toList() ??
+                                      [],
                                   onChanged: (value) {
                                     if (value != null) {
-                                      setState(() {
-                                        selectedStreet = value;
-                                      });
+                                      selectedStreet = value;
+                                      setState(() {});
                                       _locateOnMap(value);
                                     }
                                   },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 24.h),
+
+                          BlocListener<AddressBloc, AddressState>(
+                            listener: (context, state) {
+                              if (state.updateState == RequestState.success) {
+                                Navigator.of(context).pushReplacementNamed(
+                                    AppRoutes.saveAddress);
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  CustomSnackBar.info(
+                                    message: "Address updated successfully",
+                                    backgroundColor: AppColors.pink,
+                                    textStyle: TextStyle(color: AppColors.white),
+                                  ),
                                 );
+                              } else if (state.updateState == RequestState.error) {
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  CustomSnackBar.error(
+                                    message: state.UpdateAddressErrorMessage ??
+                                        "Failed to update address",
+                                    backgroundColor: Colors.red,
+                                    textStyle: TextStyle(color: AppColors.white),
+                                  ),
+                                );
+                              }
+                            },
+                            child: CustomBtnWidget(
+                              txt: state.updateState == RequestState.loading
+                                  ? "Updating..."
+                                  : "Update Address",
+                              onPressed: state.updateState == RequestState.loading
+                                  ? null
+                                  : () {
+                                if (formKey.currentState!.validate()) {
+                                  final selectedGovernorate =
+                                  state.governorates?.firstWhere(
+                                        (g) => g.id == selectedCity,
+                                    orElse: () => GovernorateEntity(
+                                        id: '', nameAr: '', nameEn: ''),
+                                  );
+
+                                  context.read<AddressBloc>().add(
+                                    UpdateAddressEvent(
+                                      id: widget.address.id!, // معرف العنوان المراد تحديثه
+                                      request: AddAdressRequest(
+                                        username: userName.text,
+                                        city: selectedGovernorate?.nameEn ?? '',
+                                        long: selectedLocation?.longitude
+                                            .toString() ??
+                                            "",
+                                        lat: selectedLocation?.latitude
+                                            .toString() ??
+                                            "",
+                                        phone: phone.text,
+                                        street: selectedStreet ?? "",
+                                      ),
+                                      token: token!,
+                                    ),
+                                  );
+                                }
                               },
                             ),
-                          ),
+                          )
                         ],
                       ),
-                      SizedBox(height: 24.h),
-
-                      /// Update Button
-                      BlocListener<AddressBloc, AddressState>(
-                        listener: (context, state) {
-                          if (state.updateState == RequestState.success) {
-                            Navigator.of(context).pushReplacementNamed(
-                                AppRoutes.saveAddress);
-                            showTopSnackBar(
-                              Overlay.of(context),
-                              CustomSnackBar.info(
-                                message: "Location updated successfully",
-                                backgroundColor: AppColors.pink,
-                                textStyle: TextStyle(
-                                  color: AppColors.white,
-                                ),
-                              ),
-                            );
-                          } else if (state.updateState ==
-                              RequestState.error) {
-                            showTopSnackBar(
-                              Overlay.of(context),
-                              CustomSnackBar.error(
-                                message: state.UpdateAddressErrorMessage ??
-                                    "Update failed",
-                              ),
-                            );
-                          }
-                        },
-                        child: CustomBtnWidget(
-                          txt: "Update Address",
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              context.read<AddressBloc>().add(
-                                UpdateAddressEvent(
-                                  token: token!,
-                                  id: widget.address.id!,
-                                  request: AddAdressRequest(
-                                    username: userName.text,
-                                    city: selectedCity ?? "",
-                                    long: selectedLocation?.longitude
-                                        .toString() ??
-                                        "",
-                                    lat: selectedLocation?.latitude
-                                        .toString() ??
-                                        "",
-                                    phone: phone.text,
-                                    street: selectedStreet ?? "",
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

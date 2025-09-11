@@ -76,8 +76,9 @@ print("token ${token}");
 ,
 
             IconButton(onPressed: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (conext)=>UpdateAddressScreen(
-                  address: addressEntity)));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (conext)=>
+                  UpdateAddressDetailsScreen(
+                 address:  addressEntity)));
 
             },
                 icon: Icon(Icons.mode_edit_outline,size: 20.sp,color: AppColors.black,))
