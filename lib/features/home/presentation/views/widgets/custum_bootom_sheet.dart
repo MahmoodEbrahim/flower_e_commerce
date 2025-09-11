@@ -2,7 +2,7 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
+import 'package:flower_e_commerce/core/utils/constants/constants.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/bottom_sheet_title.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/dragable_line.dart';
@@ -40,7 +40,7 @@ class _CustumBootomSheetState extends State<CustumBootomSheet> {
     local.old,
     local.discount,
   ];
-  final List<String> filtersApi = ["price", "-price", "new", "old", "discount"];
+  final List<String> filtersApi = [Constants.price, Constants.lowPrice, Constants.myNew, Constants.old, Constants.discount];
   int myIndex = 0;
   String? sendCatId;
 
