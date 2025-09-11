@@ -57,6 +57,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
     LanguageCubit cubit = BlocProvider.of<LanguageCubit>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -124,12 +125,44 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                   const SizedBox(width: 5),
                   GestureDetector(
                     onTap: () async {
-                      final updatedUser = await Navigator.of(context)
-                          .pushNamed(AppRoutes.editProfilePage);
-                      if (updatedUser != null) {
-                        setState(() {
-                          user = updatedUser as LoginModel?;
-                        });
+                      if (user == null) {
+                        // Show dialog to login
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Center(child: Text(t.login),),
+                            content: Text("you do not have an account"),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text(t.cancel,
+                                    style: getRegularStyle(color: AppColors.black)),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // close dialog
+                                  Navigator.pushNamed(context, AppRoutes.login);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.pink,
+                                ),
+                                child: Text(
+                                  t.login,
+                                  style: getRegularStyle(color: AppColors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        // Navigate to edit profile
+                        final updatedUser = await Navigator.of(context)
+                            .pushNamed(AppRoutes.editProfilePage);
+                        if (updatedUser != null) {
+                          setState(() {
+                            user = updatedUser as LoginModel?;
+                          });
+                        }
                       }
                     },
                     child: SvgPicture.asset(
@@ -140,6 +173,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                   ),
                 ],
               ),
+
               Text(
                 user?.user.email ?? "",
                 style: getMediumStyle(
@@ -246,7 +280,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                               SizedBox(height: 16.h,),
                               Text(
                                 AppLocalizations.of(context)!.
-                              changelanguage,style: Theme.of(context).textTheme.bodyLarge,),
+                                changelanguage,style: Theme.of(context).textTheme.bodyLarge,),
                               SizedBox(height: 16.h,),
                               LanguageRow(title: AppLocalizations.of(context)!.arabic ,value: "ar",selected: cubit.currentLanguage,onChanged: (value){
                                 cubit.changeLanguage("ar");
