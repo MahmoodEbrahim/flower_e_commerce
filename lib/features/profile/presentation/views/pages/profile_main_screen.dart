@@ -76,11 +76,16 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
             ),
           ],
         ),
-        actions: const [
-          Icon(
-            Icons.notifications_none,
-            size: 30,
-            color: AppColors.gray,
+        actions:  [
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, AppRoutes.notificationspage);
+            },
+            child: Icon(
+              Icons.notifications_none,
+              size: 30,
+              color: AppColors.gray,
+            ),
           ),
         ],
         actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
