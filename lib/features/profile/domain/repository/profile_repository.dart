@@ -5,6 +5,7 @@ import 'package:flower_e_commerce/features/profile/api/models/edit_profile/respo
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/change_password/request/change_password_request.dart';
 import 'package:flower_e_commerce/features/profile/api/models/change_password/response/change_password_response.dart';
+import '../entity/generic_json_section_entity.dart';
 
 abstract interface class ProfileRepository {
   Future<ApiResult<UploadProfilePhotoResponse>>uploadPhoto(
@@ -15,4 +16,5 @@ abstract interface class ProfileRepository {
   editProfile(String token, EditProfileRequest request);
   Future<ApiResult<ChangePasswordResponse>>
   changePassword(ChangePasswordRequest request,String token);
+  Future<ApiResult<List<GenericJsonSectionEntity>>> getJsonSections(String jsonPath,String jsonKey);
 }

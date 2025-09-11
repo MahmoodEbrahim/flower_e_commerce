@@ -8,7 +8,7 @@ import 'package:flower_e_commerce/features/profile/api/models/edit_profile/respo
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/change_password/request/change_password_request.dart';
 import 'package:flower_e_commerce/features/profile/api/models/change_password/response/change_password_response.dart';
-import 'package:flower_e_commerce/features/profile/data/source/profile_remote_data_source.dart';
+import 'package:flower_e_commerce/features/profile/data/source/remote/profile_remote_data_source.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: ProfileRemoteDataSource)

@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-class TermsAndConditionPage extends StatelessWidget {
-  const TermsAndConditionPage({super.key});
+class AboutAppPage extends StatelessWidget {
+  const AboutAppPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final currentLang = Localizations.localeOf(context).languageCode;
 
     return BlocProvider(
-      create: (_) => getIt<GenericJsonSectionBloc>()..add(GenerateJsonSections(JsonAssets.terms,JsonKeys.terms)),
+      create: (_) => getIt<GenericJsonSectionBloc>()..add(GenerateJsonSections(JsonAssets.aboutApp,JsonKeys.about)),
       child: Scaffold(
         appBar: AppBar(backgroundColor: Colors.transparent,),
         extendBodyBehindAppBar: true,
@@ -49,6 +49,7 @@ class TermsAndConditionPage extends StatelessWidget {
                 },
               );
             } else if (state.requestState == RequestState.error) {
+              print(state.errorMessage);
               return Center(child: Text(state.errorMessage));
             }
             return const SizedBox.shrink();
