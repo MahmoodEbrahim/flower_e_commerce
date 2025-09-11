@@ -4,6 +4,7 @@ import 'package:flower_e_commerce/core/utils/constants/api_parameters.dart';
 import 'package:flower_e_commerce/features/home/api/models/category_products_response_dto.dart';
 import 'package:flower_e_commerce/features/home/api/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/product_by_occasion.dart';
+import 'package:flower_e_commerce/features/home/api/models/search_response_model.dart';
 
 
 import 'package:injectable/injectable.dart';
@@ -29,6 +30,12 @@ abstract class HomeApiService {
 
   @GET('home')
   Future<HomeModel> getHomeData();
+
+   @GET("products")
+  Future<SearchResponseModel> getSearchProducts(
+    @Query("sort") String sort,
+    @Query("category") String? category, 
+  );
 
   @GET(ApiEndPoints.productsEndPoint)
   Future<CategoryProductsResponseDto> searchProducts(

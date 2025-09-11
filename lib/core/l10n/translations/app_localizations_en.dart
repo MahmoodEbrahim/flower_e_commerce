@@ -183,7 +183,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Creating an account, you agree to our ';
 
   @override
-  String get termsAndConditions => 'Terms & conditions';
+  String get termsAndConditions => 'Terms & Conditions';
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
@@ -327,6 +327,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileTab => 'Profile';
+
+  @override
+  String get lowerPrice => 'Lower Price';
+
+  @override
+  String get highestPrice => 'Highest Price';
+
+  @override
+  String get newFilter => 'New';
+
+  @override
+  String get old => 'Old';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get startShopping => 'Start Shopping';
+
+  @override
+  String get emptyMessage => 'Your cart is blooming… \n but still empty! 🌸 ';
+
+  @override
+  String get loginToEnjoyShopping => 'Please Login to enjoy shopping';
+
+  @override
+  String get sortBy => 'sortBy';
+
+  @override
+  String get commonError => 'oops somthing went wrong please try again ';
 
   @override
   String get typeSomething => 'Type something to search...';

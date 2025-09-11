@@ -119,6 +119,20 @@
   "categoriesTab": "Categories",
   "cartTab": "Cart",
   "profileTab": "Profile",
+
+
+    "lowerPrice": "Lower Price",
+  "highestPrice": "Highest Price",
+  "newFilter": "New",
+  "old": "Old",
+  "discount": "Discount",
+  "filter":"Filter",
+  "startShopping":"Start Shopping",
+  "emptyMessage": "Your cart is blooming… \n but still empty! 🌸 ",
+  "loginToEnjoyShopping":"Please Login to enjoy shopping",
+  "sortBy":"sortBy",
+  "commonError":"oops somthing went wrong please try again "
+  "profileTab": "Profile",
   "typeSomething": "Type something to search...",
   "noProductsFor":"No products found for "
 

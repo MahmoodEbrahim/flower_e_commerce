@@ -105,6 +105,21 @@
   "hategoriesTab": "الفئات",
   "cartTab": "السلة",
   "profileTab": "الملف الشخصي",
+  "lowerPrice": "السعر الأقل",
+  "highestPrice": "أعلى سعر",
+  "newFilter": "جديد",
+  "old": "قديم",
+  "discount": "خصم",
+  "categoriesTab": "المنتجات",
+  "filter":"تصفيه",
+  "startShopping": "ابدأ التسوق",
+"emptyMessage": "عربتك فاضية 🌸 … حاول تضيف منتجات!",
+"loginToEnjoyShopping": "يرجى تسجيل الدخول للاستمتاع بالتسوق",
+"sortBy": "ترتيب حسب",
+"commonError": "عفوًا، حدث خطأ ما. حاول مرة أخرى"
+
+
+  "profileTab": "الملف الشخصي",
   "typeSomething": "اكتب شيئًا للبحث...",
   "noProductsFor": "لا توجد منتجات لـ "
 

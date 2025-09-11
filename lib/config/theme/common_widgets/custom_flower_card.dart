@@ -34,11 +34,10 @@ class CustomCardFlower extends StatelessWidget {
       width: 163.0,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
+        borderRadius: BorderRadiusDirectional.circular(8),
 
-          borderRadius:BorderRadiusDirectional.circular(8),
-
-
-          border: Border.all(width: 1.0, color: AppColors.midGray)),
+        border: Border.all(width: 1.0, color: AppColors.midGray),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,9 +47,12 @@ class CustomCardFlower extends StatelessWidget {
             width: 147.0,
             height: 131.0,
             fit: BoxFit.cover,
-            placeholder: (context, _) =>
-                Center(child: LoadingAnimationWidget.inkDrop(color: AppColors.pink,
-                    size: 24)),
+            placeholder: (context, _) => Center(
+              child: LoadingAnimationWidget.inkDrop(
+                color: AppColors.pink,
+                size: 24,
+              ),
+            ),
             errorWidget: (context, _, error) => Center(
               child: Icon(
                 Icons.image_not_supported_rounded,
@@ -59,72 +61,66 @@ class CustomCardFlower extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 5.0,
-          ),
+          SizedBox(height: 5.0),
           Text(
-            title,maxLines: 1,overflow: TextOverflow.ellipsis,
-            style: getRegularStyle(color: AppColors.blackColor[60]!, fontSize: 12.0),
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: getRegularStyle(
+              color: AppColors.blackColor[60]!,
+              fontSize: 12.0,
+            ),
           ),
-          SizedBox(
-            height: 5.0,
-          ),
+          SizedBox(height: 5.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isThereDiscount)
-                Text("${t.egp} $newPrice ",
-                    style: getBoldStyle(
-                      color: AppColors.blackColor[60]!,
-                      fontSize: FontSize.s16,
-                    )),
-              Text("$oldPrice",
-                  style: isThereDiscount
-                      ? getRegularStyle(
-                    color: AppColors.blackColor[60]!,
-                    fontSize: FontSize.s12,
-                  ).copyWith(decoration: TextDecoration.lineThrough)
-                      : getBoldStyle(
+                Text(
+                  "${t.egp} $newPrice ",
+                  style: getBoldStyle(
                     color: AppColors.blackColor[60]!,
                     fontSize: FontSize.s16,
-                  )),
+                  ),
+                ),
+              Text(
+                "$oldPrice",
+                style: isThereDiscount
+                    ? getRegularStyle(
+                        color: AppColors.blackColor[60]!,
+                        fontSize: FontSize.s12,
+                      ).copyWith(decoration: TextDecoration.lineThrough)
+                    : getBoldStyle(
+                        color: AppColors.blackColor[60]!,
+                        fontSize: FontSize.s16,
+                      ),
+              ),
               if (isThereDiscount)
                 Text(
                   "$discount%",
-                  style:
-                  getRegularStyle(color: AppColors.green, fontSize: 12.0),
+                  style: getRegularStyle(
+                    color: AppColors.green,
+                    fontSize: 12.0,
+                  ),
                 ),
             ],
           ),
-          SizedBox(
-            height: 5.0,
-          ),
+          SizedBox(height: 5.0),
           ElevatedButton(
-              onPressed: () {},
-              child: Row(
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
 
-                mainAxisAlignment: MainAxisAlignment.center,
-
-                children: [
-                  Icon(
-                    CupertinoIcons.cart,
-                    color: AppColors.white,
-                  ),
-                  SizedBox(
-                    width: 7.0,
-                  ),
-                  Text(
-
-                    t.addToCart,
-                    style:
-                    getMediumStyle
-                      (color: AppColors.white, fontSize: 13.0),
-
-
-
-                  )
-                ],
-              ))
+              children: [
+                Icon(CupertinoIcons.cart, color: AppColors.white),
+                SizedBox(width: 7.0),
+                Text(
+                  t.addToCart,
+                  style: getMediumStyle(color: AppColors.white, fontSize: 13.0),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -9,4 +9,8 @@ abstract interface class HomeRemoteDataSource {
   Future<ApiResult<HomeEntity>> getHomeData();
   Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(String catId);
   Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword);
+  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+    String filter,
+    String? catId,
+  );
 }

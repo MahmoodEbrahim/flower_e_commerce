@@ -62,6 +62,30 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
   }
 
   @override
+  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+    String filter,
+    String? catId,
+  ) async {
+    try {
+      final searchResponse = await _apiService.getSearchProducts(filter, catId);
+      final products = searchResponse.products!.map((model) {
+        return model.toEntity();
+      }).toList();
+      return ApiSucessResult(products);
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      String errorMessage = e.message!;
+
+      if (data is Map<String, dynamic> && data.containsKey("error")) {
+        errorMessage = data["error"].toString();
+      }
+      return ApiFailedResult(errorMessage);
+    } catch (e) {
+      return ApiFailedResult(e.toString());
+    }
+  }
+
+  @override
   Future<ApiResult<HomeEntity>> getHomeData() async {
     try {
       final homeModel = await _apiService.getHomeData();
@@ -70,7 +94,6 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       return ApiFailedResult('Failed to fetch home data: $e');
     }
   }
-
   @override
   Future<ApiResult<List<ProductsEntity>>> searchProducts(
       String keyword,

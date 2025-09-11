@@ -4,9 +4,12 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/core/widgets/common_error.dart';
+import 'package:flower_e_commerce/core/widgets/common_loading.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/widgets/card_section.dart';
-import 'package:flower_e_commerce/features/cart/presentation/view/widgets/common_loading.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/widgets/delivery_location.dart';
+import 'package:flower_e_commerce/features/cart/presentation/view/widgets/empty_cart_view.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/widgets/total_calculation_part.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view_model/cart_view_model/cart_events.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view_model/cart_view_model/cart_states.dart';
@@ -27,6 +30,7 @@ class _CartPageState extends State<CartPage> {
 
   final ValueNotifier<int> price = ValueNotifier<int>(0);
 
+  final ValueNotifier<bool> isEmptyCart = ValueNotifier<bool>(true);
   @override
   void initState() {
     cartViewModel.add(GetCartItemsEvent());
@@ -36,6 +40,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+
     return BlocProvider.value(
       value: cartViewModel,
       child: Scaffold(
@@ -45,10 +50,11 @@ class _CartPageState extends State<CartPage> {
           titleSpacing: 0,
           scrolledUnderElevation: 0,
           leading: IconButton(
-              constraints: BoxConstraints(),
-              padding: EdgeInsets.zero,
-              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
-              icon: Icon(Icons.arrow_back_ios)),
+            constraints: BoxConstraints(),
+            padding: EdgeInsets.zero,
+            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
+            icon: Icon(Icons.arrow_back_ios),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
@@ -56,56 +62,88 @@ class _CartPageState extends State<CartPage> {
             children: [
               DeliveryLocation(),
               SizedBox(
-                height: 400,
+                height: 430,
                 child: BlocConsumer<CartViewModel, CartStates>(
                   listener: (context, state) {
                     if (state.cartResonse != null) {
+                      if (state.cartResonse!.cart!.cartItems!.isEmpty) {
+                        isEmptyCart.value = true;
+                       
+                      } else {
+                        isEmptyCart.value = false;
+                       
+                      }
                       price.value = state.cartResonse!.cart!.totalPrice!;
-                    }
-
-                    if (state.errorMessage != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(state.errorMessage!)));
-
-                      context.read<CartViewModel>().add(ClearCartErrorEvent());
                     }
                   },
                   builder: (context, state) {
                     if (state.isLoading) {
+                      
                       return CommonLoading();
                     }
                     if (state.cartResonse != null) {
-                      return CardSection(
-                        cartEntity: state.cartResonse!.cart!,
-                      );
+                      if (state.cartResonse!.cart!.cartItems!.isEmpty) {
+                        isEmptyCart.value = true;
+                        return EmptyCartView();
+                      } else {
+                        isEmptyCart.value = false;
+                        return CardSection(
+                          cartEntity: state.cartResonse!.cart!,
+                        );
+                      }
+                    }
+                    if (state.errorMessage != null) {
+                      final user = UserLocalStorage.getUser();
+                      if (user == null) {
+                        return CustumError(
+                          errorMessage: t.loginToEnjoyShopping,
+                        );
+                      } else {
+                        return CustumError();
+                      }
                     } else {
-                      return SizedBox();
+                      return CustumError();
                     }
                   },
                 ),
               ),
+
               ValueListenableBuilder(
-                  valueListenable: price,
-                  builder: (context, value, child) {
-                    return TotalCalculationPart(
-                      price: price.value,
-                    );
-                  }),
-              Row(
-                children: [
-                  Expanded(
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              t.checkout,
-                              style: getRegularStyle(
-                                  color: AppColors.white,
-                                  fontSize: FontSize.s16),
+                valueListenable: isEmptyCart,
+                builder: (context, value, child) {
+                  return Column(
+                    children: [
+                      if (!value) ...[
+                        ValueListenableBuilder(
+                          valueListenable: price,
+
+                          builder: (context, value, child) {
+                            return TotalCalculationPart(price: price.value);
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    t.checkout,
+                                    style: getRegularStyle(
+                                      color: AppColors.white,
+                                      fontSize: FontSize.s16,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ))),
-                ],
+                          ],
+                        ),
+                      ],
+                    ],
+                  );
+                },
               ),
             ],
           ),

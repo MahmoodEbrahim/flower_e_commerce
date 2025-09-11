@@ -19,7 +19,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # Define allowed types (e.g., feat, fix, chore, docs)
           types: |
             feat
             fix
@@ -29,18 +28,11 @@ jobs:
             refactor
             perf
             test
-          # Optional: Define allowed scopes (e.g., ui, api, auth)
-          scopes: |
-            api
-            auth
-            home
-            profile
-            core
-          # Regex to enforce PR title format: type(scope): description AB#xxx
-          subjectPattern: ^.* AB#\d+$
+          
+          subjectPattern: '^[a-z]+(\(.*\))?: .* [A-Za-z]+-\d+$'
           subjectPatternError: |
-            The PR title must follow the format: `type(scope): description AB#xxx`
-            Example: `feat(ui): add login screen AB#123`
-          # Validate single commit matches PR title if squash and merge is used
+            The PR title must follow the format: `type(scope): description PREFIX-123`
+            Example: `feat(ui): add login screen ABC-123`
           validateSingleCommit: true
           validateSingleCommitMatchesPrTitle: true
+          githubBaseUrl: https://api.github.com
