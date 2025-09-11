@@ -327,4 +327,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileTab => 'Profile';
+
+  @override
+  String get typeSomething => 'Type something to search...';
+
+  @override
+  String get noProductsFor => 'No products found for ';
 }

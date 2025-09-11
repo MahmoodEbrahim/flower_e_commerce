@@ -104,5 +104,8 @@
   "homeTab": "الرئيسية",
   "hategoriesTab": "الفئات",
   "cartTab": "السلة",
-  "profileTab": "الملف الشخصي"
+  "profileTab": "الملف الشخصي",
+  "typeSomething": "اكتب شيئًا للبحث...",
+  "noProductsFor": "لا توجد منتجات لـ "
+
 }

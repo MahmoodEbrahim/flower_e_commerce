@@ -721,6 +721,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profileTab;
+
+  /// No description provided for @typeSomething.
+  ///
+  /// In en, this message translates to:
+  /// **'Type something to search...'**
+  String get typeSomething;
+
+  /// No description provided for @noProductsFor.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found for '**
+  String get noProductsFor;
 }
 
 class _AppLocalizationsDelegate

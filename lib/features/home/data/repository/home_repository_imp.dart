@@ -32,4 +32,9 @@ return _homeRemoteDataSource.getProductsDetialsByOccasions(occasionId);
       return ApiFailedResult(e.toString());
     }
   }
+
+  @override
+  Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword) async{
+    return await _homeRemoteDataSource.searchProducts(keyword);
+  }
 }

@@ -66,7 +66,7 @@ class _CustumTabBarState extends State<CustumTabBar> {
     final categoriesViewModel = context.read<CategoriesViewModel>();
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(top: 10,),
       child: SizedBox(
         width: double.infinity,
         height: 30,

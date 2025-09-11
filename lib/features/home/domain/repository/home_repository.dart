@@ -7,4 +7,5 @@ abstract interface class HomeRepository {
   getProductsDetialsByOccasions(String occasionId);
   Future<ApiResult<HomeEntity>> getHomeData();
   Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(String catId);
+  Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword);
 }

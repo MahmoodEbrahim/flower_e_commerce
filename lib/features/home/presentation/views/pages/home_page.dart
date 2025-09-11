@@ -13,8 +13,10 @@ import 'package:flower_e_commerce/features/home/presentation/view_model/home_vie
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/build_occasions_list.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/build_products_list.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/build_section_title.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/di/di.dart';
 
@@ -78,30 +80,16 @@ class HomePage extends StatelessWidget {
                           children: [
                             Text(
                               t.appTitle,
-                              style: TextStyle(
+                              style: GoogleFonts.imFellEnglish(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.pink,
-                                fontFamily: "IMFellEnglish",
                               ),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: t.search,
-                                  prefixIcon: const Icon(Icons.search,
-                                      color: Colors.grey),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 16),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color: Colors.grey.shade300,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              flex: 4,
+                              child: CustumSearchBar(readOnly: true),
                             ),
                           ],
                         ),
