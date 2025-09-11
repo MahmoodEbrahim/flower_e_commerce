@@ -37,4 +37,12 @@ class HomeRepositoryImp implements HomeRepository {
   Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword) async{
     return await _homeRemoteDataSource.searchProducts(keyword);
   }
+  
+   @override
+  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+    String filter,
+    String? catId,
+  ) async {
+    return await _homeRemoteDataSource.getSearchProducts(filter, catId);
+  }
 }

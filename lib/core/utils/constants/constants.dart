@@ -15,4 +15,11 @@ class Constants {
   // Product By Category
   static const String catId = "catId";
   static const String catName = "catName";
+  static const String price = "price";
+  static const String lowPrice = "-price";
+  static const String myNew = "new";
+  static const String old = "old";
+  static const String discount = "discount";
+
+
 }

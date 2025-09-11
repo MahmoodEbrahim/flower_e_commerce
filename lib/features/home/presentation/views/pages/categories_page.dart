@@ -13,8 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:radio_group_v2/radio_group_v2.dart';
 
-import '../widgets/search_box.dart';
-
 class CategoriesPage extends StatefulWidget {
   final int? catIndex;
   const CategoriesPage({super.key, this.catIndex});
@@ -37,7 +35,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           children: [
             CustomScrollView(
               slivers: [
-                CustumSearchBar(),
+                CustumSearchBar(readOnly: true,),
                 SliverToBoxAdapter(
                   child: BlocBuilder<CategoriesViewModel, CategoryState>(
                     builder: (context, state) {
@@ -113,97 +111,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   selectedValue: selectedValue,
                 );
               },
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: CustumSearchBar(readOnly: true),
-                  ),
-                  SizedBox(width: 10,),
-                  Expanded(
-                    flex: 1,
-                    child: SearchBox(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.menu, color: AppColors.gray),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              pinned: false,
-              floating: true,
-              backgroundColor: AppColors.white,
-              elevation: 0,
-              scrolledUnderElevation: 0,
-              toolbarHeight: 50,
-              // automaticallyImplyLeading: false,
-            ),
-            SliverToBoxAdapter(
-              child: BlocBuilder<CategoriesViewModel, CategoryState>(
-                builder: (context, state) {
-                  return CustumTabBar(
-                    categoryList: state.categories ?? [],
-                    produdctsList: state.products ?? [],
-                    allProducts: state.allProducts!,
-                    myIndex: state.index,
-                  );
-                },
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: BlocBuilder<CategoriesViewModel, CategoryState>(
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return SizedBox(
-                      height: 230.0,
-                      child: Center(
-                        child: LoadingAnimationWidget.inkDrop(
-                          color: AppColors.pink,
-                          size: 50,
-                        ),
-                      ),
-                    );
-                  }
-
-                  if (state.errorMessage != null) {
-                    return Center(child: Text(state.errorMessage!));
-                  }
-
-                  if (state.products != null && state.products!.isNotEmpty) {
-                    return GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 0.6,
-                          ),
-                      itemCount: state.products!.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              AppRoutes.details,
-                              arguments: state.products![index],
-                            );
-                          },
-                          child: CustomCardFlower(
-                            productsEntity: state.products![index],
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return NoProducts();
-                  }
-                },
-              ),
             ),
           ],
         ),
