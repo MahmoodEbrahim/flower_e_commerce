@@ -28,7 +28,7 @@ jobs:
             refactor
             perf
             test
-          scopes: "*"
+          
           subjectPattern: '^[a-z]+\(.*\): .+ [A-Z]+-\d+$'
           subjectPatternError: |
             The PR title must follow the format: `type(scope): description PREFIX-123`
