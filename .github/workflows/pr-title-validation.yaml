@@ -32,7 +32,7 @@ jobs:
           # Allowed scopes
           scopes: "*"
         
-          subjectPattern: ^.* [A-Za-z]+-\d+$
+          subjectPattern: ^.*[A-Za-z]+-\d+$
           subjectPatternError: |
             The PR title must follow the format: `type(scope): description PREFIX-123`
             Example: `feat(ui): add login screen ABC-123`
