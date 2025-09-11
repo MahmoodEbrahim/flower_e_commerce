@@ -8,8 +8,11 @@ class GetAllProductsOfCategoriesEvent extends CategoriesEvent {
   String catId;
   List<CategoriesEntity>? categories;
   int? index;
-  GetAllProductsOfCategoriesEvent(
-      {this.categories, required this.catId, this.index});
+  GetAllProductsOfCategoriesEvent({
+    this.categories,
+    required this.catId,
+    this.index,
+  });
 }
 
 class GetAllProductsEvent extends CategoriesEvent {
@@ -17,12 +20,24 @@ class GetAllProductsEvent extends CategoriesEvent {
   List<CategoriesEntity>? categories;
   List<ProductsEntity>? allproducts;
 
-
-  GetAllProductsEvent({required this.products, this.categories,this.allproducts});
+  GetAllProductsEvent({
+    required this.products,
+    this.categories,
+    this.allproducts,
+  });
 }
 
 class SelectCatIndexEvent extends CategoriesEvent {
   int index;
 
   SelectCatIndexEvent({required this.index});
+}
+
+class GetSearchProductsEvent extends CategoriesEvent {
+  final String filter;
+  final String? catId;
+   GetSearchProductsEvent({
+    required this.filter,
+    this.catId,
+  });
 }

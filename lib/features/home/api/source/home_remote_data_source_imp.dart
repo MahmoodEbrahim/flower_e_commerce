@@ -8,17 +8,18 @@ import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dar
 
 import 'package:injectable/injectable.dart';
 
-
 @Injectable(as: HomeRemoteDataSource)
 class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
   final HomeApiService _apiService;
   HomeRemoteDataSourceImp(this._apiService);
   @override
   Future<ApiResult<List<ProductsEntity>>> getProductsDetialsByOccasions(
-      String occasionId) async {
+    String occasionId,
+  ) async {
     try {
-      final response =
-          await _apiService.getProductsDetialsByOccasions(occasionId);
+      final response = await _apiService.getProductsDetialsByOccasions(
+        occasionId,
+      );
       final products =
           response.products?.map((e) => e.toEntity()).toList() ?? [];
       if (response.products == null) {
@@ -37,12 +38,14 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
 
   @override
   Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
-      String catId) async {
+    String catId,
+  ) async {
     try {
       final productsDtoList = await _apiService.getProductsByCategoryId(catId);
 
-      final productModelList =
-          productsDtoList.products!.map((dto) => dto.toEntity()).toList();
+      final productModelList = productsDtoList.products!
+          .map((dto) => dto.toEntity())
+          .toList();
 
       return ApiSucessResult(productModelList);
     } on DioException catch (e) {
@@ -58,7 +61,31 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
     }
   }
 
-    @override
+  @override
+  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+    String filter,
+    String? catId,
+  ) async {
+    try {
+      final searchResponse = await _apiService.getSearchProducts(filter, catId);
+      final products = searchResponse.products!.map((model) {
+        return model.toEntity();
+      }).toList();
+      return ApiSucessResult(products);
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      String errorMessage = e.message!;
+
+      if (data is Map<String, dynamic> && data.containsKey("error")) {
+        errorMessage = data["error"].toString();
+      }
+      return ApiFailedResult(errorMessage);
+    } catch (e) {
+      return ApiFailedResult(e.toString());
+    }
+  }
+
+  @override
   Future<ApiResult<HomeEntity>> getHomeData() async {
     try {
       final homeModel = await _apiService.getHomeData();
@@ -67,5 +94,4 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       return ApiFailedResult('Failed to fetch home data: $e');
     }
   }
-
 }

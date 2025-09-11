@@ -319,11 +319,44 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeTab => 'الرئيسية';
 
   @override
-  String get categoriesTab => 'Categories';
+  String get categoriesTab => 'المنتجات';
 
   @override
   String get cartTab => 'السلة';
 
   @override
   String get profileTab => 'الملف الشخصي';
+
+  @override
+  String get lowerPrice => 'السعر الأقل';
+
+  @override
+  String get highestPrice => 'أعلى سعر';
+
+  @override
+  String get newFilter => 'جديد';
+
+  @override
+  String get old => 'قديم';
+
+  @override
+  String get discount => 'خصم';
+
+  @override
+  String get filter => 'تصفيه';
+
+  @override
+  String get startShopping => 'ابدأ التسوق';
+
+  @override
+  String get emptyMessage => 'عربتك فاضية 🌸 … حاول تضيف منتجات!';
+
+  @override
+  String get loginToEnjoyShopping => 'يرجى تسجيل الدخول للاستمتاع بالتسوق';
+
+  @override
+  String get sortBy => 'ترتيب حسب';
+
+  @override
+  String get commonError => 'عفوًا، حدث خطأ ما. حاول مرة أخرى';
 }

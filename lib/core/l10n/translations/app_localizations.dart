@@ -721,6 +721,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profileTab;
+
+  /// No description provided for @lowerPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower Price'**
+  String get lowerPrice;
+
+  /// No description provided for @highestPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Highest Price'**
+  String get highestPrice;
+
+  /// No description provided for @newFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newFilter;
+
+  /// No description provided for @old.
+  ///
+  /// In en, this message translates to:
+  /// **'Old'**
+  String get old;
+
+  /// No description provided for @discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get discount;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @startShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Shopping'**
+  String get startShopping;
+
+  /// No description provided for @emptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your cart is blooming… \n but still empty! 🌸 '**
+  String get emptyMessage;
+
+  /// No description provided for @loginToEnjoyShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Login to enjoy shopping'**
+  String get loginToEnjoyShopping;
+
+  /// No description provided for @sortBy.
+  ///
+  /// In en, this message translates to:
+  /// **'sortBy'**
+  String get sortBy;
+
+  /// No description provided for @commonError.
+  ///
+  /// In en, this message translates to:
+  /// **'oops somthing went wrong please try again '**
+  String get commonError;
 }
 
 class _AppLocalizationsDelegate

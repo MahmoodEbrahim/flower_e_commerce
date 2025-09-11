@@ -104,5 +104,19 @@
   "homeTab": "الرئيسية",
   "hategoriesTab": "الفئات",
   "cartTab": "السلة",
-  "profileTab": "الملف الشخصي"
+  "profileTab": "الملف الشخصي",
+  "lowerPrice": "السعر الأقل",
+  "highestPrice": "أعلى سعر",
+  "newFilter": "جديد",
+  "old": "قديم",
+  "discount": "خصم",
+  "categoriesTab": "المنتجات",
+  "filter":"تصفيه",
+  "startShopping": "ابدأ التسوق",
+"emptyMessage": "عربتك فاضية 🌸 … حاول تضيف منتجات!",
+"loginToEnjoyShopping": "يرجى تسجيل الدخول للاستمتاع بالتسوق",
+"sortBy": "ترتيب حسب",
+"commonError": "عفوًا، حدث خطأ ما. حاول مرة أخرى"
+
+
 }
