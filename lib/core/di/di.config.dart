@@ -13,6 +13,30 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
+import '../../features/address/api/client/adress_api_services.dart' as _i658;
+import '../../features/address/api/data_source/adress_data_source_impl.dart'
+    as _i107;
+import '../../features/address/data/data_source/adress_data_source.dart'
+    as _i535;
+import '../../features/address/data/repositry/address_repositry_impl.dart'
+    as _i246;
+import '../../features/address/domain/repositry/address_repositry.dart' as _i52;
+import '../../features/address/domain/use_case/get_add_address_use_case.dart'
+    as _i671;
+import '../../features/address/domain/use_case/get_all_address_use_case.dart'
+    as _i808;
+import '../../features/address/domain/use_case/get_all_cities_use_case.dart'
+    as _i188;
+import '../../features/address/domain/use_case/get_all_countries_use_case.dart'
+    as _i946;
+import '../../features/address/domain/use_case/get_all_governorate_use_case.dart'
+    as _i648;
+import '../../features/address/domain/use_case/get_delete_address_use_case.dart'
+    as _i104;
+import '../../features/address/domain/use_case/get_update_address_use_case.dart'
+    as _i91;
+import '../../features/address/presentation/view_model/address_bloc.dart'
+    as _i1057;
 import '../../features/auth/api/client/auth_api_service.dart' as _i522;
 import '../../features/auth/api/source/auth_remote_data_souce_imp.dart'
     as _i669;
@@ -112,6 +136,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioModule.prettyDioLogger);
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
+    gh.factory<_i658.AddressesApiServices>(
+        () => _i658.AddressesApiServices(gh<_i361.Dio>()));
     gh.factory<_i522.AuthApiService>(
         () => _i522.AuthApiService(gh<_i361.Dio>()));
     gh.factory<_i942.CartApiService>(
@@ -132,8 +158,32 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
     gh.factory<_i26.CartRepository>(
         () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
+    gh.factory<_i535.AddressRemoteDataSource>(() =>
+        _i107.AddressRemoteDataSourceImpl(gh<_i658.AddressesApiServices>()));
+    gh.factory<_i751.CartRemoteDataSouce>(
+        () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
+    gh.factory<_i52.AddressRepositry>(
+        () => _i246.AddressRepositryImpl(gh<_i535.AddressRemoteDataSource>()));
+    gh.factory<_i26.CartRepository>(
+        () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
+    gh.factory<_i671.GetAddAddressUseCase>(
+        () => _i671.GetAddAddressUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i808.GetAllAddressesUseCase>(
+        () => _i808.GetAllAddressesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i188.GetAllStatesUseCase>(
+        () => _i188.GetAllStatesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i946.GetAllCountriesUseCase>(
+        () => _i946.GetAllCountriesUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i648.GetAllGovernorateUseCase>(
+        () => _i648.GetAllGovernorateUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i104.GetDeleteAddressUseCase>(
+        () => _i104.GetDeleteAddressUseCase(gh<_i52.AddressRepositry>()));
+    gh.factory<_i91.GetUpdateAddressUseCase>(
+        () => _i91.GetUpdateAddressUseCase(gh<_i52.AddressRepositry>()));
     gh.factory<_i557.HomeRemoteDataSource>(
         () => _i265.HomeRemoteDataSourceImp(gh<_i220.HomeApiService>()));
+    gh.factory<_i502.ProfileRemoteDataSource>(
+        () => _i532.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
     gh.factory<_i541.HomeRepository>(
         () => _i342.HomeRepositoryImp(gh<_i557.HomeRemoteDataSource>()));
     gh.factory<_i438.GetProductsByCategoryIdUseCase>(
@@ -160,11 +210,30 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i29.GetCartOfUserUseCase(gh<_i26.CartRepository>()));
     gh.factory<_i598.UpdateQuatityUseCase>(
         () => _i598.UpdateQuatityUseCase(gh<_i26.CartRepository>()));
+    gh.factory<_i738.AddToCartUsecase>(
+        () => _i738.AddToCartUsecase(gh<_i26.CartRepository>()));
+    gh.factory<_i472.DeleteItemFromCartUseCase>(
+        () => _i472.DeleteItemFromCartUseCase(gh<_i26.CartRepository>()));
+    gh.factory<_i29.GetCartOfUserUseCase>(
+        () => _i29.GetCartOfUserUseCase(gh<_i26.CartRepository>()));
+    gh.factory<_i598.UpdateQuatityUseCase>(
+        () => _i598.UpdateQuatityUseCase(gh<_i26.CartRepository>()));
     gh.factory<_i630.GetHomeDataUseCase>(
         () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
+    gh.factory<_i1057.AddressBloc>(() => _i1057.AddressBloc(
+          gh<_i671.GetAddAddressUseCase>(),
+          gh<_i808.GetAllAddressesUseCase>(),
+          gh<_i104.GetDeleteAddressUseCase>(),
+          gh<_i648.GetAllGovernorateUseCase>(),
+          gh<_i188.GetAllStatesUseCase>(),
+          gh<_i946.GetAllCountriesUseCase>(),
+          gh<_i91.GetUpdateAddressUseCase>(),
+        ));
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
         _i1010.ProductsDetialsOccasionBloc(
             gh<_i583.GetProductDetialsByOccasionUseCase>()));
+    gh.factory<_i604.CategoriesViewModel>(() =>
+        _i604.CategoriesViewModel(gh<_i438.GetProductsByCategoryIdUseCase>()));
     gh.factory<_i630.GetHomeDataUseCase>(
         () => _i630.GetHomeDataUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i1010.ProductsDetialsOccasionBloc>(() =>
@@ -176,6 +245,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i364.ProfileRepository>(
         () => _i335.ProfileRepositoryImp(gh<_i502.ProfileRemoteDataSource>()));
+    gh.factory<_i26.CartRepository>(
+        () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
     gh.factory<_i961.AuthRepository>(
         () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
     gh.singleton<_i861.CartViewModel>(() => _i861.CartViewModel(
@@ -186,6 +257,14 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i191.HomeBloc>(
         () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
+    gh.factory<_i738.AddToCartUsecase>(
+        () => _i738.AddToCartUsecase(gh<_i26.CartRepository>()));
+    gh.factory<_i472.DeleteItemFromCartUseCase>(
+        () => _i472.DeleteItemFromCartUseCase(gh<_i26.CartRepository>()));
+    gh.factory<_i29.GetCartOfUserUseCase>(
+        () => _i29.GetCartOfUserUseCase(gh<_i26.CartRepository>()));
+    gh.factory<_i598.UpdateQuatityUseCase>(
+        () => _i598.UpdateQuatityUseCase(gh<_i26.CartRepository>()));
     gh.factory<_i568.GetChangePasswordUseCase>(
         () => _i568.GetChangePasswordUseCase(gh<_i364.ProfileRepository>()));
     gh.factory<_i227.GetEditProfileUseCase>(
@@ -214,6 +293,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i878.EditProfileBloc>(() => _i878.EditProfileBloc(
           gh<_i342.GetUploadPhotoProfileUseCase>(),
           gh<_i227.GetEditProfileUseCase>(),
+        ));
+    gh.singleton<_i861.CartViewModel>(() => _i861.CartViewModel(
+          gh<_i738.AddToCartUsecase>(),
+          gh<_i29.GetCartOfUserUseCase>(),
+          gh<_i472.DeleteItemFromCartUseCase>(),
+          gh<_i598.UpdateQuatityUseCase>(),
         ));
     gh.factory<_i401.SignupViewModel>(
         () => _i401.SignupViewModel(gh<_i472.SignupUsecase>()));

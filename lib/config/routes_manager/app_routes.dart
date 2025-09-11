@@ -24,4 +24,7 @@ abstract class AppRoutes {
   static const String search="search";
 
 
+  static const String addAddress="/addAddress";
+  //SavedAddress
+  static const String saveAddress="/SavedAddress";
 }

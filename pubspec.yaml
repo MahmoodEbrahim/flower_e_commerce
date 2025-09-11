@@ -18,7 +18,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   google_fonts:
-  flutter_bloc: ^8.1.3
+  flutter_bloc: ^9.1.1
   equatable:
   dio:
   retrofit:
@@ -47,6 +47,12 @@ dependencies:
   flutter_radio_group: ^2.1.0
   radio_group_v2: ^3.3.1
   rxdart: ^0.27.7
+  google_maps_flutter: ^2.13.1
+  geocoding: ^4.0.0
+  lottie: ^3.3.2
+  flutter_animate: ^4.5.2
+  geolocator: ^14.0.2
+  top_snackbar_flutter: ^3.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,8 +73,8 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
-    - assets/json/terms_and_conditions.json
-    - assets/json/about.json
+    - assets/json/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
