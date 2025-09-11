@@ -17,10 +17,8 @@ final   List<AddressEntity>? addressEntity;
  final String? deleteAddressErrorMessage;
  final  RemoveAddressDto? removeAddressDto;
  final RequestState governorateRequestState;
- final String? governateErrorMessage;
  final  List<GovernorateEntity> governorates;
  final RequestState stateRequestState;
- final String? stateErrorMessage;
  final  List<StateEntity> states;
  final RequestState countryRequestState;
  final String? countryErrorMessage;
@@ -40,10 +38,10 @@ final   List<AddressEntity>? addressEntity;
    this.removeAddressDto,
    this.deleteAddressErrorMessage,
    this.governorateRequestState=RequestState.loading,
-   this.governateErrorMessage,
+
    this.governorates=const [],
    this.stateRequestState=RequestState.loading,
-   this.stateErrorMessage,
+
    this.states=const [],
 this.countryRequestState=RequestState.loading,
    this.countryErrorMessage,
@@ -88,10 +86,8 @@ this.countryRequestState=RequestState.loading,
      deleteAddressRequestState: deleteAddressRequestState??this.deleteAddressRequestState,
      governorateRequestState: governorateRequestState??this.governorateRequestState,
      governorates: governorates??this.governorates,
-     governateErrorMessage: governateErrorMessage??this.governateErrorMessage,
      stateRequestState: stateRequestState??this.stateRequestState,
      states: states??this.states,
-     stateErrorMessage: stateErrorMessage??this.stateErrorMessage,
      countryRequestState: countryRequestState??this.countryRequestState,
      countries: countries??this.countries,
      countryErrorMessage: countryErrorMessage??this.countryErrorMessage,
@@ -105,8 +101,7 @@ this.countryRequestState=RequestState.loading,
      [addAddressErrorMessage,addressEntity,addAddressRequestState,
      getAddressRequestState,addresses,getAddressErrorMessage,
        deleteAddressErrorMessage,deleteAddressRequestState,removeAddressDto,
-       governorates,governateErrorMessage,governorateRequestState,
-       stateErrorMessage,stateRequestState,states,
+       governorates,governorateRequestState,stateRequestState,states,
        countryErrorMessage,countryErrorMessage,countryRequestState,
        updateAddresses,updateState,UpdateAddressErrorMessage
      ];
