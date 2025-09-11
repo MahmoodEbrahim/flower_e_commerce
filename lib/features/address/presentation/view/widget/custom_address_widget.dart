@@ -1,6 +1,8 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/presentation/view/screen/update_screen.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_bloc.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
@@ -73,7 +75,11 @@ print("token ${token}");
             )
 ,
 
-            IconButton(onPressed: (){},
+            IconButton(onPressed: (){
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (conext)=>UpdateAddressScreen(
+                  address: addressEntity)));
+
+            },
                 icon: Icon(Icons.mode_edit_outline,size: 20.sp,color: AppColors.black,))
           ],
         ),

@@ -10,6 +10,7 @@ import 'package:flower_e_commerce/features/address/domain/use_case/get_all_citie
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_countries_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_governorate_use_case.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_delete_address_use_case.dart';
+import 'package:flower_e_commerce/features/address/domain/use_case/get_update_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +25,10 @@ GetDeleteAddressUseCase _deleteAddressUseCase;
 GetAllGovernorateUseCase _getAllGovernorateUseCase;
 GetAllStatesUseCase _allStatesUseCase;
 GetAllCountriesUseCase _getAllCountriesUseCase;
+GetUpdateAddressUseCase _getUpdateAddressUseCase;
 AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddressUseCase,
-    this._getAllGovernorateUseCase,this._allStatesUseCase,this._getAllCountriesUseCase):super(AddressState()){
+    this._getAllGovernorateUseCase,this._allStatesUseCase,
+    this._getAllCountriesUseCase,this._getUpdateAddressUseCase):super(AddressState()){
   on<GetAddAddressEvent>((event,emit)async{
     emit(state.copyWith(
       addAddressRequestState: RequestState.loading
@@ -81,6 +84,25 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
         emit(state.copyWith(
             deleteAddressRequestState: RequestState.error,
           deleteAddressErrorMessage: result.errorMessage
+        ));
+    }
+  });
+  on<UpdateAddressEvent>((event,emit)async{
+    emit(state.copyWith(
+      updateState: RequestState.loading
+    ));
+    final result=await _getUpdateAddressUseCase.updateAddress(event.token, event.id,
+        event.request);
+    switch(result){
+      case ApiSucessResult<List<AddressEntity>>():
+      emit(state.copyWith(
+        updateState: RequestState.success,
+        updateAddresses: result.sucessResult
+      ));
+      case ApiFailedResult<List<AddressEntity>>():
+        emit(state.copyWith(
+            updateState: RequestState.error,
+            UpdateAddressErrorMessage: result.errorMessage
         ));
     }
   });

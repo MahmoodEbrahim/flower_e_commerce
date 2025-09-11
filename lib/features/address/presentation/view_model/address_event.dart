@@ -38,6 +38,17 @@ class DeleteAddressEvent extends AddressEvent{
   // TODO: implement props
   List<Object?> get props => [token,id];
 }
+class UpdateAddressEvent extends AddressEvent{
+  final String token;
+  final String id;final AddAdressRequest request;
+  UpdateAddressEvent({
+    required this.id,
+    required this.token,required this.request
+  });
+  @override
+  // TODO: implement props
+  List<Object?> get props => [token,id];
+}
 class GetGovernorateEvent extends AddressEvent{
   @override
   // TODO: implement props

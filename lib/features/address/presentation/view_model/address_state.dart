@@ -25,6 +25,10 @@ final   List<AddressEntity>? addressEntity;
  final RequestState countryRequestState;
  final String? countryErrorMessage;
  final  List<CountryEntity> countries;
+ final RequestState updateState;
+ final  List<AddressEntity> updateAddresses;
+ final String? UpdateAddressErrorMessage;
+
  AddressState({
    this.addAddressRequestState=RequestState.loading,
    this.addressEntity,
@@ -43,7 +47,10 @@ final   List<AddressEntity>? addressEntity;
    this.states=const [],
 this.countryRequestState=RequestState.loading,
    this.countryErrorMessage,
-   this.countries=const []
+   this.countries=const [],
+   this.updateState=RequestState.loading,
+   this.updateAddresses=const [],
+   this.UpdateAddressErrorMessage
 });
  AddressState copyWith({
     RequestState? addAddressRequestState,
@@ -64,7 +71,11 @@ this.countryRequestState=RequestState.loading,
     RequestState? countryRequestState,
     String? countryErrorMessage,
      List<CountryEntity>? countries,
-}){
+    RequestState? updateState,
+     List<AddressEntity>? updateAddresses,
+    String? UpdateAddressErrorMessage
+
+ }){
    return AddressState(
      addAddressRequestState: addAddressRequestState??this.addAddressRequestState,
      addAddressErrorMessage: addAddressErrorMessage??this.addAddressErrorMessage,
@@ -83,7 +94,10 @@ this.countryRequestState=RequestState.loading,
      stateErrorMessage: stateErrorMessage??this.stateErrorMessage,
      countryRequestState: countryRequestState??this.countryRequestState,
      countries: countries??this.countries,
-     countryErrorMessage: countryErrorMessage??this.countryErrorMessage
+     countryErrorMessage: countryErrorMessage??this.countryErrorMessage,
+     updateState: updateState??this.updateState,
+     updateAddresses: updateAddresses??this.updateAddresses,
+       UpdateAddressErrorMessage: UpdateAddressErrorMessage??this.UpdateAddressErrorMessage
    );
  }
  @override
@@ -93,6 +107,7 @@ this.countryRequestState=RequestState.loading,
        deleteAddressErrorMessage,deleteAddressRequestState,removeAddressDto,
        governorates,governateErrorMessage,governorateRequestState,
        stateErrorMessage,stateRequestState,states,
-       countryErrorMessage,countryErrorMessage,countryRequestState
+       countryErrorMessage,countryErrorMessage,countryRequestState,
+       updateAddresses,updateState,UpdateAddressErrorMessage
      ];
 }

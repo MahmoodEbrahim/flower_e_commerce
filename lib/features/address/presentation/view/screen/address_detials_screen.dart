@@ -20,6 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AddAddressDetialsScreen extends StatefulWidget {
   const AddAddressDetialsScreen({super.key});
@@ -39,7 +41,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
   String? selectedAddress;
   GoogleMapController? mapController;
   LatLng? selectedLocation;
-
+  String? goverId;
   Set<Marker> markers = {};
 
   @override
@@ -99,12 +101,8 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                 icon: const Icon(Icons.arrow_back_ios_new_sharp),
               ),
             ),
-            body: BlocConsumer<AddressBloc, AddressState>(
-              listener: (context, state) {
-                if (state.addAddressRequestState == RequestState.success) {
-                  Navigator.of(context).pushNamed(AppRoutes.saveAddress);
-                }
-              },
+            body: BlocBuilder<AddressBloc, AddressState>(
+            
               builder: (context, state) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -241,11 +239,12 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                     if (value != null) {
                                       setState(() {
                                         selectedCity = value;
-                                        selectedStreet = null;
+                                        selectedStreet = null;goverId=value;
                                       });
                                       context
                                           .read<AddressBloc>()
                                           .add(GetStatesEvent(governateId: value));
+
 
                                       final selectedGovernorate =
                                       state.governorates?.firstWhere(
@@ -303,10 +302,28 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                           ),
                           SizedBox(height: 24.h),
 
-                          /// Save
-                          CustomBtnWidget(
-                            txt: "Save Address",
-                            onPressed: () {
+                        BlocListener<AddressBloc,AddressState>(listener: (context,state){
+                          if(state.addAddressRequestState==RequestState.success ){
+                            Navigator.of(context).pushReplacementNamed(AppRoutes.saveAddress);
+                          showTopSnackBar(
+
+                            Overlay.of(context),
+
+                            CustomSnackBar.info(
+
+                              message:
+                              "Location added successfuly",
+                              backgroundColor: AppColors.pink,
+                              textStyle: TextStyle(
+                                  color: AppColors.white
+                              ),
+                            ),
+                          );
+                          }
+                        },child:     CustomBtnWidget(
+                          txt: "Save Address",
+                          onPressed: () {
+
                               if (formKey.currentState!.validate()) {
                                 final selectedGovernorate =
                                 state.governorates?.firstWhere(
@@ -314,7 +331,6 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                   orElse: () =>
                                       GovernorateEntity(id: '', nameAr: '', nameEn: ''),
                                 );
-
                                 context.read<AddressBloc>().add(
                                   GetAddAddressEvent(
                                     request: AddAdressRequest(
@@ -332,9 +348,15 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                     token: token!,
                                   ),
                                 );
+
                               }
-                            },
-                          ),
+
+
+
+
+                          },
+                        ),)
+                     
                         ],
                       ),
                     ),
