@@ -374,12 +374,9 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                               }
                             },
                             child: CustomBtnWidget(
-                              txt: state.updateState == RequestState.loading
-                                  ? "Updating..."
-                                  : "Update Address",
-                              onPressed: state.updateState == RequestState.loading
-                                  ? null
-                                  : () {
+                              txt:
+                                   "Update Address",
+                              onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   final selectedGovernorate =
                                   state.governorates?.firstWhere(
