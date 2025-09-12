@@ -30,7 +30,7 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
   Future<void> _addToCart(AddToCartEvent event, Emitter emit) async {
     emit(state.copyWith(isLoading: true));
     final res =
-        await _addToCartUsecase.addProductToCart(event.cartItemRequestEntity);
+    await _addToCartUsecase.addProductToCart(event.cartItemRequestEntity);
 
     switch (res) {
       case ApiSucessResult<CartResponseEntity>():
@@ -58,9 +58,9 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
 
   Future<void> _deleteItemFromCart(
       DeleteItemFromCartEvent event, Emitter emit) async {
-  
+
     final res =
-        await _deleteItemFromCartUseCase.deleteItemFromCart(event.itemId);
+    await _deleteItemFromCartUseCase.deleteItemFromCart(event.itemId);
 
     switch (res) {
       case ApiSucessResult<CartResponseEntity>():
@@ -73,9 +73,9 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
   }
   Future<void> _updateQuanity(
       UpdateQuatityItemCEvent event, Emitter emit) async {
-   
+
     final res =
-        await _updateQuatityUseCase.updateQuantity(event.updatedReq);
+    await _updateQuatityUseCase.updateQuantity(event.updatedReq);
 
     switch (res) {
       case ApiSucessResult<CartResponseEntity>():
@@ -86,8 +86,4 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
             isLoading: false, errorMessage: res.errorMessage, cart: state.cartResonse));
     }
   }
-
-
-
-
 }

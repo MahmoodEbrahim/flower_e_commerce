@@ -27,4 +27,10 @@ abstract class AppRoutes {
   static const String addAddress="/addAddress";
   //SavedAddress
   static const String saveAddress="/SavedAddress";
+
+  static const String checkoutscreen="/CheckoutScreen";
+
+  static const String notificationspage="/NotificationsPage";
+
+
 }
