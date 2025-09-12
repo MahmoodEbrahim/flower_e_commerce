@@ -69,6 +69,19 @@ import '../../features/cart/domain/usecase/get_cart_of_user.dart' as _i29;
 import '../../features/cart/domain/usecase/update_quatity.dart' as _i598;
 import '../../features/cart/presentation/view_model/cart_view_model/cart_view_model.dart'
     as _i861;
+import '../../features/checkout/api/client/checkout_api_service.dart' as _i252;
+import '../../features/checkout/api/source/checkout_remote_data_source_imp.dart'
+    as _i13;
+import '../../features/checkout/data/repository/checkout_repository_imp.dart'
+    as _i711;
+import '../../features/checkout/data/source/checkout_remote_data_source.dart'
+    as _i335;
+import '../../features/checkout/domain/repository/checkout_repository.dart'
+    as _i730;
+import '../../features/checkout/domain/usecase/get_checkout_data_usecase.dart'
+    as _i330;
+import '../../features/checkout/domain/usecase/get_orders_by_checkout_url_usecase.dart'
+    as _i27;
 import '../../features/home/api/client/home_api_service.dart' as _i220;
 import '../../features/home/api/source/home_remote_data_source_imp.dart'
     as _i265;
@@ -146,6 +159,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i220.HomeApiService(gh<_i361.Dio>()));
     gh.factory<_i495.ProfileApiService>(
         () => _i495.ProfileApiService(gh<_i361.Dio>()));
+    gh.factory<_i252.CheckoutApiService>(
+        () => _i252.CheckoutApiService(gh<_i361.Dio>()));
     gh.factory<_i691.ProfileLocalDataSource>(
         () => _i752.ProfileLocalDataSourceImp());
     gh.factory<_i535.AddressRemoteDataSource>(() =>
@@ -186,12 +201,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i519.SearchProductsUseCase(gh<_i541.HomeRepository>()));
     gh.factory<_i777.AuthRemoteDataSource>(
         () => _i669.AuthRemoteDataSourceImp(gh<_i522.AuthApiService>()));
+    gh.factory<_i335.CheckoutRemoteDataSource>(
+        () => _i13.CheckoutRemoteDataSourceImp(gh<_i252.CheckoutApiService>()));
+    gh.factory<_i730.CheckoutRepository>(() =>
+        _i711.CheckoutRepositoryImp(gh<_i335.CheckoutRemoteDataSource>()));
     gh.factory<_i717.SearchBloc>(
         () => _i717.SearchBloc(gh<_i519.SearchProductsUseCase>()));
+    gh.factory<_i27.GetOrdersByCheckoutUrlUseCase>(() =>
+        _i27.GetOrdersByCheckoutUrlUseCase(gh<_i730.CheckoutRepository>()));
     gh.factory<_i364.ProfileRepository>(() => _i335.ProfileRepositoryImp(
           gh<_i368.ProfileRemoteDataSource>(),
           gh<_i691.ProfileLocalDataSource>(),
         ));
+    gh.factory<_i330.GetCheckoutDataUseCase>(
+        () => _i330.GetCheckoutDataUseCase(gh<_i730.CheckoutRepository>()));
     gh.factory<_i738.AddToCartUsecase>(
         () => _i738.AddToCartUsecase(gh<_i26.CartRepository>()));
     gh.factory<_i472.DeleteItemFromCartUseCase>(

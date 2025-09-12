@@ -21,7 +21,6 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/product
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/search_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
-import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/notifications_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
 import 'package:flutter/material.dart';
