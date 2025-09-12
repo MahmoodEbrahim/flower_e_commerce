@@ -28,11 +28,12 @@ void main() async {
   Hive.registerAdapter(AddressEntityAdapter());
   await UserLocalStorage.init();
   runApp(
-      DevicePreview(builder: (context) =>
+   //   DevicePreview(builder: (context) =>
           BlocProvider(
             create: (context) => LanguageCubit()..getLanguage(),
             child: MyApp(),
-          ))
+          )
+  //)
 
   );
 }

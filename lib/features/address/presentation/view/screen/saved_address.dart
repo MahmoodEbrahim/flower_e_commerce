@@ -43,14 +43,7 @@ class SavedAddress extends StatelessWidget {
               print("error in deleting ${state.deleteAddressErrorMessage}");
 
             }
-            if(state.getAddressRequestState==RequestState.success){
-       UserLocalStorage.saveUser(LoginModel(
-           user: UserModel(
-             addresses: state.addressEntity
-           ),
-           token: token!));
 
-            }
           },
           builder: (context,state){
        return Padding(padding: EdgeInsets.symmetric(

@@ -70,7 +70,8 @@ class UserModel {
       photo: photo ?? this.photo,
       role: role ?? this.role,
       wishlist: wishlist ?? this.wishlist,
-      addresses: addresses ?? this.addresses,
+      addresses:
+      (addresses == null || addresses.isEmpty) ? this.addresses : addresses,
     );
   }
 }
