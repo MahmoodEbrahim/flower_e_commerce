@@ -1,4 +1,5 @@
  import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/orders/presentation/view/widgets/active_widget.dart';
 import 'package:flower_e_commerce/features/orders/presentation/view/widgets/completed_widget.dart';
@@ -7,9 +8,10 @@ import 'package:flower_e_commerce/features/orders/presentation/view_model/orders
 import 'package:flower_e_commerce/features/orders/presentation/view_model/orders_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../core/di/di.dart';
-import '../../../../cart/presentation/view/widgets/common_loading.dart';
+import '../../../../../core/widgets/common_loading.dart';
 import '../../../domain/entity/order_entity/orders_entity.dart';
 
 class OrderPage extends StatefulWidget{
@@ -31,21 +33,21 @@ class _OrderPageState extends State<OrderPage> {
       value: Order,
 
   child: Scaffold(
+    backgroundColor: AppColors.white,
         appBar: AppBar(
+          backgroundColor: AppColors.white,
           title: Text(AppLocalizations.of(context)!.orderPage),
         ),
-        body:DefaultTabController(
-
-
-          length: 2,
+        body:DefaultTabController(length: 2,
           child: Column(
             children: [
               Column(crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TabBar(
-                    labelStyle: TextTheme.of(context).bodySmall?.copyWith(color: AppColors.pink) ,
+labelStyle:                       getMediumStyle(color: AppColors.pink,fontSize: 18.sp),
+
                       unselectedLabelStyle:
-                         TextTheme.of(context).bodySmall,
+                         getMediumStyle(color: AppColors.gray,fontSize: 18.sp),
                       onTap: (index){
                         selected=index;
                         setState(() {
@@ -58,8 +60,11 @@ class _OrderPageState extends State<OrderPage> {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(16)) ,
                       isScrollable: true,
+
                       tabAlignment: TabAlignment.center,
+
                       dividerHeight: 0,
+                      indicatorColor: AppColors.pink,
                       tabs:[Tab(text:AppLocalizations.of(context)!.active ,
 
 

@@ -305,19 +305,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                         BlocListener<AddressBloc,AddressState>(listener: (context,state){
                           if(state.addAddressRequestState==RequestState.success ){
                             Navigator.of(context).pushReplacementNamed(AppRoutes.saveAddress);
-                          showTopSnackBar(
-
-                            Overlay.of(context),
-
-                            CustomSnackBar.success(
-                              message:
-                              "Location added successfuly",
-                              backgroundColor: AppColors.pink,
-                              textStyle: TextStyle(
-                                  color: AppColors.white
-                              ),
-                            ),
-                          );
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Location added successfuly")));
                           }
                           if(state.addAddressRequestState==RequestState.error ) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar

@@ -31,6 +31,6 @@ abstract class AppRoutes {
   static const String checkoutscreen="/CheckoutScreen";
 
   static const String notificationspage="/NotificationsPage";
-
+  static const String orderspage="/Orders";
 
 }

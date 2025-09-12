@@ -7,6 +7,7 @@ import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_p
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/signup_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/verfiy_password.dart';
+import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
 import 'package:flower_e_commerce/features/cart/presentation/view/pages/cart_page.dart';
 import 'package:flower_e_commerce/features/checkout/presentation/views/checkout-screen.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
@@ -20,6 +21,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/occasio
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/search_page.dart';
+import 'package:flower_e_commerce/features/orders/presentation/view/pages/orderpage.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/notifications_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
@@ -42,6 +44,10 @@ abstract class Routes {
       case AppRoutes.addAddress:
         return MaterialPageRoute(
           builder: (context) => AddAddressDetialsScreen(),
+        );
+      case AppRoutes.orderspage:
+        return MaterialPageRoute(
+          builder: (context) => OrderPage(),
         );
       case AppRoutes.bestSellers:
         final args = settings.arguments as Map<String, dynamic>;
@@ -124,7 +130,8 @@ abstract class Routes {
       case AppRoutes.notificationspage:
         return MaterialPageRoute(builder: (context) => NotificationsPage(),);
       case AppRoutes.checkoutscreen:
-        return MaterialPageRoute(builder: (context) => CheckoutScreen());
+        final args = settings.arguments as CartEntity;
+        return MaterialPageRoute(builder: (context) => CheckoutScreen(cart:args));
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(

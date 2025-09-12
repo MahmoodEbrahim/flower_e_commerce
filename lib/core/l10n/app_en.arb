@@ -119,11 +119,11 @@
   "categoriesTab": "Categories",
   "cartTab": "Cart",
   "profileTab": "Profile",
-  "orderPage": "Order Page",
+  "orderPage": "My Order",
   "active": "Active",
   "completed": "Completed",
   "reorder": "Reorder",
-  "trackorder": "Track order"
+  "trackorder": "Track order",
   "profileTab": "Profile",
 
 

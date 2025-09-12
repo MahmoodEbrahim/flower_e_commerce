@@ -179,7 +179,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     title: t.myOrders,
                     showArrow: true,
                     onTap: () {
-                      // navigator
+                   Navigator.of(context).pushNamed(AppRoutes.orderspage);
                     },
                   ),
                   ProfileItem(
