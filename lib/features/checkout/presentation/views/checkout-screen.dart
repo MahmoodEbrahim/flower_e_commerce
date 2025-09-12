@@ -1,5 +1,10 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
+import 'package:flower_e_commerce/features/address/presentation/view/screen/update_screen.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -16,6 +21,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user=UserLocalStorage.getUser()!.user!;
+    var address = user.addresses
+    ;
+    if(address==null ||address.isEmpty){
+      address=[
+        AddressEntity(
+          city: "",street: "",id: "",username: "",long: "",
+          lat: "",phone: ""
+        )
+      ];
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
@@ -59,13 +75,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             const Divider(height: 32),
             const Text("Delivery address",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            _addressOption("home", "Home", "2XVP-XC - Sheikh Zayed"),
-            const SizedBox(height: 8),
-            _addressOption("office", "Office", "2XVP-XC - Sheikh Zayed"),
+  address.isNotEmpty ||address!=null?    SizedBox(
+        height: 220.h,
+        child:      ListView.separated(itemBuilder: (context,index){
+          return _addressOption("", address![index]);
+        },
+            separatorBuilder: (context,index){
+          return SizedBox(height: 10.h,);
+            },
+            itemCount: address.length),
+      ):SizedBox(
+    height: 10.h,
+  ),
             const SizedBox(height: 8),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.addAddress);
+              },
               icon: const Icon(Icons.add, color: Colors.pink),
               label: const Text("Add new",
                   style: TextStyle(color: Colors.pink)),
@@ -159,7 +185,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  Widget _addressOption(String value, String title, String subtitle) {
+  Widget _addressOption(String value, AddressEntity address) {
     return InkWell(
       onTap: () {
         setState(() {
@@ -184,9 +210,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               });
             },
           ),
-          title: Text(title),
-          subtitle: Text(subtitle),
-          trailing: const Icon(Icons.edit, size: 20),
+          title: Text(address.city??""),
+          subtitle: Text(address.street??""),
+          trailing:  InkWell(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UpdateAddressDetailsScreen
+                (address: address)));
+            },
+            child: Icon(Icons.edit, size: 20),),
         ),
       ),
     );

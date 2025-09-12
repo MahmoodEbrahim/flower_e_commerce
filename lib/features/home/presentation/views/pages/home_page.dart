@@ -2,6 +2,7 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_page_parameter.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
@@ -28,6 +29,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoriesViewModel = context.read<CategoriesViewModel>();
     final t = AppLocalizations.of(context)!;
+    final user = UserLocalStorage.getUser()!;
+    final address = user.user.addresses;
+    String street = "";
+    String city = "";
+
+    if (address != null && address.isNotEmpty) {
+      street = address[0].street ?? "";
+      city   = address[0].city ?? "";
+    }
+
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<HomeBloc>(),
@@ -103,7 +114,7 @@ class HomePage extends StatelessWidget {
                           const Icon(Icons.location_on_outlined, size: 24),
                           const SizedBox(width: 6),
                           Text(
-                            t.address,
+        address!.isEmpty||address==null? "No Location":"${city} ${street}",
                             style: TextStyle(fontSize: 18),
                           ),
                           const Icon(Icons.keyboard_arrow_down_outlined,
