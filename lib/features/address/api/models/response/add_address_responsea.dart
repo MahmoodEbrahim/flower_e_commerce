@@ -60,7 +60,8 @@ class Address {
   }
   AddressEntity toEntity(){
     return AddressEntity(
-      street: street,phone: phone,lat: lat,long: long,username: username,
+      street: street,
+        phone: phone,lat: lat,long: long,username: username,
       city: city,id: Id
     );
   }

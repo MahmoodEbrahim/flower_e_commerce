@@ -1,6 +1,9 @@
 import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../address/api/models/response/add_address_responsea.dart';
 part 'user_dto.g.dart';
 @JsonSerializable()
 class UserDto {
@@ -23,7 +26,7 @@ class UserDto {
   @JsonKey(name: JsonSerlizableConstants.wishlist)
   List<dynamic>? wishlist;
   @JsonKey(name: JsonSerlizableConstants.addresses)
-  List<dynamic>? addresses;
+  List<Address>? addresses;
   @JsonKey(name: JsonSerlizableConstants.createdAt)
   DateTime? createdAt;
   UserDto({
@@ -41,6 +44,7 @@ class UserDto {
   });
   factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
   Map<String, dynamic> toJson() => _$UserDtoToJson(this);
+
   UserModel toUserModel() {
     return UserModel(
         firstName: firstName,
@@ -51,7 +55,8 @@ class UserDto {
         photo: photo,
         role: role,
         wishlist: wishlist,
-        addresses: addresses
+        addresses: addresses?.map((e)=>e.toEntity()).toList()
     );
   }
+
 }

@@ -200,35 +200,40 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     },
                   ),
                   const Divider(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 5),
-                    child: Row(
-                      children: [
-                        Switch(
-                          value: isNotificationEnabled,
-                          onChanged: (value) {
-                            setState(() {
-                              isNotificationEnabled = value;
-                            });
-                          },
-                          activeColor: AppColors.white,
-                          activeTrackColor: AppColors.pink,
-                          inactiveThumbColor: AppColors.gray,
-                          inactiveTrackColor: AppColors.white,
-                        ),
-                        const SizedBox(width: 3),
-                        Text(t.notification,
-                            style: getRegularStyle(
-                                color: AppColors.black, fontSize: FontSize.s16)),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            ///navigator
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios_rounded,
-                              size: 20, color: AppColors.black),
-                        )
-                      ],
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(AppRoutes.notificationspage);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 5),
+                      child: Row(
+                        children: [
+                          Switch(
+                            value: isNotificationEnabled,
+                            onChanged: (value) {
+                              setState(() {
+                                isNotificationEnabled = value;
+                              });
+                            },
+                            activeColor: AppColors.white,
+                            activeTrackColor: AppColors.pink,
+                            inactiveThumbColor: AppColors.gray,
+                            inactiveTrackColor: AppColors.white,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(t.notification,
+                              style: getRegularStyle(
+                                  color: AppColors.black, fontSize: FontSize.s16)),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              ///navigator
+                            },
+                            icon: const Icon(Icons.arrow_forward_ios_rounded,
+                                size: 20, color: AppColors.black),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   const Divider(height: 20),

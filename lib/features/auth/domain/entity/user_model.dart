@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';
@@ -32,7 +33,7 @@ class UserModel {
   final List<dynamic>? wishlist;
 
   @HiveField(9)
-  final List<dynamic>? addresses;
+  final List<AddressEntity>? addresses;
 
 
   UserModel({
@@ -57,7 +58,7 @@ class UserModel {
     String? photo,
     String? role,
     List<dynamic>? wishlist,
-    List<dynamic>? addresses,
+    List<AddressEntity>? addresses,
   }) {
     return UserModel(
       iid: iid ?? this.iid,

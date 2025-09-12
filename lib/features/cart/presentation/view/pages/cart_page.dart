@@ -40,7 +40,26 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final user = UserLocalStorage.getUser();
 
+    if (user == null || user.user == null) {
+      print("User not found");
+    } else {
+      print("User is already exist");
+      print("##########################${user.user!.firstName}");
+    }
+
+    final addresses = user?.user?.addresses ?? [];
+    if (addresses.isNotEmpty) {
+      print("User addresses exist: $addresses");
+    } else {
+      print("No addresses found");
+    }
+
+    final city = addresses.isNotEmpty ? addresses[0].city : "No City";
+    final location = addresses.isNotEmpty ? addresses[0].street : "No Street";
+    print("Location: $location");
+    print("Length: ${addresses.length}");
     return BlocProvider.value(
       value: cartViewModel,
       child: Scaffold(
@@ -127,7 +146,10 @@ class _CartPageState extends State<CartPage> {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).
+                                  pushNamed(AppRoutes.checkoutscreen);
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Text(

@@ -60,44 +60,56 @@ class SavedAddress extends StatelessWidget {
           size: 50.sp),)
            :
 
-       Column(
-         children: [
-    state.addresses.isEmpty?       Center(
-      child:Column(
-           children: [
-             SizedBox(height: MediaQuery.of(context).size.height*0.2,),
-             Lottie.asset("assets/json/search_location.json",fit: BoxFit.cover,
-                 height: 200.h,width: 300.w
+
+             Column(
+               children: [
+                 state.addresses.isEmpty?       Center(
+                     child:
+                     Column(
+                       children: [
+                         SizedBox(height: MediaQuery.of(context).size.height*0.2,),
+                         Lottie.asset("assets/json/search_location.json",fit: BoxFit.cover,
+                             height: 200.h,width: 300.w
+                         ),
+                         SizedBox(height: 60.h,),
+                         Text("No Saved Addresses Yet",style:
+                         getBoldStyle(color: AppColors.pink,fontSize: 16.sp).copyWith(
+                             fontFamily: GoogleFonts.adamina().fontFamily
+                         )).animate(
+
+                         ).fadeIn()
+                       ],
+                     )
+                 ):       Expanded(
+                     child:  ListView.separated(itemBuilder:
+                         (context,index){
+                       return CustomAddressWidget
+                         (addressEntity: state.addresses[index]);
+                     },
+                       separatorBuilder: (context,index){
+                         return SizedBox(height: 16.h,);
+                       },itemCount:state.addresses.length ,)),
+
+
+
+
+               ],
              ),
-             SizedBox(height: 60.h,),
-             Text("No Saved Addresses Yet",style:
-             getBoldStyle(color: AppColors.pink,fontSize: 16.sp).copyWith(
-               fontFamily: GoogleFonts.adamina().fontFamily
-             )).animate(
 
-             ).fadeIn()
-         ],
-       )
-    ):       Expanded(child:  ListView.separated(itemBuilder: (context,index){
-             return CustomAddressWidget(addressEntity: state.addresses[index]);
-           },
-             separatorBuilder: (context,index){
-               return SizedBox(height: 16.h,);
-             },itemCount:state.addresses.length ,)),
-           Spacer(),
-           CustomBtnWidget(txt: "Add New Address",onPressed: (){
-             Navigator.of(context).pushNamed(AppRoutes.addAddress);
-           },),
-           SizedBox(height: 40.h,),
 
-         ],
-       ),);
+    );
 
-      })
+      }),
+      bottomNavigationBar:
+          Padding(padding: EdgeInsets.all(16),
+          child:  CustomBtnWidget(txt: "Add New Address",onPressed: (){
+            Navigator.of(context).pushNamed(AppRoutes.addAddress);
+          },) ,
+          )
+
 
     )
     );
-
 
   }
 }

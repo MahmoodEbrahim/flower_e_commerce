@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_state.dart';
 
@@ -24,6 +25,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
   Hive.registerAdapter(LoginModelAdapter());
+  Hive.registerAdapter(AddressEntityAdapter());
   await UserLocalStorage.init();
   runApp(
       DevicePreview(builder: (context) =>
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
 
 initialRoute: AppRoutes.login,
-            // initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+            //initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
             locale: Locale(lang),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

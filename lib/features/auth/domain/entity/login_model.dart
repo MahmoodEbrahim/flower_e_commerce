@@ -15,6 +15,14 @@ class LoginModel {
     required this.user,
     required  this.token,
   });
+  LoginModel copyWith({
+   UserModel? user,
+
+
+   String? token
+}){
+    return LoginModel(user: user??this.user, token:token??this.token);
+}
   // UserModel toEntity(){
   //   return UserModel(
   //     firstName: user.firstName,

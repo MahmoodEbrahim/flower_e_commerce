@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         title: const Text("Checkout"),
         leading: const BackButton(),
       ),

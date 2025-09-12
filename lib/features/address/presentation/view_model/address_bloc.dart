@@ -13,6 +13,8 @@ import 'package:flower_e_commerce/features/address/domain/use_case/get_delete_ad
 import 'package:flower_e_commerce/features/address/domain/use_case/get_update_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -41,6 +43,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
         addressEntity: result.sucessResult,
         addAddressRequestState: RequestState.success
       ));
+   UserLocalStorage.updateUserAddress(result.sucessResult);
       case ApiFailedResult<List<AddressEntity>>():
         emit(state.copyWith(
             addAddressErrorMessage: result.errorMessage,
