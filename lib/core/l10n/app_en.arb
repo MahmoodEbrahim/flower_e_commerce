@@ -87,6 +87,7 @@
 
 
 
+  "alreadyHaveAccount": "Already have an account? ",
   "flowery": "Flowery",
   "guest":"Guest",
     "myOrders": "My orders",
@@ -96,7 +97,7 @@
     "english":"English",
     "arabic":"Arabic",
     "aboutUs": "About us",
-  
+
     "logout": "Logout",
     "errorLoadingData": "Error loading data",
     "noDataFound": "No data found",
@@ -108,7 +109,7 @@
   "profileUpdatedSuccessfully": "Profile updated successfully",
   "update": "Update",
 
- 
+  "alreadyHaveAccount": "Already have an account? ",
 
 "currentPassword": "Current password",
   "newPassword": "New password",
@@ -117,6 +118,12 @@
   "homeTab": "Home",
   "categoriesTab": "Categories",
   "cartTab": "Cart",
+  "profileTab": "Profile",
+  "orderPage": "Order Page",
+  "active": "Active",
+  "completed": "Completed",
+  "reorder": "Reorder",
+  "trackorder": "Track order"
   "profileTab": "Profile",
 
 
@@ -131,7 +138,7 @@
   "loginToEnjoyShopping":"Please Login to enjoy shopping",
   "sortBy":"sortBy",
   "commonError":"oops somthing went wrong please try again ",
- 
+
   "typeSomething": "Type something to search...",
   "noProductsFor":"No products found for "
 

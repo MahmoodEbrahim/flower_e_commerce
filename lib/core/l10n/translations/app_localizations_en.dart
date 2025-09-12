@@ -366,4 +366,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noProductsFor => 'No products found for ';
+
+  @override
+  String get orderPage => 'Order Page';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get reorder => 'Reorder';
+
+  @override
+  String get trackorder => 'Track order';
 }

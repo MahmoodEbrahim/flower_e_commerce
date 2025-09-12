@@ -24,4 +24,5 @@ abstract class ApiEndPoints {
 
 
 
+  static const String ordersEndPoint = "orders";
 }

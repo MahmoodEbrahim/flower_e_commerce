@@ -102,7 +102,7 @@
   "passwordChangeSuccessfuly": "✅ تم تغيير كلمة المرور بنجاح",
   "changelanguage": "تغيير اللغة",
   "homeTab": "الرئيسية",
-  "hategoriesTab": "الفئات",
+  "categoriesTab": "الفئات",
   "cartTab": "السلة",
 
   "lowerPrice": "السعر الأقل",
@@ -122,5 +122,12 @@
   "profileTab": "الملف الشخصي",
   "typeSomething": "اكتب شيئًا للبحث...",
   "noProductsFor": "لا توجد منتجات لـ "
+
+  "profileTab": "الملف الشخصي",
+  "orderPage": "صفحة الطلب",
+  "active": "نشط",
+  "completed": "مكتمل",
+  "reorder": "إعادة الطلب",
+  "trackorder": "تتبع الطلب"
 
 }
