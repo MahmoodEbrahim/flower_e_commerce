@@ -9,7 +9,9 @@ import 'package:flower_e_commerce/features/home/presentation/views/widgets/custo
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../../config/theme/app_color.dart';
 
 class SearchPage extends StatefulWidget {
@@ -96,13 +98,12 @@ class _SearchPageState extends State<SearchPage> {
                     hasScrollBody: false,
                     child: Center(
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.search,
-                            size: 60,
-                            color: AppColors.midGray,
-                          ),
+                       Lottie.asset("assets/json/search.json",fit: BoxFit.cover,
+                       height: 150.h,width: 200.w
+                       ),
                           const SizedBox(height: 12),
                           Text(
                             t.typeSomething,

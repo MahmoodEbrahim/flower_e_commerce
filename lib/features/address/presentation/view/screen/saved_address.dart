@@ -8,6 +8,8 @@ import 'package:flower_e_commerce/features/address/presentation/view_model/addre
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -31,7 +33,8 @@ class SavedAddress extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text("Saved Address",style: getMediumStyle(color: AppColors.black,
             fontSize:20.sp ),),
-        leading: IconButton(onPressed: ()=>Navigator.of(context).pushNamed(AppRoutes.home),
+        leading: IconButton(onPressed: ()=>Navigator.of(context).pushNamed(AppRoutes
+            .home),
             icon: Icon(Icons.arrow_back_ios_new_sharp)),
       ),
       body: BlocConsumer<AddressBloc,AddressState>(
@@ -40,11 +43,19 @@ class SavedAddress extends StatelessWidget {
               print("error in deleting ${state.deleteAddressErrorMessage}");
 
             }
+            if(state.getAddressRequestState==RequestState.success){
+       UserLocalStorage.saveUser(LoginModel(
+           user: UserModel(
+             addresses: state.addressEntity
+           ),
+           token: token!));
+
+            }
           },
           builder: (context,state){
        return Padding(padding: EdgeInsets.symmetric(
          horizontal: 20.0
-       ),child:state.getAddressRequestState==RequestState.loading?
+       ),child:state.getAddressRequestState==RequestState.loading ?
       Center(child:  LoadingAnimationWidget.inkDrop(color: AppColors.pink,
           size: 50.sp),)
            :

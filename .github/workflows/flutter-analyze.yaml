@@ -9,6 +9,8 @@ on:
       - synchronize
   branches:
     - developments
+    -
+
 
 jobs:
   validate-pr-title:

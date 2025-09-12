@@ -309,8 +309,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
 
                             Overlay.of(context),
 
-                            CustomSnackBar.info(
-
+                            CustomSnackBar.success(
                               message:
                               "Location added successfuly",
                               backgroundColor: AppColors.pink,
@@ -320,7 +319,11 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                             ),
                           );
                           }
-                        },child:     CustomBtnWidget(
+                          if(state.addAddressRequestState==RequestState.error ) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                              (content: Text(state.addAddressErrorMessage!)));
+                          }
+                          },child:     CustomBtnWidget(
                           txt: "Save Address",
                           onPressed: () {
 

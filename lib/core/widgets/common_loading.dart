@@ -9,6 +9,7 @@ class CommonLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: LoadingAnimationWidget.inkDrop(color: AppColors.pink, size: 24));
+        child: LoadingAnimationWidget.
+        inkDrop(color: AppColors.pink, size: 24));
   }
 }

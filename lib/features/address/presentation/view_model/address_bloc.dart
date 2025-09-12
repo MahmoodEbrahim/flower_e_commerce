@@ -73,12 +73,15 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
       deleteAddressRequestState: RequestState.loading
     ));
     final result=await _deleteAddressUseCase.removeAddress(event.token, event.id!);
+    final updatedAddresses = List<AddressEntity>.from(state.addresses)
+      ..removeWhere((address) => address.id == event.id);
     switch(result){
 
       case ApiSucessResult<RemoveAddressDto>():
        emit(state.copyWith(
          deleteAddressRequestState: RequestState.success,
-         removeAddressDto: result.sucessResult
+         removeAddressDto: result.sucessResult,
+         addresses: updatedAddresses
        ));
       case ApiFailedResult<RemoveAddressDto>():
         emit(state.copyWith(
