@@ -59,6 +59,7 @@ class _CartPageState extends State<CartPage> {
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               DeliveryLocation(),
               SizedBox(
@@ -94,6 +95,7 @@ class _CartPageState extends State<CartPage> {
                     }
                     if (state.errorMessage != null) {
                       final user = UserLocalStorage.getUser();
+                     
                       if (user == null) {
                         return CustumError(
                           errorMessage: t.loginToEnjoyShopping,

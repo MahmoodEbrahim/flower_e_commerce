@@ -31,7 +31,7 @@ class SavedAddress extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text("Saved Address",style: getMediumStyle(color: AppColors.black,
             fontSize:20.sp ),),
-        leading: IconButton(onPressed: ()=>Navigator.of(context).pushNamed(AppRoutes.home),
+        leading: IconButton(onPressed: ()=>Navigator.of(context).pop(),
             icon: Icon(Icons.arrow_back_ios_new_sharp)),
       ),
       body: BlocConsumer<AddressBloc,AddressState>(
