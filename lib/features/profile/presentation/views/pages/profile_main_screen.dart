@@ -7,6 +7,7 @@ import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.da
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/language_row_widget.dart';
+import 'package:flower_e_commerce/features/profile/presentation/views/widgets/login_first_dialog.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/logout_dialog.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +37,12 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
     _loadVersion();
   }
 
-  Future<LoginModel> _loadUserData() async {
+  Future<LoginModel?> _loadUserData() async {
     await UserLocalStorage.init(); // Ensure initialization
     setState(() {
       user = UserLocalStorage.getUser();
     });
-    return user!;
+    return user;
   }
 
   Future<void> _loadVersion() async {
@@ -137,33 +138,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     onTap: () async {
                       if (user == null) {
                         // Show dialog to login
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Center(child: Text(t.login),),
-                            content: Text("you do not have an account"),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text(t.cancel,
-                                    style: getRegularStyle(color: AppColors.black)),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context); // close dialog
-                                  Navigator.pushNamed(context, AppRoutes.login);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.pink,
-                                ),
-                                child: Text(
-                                  t.login,
-                                  style: getRegularStyle(color: AppColors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                        loginInDialgo(context, t);
                       } else {
                         // Navigate to edit profile
                         final updatedUser = await Navigator.of(context)
@@ -207,8 +182,16 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     title: t.savedAddress,
                     showArrow: true,
                     onTap: () {
+                      if (user == null) {
+                        // Show dialog to login
+                        loginInDialgo(context, t);
+                      }
+                      else{
+                         Navigator.of(context).pushNamed(AppRoutes.saveAddress);
+
+                      }
                       // navigator
-                      Navigator.of(context).pushNamed(AppRoutes.saveAddress);
+                     
                     },
                   ),
                   const Divider(height: 20),
@@ -354,4 +337,6 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
       ),
     );
   }
+
+
 }
