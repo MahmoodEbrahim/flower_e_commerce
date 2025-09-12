@@ -21,4 +21,5 @@ abstract class AppRoutes {
 //EditProfilePage
   static const String editProfilePage="/EditProfilePage";
   static const String changePassword="/ChangePasswordScreen";
+  static const String paymentView="/PaymentViewPage";
 }

@@ -16,6 +16,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/categor
 import 'package:flower_e_commerce/features/home/presentation/views/pages/occasion_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
+import 'package:flower_e_commerce/features/payment_view/presentation/views/pages/PaymentViewPage.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_us_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,10 @@ abstract class Routes {
       case AppRoutes.termsAndCondition:
         return MaterialPageRoute(builder: (context) => TermsAndConditionPage(),);
 
-
+      case AppRoutes.paymentView:{
+        final url = settings.arguments as String;
+        return MaterialPageRoute(builder: (context) => PaymentViewPage(url),);
+      }
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(

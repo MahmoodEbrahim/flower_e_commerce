@@ -48,12 +48,12 @@ import '../../features/cart/presentation/view_model/cart_view_model/cart_view_mo
 import '../../features/checkout/api/client/checkout_api_service.dart' as _i252;
 import '../../features/checkout/api/source/checkout_remote_data_source_imp.dart'
     as _i13;
+import '../../features/checkout/data/repository/checkout_repository_imp.dart'
+    as _i711;
 import '../../features/checkout/data/source/checkout_remote_data_source.dart'
     as _i335;
 import '../../features/checkout/domain/repository/checkout_repository.dart'
     as _i730;
-import '../../features/checkout/data/repository/checkout_repository_imp.dart'
-    as _i38;
 import '../../features/checkout/domain/usecase/get_checkout_data_usecase.dart'
     as _i330;
 import '../../features/checkout/domain/usecase/get_orders_by_checkout_url_usecase.dart'
@@ -75,6 +75,19 @@ import '../../features/home/presentation/view_model/home_view_model/home_bloc.da
     as _i191;
 import '../../features/home/presentation/view_model/occasion_view_model/occasion_bloc.dart'
     as _i1010;
+import '../../features/payment/api/client/payment_api_service.dart' as _i278;
+import '../../features/payment/api/source/payment_remote_data_source_imp.dart'
+    as _i448;
+import '../../features/payment/data/repository/payment_repository_imp.dart'
+    as _i1012;
+import '../../features/payment/data/source/payment_remote_data_source.dart'
+    as _i1028;
+import '../../features/payment/domain/repository/payment_repository.dart'
+    as _i267;
+import '../../features/payment/domain/usecase/cash_use_case.dart' as _i285;
+import '../../features/payment/domain/usecase/online_usecase.dart' as _i238;
+import '../../features/payment/presentation/view_model/checkout_view_model_bloc.dart'
+    as _i229;
 import '../../features/profile/api/client/profile_api_service.dart' as _i495;
 import '../../features/profile/api/source/profile_remote_data_source_imp.dart'
     as _i532;
@@ -117,8 +130,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i252.CheckoutApiService(gh<_i361.Dio>()));
     gh.factory<_i220.HomeApiService>(
         () => _i220.HomeApiService(gh<_i361.Dio>()));
+    gh.factory<_i278.PaymentApiService>(
+        () => _i278.PaymentApiService(gh<_i361.Dio>()));
     gh.factory<_i495.ProfileApiService>(
         () => _i495.ProfileApiService(gh<_i361.Dio>()));
+    gh.factory<_i1028.PaymentRemoteDataSource>(
+        () => _i448.PaymentRemoteDataSourceImp(gh<_i278.PaymentApiService>()));
     gh.factory<_i942.CartApiService>(() => _i942.CartApiService(
           gh<_i361.Dio>(),
           baseUrl: gh<String>(),
@@ -137,8 +154,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i669.AuthRemoteDataSourceImp(gh<_i522.AuthApiService>()));
     gh.factory<_i335.CheckoutRemoteDataSource>(
         () => _i13.CheckoutRemoteDataSourceImp(gh<_i252.CheckoutApiService>()));
-    gh.factory<_i730.CheckoutRepository>(
-        () => _i38.CheckoutRepositoryImp(gh<_i335.CheckoutRemoteDataSource>()));
+    gh.factory<_i730.CheckoutRepository>(() =>
+        _i711.CheckoutRepositoryImp(gh<_i335.CheckoutRemoteDataSource>()));
+    gh.factory<_i267.PaymentRepository>(() =>
+        _i1012.PaymentRepositoryImpl(gh<_i1028.PaymentRemoteDataSource>()));
     gh.factory<_i27.GetOrdersByCheckoutUrlUseCase>(() =>
         _i27.GetOrdersByCheckoutUrlUseCase(gh<_i730.CheckoutRepository>()));
     gh.factory<_i330.GetCheckoutDataUseCase>(
@@ -158,6 +177,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i9.CartRespositoryImp(gh<_i751.CartRemoteDataSouce>()));
     gh.factory<_i961.AuthRepository>(
         () => _i794.AuthRepositoryImp(gh<_i777.AuthRemoteDataSource>()));
+    gh.factory<_i285.CashUseCase>(
+        () => _i285.CashUseCase(gh<_i267.PaymentRepository>()));
+    gh.factory<_i238.OnlineUsecase>(
+        () => _i238.OnlineUsecase(gh<_i267.PaymentRepository>()));
     gh.factory<_i191.HomeBloc>(
         () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
     gh.factory<_i738.AddToCartUsecase>(
@@ -191,6 +214,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i644.LoginBloc>(
         () => _i644.LoginBloc(gh<_i911.LoginUsecase>()));
+    gh.factory<_i229.CheckoutViewModelBloc>(() => _i229.CheckoutViewModelBloc(
+          gh<_i285.CashUseCase>(),
+          gh<_i238.OnlineUsecase>(),
+        ));
     gh.factory<_i207.ChangePasswordBloc>(
         () => _i207.ChangePasswordBloc(gh<_i568.GetChangePasswordUseCase>()));
     gh.factory<_i878.EditProfileBloc>(() => _i878.EditProfileBloc(
