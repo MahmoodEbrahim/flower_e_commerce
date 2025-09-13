@@ -54,32 +54,65 @@ void main() {
           requestState: RequestState.success,
           products: [fakeProductEntity],
           errorMessage: '',
-          keyword: "keyword"
-        ),
-      ],
-    );
-
-    blocTest<SearchBloc,SearchState>("emits [loading, error] when search fails ",
-        build: () {
-      when(mockSearchProductsUseCase.call("keyword")).thenAnswer((_) async=> ApiFailedResult("errorMessage"),);
-      return searchBloc;
-        },
-      act: (bloc) =>  bloc.add(SearchProductsEvent("keyword")),
-      expect: () => [
-        SearchState(requestState: RequestState.loading, keyword: "keyword"),
-        SearchState(
-            requestState: RequestState.error,
-            errorMessage: 'errorMessage',
-            keyword: "keyword"
+          keyword: "keyword",
         ),
       ],
     );
 
     blocTest<SearchBloc, SearchState>(
-      'emits [initial] when ClearSearch is added',
-      build: () => searchBloc,
-      act: (bloc) => bloc.add(ClearSearch()),
-      expect: () => [const SearchState()],
+      "emits [loading, error] when search fails ",
+      build: () {
+        when(
+          mockSearchProductsUseCase.call("keyword"),
+        ).thenAnswer((_) async => ApiFailedResult("errorMessage"));
+        return searchBloc;
+      },
+      act: (bloc) => bloc.add(SearchProductsEvent("keyword")),
+      wait: Duration(milliseconds: 500),
+      expect: () => [
+        SearchState(requestState: RequestState.loading, keyword: "keyword"),
+        SearchState(
+          requestState: RequestState.error,
+          errorMessage: 'errorMessage',
+          keyword: "keyword",
+        ),
+      ],
     );
+
+    group("test clear search", () {
+      blocTest<SearchBloc, SearchState>(
+        'emits [initial] when ClearSearch is added',
+        build: () => searchBloc,
+        act: (bloc) => bloc.add(ClearSearch()),
+        wait: Duration(milliseconds: 500),
+        expect: () => [const SearchState()],
+      );
+
+      blocTest<SearchBloc, SearchState>(
+        '''emits only ClearSearch state when ClearSearch is added during a search,
+        cancel request in-flight
+            ''',
+        build: () {
+          when(mockSearchProductsUseCase.call("keyword")).thenAnswer((_) async {
+            //simulate search takes 300 ms calling the api
+            await Future.delayed(const Duration(milliseconds: 300));
+            return ApiSucessResult([fakeProductEntity]);
+          });
+          return searchBloc;
+        },
+        act: (bloc) async {
+          bloc.add(SearchProductsEvent("keyword"));
+          // before the search ends cancel it (500 debounce + 50 start search)
+          await Future.delayed(const Duration(milliseconds: (550)));
+          bloc.add(ClearSearch());
+        },
+        // after search canceled
+        wait: const Duration(milliseconds: 1000),
+        expect: () => [
+          SearchState(requestState: RequestState.loading, keyword: "keyword"),
+          const SearchState(),
+        ],
+      );
+    });
   });
 }

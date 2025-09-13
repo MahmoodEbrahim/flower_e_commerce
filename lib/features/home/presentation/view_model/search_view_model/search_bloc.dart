@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
@@ -14,19 +15,32 @@ part 'search_state.dart';
 @Injectable()
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchProductsUseCase _searchProductsUseCase;
-
   SearchBloc(this._searchProductsUseCase) : super(const SearchState()) {
+
+
     on<SearchProductsEvent>(_onSearchProducts,
       transformer: debounceSwitch(const Duration(milliseconds: 500)),);
 
-    on<ClearSearch>(_onClearSearch);
+    on<ClearSearch>(_onClearSearch,
+      transformer: debounceSwitch(const Duration(milliseconds: 0)),);
   }
 
-
+  CancelToken? _cancelToken;
   Future<void> _onSearchProducts(
       SearchProductsEvent event,
       Emitter<SearchState> emit,
       ) async {
+
+    // cancel previous search (API call) before send another request
+    _cancelToken?.cancel();
+
+    // create new token for the current request
+    _cancelToken = CancelToken();
+
+    if(event.keyword==''){
+      emit(const SearchState());
+      return;
+    }
     // Emit loading state
     emit(state.copyWith(
       requestState: RequestState.loading,
@@ -36,6 +50,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     final result = await _searchProductsUseCase.call(event.keyword);
 
+
+    // ensure if the current request is not cancelled before emit
+    if (_cancelToken!.isCancelled) return;
     switch (result) {
       case ApiSucessResult<List<ProductsEntity>>():
         emit(
@@ -61,11 +78,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
 
   void _onClearSearch(ClearSearch event, Emitter<SearchState> emit) {
+    _cancelToken?.cancel();
     emit(const SearchState());
   }
 
   // debounceTime --> wait duration before calling API
-  // switchMap --> cancel API call if another one request
+  // switchMap --> cancel previous event if another one added
   EventTransformer<T> debounceSwitch<T>(Duration duration) {
     return (events, mapper) {
       return events
@@ -73,4 +91,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           .switchMap(mapper);
     };
   }
+
 }
