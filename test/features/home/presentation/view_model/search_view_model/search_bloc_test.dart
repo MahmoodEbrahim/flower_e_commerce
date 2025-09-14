@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
@@ -42,12 +43,13 @@ void main() {
       "emits [loading, success] when search succeeds",
       build: () {
         when(
-          mockSearchProductsUseCase.call("keyword"),
+          mockSearchProductsUseCase.call("keyword",
+            cancelToken: anyNamed("cancelToken"),),
         ).thenAnswer((_) async => ApiSucessResult([fakeProductEntity]));
         return searchBloc;
       },
       act: (bloc) => bloc.add(SearchProductsEvent("keyword")),
-      wait: Duration(milliseconds: 500), //debounce
+      wait: Duration(milliseconds: 400), //debounce
       expect: () => [
         SearchState(requestState: RequestState.loading, keyword: "keyword"),
         SearchState(
@@ -63,12 +65,13 @@ void main() {
       "emits [loading, error] when search fails ",
       build: () {
         when(
-          mockSearchProductsUseCase.call("keyword"),
+          mockSearchProductsUseCase.call("keyword",
+              cancelToken: anyNamed("cancelToken")),
         ).thenAnswer((_) async => ApiFailedResult("errorMessage"));
         return searchBloc;
       },
       act: (bloc) => bloc.add(SearchProductsEvent("keyword")),
-      wait: Duration(milliseconds: 500),
+      wait: Duration(milliseconds: 400),
       expect: () => [
         SearchState(requestState: RequestState.loading, keyword: "keyword"),
         SearchState(
@@ -84,7 +87,7 @@ void main() {
         'emits [initial] when ClearSearch is added',
         build: () => searchBloc,
         act: (bloc) => bloc.add(ClearSearch()),
-        wait: Duration(milliseconds: 500),
+        wait: Duration(milliseconds: 300),
         expect: () => [const SearchState()],
       );
 
@@ -93,21 +96,33 @@ void main() {
         cancel request in-flight
             ''',
         build: () {
-          when(mockSearchProductsUseCase.call("keyword")).thenAnswer((_) async {
-            //simulate search takes 300 ms calling the api
-            await Future.delayed(const Duration(milliseconds: 300));
+          when(mockSearchProductsUseCase.call(
+            "keyword",
+            cancelToken: anyNamed("cancelToken"),
+          )).thenAnswer((invocation) async {
+            final cancelToken = invocation.namedArguments[#cancelToken] as CancelToken;
+            // simulate api calling takes 500ms
+            await Future.delayed(const Duration(milliseconds: 500));
+            if (cancelToken.isCancelled) {
+              throw DioException(
+                requestOptions: RequestOptions(path: ''),
+                type: DioExceptionType.cancel,
+              );
+            }
             return ApiSucessResult([fakeProductEntity]);
           });
+
+
           return searchBloc;
         },
         act: (bloc) async {
           bloc.add(SearchProductsEvent("keyword"));
-          // before the search ends cancel it (500 debounce + 50 start search)
-          await Future.delayed(const Duration(milliseconds: (550)));
+          // before the search ends cancel it
+          await Future.delayed(const Duration(milliseconds: (200)));
           bloc.add(ClearSearch());
         },
         // after search canceled
-        wait: const Duration(milliseconds: 1000),
+        wait: const Duration(milliseconds: 800),
         expect: () => [
           SearchState(requestState: RequestState.loading, keyword: "keyword"),
           const SearchState(),

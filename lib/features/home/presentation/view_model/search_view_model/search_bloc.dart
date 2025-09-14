@@ -19,10 +19,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
 
     on<SearchProductsEvent>(_onSearchProducts,
-      transformer: debounceSwitch(const Duration(milliseconds: 500)),);
+      transformer: debounceSwitch(const Duration(milliseconds: 300)),);
 
     on<ClearSearch>(_onClearSearch,
-      transformer: debounceSwitch(const Duration(milliseconds: 0)),);
+      transformer: debounceSwitch(const Duration(milliseconds: 300)),);
   }
 
   CancelToken? _cancelToken;
@@ -30,49 +30,66 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       SearchProductsEvent event,
       Emitter<SearchState> emit,
       ) async {
-
     // cancel previous search (API call) before send another request
     _cancelToken?.cancel();
 
     // create new token for the current request
     _cancelToken = CancelToken();
 
-    if(event.keyword==''){
+    if (event.keyword == '') {
       emit(const SearchState());
       return;
     }
+
     // Emit loading state
     emit(state.copyWith(
       requestState: RequestState.loading,
       keyword: event.keyword,
     ));
 
+    try {
+      final result = await _searchProductsUseCase.call(
+        event.keyword,
+        cancelToken: _cancelToken,
+      );
 
-    final result = await _searchProductsUseCase.call(event.keyword);
+      // ensure if the current request is not cancelled before emit
+      if (_cancelToken!.isCancelled) return;
 
+      switch (result) {
+        case ApiSucessResult<List<ProductsEntity>>():
+          emit(
+            state.copyWith(
+              requestState: RequestState.success,
+              products: result.sucessResult,
+              errorMessage: '',
+              keyword: event.keyword,
+            ),
+          );
 
-    // ensure if the current request is not cancelled before emit
-    if (_cancelToken!.isCancelled) return;
-    switch (result) {
-      case ApiSucessResult<List<ProductsEntity>>():
-        emit(
-          state.copyWith(
-            requestState: RequestState.success,
-            products: result.sucessResult,
-            errorMessage: '',
-            keyword: event.keyword,
-          ),
-        );
-
-      case ApiFailedResult<List<ProductsEntity>>():
-        emit(
-          state.copyWith(
-            requestState: RequestState.error,
-            products: [],
-            errorMessage: result.errorMessage,
-            keyword: event.keyword,
-          ),
-        );
+        case ApiFailedResult<List<ProductsEntity>>():
+          emit(
+            state.copyWith(
+              requestState: RequestState.error,
+              products: [],
+              errorMessage: result.errorMessage,
+              keyword: event.keyword,
+            ),
+          );
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        // ignore the exception caused by cancel
+        return;
+      }
+      emit(
+        state.copyWith(
+          requestState: RequestState.error,
+          products: [],
+          errorMessage: e.message ?? 'Unexpected error',
+          keyword: event.keyword,
+        ),
+      );
     }
   }
 

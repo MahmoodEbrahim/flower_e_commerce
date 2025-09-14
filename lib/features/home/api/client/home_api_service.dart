@@ -33,5 +33,5 @@ abstract class HomeApiService {
   @GET(ApiEndPoints.productsEndPoint)
   Future<CategoryProductsResponseDto> searchProducts(
       @Query(ApiParameters.search) String keyword,
-      );
+  {@CancelRequest() CancelToken? cancelToken});
 }

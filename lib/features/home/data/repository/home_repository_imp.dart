@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
@@ -34,7 +35,8 @@ return _homeRemoteDataSource.getProductsDetialsByOccasions(occasionId);
   }
 
   @override
-  Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword) async{
-    return await _homeRemoteDataSource.searchProducts(keyword);
+  Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword,
+      {CancelToken? cancelToken}) async{
+    return await _homeRemoteDataSource.searchProducts(keyword,cancelToken: cancelToken);
   }
 }
