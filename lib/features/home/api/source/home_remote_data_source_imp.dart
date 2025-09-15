@@ -97,9 +97,10 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
   @override
   Future<ApiResult<List<ProductsEntity>>> searchProducts(
       String keyword,
+      {CancelToken? cancelToken}
       ) async {
     try {
-      final productsDtoList = await _apiService.searchProducts(keyword);
+      final productsDtoList = await _apiService.searchProducts(keyword,cancelToken:cancelToken );
 
       final productsEntityList = productsDtoList.products!
           .map((dto) => dto.toEntity())
