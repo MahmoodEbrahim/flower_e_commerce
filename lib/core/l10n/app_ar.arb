@@ -117,12 +117,9 @@
 "loginToEnjoyShopping": "يرجى تسجيل الدخول للاستمتاع بالتسوق",
 "sortBy": "ترتيب حسب",
 "commonError": "عفوًا، حدث خطأ ما. حاول مرة أخرى",
-
-
   "profileTab": "الملف الشخصي",
   "typeSomething": "اكتب شيئًا للبحث...",
-  "noProductsFor": "لا توجد منتجات لـ "
-
+  "noProductsFor": "لا توجد منتجات لـ ",
   "profileTab": "الملف الشخصي",
   "orderPage": "صفحة الطلب",
   "active": "نشط",

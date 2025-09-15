@@ -321,12 +321,26 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get categoriesTab => 'المنتجات';
 
-
   @override
   String get cartTab => 'السلة';
 
   @override
   String get profileTab => 'الملف الشخصي';
+
+  @override
+  String get orderPage => 'صفحة الطلب';
+
+  @override
+  String get active => 'نشط';
+
+  @override
+  String get completed => 'مكتمل';
+
+  @override
+  String get reorder => 'إعادة الطلب';
+
+  @override
+  String get trackorder => 'تتبع الطلب';
 
   @override
   String get lowerPrice => 'السعر الأقل';
@@ -366,19 +380,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noProductsFor => 'لا توجد منتجات لـ ';
-
-  @override
-  String get orderPage => 'صفحة الطلب';
-
-  @override
-  String get active => 'نشط';
-
-  @override
-  String get completed => 'مكتمل';
-
-  @override
-  String get reorder => 'إعادة الطلب';
-
-  @override
-  String get trackorder => 'تتبع الطلب';
 }

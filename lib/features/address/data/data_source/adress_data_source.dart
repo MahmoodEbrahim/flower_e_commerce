@@ -1,5 +1,6 @@
 
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
@@ -14,7 +15,7 @@ Future<ApiResult <List<AddressEntity>>>getAllAddress(String token);
 
 Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id);
 Future<ApiResult <List<AddressEntity>>>updateAddress(String token,String id,AddAdressRequest request);
-Future <List<GovernorateEntity>> getGovernorates();
-Future<List<StateEntity>> getStates(String governateId);
-Future<List<CountryEntity>> getCountries();
+Future <LocalDsResult<List<GovernorateEntity>>> getGovernorates();
+Future<LocalDsResult<List<StateEntity>>> getStates(String governateId);
+Future<LocalDsResult<List<CountryEntity>>> getCountries();
 }

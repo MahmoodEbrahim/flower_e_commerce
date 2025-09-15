@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/add_address_responsea.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
@@ -25,6 +26,10 @@ mockAddressRemoteDataSource=MockAddressRemoteDataSource();
 addressRepositry=AddressRepositryImpl(mockAddressRemoteDataSource);
 provideDummy<ApiResult<List<AddressEntity>>>(ApiFailedResult("Dummy Error"));
 provideDummy<ApiResult<RemoveAddressDto>>(ApiFailedResult("Dummy Error"));
+provideDummy<LocalDsResult<List<CountryEntity>>>(LocalDsFailedResult("Dummy Error"));
+provideDummy<LocalDsResult<List<StateEntity>>>(LocalDsFailedResult("Dummy Error"));
+provideDummy<LocalDsResult<List<GovernorateEntity>>>(LocalDsFailedResult("Dummy Error"));
+
   });
   const String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhhMjE4MjVhOGJjYTMwN2Y5ZGU5MzY1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTczMjU5MDl9.HKOPAn1Jc4jKqfmts8nPMvcBb1MLoDqP4olR2ND9pLk";
   AddAdressRequest request=AddAdressRequest(
@@ -200,11 +205,13 @@ verify(mockAddressRemoteDataSource.updateAddress(token, id, request)).called(1);
          GovernorateEntity(id: "4", nameEn: "Dakahlia", nameAr: "الدقهلية")
 
        ];
-       when(mockAddressRemoteDataSource.getGovernorates()).thenAnswer((_)async=>governorates);
+       when(mockAddressRemoteDataSource.getGovernorates()).thenAnswer((_)
+       async=>LocalDsSucessResult(governorates));
        final result =await addressRepositry.getGovernorates();
-       expect(result, isA<List<GovernorateEntity>>());
-       expect(result.length, 4);
-       expect(result[0].nameEn, "Cairo");
+       expect(result, isA<LocalDsSucessResult>());
+       final res=(result as LocalDsSucessResult).sucessResult;
+       expect(res.length, 4);
+       expect(res[0].nameEn, "Cairo");
        verify(mockAddressRemoteDataSource.getGovernorates()).called(1);
      });
    });
@@ -224,10 +231,12 @@ verify(mockAddressRemoteDataSource.updateAddress(token, id, request)).called(1);
              ])
 
        ];
-       when(mockAddressRemoteDataSource.getCountries()).thenAnswer((_)async=>countries);
+       when(mockAddressRemoteDataSource.getCountries()).thenAnswer((_)async=>
+       LocalDsSucessResult(countries));
        final result=await addressRepositry.getCountries();
-       expect(result.length, 1);
-       expect(result[0].name, "Afghanistan");
+       final res=(result as LocalDsSucessResult).sucessResult;
+       expect(res.length, 1);
+       expect(res[0].name, "Afghanistan");
        verify(mockAddressRemoteDataSource.getCountries()).called(1);
      });
    });
@@ -237,10 +246,12 @@ verify(mockAddressRemoteDataSource.updateAddress(token, id, request)).called(1);
        final states=[
          StateEntity(cityId: "1", governorateId: "1", cityNameAr: "15 مايو", cityNameEn: "15 May")
        ];
-       when(mockAddressRemoteDataSource.getStates(governateId)).thenAnswer((_)async=>states);
+       when(mockAddressRemoteDataSource.getStates(governateId)).thenAnswer
+         ((_)async=>LocalDsSucessResult(states));
        final result=await addressRepositry.getStates(governateId);
-       expect(result.length, 1);
-       expect(result[0].cityNameEn, "15 May");
+       final res=(result as LocalDsSucessResult).sucessResult;
+       expect(res.length, 1);
+       expect(res[0].cityNameEn, "15 May");
        verify(mockAddressRemoteDataSource.getStates(governateId)).called(1);
 
      });
