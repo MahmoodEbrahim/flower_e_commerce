@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/request/edit_profile_request.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/edit_profile_response.dart';
 import 'package:flower_e_commerce/features/profile/api/models/edit_profile/response/upload_profile_photo_response.dart';
@@ -35,7 +36,7 @@ uploadPhoto(String token, File photo) async{
   }
 
   @override
-  Future<ApiResult<List<GenericJsonSectionEntity>>> getJsonSections(String jsonPath,String jsonKey) async{
+  Future<LocalDsResult<List<GenericJsonSectionEntity>>> getJsonSections(String jsonPath,String jsonKey) async{
     return await _profileLocalDataSource.getJsonSections(jsonPath,jsonKey);
   }
 }

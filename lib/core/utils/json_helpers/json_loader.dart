@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-Future<Map<String, dynamic>> loadJson(String jsonFile) async {
-  try {
-    final String jsonString = await rootBundle.loadString(jsonFile);
-    final jsonMap = json.decode(jsonString);
-    return jsonMap;
-  } catch (e) {
-    return {};
+abstract class JsonLoader {
+  Future<Map<String, dynamic>> loadJson(String path);
+}
+
+class AssetJsonLoader implements JsonLoader {
+  @override
+  Future<Map<String, dynamic>> loadJson(String path) async {
+    final jsonString = await rootBundle.loadString(path);
+    return json.decode(jsonString);
   }
 }

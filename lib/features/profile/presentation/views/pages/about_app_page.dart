@@ -18,7 +18,7 @@ class AboutAppPage extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => getIt<GenericJsonSectionBloc>()
-        ..add(GenerateJsonSections(JsonAssets.aboutApp, JsonKeys.about)),
+        ..add(GenerateJsonSectionsEvent(JsonAssets.aboutApp, JsonKeys.about)),
       child: Scaffold(
         body: BlocBuilder<GenericJsonSectionBloc, GenericJsonSectionStata>(
           builder: (context, state) {

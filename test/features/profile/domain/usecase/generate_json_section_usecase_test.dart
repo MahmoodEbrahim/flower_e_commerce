@@ -1,29 +1,25 @@
 import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
-import 'package:flower_e_commerce/features/profile/data/repository/profile_repository_imp.dart';
-import 'package:flower_e_commerce/features/profile/data/source/local/profile_local_data_source.dart';
-import 'package:flower_e_commerce/features/profile/data/source/remote/profile_remote_data_source.dart';
 import 'package:flower_e_commerce/features/profile/domain/entity/generic_json_section_entity.dart';
+import 'package:flower_e_commerce/features/profile/domain/repository/profile_repository.dart';
+import 'package:flower_e_commerce/features/profile/domain/usecase/generate_json_section_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'profile_repository_imp_test.mocks.dart';
+import 'generate_json_section_usecase_test.mocks.dart';
 
-@GenerateMocks([ProfileLocalDataSource, ProfileRemoteDataSource])
+@GenerateMocks([ProfileRepository])
 void main() {
-  late ProfileRepositoryImp profileRepositoryImp;
-  late MockProfileLocalDataSource mockProfileLocalDataSource;
-  late MockProfileRemoteDataSource mockProfileRemoteDataSource;
+  late GenerateJsonSectionsUseCase generateJsonSectionsUseCase;
+  late MockProfileRepository mockProfileRepository;
 
-  setUpAll(() {
+  setUp(() {
     provideDummy<LocalDsResult<List<GenericJsonSectionEntity>>>(
       LocalDsFailedResult<List<GenericJsonSectionEntity>>("error"),
     );
-    mockProfileLocalDataSource = MockProfileLocalDataSource();
-    mockProfileRemoteDataSource = MockProfileRemoteDataSource();
-    profileRepositoryImp = ProfileRepositoryImp(
-      mockProfileRemoteDataSource,
-      mockProfileLocalDataSource,
+    mockProfileRepository = MockProfileRepository();
+    generateJsonSectionsUseCase = GenerateJsonSectionsUseCase(
+      mockProfileRepository,
     );
   });
 
@@ -39,19 +35,17 @@ void main() {
     },
   );
 
-  group("ProfileRepositoryImp.getJsonSections", () {
+  group("test generate json section use case test", () {
     test(
       "should return LocalDsSucessResult when json loaded successfully",
       () async {
         when(
-          mockProfileLocalDataSource.getJsonSections("jsonPath", "jsonKey"),
+          mockProfileRepository.getJsonSections(any, any),
         ).thenAnswer((_) async => LocalDsSucessResult([jsonSectionEntity]));
-
-        final result = await profileRepositoryImp.getJsonSections(
+        final result = await generateJsonSectionsUseCase.call(
           "jsonPath",
           "jsonKey",
         );
-
         expect(
           result,
           isA<LocalDsSucessResult<List<GenericJsonSectionEntity>>>(),
@@ -63,16 +57,16 @@ void main() {
           'en': 'App info',
           'ar': 'معلومات التطبيق',
         });
-        verify(mockProfileLocalDataSource.getJsonSections(any, any)).called(1);
+        verify(mockProfileRepository.getJsonSections(any, any)).called(1);
       },
     );
 
     test('should return LocalDsFailedResult when exception occurs', () async {
       when(
-        mockProfileLocalDataSource.getJsonSections(any, any),
+        mockProfileRepository.getJsonSections(any, any),
       ).thenAnswer((_) async => LocalDsFailedResult("file not found"));
 
-      final result = await profileRepositoryImp.getJsonSections(
+      final result = await generateJsonSectionsUseCase.call(
         "jsonPath",
         "jsonKey",
       );
@@ -85,7 +79,7 @@ void main() {
           result as LocalDsFailedResult<List<GenericJsonSectionEntity>>;
       expect(fail.errorMessage, isNotEmpty);
       expect(fail.errorMessage, contains("file not found"));
-      verify(mockProfileLocalDataSource.getJsonSections(any, any)).called(1);
+      verify(mockProfileRepository.getJsonSections(any, any)).called(1);
     });
   });
 }
