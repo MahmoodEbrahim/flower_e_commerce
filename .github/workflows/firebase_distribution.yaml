@@ -3,13 +3,11 @@ name: Firebase Distribution
 on:
   push:
     branches:
-      - main
-      - publish_to_firebase
+      
      
   pull_request:
     branches:
-      - main
-      - publish_to_firebase
+    
 
 jobs:
   build:
