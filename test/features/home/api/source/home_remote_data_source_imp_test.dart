@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/api/client/home_api_service.dart';
 import 'package:flower_e_commerce/features/home/api/models/category_products_response_dto.dart';
+import 'package:flower_e_commerce/features/home/api/models/home_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/meta_data_dto.dart';
 import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
 import 'package:flower_e_commerce/features/home/api/models/search_response_model.dart';
 import 'package:flower_e_commerce/features/home/api/source/home_remote_data_source_imp.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -273,6 +275,69 @@ void main() {
         final res = await homeRemoteDataSourceImp.getSearchProducts(filter, catId);
 
         expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
+      },
+    );
+  });
+  // ---------------- test getHomeData ----------------
+  group("test getHomeData in homeRemoteDataSourceImp", () {
+    test(
+      "should return ApiSuccessResult when API returns HomeModel",
+          () async {
+        // arrange
+        final homeModel = HomeModel(
+          message: "success",
+          products: fakeProductList,
+          categories: [],
+          bestSeller: [],
+          occasions: [],
+        );
+
+        when(mockHomeApiService.getHomeData())
+            .thenAnswer((_) async => homeModel);
+
+        // act
+        final result = await homeRemoteDataSourceImp.getHomeData();
+
+        // assert
+        verify(mockHomeApiService.getHomeData()).called(1);
+        expect(result, isA<ApiSucessResult<HomeEntity>>());
+        final success = result as ApiSucessResult<HomeEntity>;
+        expect(success.sucessResult.products?.length, fakeProductList.length);
+        expect(success.sucessResult.categories, isEmpty);
+        expect(success.sucessResult.bestSeller, isEmpty);
+        expect(success.sucessResult.occasions, isEmpty);
+      },
+    );
+
+    test(
+      "should return ApiFailedResult when DioException is thrown",
+          () async {
+        when(mockHomeApiService.getHomeData()).thenThrow(
+          DioException(
+            requestOptions: RequestOptions(path: "/home"),
+            message: "dio error",
+          ),
+        );
+
+        final result = await homeRemoteDataSourceImp.getHomeData();
+
+        expect(result, isA<ApiFailedResult<HomeEntity>>());
+        final failure = result as ApiFailedResult<HomeEntity>;
+        expect(failure.errorMessage, contains("dio error"));
+      },
+    );
+
+    test(
+      "should return ApiFailedResult when Exception is thrown",
+          () async {
+        when(mockHomeApiService.getHomeData())
+            .thenThrow(Exception("Unexpected error"));
+
+        final result = await homeRemoteDataSourceImp.getHomeData();
+
+        expect(result, isA<ApiFailedResult<HomeEntity>>());
+        final failure = result as ApiFailedResult<HomeEntity>;
+        expect(failure.errorMessage, contains("Unexpected error"));
       },
     );
   });

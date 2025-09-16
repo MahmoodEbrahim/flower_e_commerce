@@ -1,6 +1,7 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/home/data/repository/home_repository_imp.dart';
 import 'package:flower_e_commerce/features/home/data/source/home_remote_data_source.dart';
+import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -194,4 +195,38 @@ void main() {
       expect(failure.errorMessage, contains("Unexpected error"));
     });
   });
+  // -------- test getHomeData ----------
+  group("test getHomeData in HomeRepositoryImp", () {
+    test("should return ApiSuccessResult", () async {
+      final fakeHomeEntity = HomeEntity(
+        categories: [],
+        occasions: [],
+        products: [],
+      );
+
+      final mockResult = ApiSucessResult<HomeEntity>(fakeHomeEntity);
+      provideDummy<ApiResult<HomeEntity>>(mockResult);
+
+      when(mockHomeRemoteDataSource.getHomeData())
+          .thenAnswer((_) async => mockResult);
+
+      final result = await homeRepositoryImp.getHomeData();
+
+      expect(result, isA<ApiSucessResult<HomeEntity>>());
+      final success = result as ApiSucessResult<HomeEntity>;
+      expect(success.sucessResult, equals(fakeHomeEntity));
+      verify(mockHomeRemoteDataSource.getHomeData()).called(1);
+    });
+
+    test("should return ApiFailedResult when exception thrown", () async {
+      when(mockHomeRemoteDataSource.getHomeData()).thenThrow(Exception("API error"));
+
+      final result = await homeRepositoryImp.getHomeData();
+
+      expect(result, isA<ApiFailedResult<HomeEntity>>());
+      final failure = result as ApiFailedResult<HomeEntity>;
+      expect(failure.errorMessage, contains("API error"));
+    });
+  });
+
 }
