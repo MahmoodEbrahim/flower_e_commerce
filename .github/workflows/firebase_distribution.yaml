@@ -29,6 +29,11 @@ jobs:
           flutter-version: '3.35.2'
           channel: stable
 
+      - name: Accept Android SDK Licenses + Install NDK
+        run: |
+          yes | sdkmanager --licenses
+          sdkmanager "ndk;29.0.14033849"
+
 
       - name: Install Dependencies
         run: flutter pub get
