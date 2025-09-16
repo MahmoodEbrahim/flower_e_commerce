@@ -86,7 +86,7 @@ void main() async {
      // DevicePreview(builder: (context) =>
           BlocProvider(
             create: (context) => LanguageCubit()..getLanguage(),
-            child: MyApp(),
+            child: DevicePreview(builder: (context)=>MyApp(),),
           )
   //)
 

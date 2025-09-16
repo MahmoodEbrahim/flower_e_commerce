@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316905993516",
+    "project_id": "flowerecommerceapp",
+    "storage_bucket": "flowerecommerceapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316905993516:android:3888b4bbba41335e812889",
+        "android_client_info": {
+          "package_name": "com.example.flower_e_commerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkkhBW1kqWXzW4tXOjwk3ycOYcWfRwWN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
