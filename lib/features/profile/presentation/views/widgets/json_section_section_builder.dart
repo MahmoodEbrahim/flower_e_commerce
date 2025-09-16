@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/core/utils/constants/json_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_e_commerce/features/profile/domain/entity/generic_json_section_entity.dart';
 import 'package:flower_e_commerce/core/utils/json_helpers/hex_to_color.dart';
@@ -14,64 +15,85 @@ class JsonSectionBuilder extends StatelessWidget {
     required this.currentLang,
   });
 
-  // تحول أي قيمة من JSON إلى String
-  String extractContent(dynamic value) {
-    if (value == null) return '';
-    if (value is String) return value;
-    if (value is List) return value.map((e) => e.toString()).join("\n\n");
-    if (value is Map) return value.values.map((e) => e.toString()).join("\n\n");
-    return value.toString();
+  Map<String, dynamic> getStyle(
+    Map<String, dynamic>? style, {
+    bool isTitle = false,
+  }) {
+    if (style == null) return {};
+    if (isTitle && style[JsonKeys.title] is Map) return style[JsonKeys.title];
+    if (!isTitle && style[JsonKeys.content] is Map)
+      return style[JsonKeys.content];
+    return style;
   }
 
   @override
   Widget build(BuildContext context) {
-    final title = extractContent(section.title?[currentLang]);
-    final content = extractContent(section.content[currentLang]);
+    final title = section.title?[currentLang];
+    final content = section.content[currentLang];
 
-    final style = section.style;
+    //  style title
+    final titleStyle = getStyle(section.style, isTitle: true);
+    final titleColor = hexToColor(titleStyle[JsonKeys.color] ?? '#000000');
+    final titleFontSize =
+        double.tryParse(titleStyle[JsonKeys.fontSize]?.toString() ?? '18') ??
+        18;
+    final titleFontWeight = parseFontWeight(
+      titleStyle[JsonKeys.fontWeight] ?? 'normal',
+    );
+    final rawTitleAlign = titleStyle[JsonKeys.textAlign];
+    final titleAlign = parseTextAlign(
+      (rawTitleAlign is Map
+              ? rawTitleAlign[currentLang]
+              : rawTitleAlign?.toString()) ??
+          'left',
+    );
 
-    final color = hexToColor(style['color'] ?? '#000000');
-    final fontSize =
-        double.tryParse(style['fontSize']?.toString() ?? '16') ?? 16;
-    final fontWeight = parseFontWeight(style['fontWeight'] ?? 'normal');
-
-    final rawAlign = style['textAlign'];
-    String alignValue;
-    if (rawAlign is Map) {
-      alignValue = rawAlign[currentLang] ?? 'left';
-    } else {
-      alignValue = rawAlign?.toString() ?? 'left';
-    }
-    final align = parseTextAlign(alignValue);
+    //  style content
+    final contentStyle = getStyle(section.style);
+    final contentColor = hexToColor(contentStyle[JsonKeys.color] ?? '#000000');
+    final contentFontSize =
+        double.tryParse(contentStyle[JsonKeys.fontSize]?.toString() ?? '16') ??
+        16;
+    final contentFontWeight = parseFontWeight(
+      contentStyle[JsonKeys.fontWeight] ?? 'normal',
+    );
+    final rawContentAlign = contentStyle[JsonKeys.textAlign];
+    final contentAlign = parseTextAlign(
+      (rawContentAlign is Map
+              ? rawContentAlign[currentLang]
+              : rawContentAlign?.toString()) ??
+          'left',
+    );
 
     return Column(
-      crossAxisAlignment: align == TextAlign.right
-          ? CrossAxisAlignment.end
-          : align == TextAlign.center
+      crossAxisAlignment:
+          titleAlign == TextAlign.center || contentAlign == TextAlign.center
           ? CrossAxisAlignment.center
           : CrossAxisAlignment.start,
       children: [
-        if (title.isNotEmpty)
+        if (title != null)
           Text(
             title,
             style: TextStyle(
-              fontSize: fontSize + 2,
-              fontWeight: FontWeight.bold,
-              color: color,
+              fontSize: titleFontSize,
+              fontWeight: titleFontWeight,
+              color: titleColor,
             ),
-            textAlign: align,
+            textAlign: titleAlign,
           ),
-        const SizedBox(height: 8),
-        Text(
-          content,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            color: color,
+
+        if (title != null) const SizedBox(height: 8),
+        if (content != null)
+          Text(
+            content,
+            style: TextStyle(
+              fontSize: contentFontSize,
+              fontWeight: contentFontWeight,
+              color: contentColor,
+            ),
+            textAlign: contentAlign,
           ),
-          textAlign: align,
-        ),
-        const SizedBox(height: 16),
+        if (content != null) const SizedBox(height: 25),
       ],
     );
   }

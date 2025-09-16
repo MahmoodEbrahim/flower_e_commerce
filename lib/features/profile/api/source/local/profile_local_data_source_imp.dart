@@ -1,24 +1,27 @@
-import 'dart:convert';
-import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
+import 'package:flower_e_commerce/core/utils/json_helpers/json_loader.dart';
 import 'package:flower_e_commerce/features/profile/api/models/generic_json_section_model.dart';
 import 'package:flower_e_commerce/features/profile/data/source/local/profile_local_data_source.dart';
 import 'package:flower_e_commerce/features/profile/domain/entity/generic_json_section_entity.dart';
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-
 @Injectable(as: ProfileLocalDataSource)
 class ProfileLocalDataSourceImp implements ProfileLocalDataSource {
+  final JsonLoader _jsonLoader;
+
+  ProfileLocalDataSourceImp(this._jsonLoader);
+
   @override
-  Future<ApiResult<List<GenericJsonSectionEntity>>> getJsonSections(String jsonPath,String jsonKey) async {
+  Future<LocalDsResult<List<GenericJsonSectionEntity>>> getJsonSections(
+      String jsonPath, String jsonKey) async {
     try {
-      final jsonString = await rootBundle.loadString(jsonPath);
-      final Map<String, dynamic> jsonMap = json.decode(jsonString);
-      final  sections = (jsonMap[jsonKey] as List)
+      final Map<String, dynamic> jsonMap = await _jsonLoader.loadJson(jsonPath);
+      final sections = (jsonMap[jsonKey] as List)
           .map((e) => GenericJsonSectionModel.fromJson(e).toEntity())
           .toList();
-      return ApiSucessResult(sections);
+      return LocalDsSucessResult(sections);
     } catch (error) {
-      return ApiFailedResult(error.toString());
+      return LocalDsFailedResult(error.toString());
     }
   }
 }
+
