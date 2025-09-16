@@ -54,6 +54,7 @@ dev_dependencies:
   json_serializable: ^6.7.0
   analyzer: ^6.4.1
   injectable_generator:
+
   hive_generator:
 flutter:
   generate: true
