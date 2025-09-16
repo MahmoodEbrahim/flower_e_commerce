@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/address/api/client/adress_api_services.dart';
 import 'package:flower_e_commerce/features/address/api/data_source/adress_data_source_impl.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
@@ -25,8 +26,10 @@ late MockAddressesApiServices mockAddressesApiServices;
 late AddressRemoteDataSource addressRemoteDataSource;
 late MockAssetBundle mockAssetBundle;
 setUp((){
+  mockAssetBundle=MockAssetBundle();
   mockAddressesApiServices=MockAddressesApiServices();
-  addressRemoteDataSource=AddressRemoteDataSourceImpl(mockAddressesApiServices);
+  addressRemoteDataSource=AddressRemoteDataSourceImpl(
+      mockAddressesApiServices,mockAssetBundle);
   mockAssetBundle=MockAssetBundle();
   ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       'plugins.flutter.io/path_provider' , ( methodCall) async => null,);
@@ -272,22 +275,25 @@ verify(mockAddressesApiServices.updateAddress("Bearer $token", id, request)).cal
     });
   });
   group("Governorates Data Source", (){
-    test("return ApiSuccessResult when call json get governorates and succeess", ()async{
-when(mockAssetBundle.loadString("assets/json/cities.json")).thenAnswer((_)async=>governoratesJson);
+    test("return LocalSuccessResult when call json get governorates and succeess", ()
+    async{
+when(mockAssetBundle.loadString("assets/json/cities.json",)).thenAnswer((_)
+async=>governoratesJson);
 final result=await addressRemoteDataSource.getGovernorates();
-expect(result , isA<List<GovernorateEntity>>());
-final data=(result);
+expect(result , isA<LocalDsSucessResult>());
+final data=(result as LocalDsSucessResult).sucessResult;
 expect(data.length, 27);
      expect(data.first.nameEn, "Cairo") ;
     });
+
   });
 group("State  Data Source", (){
   test("Should return ApiSuccessResult when load json",()async{
     String governateId="1";
     when(mockAssetBundle.loadString("assets/json/states.json")).thenAnswer((_)async=>statesJson);
     final result=await addressRemoteDataSource.getStates(governateId);
-    expect(result, isA<List<StateEntity>>());
-    List<StateEntity> data=result ;
+    expect(result, isA<LocalDsSucessResult>());
+   final data=(result as LocalDsSucessResult).sucessResult ;
     expect(data[0].cityNameEn, "15 May");
     expect(data[0].cityNameAr, "15 مايو");
 
@@ -298,9 +304,11 @@ group("Country DataSource", (){
     when(mockAssetBundle.loadString("assets/json/country.json")).
     thenAnswer((_)async=>countriesJson);
 final result=await addressRemoteDataSource.getCountries();
-expect(result, isA<List<CountryEntity>>());
-expect(result[0].name, "Afghanistan");
-expect(result[0].phoneCode, "93");
+expect(result, isA<LocalDsSucessResult>());
+List<CountryEntity> data=((result as LocalDsSucessResult).sucessResult);
+final d=data[0];
+expect(d.name,"Afghanistan");
+    expect(d.phoneCode,"93");
   });
 });
 });

@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/time_zone.dart';
@@ -17,7 +18,7 @@ void main() {
   setUp((){
     mockAddressRepositry=MockAddressRepositry();
     getAllCountriesUseCase=GetAllCountriesUseCase(mockAddressRepositry);
-    provideDummy<ApiResult<List<AddressEntity>>>(ApiFailedResult("Dummy Error"));
+    provideDummy<LocalDsResult<List<CountryEntity>>>(LocalDsFailedResult("Dummy Error"));
   });
   final countries=[
 
@@ -34,10 +35,11 @@ void main() {
 
   ];
   test('should return list of countries when repo successs', () async{
-when(mockAddressRepositry.getCountries()).thenAnswer((_)async=>countries);
+when(mockAddressRepositry.getCountries()).thenAnswer((_)async=>LocalDsSucessResult(countries));
 final result=await getAllCountriesUseCase.getCountries();
-expect(result.length, 1);
-expect(result[0].name, "Afghanistan");
+final actualResult=(result as LocalDsSucessResult).sucessResult;
+expect(actualResult.length, 1);
+expect(actualResult[0].name, "Afghanistan");
 verify(mockAddressRepositry.getCountries()).called(1);
   });
   test("should throw an Exception when repository throws an exception", ()async{

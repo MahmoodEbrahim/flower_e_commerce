@@ -437,7 +437,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsAndConditions.
   ///
   /// In en, this message translates to:
-  /// **'Terms & conditions'**
+  /// **'Terms & Conditions'**
   String get termsAndConditions;
 
   /// No description provided for @alreadyHaveAccount.
@@ -722,6 +722,36 @@ abstract class AppLocalizations {
   /// **'Profile'**
   String get profileTab;
 
+  /// No description provided for @orderPage.
+  ///
+  /// In en, this message translates to:
+  /// **'My Order'**
+  String get orderPage;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// No description provided for @reorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get reorder;
+
+  /// No description provided for @trackorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Track order'**
+  String get trackorder;
+
   /// No description provided for @lowerPrice.
   ///
   /// In en, this message translates to:
@@ -799,36 +829,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No products found for '**
   String get noProductsFor;
-
-  /// No description provided for @orderPage.
-  ///
-  /// In en, this message translates to:
-  /// **'Order Page'**
-  String get orderPage;
-
-  /// No description provided for @active.
-  ///
-  /// In en, this message translates to:
-  /// **'Active'**
-  String get active;
-
-  /// No description provided for @completed.
-  ///
-  /// In en, this message translates to:
-  /// **'Completed'**
-  String get completed;
-
-  /// No description provided for @reorder.
-  ///
-  /// In en, this message translates to:
-  /// **'Reorder'**
-  String get reorder;
-
-  /// No description provided for @trackorder.
-  ///
-  /// In en, this message translates to:
-  /// **'Track order'**
-  String get trackorder;
 }
 
 class _AppLocalizationsDelegate

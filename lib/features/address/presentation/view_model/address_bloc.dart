@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
@@ -28,7 +29,8 @@ GetAllGovernorateUseCase _getAllGovernorateUseCase;
 GetAllStatesUseCase _allStatesUseCase;
 GetAllCountriesUseCase _getAllCountriesUseCase;
 GetUpdateAddressUseCase _getUpdateAddressUseCase;
-AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddressUseCase,
+AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
+    this._deleteAddressUseCase,
     this._getAllGovernorateUseCase,this._allStatesUseCase,
     this._getAllCountriesUseCase,this._getUpdateAddressUseCase):super(AddressState()){
   on<GetAddAddressEvent>((event,emit)async{
@@ -125,12 +127,16 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
     ));
     final result=await _getAllGovernorateUseCase.getGovernorates();
     switch(result){
-      case List<GovernorateEntity>():
-    emit(state.copyWith(
-      governorateRequestState: RequestState.success,
-      governorates: result
-    ));
-
+      case LocalDsSucessResult<List<GovernorateEntity>>():
+      emit(state.copyWith(
+          governorateRequestState: RequestState.success,
+          governorates: result.sucessResult
+      ));
+      case LocalDsFailedResult<List<GovernorateEntity>>():
+        emit(state.copyWith(
+            governorateRequestState: RequestState.error,
+            governateErrorMessage: result.errorMessage
+        ));
     }
   });
   on<GetStatesEvent>((event,emit)async{
@@ -139,13 +145,16 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
     ));
     final result=await _allStatesUseCase.getStates(event.governateId);
     switch(result){
-      case List<StateEntity>():
-
-      emit(state.copyWith(
-        stateRequestState: RequestState.success,
-        states: result
-      ));
-
+  case LocalDsSucessResult<List<StateEntity>>():
+        emit(state.copyWith(
+            stateRequestState: RequestState.success,
+            states: result.sucessResult
+        ));
+      case LocalDsFailedResult<List<StateEntity>>():
+        emit(state.copyWith(
+            stateRequestState: RequestState.error,
+            stateErrorMessage: result.errorMessage
+        ));
     }
   });
   on<GetCountriesEvent>((event,emit)async{
@@ -154,12 +163,16 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,this._deleteAddres
     ));
     final result=await _getAllCountriesUseCase.getCountries();
     switch(result){
-      case List<CountryEntity>():
-   emit(state.copyWith(
-     countryRequestState: RequestState.success,
-     countries: result
-   ));
-
+      case LocalDsSucessResult<List<CountryEntity>>():
+        emit(state.copyWith(
+            countryRequestState: RequestState.success,
+            countries: result.sucessResult
+        ));
+      case LocalDsFailedResult<List<CountryEntity>>():
+        emit(state.copyWith(
+            countryRequestState: RequestState.error,
+            countryErrorMessage: result.errorMessage
+        ));
     }
   });
 }

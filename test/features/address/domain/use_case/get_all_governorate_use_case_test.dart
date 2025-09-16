@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_governorate_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,13 +22,16 @@ void main() {
   setUp((){
     mockAddressRepositry=MockAddressRepositry();
     getAllGovernorateUseCase=GetAllGovernorateUseCase(mockAddressRepositry);
+    provideDummy<LocalDsResult<List<GovernorateEntity>>>(LocalDsFailedResult("Dummy Error"));
 
   });
   test('return list of all governorates when repo success', () async{
-   when(mockAddressRepositry.getGovernorates()).thenAnswer((_)async=>governorates);
+   when(mockAddressRepositry.getGovernorates()).thenAnswer((_)async=>
+   LocalDsSucessResult(governorates));
    final result=await getAllGovernorateUseCase.getGovernorates();
-   expect(result.length, 4);
-   expect(result[0].nameEn, "Cairo");
+   final actualResult=(result as LocalDsSucessResult).sucessResult;
+   expect(actualResult.length, 4);
+   expect(actualResult[0].nameEn, "Cairo");
    verify(mockAddressRepositry.getGovernorates()).called(1);
   });
   test("should throw an Exception when repository throws an exception", ()async{

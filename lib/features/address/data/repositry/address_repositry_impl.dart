@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
 import 'package:flower_e_commerce/features/address/api/models/request/add_adress_request.dart';
 import 'package:flower_e_commerce/features/address/api/models/response/remove_address_dto.dart';
 import 'package:flower_e_commerce/features/address/data/data_source/adress_data_source.dart';
@@ -32,16 +33,16 @@ class AddressRepositryImpl implements AddressRepositry{
     return await _addressRemoteDataSource.updateAddress(token, id, request);
   }
   @override
-  Future<List<GovernorateEntity>> getGovernorates() async{
+  Future<LocalDsResult<List<GovernorateEntity>>> getGovernorates() async{
     return await _addressRemoteDataSource.getGovernorates();
   }
 @override
-Future<List<StateEntity>> getStates(String governateId)async {
+Future<LocalDsResult<List<StateEntity>>> getStates(String governateId)async {
 return await _addressRemoteDataSource.getStates(governateId);
 
   }
 @override
-Future<List<CountryEntity>> getCountries()async {
+Future<LocalDsResult<List<CountryEntity>>> getCountries()async {
 return await _addressRemoteDataSource.getCountries();
   }
 }

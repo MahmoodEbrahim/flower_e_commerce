@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter/services.dart' as _i281;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
@@ -173,10 +174,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i136.OrdersApiService(gh<_i361.Dio>()));
     gh.factory<_i495.ProfileApiService>(
         () => _i495.ProfileApiService(gh<_i361.Dio>()));
+    gh.factory<_i535.AddressRemoteDataSource>(
+        () => _i107.AddressRemoteDataSourceImpl(
+              gh<_i658.AddressesApiServices>(),
+              gh<_i281.AssetBundle>(),
+            ));
     gh.factory<_i691.ProfileLocalDataSource>(
         () => _i752.ProfileLocalDataSourceImp());
-    gh.factory<_i535.AddressRemoteDataSource>(() =>
-        _i107.AddressRemoteDataSourceImpl(gh<_i658.AddressesApiServices>()));
     gh.factory<_i368.ProfileRemoteDataSource>(
         () => _i246.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
     gh.factory<_i751.CartRemoteDataSouce>(
