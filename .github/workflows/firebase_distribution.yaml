@@ -3,10 +3,10 @@ name: Firebase Distribution
 on:
   push:
     branches:
-      - main   # <-- حطي هنا الفرع اللي عايزة ال CI يشتغل عليه
+     
   pull_request:
     branches:
-      - main
+    
 
 jobs:
   build:
