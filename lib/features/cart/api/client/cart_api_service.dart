@@ -9,10 +9,11 @@ import 'package:retrofit/retrofit.dart';
 part 'cart_api_service.g.dart';
 
 @RestApi(baseUrl: ApiEndPoints.apiUrl)
+
 @injectable
 abstract class CartApiService {
   @factoryMethod
-  factory CartApiService(Dio dio, {String baseUrl}) = _CartApiService;
+  factory CartApiService(Dio dio) = _CartApiService;
 
   @POST(ApiEndPoints.cartEndPoint)
   Future<CartResponseDto> addProductToCart(
