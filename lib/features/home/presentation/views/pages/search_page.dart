@@ -24,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final t=AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (_) => getIt<SearchBloc>(),
       child: Scaffold(
@@ -34,6 +34,7 @@ class _SearchPageState extends State<SearchPage> {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
+                  key: const Key('search_appbar'),
                   pinned: true,
                   floating: false,
                   backgroundColor: AppColors.white,
@@ -41,6 +42,7 @@ class _SearchPageState extends State<SearchPage> {
                   scrolledUnderElevation: 0,
                   toolbarHeight: 70,
                   title: CustumSearchBar(
+                    key: const Key('search_bar'),
                     controller: _controller,
                     readOnly: false,
                     suffixIcon: Icons.cancel_outlined,
@@ -53,34 +55,29 @@ class _SearchPageState extends State<SearchPage> {
 
                 if (state.requestState == RequestState.loading)
                   SliverFillRemaining(
+                    key: const Key('loading_state'),
                     hasScrollBody: false,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10),
-                        LoadingAnimationWidget.inkDrop(
-                          color: AppColors.pink,
-                          size: 50,
-                        ),
-                      ],
+                    child: Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                        color: AppColors.pink,
+                        size: 50,
+                      ),
                     ),
                   )
                 else if (state.requestState == RequestState.error)
                   SliverFillRemaining(
+                    key: const Key('error_state'),
                     hasScrollBody: false,
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
-                            Icons.error_outline,
-                            size: 60,
-                            color: AppColors.midGray,
-                          ),
+                          const Icon(Icons.error_outline,
+                              size: 60, color: AppColors.midGray),
                           const SizedBox(height: 12),
                           Text(
                             state.errorMessage,
+                            key: const Key('error_message'),
                             textAlign: TextAlign.center,
                             style: getMediumStyle(
                               color: AppColors.midGray,
@@ -91,80 +88,86 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                   )
-                else if (state.keyword.isEmpty|| state.requestState==RequestState.init)
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.search,
-                            size: 60,
-                            color: AppColors.midGray,
+                else if (state.keyword.isEmpty ||
+                      state.requestState == RequestState.init)
+                    SliverFillRemaining(
+                      key: const Key('empty_state'),
+                      hasScrollBody: false,
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.search,
+                                size: 60, color: AppColors.midGray),
+                            const SizedBox(height: 12),
+                            Text(
+                              t.typeSomething,
+                              key: const Key('hint_text'),
+                              textAlign: TextAlign.center,
+                              style: getMediumStyle(
+                                color: AppColors.midGray,
+                                fontSize: FontSize.s18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  else if (state.products.isEmpty)
+                      SliverFillRemaining(
+                        key: const Key('no_results_state'),
+                        hasScrollBody: false,
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.sentiment_very_dissatisfied,
+                                  size: 40, color: AppColors.gray),
+                              const SizedBox(height: 12),
+                              Text(
+                                "${t.noProductsFor} ${state.keyword}",
+                                key: const Key('no_results_message'),
+                                style: getMediumStyle(
+                                  color: AppColors.midGray,
+                                  fontSize: FontSize.s18,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 12),
-                          Text(
-                            t.typeSomething,
-                            textAlign: TextAlign.center,
-                            style: getMediumStyle(
-                              color: AppColors.midGray,
-                              fontSize: FontSize.s18,
+                        ),
+                      )
+                    else if (state.products.isNotEmpty)
+                        SliverPadding(
+                          key: const Key('success_results_state'),
+                          padding: const EdgeInsets.all(8),
+                          sliver: SliverGrid(
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.7,
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 15,
+                            ),
+                            delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
+                                final product = state.products[index];
+                                return GestureDetector(
+                                  key: Key('product_card_$index'),
+                                  child: CustomCardFlower(productsEntity: product),
+                                  onTap: () => Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.details,
+                                    arguments: product,
+                                  ),
+                                );
+                              },
+                              childCount: state.products.length,
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  )
-                else if (state.products.isEmpty)
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.sentiment_very_dissatisfied,
-                            size: 40,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            "${t.noProductsFor} ${state.keyword}",
-                            style: getMediumStyle(
-                              color: AppColors.midGray,
-                              fontSize: FontSize.s18,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                else if (state.products.isNotEmpty)
-                  SliverPadding(
-                    padding: const EdgeInsets.all(8),
-                    sliver: SliverGrid(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.7,
-                            crossAxisSpacing: 15,
-                            mainAxisSpacing: 15,
-                          ),
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        final product = state.products[index];
-                        return GestureDetector(
-                          child: CustomCardFlower(productsEntity: product),
-                          onTap: () => Navigator.pushNamed(context, AppRoutes.details,arguments: product),
-                        );
-                      }, childCount: state.products.length),
-                    ),
-                  ),
+                        ),
 
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 20,
-                  ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 20),
                 )
               ],
             );
