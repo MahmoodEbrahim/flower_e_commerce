@@ -26,91 +26,104 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final t=AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (_) => getIt<SearchBloc>(),
       child: Scaffold(
-
         backgroundColor: AppColors.white,
         body: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
-            return
-              CustomScrollView(
-
-                slivers: [
-                  SliverAppBar(
-
-                    pinned: true,
-                    floating: false,
-                    backgroundColor: AppColors.white,
-                    elevation: 0,
-                    scrolledUnderElevation: 0,
-                    toolbarHeight: 70,
-                    title: CustumSearchBar(
-                      controller: _controller,
-                      readOnly: false,
-                      suffixIcon: Icons.cancel_outlined,
-                      onPressed: () {
-                        _controller.clear();
-                        context.read<SearchBloc>().add(ClearSearch());
-                      },
-                    ),
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  key: const Key('search_appbar'),
+                  pinned: true,
+                  floating: false,
+                  backgroundColor: AppColors.white,
+                  elevation: 0,
+                  scrolledUnderElevation: 0,
+                  toolbarHeight: 70,
+                  title: CustumSearchBar(
+                    key: const Key('search_bar'),
+                    controller: _controller,
+                    readOnly: false,
+                    suffixIcon: Icons.cancel_outlined,
+                    onPressed: () {
+                      _controller.clear();
+                      context.read<SearchBloc>().add(ClearSearch());
+                    },
                   ),
-                  if (state.requestState == RequestState.loading)
-                    SliverFillRemaining(
-                      hasScrollBody: false,
+                ),
+
+                if (state.requestState == RequestState.loading)
+                  SliverFillRemaining(
+                    key: const Key('loading_state'),
+                    hasScrollBody: false,
+                    child: Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                        color: AppColors.pink,
+                        size: 50,
+                      ),
+                    ),
+                  )
+                else if (state.requestState == RequestState.error)
+                  SliverFillRemaining(
+                    key: const Key('error_state'),
+                    hasScrollBody: false,
+                    child: Center(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(height: 10),
-                          LoadingAnimationWidget.inkDrop(
-                            color: AppColors.pink,
-                            size: 50,
+                          const Icon(Icons.error_outline,
+                              size: 60, color: AppColors.midGray),
+                          const SizedBox(height: 12),
+                          Text(
+                            state.errorMessage,
+                            key: const Key('error_message'),
+                            textAlign: TextAlign.center,
+                            style: getMediumStyle(
+                              color: AppColors.midGray,
+                              fontSize: FontSize.s18,
+                            ),
                           ),
                         ],
                       ),
-                    )
-                  else if (state.requestState == RequestState.error)
+                    ),
+                  )
+                else if (state.keyword.isEmpty || state.requestState == RequestState.init)
                     SliverFillRemaining(
+                      key: const Key('empty_state'),
                       hasScrollBody: false,
                       child: Center(
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.error_outline,
-                              size: 60,
-                              color: AppColors.midGray,
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              state.errorMessage,
-                              textAlign: TextAlign.center,
-                              style: getMediumStyle(
-                                color: AppColors.midGray,
-                                fontSize: FontSize.s18,
-                              ),
+                            Lottie.asset(
+                              "assets/json/search.json",
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 200,
                             ),
                           ],
                         ),
                       ),
                     )
-                  else if (state.keyword.isEmpty|| state.requestState==RequestState.init)
+
+                  else if (state.products.isEmpty)
                       SliverFillRemaining(
+                        key: const Key('no_results_state'),
                         hasScrollBody: false,
                         child: Center(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Lottie.asset("assets/json/search.json",fit: BoxFit.cover,
-                                  height: 150.h,width: 200.w
-                              ),
+                              const Icon(Icons.sentiment_very_dissatisfied,
+                                  size: 40, color: AppColors.gray),
                               const SizedBox(height: 12),
                               Text(
-                                t.typeSomething,
-                                textAlign: TextAlign.center,
+                                "${t.noProductsFor} ${state.keyword}",
+                                key: const Key('no_results_message'),
                                 style: getMediumStyle(
                                   color: AppColors.midGray,
                                   fontSize: FontSize.s18,
@@ -120,62 +133,44 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         ),
                       )
-                    else if (state.products.isEmpty)
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.sentiment_very_dissatisfied,
-                                  size: 40,
-                                  color: Colors.grey,
-                                ),
-                                const SizedBox(height: 12),
-                                Text(
-                                  "${t.noProductsFor} ${state.keyword}",
-                                  style: getMediumStyle(
-                                    color: AppColors.midGray,
-                                    fontSize: FontSize.s18,
-                                  ),
-                                ),
-                              ],
+                    else if (state.products.isNotEmpty)
+                        SliverPadding(
+                          key: const Key('success_results_state'),
+                          padding: const EdgeInsets.all(8),
+                          sliver: SliverGrid(
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.7,
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 15,
                             ),
-                          ),
-                        )
-                      else if (state.products.isNotEmpty)
-                          SliverPadding(
-                            padding: const EdgeInsets.all(8),
-                            sliver: SliverGrid(
-                              gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.7,
-                                crossAxisSpacing: 15,
-                                mainAxisSpacing: 15,
-                              ),
-                              delegate: SliverChildBuilderDelegate((context, index) {
+                            delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
                                 final product = state.products[index];
                                 return GestureDetector(
+                                  key: Key('product_card_$index'),
                                   child: CustomCardFlower(productsEntity: product),
-                                  onTap: () => Navigator.pushNamed(context, AppRoutes.details,arguments: product),
+                                  onTap: () => Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.details,
+                                    arguments: product,
+                                  ),
                                 );
-                              }, childCount: state.products.length),
+                              },
+                              childCount: state.products.length,
                             ),
                           ),
+                        ),
 
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 20,
-                    ),
-                  )
-                ],
-              );
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 20),
+                )
+              ],
+            );
           },
         ),
-      )
-
+      ),
     );
   }
 }
