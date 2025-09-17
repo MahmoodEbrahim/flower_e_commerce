@@ -1,9 +1,11 @@
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
+import 'package:flower_e_commerce/features/home/presentation/views/widgets/custum_bootom_sheet.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/widgets/filter_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import 'filter_button_test.mocks.dart';
 
@@ -78,14 +80,26 @@ void main() {
       findsOneWidget,
     );
     expect(
-      find.byWidgetPredicate((widget)=> widget is Expanded && widget.child is ElevatedButton),
+      find.byWidgetPredicate(
+        (widget) => widget is Expanded && widget.child is ElevatedButton,
+      ),
       findsOneWidget,
     );
 
-
     expect(
-     find.byWidgetPredicate((widget)=> widget is Row && widget.children[0] is Expanded),
+      find.byWidgetPredicate(
+        (widget) => widget is Row && widget.children[0] is Expanded,
+      ),
       findsOneWidget,
-   );
+    );
+
+    await tester.tap(find.byKey(Key("eleBtn")));
+    await tester.pump();
+
+     verify(mockCategoryViewModel.add(
+    any, 
+  )).called(1);
+  expect(find.byType(CustumBootomSheet), findsNothing);
+
   });
 }

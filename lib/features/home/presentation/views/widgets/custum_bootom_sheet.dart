@@ -52,76 +52,84 @@ class _CustumBootomSheetState extends State<CustumBootomSheet> {
     categoriesViewModel = widget.mycontext.read<CategoriesViewModel>();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DraagableLine(),
-
-          ButtomSheetTitle(),
-
-          SizedBox(
-            height: 300,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: options.length,
-              itemBuilder: (context, index) {
-                String value = options[index];
-
-                return Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
-
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.blackColor[10]!,
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                    color: AppColors.whiteColor[10],
-                  ),
-                  child: RadioListTile<String>(
-                    fillColor: WidgetStateProperty.all(AppColors.pink),
-                    value: value,
-                    selected: true,
-                    groupValue: mySelectedValue,
-                    onChanged: (val) {
-                      setState(() {
-                        mySelectedValue = val;
-                        widget.selectedValue.value = val;
-                        myIndex = index;
-                        if (widget.catId.value == "") {
-                          sendCatId = null;
-                        } else {
-                          sendCatId = widget.catId.value;
-                        }
-                      });
-                    },
-                    title: Text(
-                      value,
-                      style: getBoldStyle(
-                        color: AppColors.black,
-                        fontSize: FontSize.s16,
-                      ),
+    return SingleChildScrollView(
+      child: Padding(
+        key: Key("padding at custumBottomSheet"),
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DraagableLine(),
+      
+            ButtomSheetTitle(),
+      
+            SizedBox(
+              height: 300,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: options.length,
+                itemBuilder: (context, index) {
+                  String value = options[index];
+      
+                  return
+                   Container(
+                    margin: EdgeInsets.symmetric(vertical: 5),
+      
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.blackColor[10]!,
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                      color: AppColors.whiteColor[10],
                     ),
-                    controlAffinity: ListTileControlAffinity.trailing,
-                  ),
-                );
-              },
+                    child: RadioListTile<String>(
+                      key: Key("firstTile $index"),
+                      fillColor: WidgetStateProperty.all(AppColors.pink),
+                      value: value,
+                      selected: true,
+                      groupValue: mySelectedValue,
+                      onChanged: (val) {
+                        setState(() {
+                          mySelectedValue = val;
+                          widget.selectedValue.value = val;
+                          myIndex = index;
+                          if (widget.catId.value == "") {
+                            sendCatId = null;
+                          } else {
+                            sendCatId = widget.catId.value;
+                          }
+                        });
+                      },
+                      title: Text(
+                        value,
+                        style: getBoldStyle(
+                          color: AppColors.black,
+                          fontSize: FontSize.s16,
+                        ),
+                      ),
+                      controlAffinity: ListTileControlAffinity.trailing,
+                    ),
+                  );
+               
+               
+                },
+              ),
             ),
-          ),
-
-          SizedBox(height: 10),
-
-          FilterButtom(categoriesViewModel: categoriesViewModel, filtersApi: filtersApi, myIndex: myIndex, sendCatId: sendCatId),
-        ],
+      
+            SizedBox(height: 10),
+      
+            FilterButtom(categoriesViewModel: categoriesViewModel, filtersApi: filtersApi, myIndex: myIndex, sendCatId: sendCatId),
+          ],
+        ),
       ),
     );
   }

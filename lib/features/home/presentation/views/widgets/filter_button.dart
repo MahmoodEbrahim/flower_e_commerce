@@ -24,6 +24,7 @@ class FilterButtom extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
+            key: Key("eleBtn"),
             onPressed: () {
               categoriesViewModel.add(
                 GetSearchProductsEvent(

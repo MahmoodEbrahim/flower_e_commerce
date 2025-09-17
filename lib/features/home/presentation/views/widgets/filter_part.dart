@@ -24,6 +24,7 @@ class FilterPart extends StatelessWidget {
       left: 0,
       child: Center(
         child: ElevatedButton(
+          key: Key("eleBtn1"),
           onPressed: () {
             showModalBottomSheet(
               backgroundColor: AppColors.white,
