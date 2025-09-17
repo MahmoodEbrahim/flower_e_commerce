@@ -44,7 +44,7 @@ void main() {
     message: "success",
     orders: fakeOrders,
   );
-  group("test getCartOfUser in CartRespositoryImp", () {
+  group("test getOrders in OrdersRepoImpl", () {
     test('GetOrders returns ApiSuccessResult', () async {
       final MockResult = ApiSucessResult<OrdersResponceEntity>(
           fakeOrdersResponse);
