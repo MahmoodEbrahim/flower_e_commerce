@@ -140,6 +140,7 @@
   "commonError":"oops somthing went wrong please try again ",
 
   "typeSomething": "Type something to search...",
-  "noProductsFor":"No products found for "
+  "noProductsFor":"No products found for ",
+  "noLocationFound":"No Address Found !   😐"
 
 }

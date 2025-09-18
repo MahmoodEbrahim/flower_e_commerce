@@ -2,6 +2,7 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/core/widgets/delivery_location.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
@@ -36,17 +37,14 @@ class HomePage extends StatelessWidget {
     String location = "Lets go to add some addresses 😉";
 
     final LoginModel? loginModel = UserLocalStorage.getUser();
-    print(".............................");
-    print(loginModel!.user.addresses);
-     print(".............................");
+   
     if (loginModel != null) {
-      final UserModel? userModel = loginModel.user;
-      if (userModel != null) {
+       UserModel userModel = loginModel.user;
         final List<AddressEntity> address = userModel.addresses;
         if (address.isNotEmpty) {
           location = " ${address[0].city} ${address[0].street}}";
         }
-      }
+      
     }
     return Scaffold(
       body: BlocProvider(
@@ -124,16 +122,7 @@ class HomePage extends StatelessWidget {
                       const SizedBox(height: 12),
 
                       /// Location
-                      Row(
-                        children: [
-                          const Icon(Icons.location_on_outlined, size: 24),
-                          const SizedBox(width: 6),
-
-                          Text(location),
-                        ],
-
-                        
-                      ),
+                    DeliveryLocation(),
 
                       // Categories
                       buildSectionTitle(t.categories, () {

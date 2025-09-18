@@ -126,6 +126,7 @@
   "active": "نشط",
   "completed": "مكتمل",
   "reorder": "إعادة الطلب",
-  "trackorder": "تتبع الطلب"
+  "trackorder": "تتبع الطلب",
+  "noLocationFound":"No Address Found !   😐"
 
 }

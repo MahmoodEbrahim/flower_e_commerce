@@ -179,8 +179,16 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     title: t.myOrders,
                     showArrow: true,
                     onTap: () {
-                   Navigator.of(context).pushNamed(AppRoutes.orderspage);
-                    },
+                       if (user == null) {
+                        // Show dialog to login
+                        loginInDialgo(context, t);
+                      }
+                      else{
+                         Navigator.of(context).pushNamed(AppRoutes.orderspage);
+                    }
+
+                      }
+                  
                   ),
                   ProfileItem(
                     leading: SvgPicture.asset(ImageAssets.location, height: 25, width: 25),
