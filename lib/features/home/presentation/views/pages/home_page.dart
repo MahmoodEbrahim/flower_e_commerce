@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
        UserModel userModel = loginModel.user;
         final List<AddressEntity> address = userModel.addresses;
         if (address.isNotEmpty) {
-          location = " ${address[0].city} ${address[0].street}}";
+          location = " ${address[0].city} ${address[0].street}";
         }
       
     }

@@ -3,6 +3,8 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 
 class EmptyCartView extends StatelessWidget {
@@ -16,7 +18,10 @@ class EmptyCartView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 20),
+          Lottie.asset("assets/json/cart.json",
+              width: 200.w,height: 150.h,fit: BoxFit.cover),
+          const SizedBox(height: 40),
           Align(
             alignment: Alignment.center,
             child:  Text(

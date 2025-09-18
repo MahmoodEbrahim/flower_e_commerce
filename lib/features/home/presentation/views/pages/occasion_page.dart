@@ -39,52 +39,33 @@ class _OccasionPageState extends State<OccasionPage> {
         ),
       child: Scaffold(
           backgroundColor: AppColors.white,
+
+          appBar: AppBar(
+            backgroundColor: AppColors.white,
+
+            leading:    IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                size: 24.0,
+                color: AppColors.black,
+              ),
+            ),
+            title:  Text(
+              local!.occasion,
+              style: getMediumStyle(
+                  color: AppColors.black,
+                  fontSize: 20.0),
+            ) ,
+          ),
           body: SafeArea(
             child: Padding(
               padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icon(
-                              Icons.arrow_back_ios_new,
-                              size: 28.0,
-                              color: AppColors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                local!.occasion,
-                                style: getMediumStyle(
-                                    color: AppColors.black,
-                                    fontSize: 20.0),
-                              ),
-                              Text(
-                                local.bloomWithOurExquisitebestSellers,
-                                style: getMediumStyle(
-                                    color: AppColors.white,
-                                    fontSize: 13.0),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+
                   SizedBox(
                     height: 10.0,
                   ),

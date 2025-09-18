@@ -829,6 +829,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No products found for '**
   String get noProductsFor;
+
+  /// No description provided for @noLocationFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Address Found !   😐'**
+  String get noLocationFound;
 }
 
 class _AppLocalizationsDelegate

@@ -380,4 +380,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noProductsFor => 'لا توجد منتجات لـ ';
+
+  @override
+  String get noLocationFound => 'No Address Found !   😐';
 }

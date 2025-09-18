@@ -381,4 +381,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noProductsFor => 'No products found for ';
+
+  @override
+  String get noLocationFound => 'No Address Found !   😐';
 }
