@@ -95,11 +95,7 @@ class ForgetPasswordPage extends StatelessWidget {
 
                   )
                   ,SizedBox(height: 30.h,),
-                  InkWell(
-                    onTap: (){
-                      Navigator.of(context).pushNamed(AppRoutes.changePassword);
-                    },
-                    child:Text("Reset Password") ,)
+
                   
                 ],
               ),

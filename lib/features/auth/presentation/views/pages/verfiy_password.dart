@@ -127,20 +127,20 @@ class _VerfiyPasswordPageState extends State<VerifyPasswordPage> {
                         fieldHeight: 50,
                         fieldWidth: 50,
                         activeColor:
-                        AppColors.gray,
+                        AppColors.lightGray,
                         inactiveColor: AppColors
-                            .gray,
+                            .lightGray,
                         selectedColor:
-                        AppColors.gray,
+                        AppColors.lightGray,
                         activeFillColor:
-                        AppColors.gray,
+                        AppColors.lightGray,
                         inactiveFillColor:
-                        AppColors.gray,
+                        AppColors.lightGray,
                         selectedFillColor:
-                        AppColors.gray,
+                        AppColors.lightGray,
                         borderWidth: 1,
                       ),
-                      cursorColor: AppColors.gray, // Cursor color
+                      cursorColor: AppColors.lightGray, // Cursor color
                       onCompleted: (value) {
 
                         c.read<ForgetPasswordBCubit>().verfiyPassword(
