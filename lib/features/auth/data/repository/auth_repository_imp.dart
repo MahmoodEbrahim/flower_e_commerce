@@ -45,5 +45,9 @@ class AuthRepositoryImp implements AuthRepository {
   Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel) async {
     return await authRemoteDataSource.signUp(userModel);
   }
-
+  @override
+  Future<ApiResult<UserModel>> getProfileData(String token) async{
+    // TODO: implement getProfileData
+    return await authRemoteDataSource.getProfileData(token);
+  }
 }

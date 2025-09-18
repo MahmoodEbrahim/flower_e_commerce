@@ -118,9 +118,10 @@ class _SearchPageState extends State<SearchPage> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.sentiment_very_dissatisfied,
-                                  size: 40, color: AppColors.gray),
-                              const SizedBox(height: 12),
+                              Lottie.asset("assets/json/no_search.json",
+                                  height: 100.h,width: 200.w,fit: BoxFit.cover)
+                           ,
+                              const SizedBox(height: 39),
                               Text(
                                 "${t.noProductsFor} ${state.keyword}",
                                 key: const Key('no_results_message'),

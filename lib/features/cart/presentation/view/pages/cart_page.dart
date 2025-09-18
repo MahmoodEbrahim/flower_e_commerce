@@ -57,7 +57,8 @@ class _CartPageState extends State<CartPage> {
           leading: IconButton(
             constraints: BoxConstraints(),
             padding: EdgeInsets.zero,
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
+            onPressed: () => Navigator.of(context).
+            pushNamed(AppRoutes.home),
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),

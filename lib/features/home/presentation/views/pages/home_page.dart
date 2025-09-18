@@ -7,6 +7,7 @@ import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.d
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_page_parameter.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
@@ -35,23 +36,13 @@ class HomePage extends StatelessWidget {
     final categoriesViewModel = context.read<CategoriesViewModel>();
     final t = AppLocalizations.of(context)!;
     String location = "Lets go to add some addresses 😉";
-
-    final LoginModel? loginModel = UserLocalStorage.getUser();
-   
-    if (loginModel != null) {
-       UserModel userModel = loginModel.user;
-        final List<AddressEntity> address = userModel.addresses;
-        if (address.isNotEmpty) {
-          location = " ${address[0].city} ${address[0].street}";
-        }
-      
-    }
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<HomeBloc>(),
         child: BlocBuilder<HomeBloc, HomeStates>(
           builder: (context, state) {
-            if (state is HomeInitialState) {
+
+              if (state is HomeInitialState) {
               BlocProvider.of<HomeBloc>(context).add(GetHomeDataEvent());
               return Center(
                 child: Column(

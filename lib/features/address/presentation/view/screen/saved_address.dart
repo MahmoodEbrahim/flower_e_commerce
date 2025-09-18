@@ -8,6 +8,7 @@ import 'package:flower_e_commerce/features/address/presentation/view_model/addre
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -42,8 +43,24 @@ class SavedAddress extends StatelessWidget {
         ),
         body: BlocConsumer<AddressBloc, AddressState>(
           listener: (context, state) {
-            if (state.deleteAddressRequestState == RequestState.error) {
-              print("error in deleting ${state.deleteAddressErrorMessage}");
+            if(state.addAddressRequestState==RequestState.success){
+              context.read<SettingCubit>().getProfileData(token!);
+              print("add location");
+
+            }
+            if(state.deleteAddressRequestState==RequestState.success){
+              context.read<SettingCubit>().getProfileData(token!);
+              print("delete location");
+            }
+            if(state.updateAddresses==RequestState.success){
+              context.read<SettingCubit>().getProfileData(token!);
+              print("update location");
+
+            }
+            if(state.getAddressRequestState==RequestState.success){
+              context.read<SettingCubit>().getProfileData(token!);
+              print("get all location");
+
             }
           },
           builder: (context, state) {

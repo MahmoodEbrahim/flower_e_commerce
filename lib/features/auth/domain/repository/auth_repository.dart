@@ -19,5 +19,5 @@ abstract interface class AuthRepository {
   resetPassword(ResetPasswordRequest request);
   Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel);
 
-
+  Future<ApiResult<UserModel>> getProfileData(String token);
 }

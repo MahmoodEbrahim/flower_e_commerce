@@ -25,7 +25,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class UpdateAddressDetailsScreen extends StatefulWidget {
-  final AddressEntity address; // العنوان المراد تحديثه
+  final AddressEntity address;
 
   const UpdateAddressDetailsScreen({
     super.key,
@@ -145,9 +145,9 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                   if (currentGovernorate.id.isNotEmpty) {
                     selectedCity = currentGovernorate.id;
                     goverId = currentGovernorate.id;
-                    // تحميل المناطق للمحافظة المحددة
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      context.read<AddressBloc>().add(GetStatesEvent(governateId: currentGovernorate.id));
+                      context.read<AddressBloc>().
+                      add(GetStatesEvent(governateId: currentGovernorate.id));
                     });
                   }
                 }

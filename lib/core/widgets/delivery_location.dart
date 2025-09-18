@@ -7,7 +7,9 @@ import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.da
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 
@@ -19,22 +21,18 @@ class DeliveryLocation extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final t = AppLocalizations.of(context)!;
-    final  UserModel userModel;
-    final  List<AddressEntity> address;
-     final  LoginModel? loginModel;
+
  
     String location = t.noLocationFound;
 
-    loginModel = UserLocalStorage.getUser();
-
-    if (loginModel != null) {
-       userModel = loginModel.user;
-       address = userModel.addresses;
+    UserModel userModel =BlocProvider.of<SettingCubit>(context).userModel!;
+    print(userModel.addresses);
+    if (userModel.addresses != null) {
+      final List<AddressEntity> address = userModel.addresses;
       if (address.isNotEmpty) {
-        location = " ${address[0].city} ${address[0].street}}";
+        location = " ${address[0].city} ${address[0].street}";
       }
     }
-
    
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,

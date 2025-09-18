@@ -43,7 +43,8 @@ class DetailsSection extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   onPressed: () {
                     cartViewModel.add(
-                        DeleteItemFromCartEvent(itemId: cartItem.product!.id!));
+                        DeleteItemFromCartEvent(itemId:
+                        cartItem.product!.id!));
                   },
                   icon: Icon(
                     Icons.delete_outline_rounded,

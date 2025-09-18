@@ -128,6 +128,19 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       return ApiFailedResult(e.toString());
     }
   }
-
+  @override
+  Future<ApiResult<UserModel>> getProfileData(String token) async{
+    try{
+      final response=await authApiService.getProfile("Bearer $token");
+      return ApiSucessResult(response.user!.toEntity());
+    }catch(error){
+      if(error is DioException){
+        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+      }
+      else{
+        return ApiFailedResult(error.toString());
+      }
+    }
+  }
 
 }

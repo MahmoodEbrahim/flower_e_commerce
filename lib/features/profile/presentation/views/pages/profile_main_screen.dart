@@ -5,7 +5,7 @@ import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
-import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_cubit.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/language_row_widget.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/login_first_dialog.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/logout_dialog.dart';
@@ -55,7 +55,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    LanguageCubit cubit = BlocProvider.of<LanguageCubit>(context);
+    SettingCubit cubit = BlocProvider.of<SettingCubit>(context);
     return Scaffold(
       appBar: 
       

@@ -9,6 +9,7 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/reque
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
+import 'package:flower_e_commerce/features/auth/api/models/profile_data/get_profile_data_dto.dart';
 import 'package:flower_e_commerce/features/auth/api/models/signup_request/signup_request_dto.dart';
 
 import 'package:injectable/injectable.dart';
@@ -40,6 +41,9 @@ abstract class AuthApiService {
 
   @POST(ApiEndPoints.signupEndPoint)
   Future<AuthResponseDto> signUp(@Body() SignupRequestDto body);
+
+  @GET(ApiEndPoints.getUserDataEndPoint)
+  Future<GetProfileDataDto>getProfile(@Header("Authorization") String token);
 }
 
 

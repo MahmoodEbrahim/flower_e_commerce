@@ -18,14 +18,14 @@ class UserLocalStorage {
     await box.put('user', user);
   }
 
-  static Future<void> updateUserAddress(List<AddressEntity> addresses) async {
-    final user = getUser();
-    if (user == null) return;
-
-    print(addresses);
-    final updatedUserModel = user.user.copyWith(addresses: addresses);
-    await saveUser(user.copyWith(user: updatedUserModel));
-  }
+  // static Future<void> updateUserAddress(List<AddressEntity> addresses) async {
+  //   final user = getUser();
+  //   if (user == null) return;
+  //
+  //   print(addresses);
+  //   final updatedUserModel = user.user.copyWith(addresses: addresses);
+  //   await saveUser(user.copyWith(user: updatedUserModel));
+  // }
 
   static LoginModel? getUser() {
     var box = Hive.box<LoginModel>(boxName);

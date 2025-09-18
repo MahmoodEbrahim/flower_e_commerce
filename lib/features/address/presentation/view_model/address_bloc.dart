@@ -45,7 +45,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
         addAddressRequestState: RequestState.success
       ));
 
-      await   UserLocalStorage.updateUserAddress(result.sucessResult);
+     // await   UserLocalStorage.updateUserAddress(result.sucessResult);
       case ApiFailedResult<List<AddressEntity>>():
         emit(state.copyWith(
             addAddressErrorMessage: result.errorMessage,
@@ -65,7 +65,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
         addresses: result.sucessResult,
         getAddressRequestState: RequestState.success
       ));
-   await   UserLocalStorage.updateUserAddress(result.sucessResult);
+ //  await   UserLocalStorage.updateUserAddress(result.sucessResult);
        UserLocalStorage.getUser();
       case ApiFailedResult<List<AddressEntity>>():
         emit(state.copyWith(
@@ -85,7 +85,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
     switch(result){
 
       case ApiSucessResult<RemoveAddressDto>():
-       await UserLocalStorage.updateUserAddress(updatedAddresses);
+    //   await UserLocalStorage.updateUserAddress(updatedAddresses);
        emit(state.copyWith(
          deleteAddressRequestState: RequestState.success,
          removeAddressDto: result.sucessResult,
@@ -112,7 +112,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
         updateState: RequestState.success,
         updateAddresses: result.sucessResult
       ));
-      await   UserLocalStorage.updateUserAddress(result.sucessResult);
+     // await   UserLocalStorage.updateUserAddress(result.sucessResult);
 
       case ApiFailedResult<List<AddressEntity>>():
         emit(state.copyWith(
