@@ -65,8 +65,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
         addresses: result.sucessResult,
         getAddressRequestState: RequestState.success
       ));
- //  await   UserLocalStorage.updateUserAddress(result.sucessResult);
-       UserLocalStorage.getUser();
+
       case ApiFailedResult<List<AddressEntity>>():
         emit(state.copyWith(
             getAddressErrorMessage: result.errorMessage,
