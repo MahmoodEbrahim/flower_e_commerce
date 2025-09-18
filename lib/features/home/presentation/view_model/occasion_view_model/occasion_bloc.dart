@@ -17,6 +17,7 @@ Bloc<ProductsDetialsOccasionEvent,OccasionStates>{
 final result =
       await _byOccasionUseCase.getProductsDetialsByOccasions(event.occassionId);
     switch(result){
+      
 
       case ApiSucessResult<List<ProductsEntity>>():
         emit(state.copyWith(requestState: RequestState.success,

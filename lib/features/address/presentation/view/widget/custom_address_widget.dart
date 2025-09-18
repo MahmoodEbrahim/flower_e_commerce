@@ -148,9 +148,7 @@ class CustomAddressWidget extends StatelessWidget {
                   return IconButton(
                     onPressed: () {
                       final token = UserLocalStorage.getToken();
-                      print("id: ${addressEntity.id}");
-                      print("city: ${addressEntity.city}");
-                      print("token: $token");
+                   
 
                       if (token != null && addressEntity.id != null) {
                         context.read<AddressBloc>().add(

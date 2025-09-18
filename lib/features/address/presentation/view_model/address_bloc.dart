@@ -15,7 +15,6 @@ import 'package:flower_e_commerce/features/address/domain/use_case/get_update_ad
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
-import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -67,7 +66,7 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
         getAddressRequestState: RequestState.success
       ));
    await   UserLocalStorage.updateUserAddress(result.sucessResult);
-      await UserLocalStorage.getUser();
+       UserLocalStorage.getUser();
       case ApiFailedResult<List<AddressEntity>>():
         emit(state.copyWith(
             getAddressErrorMessage: result.errorMessage,
@@ -80,18 +79,19 @@ AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
     emit(state.copyWith(
       deleteAddressRequestState: RequestState.loading
     ));
-    final result=await _deleteAddressUseCase.removeAddress(event.token, event.id!);
+    final result=await _deleteAddressUseCase.removeAddress(event.token, event.id);
     final updatedAddresses = List<AddressEntity>.from(state.addresses)
       ..removeWhere((address) => address.id == event.id);
     switch(result){
 
       case ApiSucessResult<RemoveAddressDto>():
+       await UserLocalStorage.updateUserAddress(updatedAddresses);
        emit(state.copyWith(
          deleteAddressRequestState: RequestState.success,
          removeAddressDto: result.sucessResult,
          addresses: updatedAddresses
        ));
-       await   UserLocalStorage.updateUserAddress(updatedAddresses);
+      
 
       case ApiFailedResult<RemoveAddressDto>():
         emit(state.copyWith(

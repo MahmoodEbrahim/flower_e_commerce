@@ -20,6 +20,7 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       final response = await _apiService.getProductsDetialsByOccasions(
         occasionId,
       );
+
       final products =
           response.products?.map((e) => e.toEntity()).toList() ?? [];
       if (response.products == null) {
@@ -89,18 +90,23 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
   Future<ApiResult<HomeEntity>> getHomeData() async {
     try {
       final homeModel = await _apiService.getHomeData();
+  
       return ApiSucessResult(homeModel.toEntity());
     } catch (e) {
       return ApiFailedResult('Failed to fetch home data: $e');
     }
   }
+
   @override
   Future<ApiResult<List<ProductsEntity>>> searchProducts(
-      String keyword,
-      {CancelToken? cancelToken}
-      ) async {
+    String keyword, {
+    CancelToken? cancelToken,
+  }) async {
     try {
-      final productsDtoList = await _apiService.searchProducts(keyword,cancelToken:cancelToken );
+      final productsDtoList = await _apiService.searchProducts(
+        keyword,
+        cancelToken: cancelToken,
+      );
 
       final productsEntityList = productsDtoList.products!
           .map((dto) => dto.toEntity())
@@ -109,13 +115,10 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       return ApiSucessResult(productsEntityList);
     } catch (error) {
       if (error is DioException) {
-        return ApiFailedResult(
-          ServerFailure.fromDioError(error).errorMessage,
-        );
+        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
         return ApiFailedResult(error.toString());
       }
     }
   }
-
 }

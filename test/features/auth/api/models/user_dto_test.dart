@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test(
-    "when call toModel function in user_dto with null values it should return userModel with null values",
+    "when call toModel function in user_dto with null values and address with empty it should return userModel with null values",
     () {
       //arrange
 
@@ -19,7 +19,7 @@ void main() {
         photo: null,
         role: null,
         wishlist: null,
-        addresses: null,
+        addresses: [],
         createdAt: null,
       );
 
@@ -35,7 +35,7 @@ void main() {
       expect(userModel.photo, null);
       expect(userModel.role, null);
       expect(userModel.wishlist, null);
-      expect(userModel.addresses, null);
+      expect(userModel.addresses, []);
     },
   );
 

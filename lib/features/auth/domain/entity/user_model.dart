@@ -33,7 +33,7 @@ class UserModel {
   final List<dynamic>? wishlist;
 
   @HiveField(9)
-  final List<AddressEntity>? addresses;
+  final List<AddressEntity> addresses;
 
 
   UserModel({
@@ -46,7 +46,7 @@ class UserModel {
     this.photo,
     this.role,
     this.wishlist,
-    this.addresses,
+    this.addresses=const [],
   });
   UserModel copyWith({
     String? iid,
@@ -70,8 +70,8 @@ class UserModel {
       photo: photo ?? this.photo,
       role: role ?? this.role,
       wishlist: wishlist ?? this.wishlist,
-      addresses:
-      (addresses == null || addresses.isEmpty) ? this.addresses : addresses,
+      addresses: addresses ??this.addresses
+    
     );
   }
 }

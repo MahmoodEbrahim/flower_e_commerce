@@ -1,7 +1,6 @@
-import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
+import 'package:flower_e_commerce/features/home/api/models/meta_data_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../home/api/models/product_by_occasion.dart';
 import '../../domain/entity/order_entity/orders_responce_entity.dart';
 import 'orders_model.dart';
 
@@ -12,7 +11,7 @@ class OrdersResponce {
   @JsonKey(name: "message")
   final String? message;
   @JsonKey(name: "metadata")
-  final Metadata? metadata;
+  final MetaDataDto? metadata;
   @JsonKey(name: "orders")
   final List<Orders>? orders;
 

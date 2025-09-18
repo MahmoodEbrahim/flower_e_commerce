@@ -29,7 +29,7 @@ setUp((){
   mockAssetBundle=MockAssetBundle();
   mockAddressesApiServices=MockAddressesApiServices();
   addressRemoteDataSource=AddressRemoteDataSourceImpl(
-      mockAddressesApiServices,mockAssetBundle);
+      mockAddressesApiServices);
   mockAssetBundle=MockAssetBundle();
   ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       'plugins.flutter.io/path_provider' , ( methodCall) async => null,);

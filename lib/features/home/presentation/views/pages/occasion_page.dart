@@ -23,10 +23,10 @@ class OccasionPage extends StatefulWidget {
 }
 
 class _OccasionPageState extends State<OccasionPage> {
+
   int currIndex = 0;
 
-  final ProductsDetialsOccasionBloc occasionBloc =
-      getIt.get<ProductsDetialsOccasionBloc>();
+  final ProductsDetialsOccasionBloc occasionBloc =getIt.get<ProductsDetialsOccasionBloc>();
   @override
   Widget build(BuildContext context) {
     var local = AppLocalizations.of(context);

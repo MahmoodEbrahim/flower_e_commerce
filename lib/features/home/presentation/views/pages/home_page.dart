@@ -2,7 +2,10 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_page_parameter.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
@@ -27,18 +30,24 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final categoriesViewModel = context.read<CategoriesViewModel>();
     final t = AppLocalizations.of(context)!;
-    final user = UserLocalStorage.getUser()!;
-    final address = user.user.addresses;
-    String street = "";
-    String city = "";
+    String location = "Lets go to add some addresses 😉";
 
-    if (address != null && address.isNotEmpty) {
-      street = address[0].street ?? "";
-      city   = address[0].city ?? "";
+    final LoginModel? loginModel = UserLocalStorage.getUser();
+    print(".............................");
+    print(loginModel!.user.addresses);
+     print(".............................");
+    if (loginModel != null) {
+      final UserModel? userModel = loginModel.user;
+      if (userModel != null) {
+        final List<AddressEntity> address = userModel.addresses;
+        if (address.isNotEmpty) {
+          location = " ${address[0].city} ${address[0].street}}";
+        }
+      }
     }
-
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<HomeBloc>(),
@@ -77,7 +86,13 @@ class HomePage extends StatelessWidget {
               return Center(child: Text('${t.error}: ${state.message}'));
             } else if (state is HomeSuccessState) {
               final homeData = state.homeResponse;
-              categoriesViewModel.add(GetAllProductsEvent(products: homeData.products!,categories: homeData.categories!,allproducts: homeData.products!));
+              categoriesViewModel.add(
+                GetAllProductsEvent(
+                  products: homeData.products!,
+                  categories: homeData.categories!,
+                  allproducts: homeData.products!,
+                ),
+              );
 
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(12),
@@ -113,13 +128,11 @@ class HomePage extends StatelessWidget {
                         children: [
                           const Icon(Icons.location_on_outlined, size: 24),
                           const SizedBox(width: 6),
-                          Text(
-        address!.isEmpty||address==null? "No Location":"${city} ${street}",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          const Icon(Icons.keyboard_arrow_down_outlined,
-                              size: 24, color: Colors.pink),
+
+                          Text(location),
                         ],
+
+                        
                       ),
 
                       // Categories
@@ -128,7 +141,11 @@ class HomePage extends StatelessWidget {
                           onChangeTab!(CategoriesPageParameter(tabIndex: 1));
                         }
                       }, context),
-                      buildCategoriesList(homeData.categories,onChangeTab,categoriesViewModel),
+                      buildCategoriesList(
+                        homeData.categories,
+                        onChangeTab,
+                        categoriesViewModel,
+                      ),
 
                       // Best Seller
                       buildSectionTitle(t.bestSeller, () {
@@ -147,9 +164,7 @@ class HomePage extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           AppRoutes.occasions,
-                          arguments: {
-                            Constants.occasions: homeData.occasions,
-                          },
+                          arguments: {Constants.occasions: homeData.occasions},
                         );
                       }, context),
                       buildOccasionsList(homeData.occasions),
@@ -159,9 +174,7 @@ class HomePage extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           AppRoutes.allProducts,
-                          arguments: {
-                            Constants.allProducts: homeData.products,
-                          },
+                          arguments: {Constants.allProducts: homeData.products},
                         );
                       }, context),
                       buildProductsList(homeData.products, context),

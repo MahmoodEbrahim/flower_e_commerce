@@ -26,7 +26,7 @@ class UserDto {
   @JsonKey(name: JsonSerlizableConstants.wishlist)
   List<dynamic>? wishlist;
   @JsonKey(name: JsonSerlizableConstants.addresses)
-  List<Address>? addresses;
+  List<Address> addresses;
   @JsonKey(name: JsonSerlizableConstants.createdAt)
   DateTime? createdAt;
   UserDto({
@@ -39,7 +39,7 @@ class UserDto {
     this.photo,
     this.role,
     this.wishlist,
-    this.addresses,
+    this.addresses=const [],
     this.createdAt,
   });
   factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
@@ -55,7 +55,7 @@ class UserDto {
         photo: photo,
         role: role,
         wishlist: wishlist,
-        addresses: addresses?.map((e)=>e.toEntity()).toList()
+        addresses:addresses.isNotEmpty? addresses.map((e)=>e.toEntity()).toList():[]
     );
   }
 
