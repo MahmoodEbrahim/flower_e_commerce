@@ -22,6 +22,7 @@ abstract class ApiEndPoints {
   static const String addressEndPoint = "addresses";
 
 
+  static const String getUser = "profile-data";
 
 
   static const String ordersEndPoint = "orders";

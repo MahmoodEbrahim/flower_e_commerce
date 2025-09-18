@@ -1,10 +1,11 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
 import '../../../../../config/routes_manager/app_routes.dart';
-import '../../../../auth/api/source/user_local_storage.dart';
 import '../../../../../core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/features/auth/data/source/user_local_storage.dart';
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
@@ -27,8 +28,9 @@ class LogoutDialog extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              t.confirmLogout, //
-                style: getRegularStyle(color: AppColors.black,fontSize: FontSize.s16)
+              t.confirmLogout,
+              style: getRegularStyle(
+                  color: AppColors.black, fontSize: FontSize.s16),
             ),
             const SizedBox(height: 20),
             Row(
@@ -48,15 +50,16 @@ class LogoutDialog extends StatelessWidget {
                   ),
                   child: Text(
                     t.cancel,
-                    style: getMediumStyle(color: AppColors.black)
+                    style: getMediumStyle(color: AppColors.black),
                   ),
                 ),
 
                 // Logout button
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.of(context).pop();
-                    UserLocalStorage.clearUser();
+                    final userStorage = getIt<UserLocalStorage>();
+                    await userStorage.clearToken();
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       AppRoutes.home,
@@ -71,8 +74,10 @@ class LogoutDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 12, horizontal: 24),
                   ),
-                  child: Text(t.logout,
-                      style: getMediumStyle(color: AppColors.white)),
+                  child: Text(
+                    t.logout,
+                    style: getMediumStyle(color: AppColors.white),
+                  ),
                 ),
               ],
             ),

@@ -3,6 +3,8 @@ import 'package:flower_e_commerce/features/auth/api/models/user_dto.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../domain/entity/user_model.dart' show UserModel;
+
 part 'auth_response_dto.g.dart';
 
 @JsonSerializable()
@@ -28,8 +30,12 @@ class AuthResponseDto {
     return _$AuthResponseDtoToJson(this);
   }
 
-  LoginModel toLoginModel(){
-    return LoginModel(user: user!.toUserModel(),token: token??"" );
+  LoginModel toLoginModel() {
+    return LoginModel(
+      user: user?.toUserModel() ?? UserModel(),
+      token: token ?? "",
+    );
   }
+
 }
 

@@ -1,0 +1,19 @@
+##!/bin/sh
+#. "$(dirname "$0")/_/husky.sh"
+#
+#echo "🔍 Running Flutter pre-push checks..."
+#
+## 1️⃣ Run unit tests
+#echo "🧪 Running flutter test..."
+#flutter test || { echo "❌ Unit tests failed."; exit 1; }
+#
+## 2️⃣ Validate branch name
+#BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+#echo "🔖 Validating branch name: $BRANCH_NAME"
+#if [[ ! "$BRANCH_NAME" =~ ^(feature|bugfix|release)\/[a-zA-Z0-9_-]+$ ]]; then
+#  echo "❌ Invalid branch name: $BRANCH_NAME"
+#  echo "Branch names must start with feature/, bugfix/, or release/ followed by a description."
+#  exit 1
+#fi
+#
+#echo "✅ All pre-push checks passed!"

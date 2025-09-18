@@ -3,8 +3,8 @@ import 'package:flower_e_commerce/config/theme/assets_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/user_session_view_model/user_session_event.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/language_row_widget.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/widgets/login_first_dialog.dart';
@@ -17,6 +17,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../../../../config/routes_manager/app_routes.dart';
+import '../../../../auth/presentation/view_model/user_session_view_model/user_session_bloc.dart';
+import '../../../../auth/presentation/view_model/user_session_view_model/user_session_state.dart';
 
 class ProfileMainPage extends StatefulWidget {
   const ProfileMainPage({super.key});
@@ -26,23 +28,14 @@ class ProfileMainPage extends StatefulWidget {
 }
 
 class _ProfileMainScreenState extends State<ProfileMainPage> {
-  LoginModel? user;
   bool isNotificationEnabled = true;
   String appVersion = '';
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _loadUserData(); // Load user data when dependencies change
+  void initState() {
+    super.initState();
     _loadVersion();
-  }
-
-  Future<LoginModel?> _loadUserData() async {
-    await UserLocalStorage.init(); // Ensure initialization
-    setState(() {
-      user = UserLocalStorage.getUser();
-    });
-    return user;
+    context.read<UserSessionBloc>().add(LoadUserFromCache());
   }
 
   Future<void> _loadVersion() async {
@@ -55,28 +48,23 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    LanguageCubit cubit = BlocProvider.of<LanguageCubit>(context);
+    final cubit = BlocProvider.of<LanguageCubit>(context);
+
     return Scaffold(
-      appBar: 
-      
-      AppBar(
-         titleSpacing: 0,
-          scrolledUnderElevation: 0,
-          leading: IconButton(
-            constraints: BoxConstraints(),
-            padding: EdgeInsets.zero,
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
-            icon: Icon(Icons.arrow_back_ios),
-          ),
+      appBar: AppBar(
+        titleSpacing: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          constraints: const BoxConstraints(),
+          padding: EdgeInsets.zero,
+          onPressed: () => Navigator.of(context).pushNamed(AppRoutes.home),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         backgroundColor: AppColors.white,
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              ImageAssets.flower,
-              height: 35,
-              width: 35,
-            ),
+            SvgPicture.asset(ImageAssets.flower, height: 35, width: 35),
             const SizedBox(width: 6),
             Text(
               t.flowery,
@@ -88,12 +76,12 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
             ),
           ],
         ),
-        actions:  [
+        actions: [
           InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.pushNamed(context, AppRoutes.notificationspage);
             },
-            child: Icon(
+            child: const Icon(
               Icons.notifications_none,
               size: 30,
               color: AppColors.gray,
@@ -102,16 +90,9 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
         ],
         actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
       ),
-      body: FutureBuilder<LoginModel?>(
-        future: _loadUserData(), // Load user data asynchronously
-        builder: (context, snapshot) {
-          // if (snapshot.connectionState == ConnectionState.waiting) {
-          //   return const Center(child: CircularProgressIndicator());
-          // }
-          // if (snapshot.hasError || snapshot.data == null) {
-          //   return Center(child: Text(t.errorMessage));
-          // }
-          user = snapshot.data;
+      body: BlocBuilder<UserSessionBloc, UserSessionState>(
+        builder: (context, state) {
+          final user = state.user;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -120,11 +101,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                 child: CircleAvatar(
                   radius: 50,
                   backgroundColor: AppColors.lightPink,
-                  child: const Icon(
-                    Icons.person_outline,
-                    size: 50,
-                    color: AppColors.pink,
-                  ),
+                  child: const Icon(Icons.person_outline, size: 50, color: AppColors.pink),
                 ),
               ),
               const SizedBox(height: 16),
@@ -132,44 +109,29 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    user?.user.firstName ?? t.guest,
-                    style: getMediumStyle(
-                      color: AppColors.black,
-                      fontSize: FontSize.s18,
-                    ),
+                    user?.firstName ?? t.guest,
+                    style: getMediumStyle(color: AppColors.black, fontSize: FontSize.s18),
                   ),
                   const SizedBox(width: 5),
                   GestureDetector(
                     onTap: () async {
                       if (user == null) {
-                        // Show dialog to login
                         loginInDialgo(context, t);
                       } else {
-                        // Navigate to edit profile
                         final updatedUser = await Navigator.of(context)
                             .pushNamed(AppRoutes.editProfilePage);
-                        if (updatedUser != null) {
-                          setState(() {
-                            user = updatedUser as LoginModel?;
-                          });
+                        if (updatedUser != null && updatedUser is LoginModel) {
+                          context.read<UserSessionBloc>().add(LoadUserFromCache());
                         }
                       }
                     },
-                    child: SvgPicture.asset(
-                      ImageAssets.pen,
-                      width: 24,
-                      height: 24,
-                    ),
+                    child: SvgPicture.asset(ImageAssets.pen, width: 24, height: 24),
                   ),
                 ],
               ),
-
               Text(
-                user?.user.email ?? "",
-                style: getMediumStyle(
-                  color: AppColors.gray,
-                  fontSize: FontSize.s18,
-                ),
+                user?.email ?? "",
+                style: getMediumStyle(color: AppColors.gray, fontSize: FontSize.s18),
               ),
               const SizedBox(height: 20),
               Column(
@@ -178,9 +140,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     leading: SvgPicture.asset(ImageAssets.list, height: 25, width: 25),
                     title: t.myOrders,
                     showArrow: true,
-                    onTap: () {
-                   Navigator.of(context).pushNamed(AppRoutes.orderspage);
-                    },
+                    onTap: () => Navigator.of(context).pushNamed(AppRoutes.orderspage),
                   ),
                   ProfileItem(
                     leading: SvgPicture.asset(ImageAssets.location, height: 25, width: 25),
@@ -188,64 +148,19 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                     showArrow: true,
                     onTap: () {
                       if (user == null) {
-                        // Show dialog to login
                         loginInDialgo(context, t);
+                      } else {
+                        Navigator.of(context).pushNamed(AppRoutes.saveAddress);
                       }
-                      else{
-                         Navigator.of(context).pushNamed(AppRoutes.saveAddress);
-
-                      }
-                      // navigator
-                     
                     },
-                  ),
-                  const Divider(height: 20),
-                  InkWell(
-                    onTap: (){
-                      Navigator.of(context).pushNamed(AppRoutes.notificationspage);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 5),
-                      child: Row(
-                        children: [
-                          Switch(
-                            value: isNotificationEnabled,
-                            onChanged: (value) {
-                              setState(() {
-                                isNotificationEnabled = value;
-                              });
-                            },
-                            activeColor: AppColors.white,
-                            activeTrackColor: AppColors.pink,
-                            inactiveThumbColor: AppColors.gray,
-                            inactiveTrackColor: AppColors.white,
-                          ),
-                          const SizedBox(width: 3),
-                          Text(t.notification,
-                              style: getRegularStyle(
-                                  color: AppColors.black, fontSize: FontSize.s16)),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              ///navigator
-                            },
-                            icon: const Icon(Icons.arrow_forward_ios_rounded,
-                                size: 20, color: AppColors.black),
-                          )
-                        ],
-                      ),
-                    ),
                   ),
                   const Divider(height: 20),
                   ProfileItem(
                     leading: SvgPicture.asset(ImageAssets.translate, height: 20),
                     title: t.language,
                     trailing: Text(
-                      t.english,
-                      style: getRegularStyle(
-                        color: AppColors.pink,
-                        fontSize: FontSize.s16,
-                      ),
+                      cubit.currentLanguage == "ar" ? t.arabic : t.english,
+                      style: getRegularStyle(color: AppColors.pink, fontSize: FontSize.s16),
                     ),
                     onTap: () {
                       showModalBottomSheet(
@@ -256,69 +171,43 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                             topRight: Radius.circular(32.r),
                           ),
                         ),
-                        builder: (context)=>Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32.r),
-                              topRight: Radius.circular(32.r),
-                            ),
-                            color: AppColors.white,
-
-                          ),
-                          padding: REdgeInsets.all(16),
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.all(16.r),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  width: 80.w,
-                                  height: 4.h,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.darkGrey,
-                                    borderRadius: BorderRadius.circular(100.r),
-                                  ),
-                                ),
+                              LanguageRow(
+                                title: t.arabic,
+                                value: "ar",
+                                selected: cubit.currentLanguage,
+                                onChanged: (value) => cubit.changeLanguage("ar"),
                               ),
-                              SizedBox(height: 16.h,),
-                              Text(
-                                AppLocalizations.of(context)!.
-                                changelanguage,style: Theme.of(context).textTheme.bodyLarge,),
-                              SizedBox(height: 16.h,),
-                              LanguageRow(title: AppLocalizations.of(context)!.arabic ,value: "ar",selected: cubit.currentLanguage,onChanged: (value){
-                                cubit.changeLanguage("ar");
-                              },),
-                              SizedBox(height: 16.h,),
-                              LanguageRow(title:AppLocalizations.of(context)!.english  ,value: "en",selected: cubit.currentLanguage,onChanged: (value){
-
-                                cubit.changeLanguage("en");
-
-                              },),
+                              LanguageRow(
+                                title: t.english,
+                                value: "en",
+                                selected: cubit.currentLanguage,
+                                onChanged: (value) => cubit.changeLanguage("en"),
+                              ),
                             ],
                           ),
-                        ) ,);
+                        ),
+                      );
                     },
                   ),
                   ProfileItem(
                     title: t.aboutUs,
                     showArrow: true,
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.about);
-                    },
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.about),
                   ),
                   ProfileItem(
                     title: t.termsAndConditions,
                     showArrow: true,
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.termsAndCondition);
-                    },
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.termsAndCondition),
                   ),
                   const Divider(),
                   ProfileItem(
                     leading: SvgPicture.asset(ImageAssets.logout, height: 20),
                     title: t.logout,
-                    trailing: SvgPicture.asset(ImageAssets.logout, height: 30),
                     onTap: user == null
                         ? null
                         : () {
@@ -336,8 +225,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text('${t.version}$appVersion',
-                        style: getRegularStyle(
-                            color: AppColors.gray, fontSize: FontSize.s14)),
+                        style: getRegularStyle(color: AppColors.gray, fontSize: FontSize.s14)),
                   ),
                 ),
               ),
@@ -347,6 +235,4 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
       ),
     );
   }
-
-
 }

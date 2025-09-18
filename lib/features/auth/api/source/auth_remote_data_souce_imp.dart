@@ -10,7 +10,9 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/respo
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/signup_request/signup_request_dto.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage_imp.dart';
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
+import 'package:flower_e_commerce/features/auth/data/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/signup_request_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
@@ -22,16 +24,21 @@ import '../models/auth_response/auth_response_dto.dart';
 
 class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
   AuthApiService authApiService;
+  UserLocalStorage userLocalStorage;
 
-  AuthRemoteDataSourceImp(this.authApiService);
+  AuthRemoteDataSourceImp(this.authApiService,this.userLocalStorage);
 
   @override
   Future<ApiResult<LoginModel>> login(String email, String password) async {
     try {
-      AuthResponseDto response =
+      final response =
       await authApiService.logIn({"email": email, "password": password});
 
-      return ApiSucessResult<LoginModel>(response.toLoginModel());
+      final loginModel = response.toLoginModel();
+
+      await userLocalStorage.saveToken(loginModel.token);
+
+      return ApiSucessResult<LoginModel>(loginModel);
     } on DioException catch (e) {
       String message = "Something went wrong, please try again";
 
@@ -49,6 +56,30 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       return ApiFailedResult<LoginModel>(e.toString());
     }
   }
+
+
+  @override
+  Future<ApiResult<UserModel>> getLoggedInUser() async {
+    try {
+      print('🌍 [AuthRemoteDataSource] Calling getLoggedInUser API...');
+      final response = await authApiService.getLoggedInUser();
+      print('✅ [AuthRemoteDataSource] API response: ${response.toJson()}');
+
+      final user = response.toUserModel();
+      print('📦 [AuthRemoteDataSource] Converted to UserModel: $user');
+
+      return ApiSucessResult<UserModel>(user);
+    } on DioException catch (e) {
+      print('❌ [AuthRemoteDataSource] DioException: ${e.response?.data}');
+      return ApiFailedResult<UserModel>(
+          e.response?.data['message'] ?? "Failed to fetch user");
+    } catch (e) {
+      print('❌ [AuthRemoteDataSource] Other exception: $e');
+      return ApiFailedResult<UserModel>("Failed to fetch user");
+    }
+  }
+
+
   @override
   Future<ApiResult<ForgetPasswordResponse>> forgetPassword(
       ForgetPasswordRequest request) async
@@ -128,6 +159,5 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       return ApiFailedResult(e.toString());
     }
   }
-
 
 }

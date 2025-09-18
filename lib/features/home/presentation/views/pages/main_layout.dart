@@ -36,7 +36,7 @@ class _HomePageState extends State<MainLayout> {
             setState(() {
               selectedIndex = value.tabIndex;
               catIndex = value.categoryIndex;
-            
+
             });
           },
         ),
@@ -48,6 +48,7 @@ class _HomePageState extends State<MainLayout> {
         ),
       ),
       CartPage(),
+
       ProfileMainPage(),
     ];
   }

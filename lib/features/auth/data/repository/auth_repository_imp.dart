@@ -25,6 +25,11 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
+  Future<ApiResult<UserModel>> getLoggedInUser()async {
+    return await authRemoteDataSource.getLoggedInUser();
+  }
+
+  @override
   Future<ApiResult<ForgetPasswordResponse>> forgetPassword
       (ForgetPasswordRequest request) async {
     return await authRemoteDataSource.forgetPassword(request);
@@ -45,5 +50,4 @@ class AuthRepositoryImp implements AuthRepository {
   Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel) async {
     return await authRemoteDataSource.signUp(userModel);
   }
-
 }

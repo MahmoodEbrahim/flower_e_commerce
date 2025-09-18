@@ -12,6 +12,7 @@ import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 
 abstract interface class AuthRemoteDataSource {
    Future<ApiResult<LoginModel>> login(String email, String password);
+   Future<ApiResult<UserModel>> getLoggedInUser();
   Future<ApiResult<ForgetPasswordResponse>>
   forgetPassword(ForgetPasswordRequest request);
   Future<ApiResult<VerfiyPasswordResponse>>

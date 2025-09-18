@@ -8,16 +8,30 @@ import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart'
 import 'package:flower_e_commerce/core/utils/validator.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_event.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/user_session_view_model/user_session_bloc.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/user_session_view_model/user_session_event.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  LoginPage({super.key});
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +40,28 @@ class LoginPage extends StatelessWidget {
     return BlocProvider<LoginBloc>(
       create: (context) => getIt<LoginBloc>(),
       child: Scaffold(
-      
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: AppColors.white,
-          title: Text(locale.login)),
+          title: Text(locale.login),
+        ),
         body: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state.loginState == RequestState.success) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(locale.loginSuccess)),
               );
-              Navigator.pushReplacementNamed(context, AppRoutes.home);
+
+              context.read<UserSessionBloc>().add(
+                  UserLoggedIn(state.user!.token, state.user!.user)
+              );
+
             }
             if (state.loginState == RequestState.error) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text(state.errorMessage ?? locale.serverError)),
+                  content: Text(state.errorMessage ?? locale.serverError),
+                ),
               );
             }
           },
@@ -55,15 +74,16 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            labelText: locale.email,
-                            hintText: locale.enterYourEmail,
-                            border: const OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            return Validator.validateEmail(value);
-                          }),
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          labelText: locale.email,
+                          hintText: locale.enterYourEmail,
+                          border: const OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          return Validator.validateEmail(value);
+                        },
+                      ),
                       const SizedBox(height: 20),
                       TextFormField(
                         obscureText: true,
@@ -91,7 +111,9 @@ class LoginPage extends StatelessWidget {
                           Text(
                             locale.rememberMe,
                             style: getRegularStyle(
-                                color: AppColors.black, fontSize: FontSize.s14),
+                              color: AppColors.black,
+                              fontSize: FontSize.s14,
+                            ),
                           ),
                           const Spacer(),
                           MouseRegion(
@@ -125,17 +147,23 @@ class LoginPage extends StatelessWidget {
                               final pass = passwordController.text.trim();
 
                               context.read<LoginBloc>().add(
-                                    LoginButtonPressed(
-                                      email: email,
-                                      password: pass,
-                                    ),
-                                  );
+                                LoginButtonPressed(
+                                  email: email,
+                                  password: pass,
+                                ),
+                              );
                             }
                           },
-                          child: Text(
+                          child: state.loginState == RequestState.loading
+                              ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                              : Text(
                             locale.login,
                             style: getMediumStyle(
-                                color: AppColors.white, fontSize: FontSize.s20),
+                              color: AppColors.white,
+                              fontSize: FontSize.s20,
+                            ),
                           ),
                         ),
                       ),
@@ -144,25 +172,26 @@ class LoginPage extends StatelessWidget {
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                AppRoutes.home,
-                                (route) => false,
-                              );
-                            },
-                            style: AppTheme.lightTheme.elevatedButtonTheme.style
-                                ?.copyWith(
-                                    backgroundColor:
-                                        WidgetStatePropertyAll(AppColors.white),
-                                    side: WidgetStateProperty.all(
-                                        BorderSide(color: AppColors.gray))),
-                            child: Text(
-                              locale.continueAsGuest,
-                              style: getMediumStyle(
-                                  color: AppColors.gray,
-                                  fontSize: FontSize.s20),
-                            )),
+                          onPressed: () {
+                            context.read<UserSessionBloc>().add(GuestLogin());
+                          },
+
+                          style: AppTheme.lightTheme.elevatedButtonTheme.style
+                              ?.copyWith(
+                            backgroundColor:
+                            WidgetStatePropertyAll(AppColors.white),
+                            side: WidgetStateProperty.all(
+                              BorderSide(color: AppColors.gray),
+                            ),
+                          ),
+                          child: Text(
+                            locale.continueAsGuest,
+                            style: getMediumStyle(
+                              color: AppColors.gray,
+                              fontSize: FontSize.s20,
+                            ),
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 16),
                       GestureDetector(
@@ -174,8 +203,9 @@ class LoginPage extends StatelessWidget {
                             TextSpan(
                               text: locale.donotHaveAccount,
                               style: getRegularStyle(
-                                  color: AppColors.black,
-                                  fontSize: FontSize.s16),
+                                color: AppColors.black,
+                                fontSize: FontSize.s16,
+                              ),
                             ),
                             TextSpan(
                               recognizer: TapGestureRecognizer()
