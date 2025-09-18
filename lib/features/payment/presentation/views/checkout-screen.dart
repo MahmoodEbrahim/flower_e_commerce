@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
 

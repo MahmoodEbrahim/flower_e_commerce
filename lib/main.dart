@@ -58,7 +58,6 @@ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
-import 'package:flower_e_commerce/features/payment_view/presentation/views/pages/PaymentViewPage.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_state.dart';
 
@@ -108,8 +107,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
 
 
-             //initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
-            home: PaymentViewPage("https://checkout.stripe.com/c/pay/cs_test_a1UXoGG9WLiOXWcC7CahgOd1UKIU1sagJZYI9ZahrJCcvKK6Je2ghPcI1V#fidkdWxOYHwnPyd1blpxYHZxWjA0SHViYl1ANVYyU2pOX2hVVW9ASmZBUElpa2FLVnBUQGo2UFduUEhIXHx9aEhjanBGZ1NxZ3RKNVVtXWxcSTJ8Qzx2aWZkUEBpMXJCXVRHTkIxZzBSZmhENTUxYHVKMUpQVycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl"),
+            initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
             locale: Locale(lang),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

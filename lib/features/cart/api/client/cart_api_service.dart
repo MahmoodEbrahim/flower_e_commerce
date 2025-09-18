@@ -13,7 +13,7 @@ part 'cart_api_service.g.dart';
 abstract class CartApiService {
   @factoryMethod
   factory CartApiService(Dio dio) = _CartApiService;
-  factory CartApiService(Dio dio) = _CartApiService;
+
 
   @POST(ApiEndPoints.cartEndPoint)
   Future<CartResponseDto> addProductToCart(

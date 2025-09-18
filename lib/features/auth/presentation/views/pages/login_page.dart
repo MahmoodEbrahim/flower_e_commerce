@@ -12,21 +12,34 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+class LoginPage extends StatefulWidget {
 
   LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+
+  final passwordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
 
     return BlocProvider<LoginBloc>(
       create: (context) => getIt<LoginBloc>(),
       child: Scaffold(
-      
+
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: AppColors.white,
