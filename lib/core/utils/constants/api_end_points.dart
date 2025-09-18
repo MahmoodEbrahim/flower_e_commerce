@@ -17,4 +17,6 @@ abstract class ApiEndPoints {
   static const String editProfileEndPoint = "auth/editProfile";
   static const String uploadProfileEndPoint = "auth/upload-photo";
   static const String changePasswordEndPoint = "auth/change-password";
+  static const String createcashorder = "orders";
+  static const String createcardorder = "orders/checkout?url=http://localhost:3000";
 }

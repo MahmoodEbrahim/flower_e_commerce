@@ -24,4 +24,5 @@ abstract class AppRoutes {
 
   static const String checkoutscreen="/CheckoutScreen";
 
+  static const String paymentView="/PaymentViewPage";
 }
