@@ -12,6 +12,7 @@ import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
 import 'package:flower_e_commerce/features/checkout/presentation/view_model/view_model.dart';
 import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:flower_e_commerce/features/payment/presentation/view_model/checkout_view_model_bloc.dart';
+import 'package:flower_e_commerce/features/payment_view/presentation/views/pages/PaymentViewPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -206,11 +207,35 @@ final viewmodel=getIt.get<CheckoutViewModelBloc>();
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: ElevatedButton(
-                 onPressed:  isAddFound?  () {
-                  if(selectedPayment=="cash"){
-                   viewmodel.add(
-                        PayCashOrderEvent(CashOrderRequest(
+              child:BlocListener<CheckoutViewModelBloc,
+                  CheckoutViewModelState>(listener: (context,state){
+                if(state is PaymentOnlineStates ){
+                  Navigator.of(context).pushNamed(AppRoutes.paymentView,
+                      arguments:state.frame);
+                }
+              },
+              child:   ValueListenableBuilder(
+                valueListenable:selectedAddress,
+                  builder: (context,index,child)
+                  =>       ElevatedButton(
+                    onPressed:
+                    isAddFound && selectedAddress.value!=null?  () {
+                      if(selectedPayment=="cash"){
+                        viewmodel.add(
+                            PayCashOrderEvent(CashOrderRequest(
+                                shippingAddress:
+                                ShippingAddress(
+                                  street: address[selectedAddress.value!].street,
+                                  city:address[selectedAddress.value!].city,
+                                  long:address[selectedAddress.value!].long,
+                                  lat: address[selectedAddress.value!].lat,
+                                  phone: address[selectedAddress.value!].phone,
+                                )
+                            )));
+                        Navigator.of(context).pushNamed(AppRoutes.orderspage);
+                      }else{
+                        viewmodel.add(PayOnlineOrderEvent
+                          ( CashOrderRequest(
                             shippingAddress:
                             ShippingAddress(
                               street: address[selectedAddress.value!].street,
@@ -220,22 +245,24 @@ final viewmodel=getIt.get<CheckoutViewModelBloc>();
                               phone: address[selectedAddress.value!].phone,
                             )
                         )));
-                  Navigator.of(context).pushNamed(AppRoutes.orderspage);
-                  }else{
 
-                  }
-                }:null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:isAddFound?AppColors.pink:AppColors.gray,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  "Place order",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-              ),
+                      }
+                    }:null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:isAddFound&& selectedAddress.value!=null
+                          ?AppColors.pink:AppColors.gray,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      "Place order",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),)
+
+              )
+
             ),
           ],
         ),

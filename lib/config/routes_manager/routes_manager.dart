@@ -135,7 +135,8 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => CheckoutScreen(cart:args));
       case AppRoutes.paymentView:{
         final url = settings.arguments as String;
-        return MaterialPageRoute(builder: (context) => PaymentViewPage(url),);
+        return MaterialPageRoute(builder: (context) =>
+            PaymentViewPage(url),);
       }
       default:
         return MaterialPageRoute(

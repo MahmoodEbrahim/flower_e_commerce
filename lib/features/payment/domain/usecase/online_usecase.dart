@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:flower_e_commerce/features/payment/domain/repository/payment_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,5 +10,5 @@ class OnlineUsecase{
   @factoryMethod
   OnlineUsecase(this.repository);
 
-  Future<ApiResult<String>> invoke(Map<String,dynamic> onlineorder)=>repository.createOnlineOrder(onlineorder);
+  Future<ApiResult<String>> invoke(CashOrderRequest onlineorder)=>repository.createOnlineOrder(onlineorder);
 }

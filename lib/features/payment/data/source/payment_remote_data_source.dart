@@ -8,6 +8,6 @@ abstract interface class PaymentRemoteDataSource {
   Future<ApiResult<CashOrderResponce>> createCashOrder(
   CashOrderRequest cashorder);
   Future<ApiResult<OnlinePaymentResponce>> createOnlineOrder(
-      Map<String, dynamic> onlineorder);
+      CashOrderRequest onlineorder);
 
 }

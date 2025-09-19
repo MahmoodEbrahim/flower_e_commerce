@@ -6,5 +6,6 @@ import 'package:flower_e_commerce/features/payment/domain/entity/cash_payment_re
 abstract interface class PaymentRepository {
   Future<ApiResult<CashPaymentResponceEntity>>createCashOrder
       (CashOrderRequest cashorder);
-  Future<ApiResult<String>>createOnlineOrder(Map<String,dynamic>onlineorder);
+  Future<ApiResult<String>>createOnlineOrder
+      (CashOrderRequest onlineorder);
 }

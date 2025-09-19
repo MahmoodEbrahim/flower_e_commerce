@@ -30,7 +30,7 @@ createCashOrder(@Body() CashOrderRequest request,
 
 
   Future<OnlinePaymentResponce>
-createOnlineOrder(@Body() Map<String, dynamic> orderData);
+createOnlineOrder(@Body() CashOrderRequest orderData);
 }
 /*<String, dynamic>{
   "shippingAddress":{

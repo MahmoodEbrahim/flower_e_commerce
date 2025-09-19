@@ -7,7 +7,7 @@ final class PayCashOrderEvent extends CheckoutViewModelEvent{
   PayCashOrderEvent(this.cashorder);
 }
 final class PayOnlineOrderEvent extends CheckoutViewModelEvent{
-  Map<String,dynamic> onlineorder;
+  CashOrderRequest onlineorder;
   PayOnlineOrderEvent(this.onlineorder);
 }
 

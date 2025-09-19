@@ -31,7 +31,8 @@ class PaymentRemoteDataSourceImp implements PaymentRemoteDataSource {
   }
 
   @override
-  Future<ApiResult<OnlinePaymentResponce>> createOnlineOrder(Map<String,dynamic> onlineorder) async{
+  Future<ApiResult<OnlinePaymentResponce>> createOnlineOrder(
+      CashOrderRequest onlineorder) async{
     try{
       final result = await _apiService.createOnlineOrder(onlineorder);
 

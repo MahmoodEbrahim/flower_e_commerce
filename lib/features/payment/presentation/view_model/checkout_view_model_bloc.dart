@@ -40,10 +40,12 @@ class CheckoutViewModelBloc extends Bloc<CheckoutViewModelEvent, CheckoutViewMod
     switch(result){
 
       case ApiSucessResult<String>():{
-        emit(PaymentOnlineStates(isLoading: false,frame: result.sucessResult));
+        emit(PaymentOnlineStates(isLoading: false,
+            frame: result.sucessResult));
       }
       case ApiFailedResult<String>():{
-        emit(PaymentOnlineStates(isLoading: false,errorMessage: result.errorMessage));
+        emit(PaymentOnlineStates(isLoading: false,
+            errorMessage: result.errorMessage));
       }
     }
   }

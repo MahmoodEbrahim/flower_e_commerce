@@ -40,7 +40,7 @@ class  PaymentRepositoryImpl implements PaymentRepository{
   }
 
   @override
-  Future<ApiResult<String>> createOnlineOrder(Map<String, dynamic> onlineorder) async{
+  Future<ApiResult<String>> createOnlineOrder(CashOrderRequest onlineorder) async{
     var result=await _paymentRemoteDataSource.createOnlineOrder(onlineorder);
     switch(result){
 

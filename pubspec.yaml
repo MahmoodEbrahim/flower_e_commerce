@@ -76,8 +76,7 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
-    - assets/json/terms_and_conditions.json
-    - assets/json/about.json
+    - assets/json/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
