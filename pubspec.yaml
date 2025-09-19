@@ -54,6 +54,8 @@ dependencies:
   geolocator: ^14.0.2
   top_snackbar_flutter: ^3.3.0
   firebase_core: ^4.1.0
+  webview_flutter: ^4.13.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

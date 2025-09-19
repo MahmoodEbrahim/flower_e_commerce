@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/features/payment/api/models/meta_data_payment.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../home/api/models/product_by_occasion.dart';

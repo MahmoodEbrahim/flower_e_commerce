@@ -19,7 +19,8 @@ abstract class PaymentApiService {
   'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhjMWEwNjhhOGJjYTMwN2Y5ZTMyMzA5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTc1NDMwODB9.h2gpZGY2QesvZkREXTWS7duoobPJuNDR7MXne9e745A"
 }
 )
-  Future<CashOrderResponce> createCashOrder(@Body() Map<String, dynamic> orderData);
+  Future<CashOrderResponce>
+createCashOrder(@Body() Map<String, dynamic> orderData);
 
 @POST(ApiEndPoints.createcardorder)
 @Headers(<String, dynamic>{

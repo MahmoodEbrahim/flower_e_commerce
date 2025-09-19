@@ -26,7 +26,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:hive_test/hive_test.dart';
+
 
 import 'address_bloc_test.mocks.dart';
 @GenerateMocks([GetAddAddressUseCase,GetAllAddressesUseCase,
@@ -49,7 +49,6 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUp(()async{
 
-    await setUpTestHive();
 
 
 
@@ -82,22 +81,7 @@ provideDummy<LocalDsResult<List<CountryEntity>>>(LocalDsFailedResult("Dummy Erro
     provideDummy<LocalDsResult<List<StateEntity>>>(LocalDsFailedResult("Dummy Error States"));
 
   });
-  tearDown(() async {
 
-    if (Hive.isBoxOpen(boxName)) {
-      await Hive.box(boxName).clear();
-      await Hive.box(boxName).close();
-    }
-    if (Hive.isBoxOpen(tokenBox)) {
-      await Hive.box(tokenBox).clear();
-      await Hive.box(tokenBox).close();
-    }
-    if (Hive.isBoxOpen(languageBox)) {
-      await Hive.box(languageBox).clear();
-      await Hive.box(languageBox).close();
-    }
-    await tearDownTestHive();
-  });
   const String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhhMjE4MjVhOGJjYTMwN2Y5ZGU5MzY1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTczMjU5MDl9.HKOPAn1Jc4jKqfmts8nPMvcBb1MLoDqP4olR2ND9pLk";
   AddAdressRequest request=AddAdressRequest(
       street: "Home",
