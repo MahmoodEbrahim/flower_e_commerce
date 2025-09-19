@@ -1,14 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/auth/api/models/sign_out_response/sign_out_response.dart';
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
+import 'package:flower_e_commerce/features/auth/domain/usecase/get_log_out_use_case.dart';
 import 'package:flower_e_commerce/features/auth/domain/usecase/get_profile_data.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_state.dart';
 import 'package:injectable/injectable.dart';
 @injectable
 class SettingCubit extends Cubit<SettingState> {
-  SettingCubit(this._getProfileDataUseCase) : super(SettingInitial());
+  SettingCubit(this._getProfileDataUseCase,this._getLogOutUseCase)
+      : super(SettingInitial());
   GetProfileDataUseCase _getProfileDataUseCase;
+  GetLogOutUseCase _getLogOutUseCase;
   String currentLanguage = "en";
   void changeLanguage(String langCode)async {
     currentLanguage = langCode;
@@ -38,6 +42,16 @@ class SettingCubit extends Cubit<SettingState> {
   emit(GetProfileDataSuccessState(result.sucessResult));
       case ApiFailedResult<UserModel>():
       emit(GetProfileDataErrorState(result.errorMessage));
+    }
+  }
+  Future<void> logOut(String token)async{
+    final result=await _getLogOutUseCase.logOut(token);
+    switch(result){
+
+      case ApiSucessResult<SignOutResponse>():
+        emit(GetLogOutSuccessState());
+      case ApiFailedResult<SignOutResponse>():
+  emit(GetLogOutErrorState(result.errorMessage));
     }
   }
 }

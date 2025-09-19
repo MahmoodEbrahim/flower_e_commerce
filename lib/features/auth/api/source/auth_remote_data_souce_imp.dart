@@ -9,6 +9,7 @@ import 'package:flower_e_commerce/features/auth/api/models/forget_password/reque
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/forget_password_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/reset_password_responsea.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/response/verfiy_password_response.dart';
+import 'package:flower_e_commerce/features/auth/api/models/sign_out_response/sign_out_response.dart';
 import 'package:flower_e_commerce/features/auth/api/models/signup_request/signup_request_dto.dart';
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
@@ -141,6 +142,21 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
         return ApiFailedResult(error.toString());
       }
     }
+  }
+
+  @override
+  Future<ApiResult<SignOutResponse>> logOut(String token) async{
+try{
+  final response=await authApiService.logOut("Bearer $token");
+return ApiSucessResult(response);
+}catch(error){
+  if(error is DioException){
+    return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+  }else{
+    return ApiFailedResult(error.toString());
+
+  }
+}
   }
 
 }

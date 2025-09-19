@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/auth/api/models/sign_out_response/sign_out_response.dart';
 
 import 'package:flower_e_commerce/features/auth/data/source/auth_remote_data_source.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
@@ -49,5 +50,11 @@ class AuthRepositoryImp implements AuthRepository {
   Future<ApiResult<UserModel>> getProfileData(String token) async{
     // TODO: implement getProfileData
     return await authRemoteDataSource.getProfileData(token);
+  }
+
+  @override
+  Future<ApiResult<SignOutResponse>> logOut(String token)async {
+    // TODO: implement logOut
+   return await authRemoteDataSource.logOut(token);
   }
 }

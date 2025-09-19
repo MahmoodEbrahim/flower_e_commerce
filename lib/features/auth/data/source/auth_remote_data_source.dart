@@ -1,5 +1,6 @@
 
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:flower_e_commerce/features/auth/api/models/sign_out_response/sign_out_response.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/forget_password_request.dart';
 import 'package:flower_e_commerce/features/auth/api/models/forget_password/request/reset_password_request.dart';
@@ -20,5 +21,6 @@ abstract interface class AuthRemoteDataSource {
   resetPassword(ResetPasswordRequest request);
   Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel);
    Future<ApiResult<UserModel>>getProfileData(String token);
+   Future<ApiResult<SignOutResponse>>logOut(String token);
 }
 

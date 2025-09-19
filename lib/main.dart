@@ -23,7 +23,7 @@ void main() async {
   Hive.registerAdapter(LoginModelAdapter());
   Hive.registerAdapter(AddressEntityAdapter());
   await UserLocalStorage.init();
-  final token=UserLocalStorage.getToken()!;
+  final token=UserLocalStorage.getToken()??"";
   runApp(
      // DevicePreview(builder: (context) =>
           BlocProvider(

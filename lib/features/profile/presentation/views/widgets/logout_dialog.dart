@@ -1,5 +1,7 @@
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../config/routes_manager/app_routes.dart';
 import '../../../../auth/api/source/user_local_storage.dart';
 import '../../../../../core/l10n/translations/app_localizations.dart';
@@ -12,7 +14,7 @@ class LogoutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
+final token=UserLocalStorage.getToken()??"";
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -57,6 +59,7 @@ class LogoutDialog extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
+                    BlocProvider.of<SettingCubit>(context).logOut(token);
                     UserLocalStorage.clearUser();
                     UserLocalStorage.clearToken();
 

@@ -18,5 +18,12 @@ final class GetProfileDataErrorState extends SettingState {
  final String error;
  GetProfileDataErrorState(this.error);
 }
+final class GetLogOutSuccessState extends SettingState {
+
+}
+final class GetLogOutErrorState extends SettingState {
+  final String error;
+  GetLogOutErrorState(this.error);
+}
 
 

@@ -20,7 +20,8 @@ abstract class ApiEndPoints {
 
   //addresses
   static const String addressEndPoint = "addresses";
-
+///logout
+  static const String logOutEndPoint = "logout";
 
   static const String getUserDataEndPoint = "profile-data";
 
