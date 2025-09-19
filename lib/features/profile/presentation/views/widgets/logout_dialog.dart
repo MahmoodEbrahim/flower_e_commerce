@@ -38,6 +38,7 @@ class LogoutDialog extends StatelessWidget {
                 OutlinedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
+
                   },
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -57,6 +58,8 @@ class LogoutDialog extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                     UserLocalStorage.clearUser();
+                    UserLocalStorage.clearToken();
+
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       AppRoutes.home,

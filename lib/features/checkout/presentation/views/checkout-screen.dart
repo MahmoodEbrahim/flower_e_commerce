@@ -6,8 +6,10 @@ import 'package:flower_e_commerce/features/address/presentation/view/screen/upda
 import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
+import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -28,16 +30,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   late List<AddressEntity> address;
     bool isAddFound = false;
 
-
   @override
   void initState() {
-     loginModel = UserLocalStorage.getUser();
-
-    if (loginModel != null) {
-      userModel = loginModel!.user;
-      address = userModel.addresses;
+    UserModel userModel =BlocProvider.of<SettingCubit>(context).userModel!;
+    print(userModel.addresses);
+    if (userModel.addresses != null) {
+    address = userModel.addresses;
       if (address.isNotEmpty) {
-        isAddFound = true;
+        isAddFound=true;
+
       }
     }
    

@@ -27,7 +27,8 @@ class DeliveryLocation extends StatelessWidget {
 
     UserModel userModel =BlocProvider.of<SettingCubit>(context).userModel!;
     print(userModel.addresses);
-    if (userModel.addresses != null) {
+    var token=UserLocalStorage.getToken();
+    if (userModel.addresses.isNotEmpty && token!=null ) {
       final List<AddressEntity> address = userModel.addresses;
       if (address.isNotEmpty) {
         location = " ${address[0].city} ${address[0].street}";

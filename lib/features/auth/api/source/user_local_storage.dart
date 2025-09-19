@@ -37,31 +37,26 @@ class UserLocalStorage {
     await box.put('token', token);
   }
 
-  /// استرجاع التوكن
   static String? getToken() {
     var box = Hive.box<String>(tokenBox);
     return box.get('token');
   }
 
-  /// مسح التوكن
   static Future<void> clearToken() async {
     var box = Hive.box<String>(tokenBox);
     await box.delete('token');
   }
 
-  /// مسح بيانات اليوزر
   static Future<void> clearUser() async {
     var box = Hive.box<LoginModel>(boxName);
     await box.delete('user');
   }
 
-  /// هل اليوزر عامل تسجيل دخول؟
   static bool isLoggedIn() {
     var box = Hive.box<LoginModel>(boxName);
     return box.containsKey('user');
   }
 
-  /// حفظ اللغة
   static Future<void> saveLanguage(String language) async {
     var box = Hive.box<String>(languageBox);
     await box.put('language', language);
