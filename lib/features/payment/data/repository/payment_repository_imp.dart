@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/features/checkout/domain/entity/order_entity.d
 import 'package:flower_e_commerce/features/checkout/domain/repository/checkout_repository.dart';
 import 'package:flower_e_commerce/features/payment/api/models/cash_order_responce_model.dart';
 import 'package:flower_e_commerce/features/payment/api/models/online_payment_responce_model.dart';
+import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:flower_e_commerce/features/payment/domain/entity/cash_payment_responce_entity.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/repository/payment_repository.dart';
@@ -21,7 +22,8 @@ class  PaymentRepositoryImpl implements PaymentRepository{
   PaymentRepositoryImpl(this._paymentRemoteDataSource);
 
   @override
-  Future<ApiResult<CashPaymentResponceEntity>> createCashOrder(Map<String, dynamic> cashorder)async {
+  Future<ApiResult<CashPaymentResponceEntity>>
+  createCashOrder(CashOrderRequest cashorder)async {
    var result=await _paymentRemoteDataSource.createCashOrder(cashorder);
    switch(result){
 

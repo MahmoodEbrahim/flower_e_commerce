@@ -1,4 +1,5 @@
- import 'package:flower_e_commerce/config/theme/app_color.dart';
+ import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/orders/presentation/view/widgets/active_widget.dart';
@@ -35,6 +36,11 @@ class _OrderPageState extends State<OrderPage> {
   child: Scaffold(
     backgroundColor: AppColors.white,
         appBar: AppBar(
+          leading: IconButton(onPressed: (){
+           Navigator.of(context).
+           pushNamed(AppRoutes.home);
+          },
+              icon: Icon(Icons.arrow_back_ios_new_sharp)),
           backgroundColor: AppColors.white,
           title: Text(AppLocalizations.of(context)!.orderPage),
         ),

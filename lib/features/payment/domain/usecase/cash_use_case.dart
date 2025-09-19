@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/api_result/api_result.dart';
@@ -10,5 +11,6 @@ class CashUseCase{
   @factoryMethod
   CashUseCase(this.repository);
 
-  Future<ApiResult<CashPaymentResponceEntity>> invoke(Map<String,dynamic> cashorder)=>repository.createCashOrder(cashorder);
+  Future<ApiResult<CashPaymentResponceEntity>> invoke
+      (CashOrderRequest cashorder)=>repository.createCashOrder(cashorder);
 }

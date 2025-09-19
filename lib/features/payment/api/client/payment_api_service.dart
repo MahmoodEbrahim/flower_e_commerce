@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flower_e_commerce/core/utils/constants/api_end_points.dart';
+import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -15,13 +16,15 @@ abstract class PaymentApiService {
   @factoryMethod
   factory PaymentApiService(Dio dio) = _PaymentApiService;
 @POST(ApiEndPoints.createcashorder)
-@Headers(<String, dynamic>{
-  'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhjMWEwNjhhOGJjYTMwN2Y5ZTMyMzA5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTc1NDMwODB9.h2gpZGY2QesvZkREXTWS7duoobPJuNDR7MXne9e745A"
-}
-)
+// @Headers(<String, dynamic>{
+//   'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhjMWEwNjhhOGJjYTMwN2Y5ZTMyMzA5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTc1NDMwODB9.h2gpZGY2QesvZkREXTWS7duoobPJuNDR7MXne9e745A"
+// }
+//)
   Future<CashOrderResponce>
-createCashOrder(@Body() Map<String, dynamic> orderData);
+createCashOrder(@Body() CashOrderRequest request,
+     // @Header("Authorization")String token);
 
+      );
 @POST(ApiEndPoints.createcardorder)
 @Headers(<String, dynamic>{
   'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjhjMWEwNjhhOGJjYTMwN2Y5ZTMyMzA5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTc1NDMwODB9.h2gpZGY2QesvZkREXTWS7duoobPJuNDR7MXne9e745A"

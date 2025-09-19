@@ -1,5 +1,6 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/presentation/view/screen/update_screen.dart';
@@ -9,6 +10,7 @@ import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
 import 'package:flower_e_commerce/features/checkout/presentation/view_model/view_model.dart';
+import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:flower_e_commerce/features/payment/presentation/view_model/checkout_view_model_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +48,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
    
     super.initState();
   }
-
+final viewmodel=getIt.get<CheckoutViewModelBloc>();
   @override
   Widget build(BuildContext context) {
   
@@ -60,7 +62,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         title: const Text("Checkout"),
         leading: const BackButton(),
       ),
-      body: SingleChildScrollView(
+      body: BlocProvider.value(
+          value: viewmodel,
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,10 +157,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   onChanged: selectedPayment == "cash"
                       ? null
                       : (val) {
-                          setState(() {
-                            isGift = val;
-                          });
-                        },
+                    setState(() {
+                      isGift = val;
+                    });
+                  },
                   activeColor: Colors.pink,
                 ),
               ],
@@ -208,8 +212,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   if(selectedPayment=="cash"){
-              // BlocProvider.of<CheckoutViewModelBloc>(context)..add(
-              //     PayCashOrderEvent());
+                   viewmodel.add(
+                        PayCashOrderEvent(CashOrderRequest(
+                            shippingAddress:
+                            ShippingAddress(
+                              street: address[0].street,
+                              city:address[0].city,
+                              long:address[0].long,
+                              lat: address[0].lat,
+                              phone: address[0].phone,
+                            )
+                        )));
+                  Navigator.of(context).pushNamed(AppRoutes.orderspage);
                   }else{
 
                   }
@@ -228,7 +242,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           ],
         ),
-      ),
+      )
+      )
+
     );
   }
 

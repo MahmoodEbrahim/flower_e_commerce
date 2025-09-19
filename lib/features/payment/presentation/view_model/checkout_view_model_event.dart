@@ -3,7 +3,7 @@ part of 'checkout_view_model_bloc.dart';
 @immutable
 sealed class CheckoutViewModelEvent {}
 final class PayCashOrderEvent extends CheckoutViewModelEvent{
-  Map<String,dynamic> cashorder;
+  CashOrderRequest cashorder;
   PayCashOrderEvent(this.cashorder);
 }
 final class PayOnlineOrderEvent extends CheckoutViewModelEvent{

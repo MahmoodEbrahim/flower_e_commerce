@@ -1,5 +1,7 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/address/presentation/view/screen/address_detials_screen.dart';
+import 'package:flower_e_commerce/features/address/presentation/view/screen/saved_address.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/forget_password_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/login_page.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/pages/reset_password_page.dart';
@@ -19,6 +21,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/occasio
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_by_category.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/search_page.dart';
+import 'package:flower_e_commerce/features/orders/presentation/view/pages/orderpage.dart';
 import 'package:flower_e_commerce/features/payment_view/presentation/views/pages/PaymentViewPage.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/notifications_page.dart';
@@ -105,6 +108,13 @@ abstract class Routes {
 
       case AppRoutes.resetPassword:
         return MaterialPageRoute(builder: (context) => ResetPasswordPage());
+      case AppRoutes.saveAddress:
+        return MaterialPageRoute(builder: (context) => SavedAddress());
+
+      case AppRoutes.addAddress:
+        return MaterialPageRoute(
+          builder: (context) => AddAddressDetialsScreen(),
+        );
 
       case AppRoutes.about:
         return MaterialPageRoute(builder: (context) => AboutAppPage(),);
@@ -114,7 +124,10 @@ abstract class Routes {
 
       case AppRoutes.search:
         return MaterialPageRoute(builder: (context) => SearchPage(),);
-
+      case AppRoutes.orderspage:
+        return MaterialPageRoute(
+          builder: (context) => OrderPage(),
+        );
       case AppRoutes.notificationspage:
         return MaterialPageRoute(builder: (context) => NotificationsPage(),);
       case AppRoutes.checkoutscreen:
