@@ -47,7 +47,8 @@ var local =AppLocalizations.of(context)!;
                       child: Text(
                           iscompleted?AppLocalizations.of(context)!
                               .reorder:AppLocalizations.of(context)!.trackorder,
-                        style: getMediumStyle(color: AppColors.white,fontSize: 14.sp),))
+                        style: getMediumStyle(color: AppColors.white,
+                            fontSize: 14.sp),))
                 ],
              ) )
             ],

@@ -49,7 +49,14 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
     super.initState();
     addressController.addListener(_updateLocation);
   }
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    userName.dispose();
+    phone.dispose();
 
+  }
   void _updateLocation() async {
     if (addressController.text.isNotEmpty) {
       await _locateOnMap(addressController.text);

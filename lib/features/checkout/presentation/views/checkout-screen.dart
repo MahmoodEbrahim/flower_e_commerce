@@ -38,12 +38,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     UserModel userModel =BlocProvider.of<SettingCubit>(context).userModel!;
     print(userModel.addresses);
-    if (userModel.addresses != null) {
+    if (userModel.addresses.isNotEmpty) {
     address = userModel.addresses;
-      if (address.isNotEmpty) {
-        isAddFound=true;
-
-      }
+    isAddFound=true;
     }
    
     super.initState();
@@ -205,31 +202,31 @@ final viewmodel=getIt.get<CheckoutViewModelBloc>();
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+         isAddFound?   const SizedBox(height: 24):  SizedBox(height: 160.h),
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
+                 onPressed:  isAddFound?  () {
                   if(selectedPayment=="cash"){
                    viewmodel.add(
                         PayCashOrderEvent(CashOrderRequest(
                             shippingAddress:
                             ShippingAddress(
-                              street: address[0].street,
-                              city:address[0].city,
-                              long:address[0].long,
-                              lat: address[0].lat,
-                              phone: address[0].phone,
+                              street: address[selectedAddress.value!].street,
+                              city:address[selectedAddress.value!].city,
+                              long:address[selectedAddress.value!].long,
+                              lat: address[selectedAddress.value!].lat,
+                              phone: address[selectedAddress.value!].phone,
                             )
                         )));
                   Navigator.of(context).pushNamed(AppRoutes.orderspage);
                   }else{
 
                   }
-                },
+                }:null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.pink,
+                  backgroundColor:isAddFound?AppColors.pink:AppColors.gray,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
