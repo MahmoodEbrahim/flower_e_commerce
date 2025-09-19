@@ -26,4 +26,6 @@ abstract class ApiEndPoints {
 
 
   static const String ordersEndPoint = "orders";
+  static const String createcashorder = "orders";
+  static const String createcardorder = "orders/checkout?url=http://localhost:3000";
 }

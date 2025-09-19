@@ -3,5 +3,4 @@ import 'package:flower_e_commerce/features/checkout/domain/entity/checkout_entit
 import 'package:flower_e_commerce/features/checkout/domain/entity/order_entity.dart';
 
 abstract interface class CheckoutRemoteDataSource {
-
 }

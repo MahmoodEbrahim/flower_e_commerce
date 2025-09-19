@@ -9,6 +9,7 @@ import 'package:retrofit/retrofit.dart';
 part 'cart_api_service.g.dart';
 
 @RestApi(baseUrl: ApiEndPoints.apiUrl)
+
 @injectable
 abstract class CartApiService {
   @factoryMethod

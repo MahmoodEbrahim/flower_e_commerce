@@ -34,20 +34,10 @@ abstract class Routes {
     switch (settings.name) {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (context) => MainLayout());
-//SavedAddress
-      case AppRoutes.saveAddress:
-        return MaterialPageRoute(builder: (context) => SavedAddress());
+
       case AppRoutes.cart:
         return MaterialPageRoute(
           builder: (context) => CartPage(),
-        );
-      case AppRoutes.addAddress:
-        return MaterialPageRoute(
-          builder: (context) => AddAddressDetialsScreen(),
-        );
-      case AppRoutes.orderspage:
-        return MaterialPageRoute(
-          builder: (context) => OrderPage(),
         );
       case AppRoutes.bestSellers:
         final args = settings.arguments as Map<String, dynamic>;
@@ -132,6 +122,10 @@ abstract class Routes {
       case AppRoutes.checkoutscreen:
         final args = settings.arguments as CartEntity;
         return MaterialPageRoute(builder: (context) => CheckoutScreen(cart:args));
+      case AppRoutes.paymentView:{
+        final url = settings.arguments as String;
+        return MaterialPageRoute(builder: (context) => PaymentViewPage(url),);
+      }
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(
