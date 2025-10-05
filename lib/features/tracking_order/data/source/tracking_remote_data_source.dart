@@ -1,0 +1,5 @@
+
+abstract interface class TrackingRemoteDataSource {
+
+}
+
