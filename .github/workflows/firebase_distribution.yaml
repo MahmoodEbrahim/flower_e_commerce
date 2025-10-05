@@ -1,11 +1,18 @@
 name: Firebase Distribution
 
+
 on:
   push:
     branches:
-     
+      - release/0.0.5
   pull_request:
     branches:
+      - release/0.0.5
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
     
 
 jobs:
