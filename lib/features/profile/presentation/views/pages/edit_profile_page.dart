@@ -22,7 +22,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class EditProfilePage extends StatefulWidget {
-  EditProfilePage({super.key});
+  const EditProfilePage({super.key});
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -31,7 +31,7 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   Future<File> _saveTemporaryFile(XFile pickedFile) async {
     final directory = await getApplicationDocumentsDirectory();
-    final fileName = DateTime.now().millisecondsSinceEpoch.toString() + '.jpg';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final savedFile = await File(
       '${directory.path}/$fileName',
     ).writeAsBytes(await pickedFile.readAsBytes());

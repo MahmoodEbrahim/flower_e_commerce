@@ -10,7 +10,7 @@ final  UploadProfilePhotoResponse? uploadProfilePhotoResponse;
 final  EditProfileResponsea? editProfileResponsea;
 final RequestState editProfileState;
 final String? errorMessageEditProfile;
-EditProfileStates({
+const EditProfileStates({
    this.errorMessageUploadPhoto="",
   this.uploadProfilePhotoResponse,
   this.uploadPhotoState=RequestState.loading,

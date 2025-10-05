@@ -17,7 +17,7 @@ class AddressEntity extends Equatable{
   final String? username;
   @HiveField(7)
   final String? id;
-  AddressEntity({
+  const AddressEntity({
 this.street,this.id,
     this.username,
     this.phone,this.city,this.lat,this.long

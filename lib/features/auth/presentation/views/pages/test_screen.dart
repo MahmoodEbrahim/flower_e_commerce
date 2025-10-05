@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MapSample extends StatefulWidget {
@@ -10,7 +9,7 @@ class MapSample extends StatefulWidget {
   State<MapSample> createState() => MapSampleState();
 }
 class MapSampleState extends State<MapSample> {
-CameraPosition _cameraPosition=CameraPosition(target: LatLng(30.098702, 31.911280
+final CameraPosition _cameraPosition=CameraPosition(target: LatLng(30.098702, 31.911280
 ),zoom: 14);
   final Completer<GoogleMapController>_controller=Completer<GoogleMapController>();
   @override

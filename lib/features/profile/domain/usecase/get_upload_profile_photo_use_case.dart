@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetUploadPhotoProfileUseCase{
-  ProfileRepository _profileRepository;
+  final ProfileRepository _profileRepository;
   GetUploadPhotoProfileUseCase(this._profileRepository);
   Future<ApiResult<UploadProfilePhotoResponse>>uploadPhoto(
 

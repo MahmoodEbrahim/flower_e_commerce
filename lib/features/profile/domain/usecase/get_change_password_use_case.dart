@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetChangePasswordUseCase{
-  ProfileRepository _profileRepository;
+  final ProfileRepository _profileRepository;
   GetChangePasswordUseCase(this._profileRepository);
   Future<ApiResult<ChangePasswordResponse>>
   changePassword(ChangePasswordRequest request,String token) async{

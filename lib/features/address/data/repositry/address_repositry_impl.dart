@@ -11,7 +11,7 @@ import 'package:flower_e_commerce/features/address/domain/repositry/address_repo
 import 'package:injectable/injectable.dart';
 @Injectable(as: AddressRepositry)
 class AddressRepositryImpl implements AddressRepositry{
- AddressRemoteDataSource _addressRemoteDataSource;
+ final AddressRemoteDataSource _addressRemoteDataSource;
  AddressRepositryImpl(this._addressRemoteDataSource);
   @override
   Future<ApiResult<List<AddressEntity>>> addAddress(AddAdressRequest

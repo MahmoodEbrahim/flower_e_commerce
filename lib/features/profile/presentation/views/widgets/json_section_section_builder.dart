@@ -21,8 +21,9 @@ class JsonSectionBuilder extends StatelessWidget {
   }) {
     if (style == null) return {};
     if (isTitle && style[JsonKeys.title] is Map) return style[JsonKeys.title];
-    if (!isTitle && style[JsonKeys.content] is Map)
+    if (!isTitle && style[JsonKeys.content] is Map) {
       return style[JsonKeys.content];
+    }
     return style;
   }
 

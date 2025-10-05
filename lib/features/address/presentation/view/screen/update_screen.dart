@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -137,8 +136,8 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
             body: BlocBuilder<AddressBloc, AddressState>(
               builder: (context, state) {
                 // تحديد المدينة المحددة مسبقاً
-                if (selectedCity == null && state.governorates != null) {
-                  final currentGovernorate = state.governorates!.firstWhere(
+                if (selectedCity == null) {
+                  final currentGovernorate = state.governorates.firstWhere(
                         (g) => g.nameEn.toLowerCase() == widget.address.city?.toLowerCase(),
                     orElse: () => GovernorateEntity(id: '', nameAr: '', nameEn: ''),
                   );
@@ -202,7 +201,7 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
 
                           /// Country
                           DropdownButtonFormField<String>(
-                            value: selectedAddress,
+                            initialValue: selectedAddress,
                             decoration: const InputDecoration(
                               labelText: "Address",
                               border: OutlineInputBorder(),
@@ -265,12 +264,12 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                             children: [
                               Expanded(
                                 child: DropdownButtonFormField<String>(
-                                  value: selectedCity,
+                                  initialValue: selectedCity,
                                   decoration: const InputDecoration(
                                     labelText: "City",
                                     border: OutlineInputBorder(),
                                   ),
-                                  items: state.governorates?.map((governorate) {
+                                  items: state.governorates.map((governorate) {
                                     return DropdownMenuItem<String>(
                                       value: governorate.id,
                                       child: Text(
@@ -294,14 +293,13 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                                           .add(GetStatesEvent(governateId: value));
 
                                       final selectedGovernorate =
-                                      state.governorates?.firstWhere(
+                                      state.governorates.firstWhere(
                                             (g) => g.id == value,
                                         orElse: () => GovernorateEntity(
                                             id: '', nameAr: '', nameEn: ''),
                                       );
 
-                                      if (selectedGovernorate != null &&
-                                          selectedGovernorate.nameEn.isNotEmpty) {
+                                      if (selectedGovernorate.nameEn.isNotEmpty) {
                                         _locateOnMap(selectedGovernorate.nameEn);
                                       }
                                     }
@@ -318,12 +316,12 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                                       ? "Please select an Area"
                                       : null,
                                   isExpanded: true,
-                                  value: selectedStreet,
+                                  initialValue: selectedStreet,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: "Area",
                                   ),
-                                  items: state.states?.map((val) {
+                                  items: state.states.map((val) {
                                     return DropdownMenuItem<String>(
                                       value: val.cityNameEn,
                                       child: Text(
@@ -379,7 +377,7 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   final selectedGovernorate =
-                                  state.governorates?.firstWhere(
+                                  state.governorates.firstWhere(
                                         (g) => g.id == selectedCity,
                                     orElse: () => GovernorateEntity(
                                         id: '', nameAr: '', nameEn: ''),
@@ -390,7 +388,7 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                                       id: widget.address.id!, // معرف العنوان المراد تحديثه
                                       request: AddAdressRequest(
                                         username: userName.text,
-                                        city: selectedGovernorate?.nameEn ?? '',
+                                        city: selectedGovernorate.nameEn ?? '',
                                         long: selectedLocation?.longitude
                                             .toString() ??
                                             "",

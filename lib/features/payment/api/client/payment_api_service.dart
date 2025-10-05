@@ -4,7 +4,6 @@ import 'package:flower_e_commerce/features/payment/api/models/request/cash_order
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
-import 'package:dio/dio.dart' hide Headers;
 
 import '../models/cash_order_responce_model.dart';
 import '../models/online_payment_responce_model.dart';

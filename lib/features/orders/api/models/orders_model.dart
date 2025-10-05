@@ -2,7 +2,6 @@ import 'package:flower_e_commerce/features/orders/domain/entity/order_entity/ord
 import 'package:json_annotation/json_annotation.dart';
 
 import 'order_items_model.dart';
-import 'orders_responce.dart';
 part 'orders_model.g.dart';
 
 

@@ -70,7 +70,7 @@ void main() {
       expect(userModel.photo, "photo_url");
       expect(userModel.role, "user");
       expect(userModel.wishlist, ["item1", "item2"]);
-      expect(userModel.addresses![0].id  , address.Id);        
+      expect(userModel.addresses[0].id  , address.Id);        
     },
   );
 }

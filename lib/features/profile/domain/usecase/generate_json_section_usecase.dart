@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GenerateJsonSectionsUseCase {
-  ProfileRepository _profileRepository;
+  final ProfileRepository _profileRepository;
   GenerateJsonSectionsUseCase(this._profileRepository);
 
   Future<LocalDsResult<List<GenericJsonSectionEntity>>> call(String jsonPath,String jsonKey){

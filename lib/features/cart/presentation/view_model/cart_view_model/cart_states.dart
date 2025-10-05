@@ -20,7 +20,7 @@ class CartStates extends Equatable {
     return CartStates(
       errorMessage: errorMessage ?? this.errorMessage,
       isLoading: isLoading ?? this.isLoading,
-      cartResonse: cart ?? this.cartResonse,
+      cartResonse: cart ?? cartResonse,
     );
   }
 

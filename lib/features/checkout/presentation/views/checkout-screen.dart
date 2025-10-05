@@ -1,18 +1,14 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
-import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/presentation/view/screen/update_screen.dart';
-import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_cubit.dart';
 import 'package:flower_e_commerce/features/cart/domain/entity/cart_entity.dart';
-import 'package:flower_e_commerce/features/checkout/presentation/view_model/view_model.dart';
 import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:flower_e_commerce/features/payment/presentation/view_model/checkout_view_model_bloc.dart';
-import 'package:flower_e_commerce/features/payment_view/presentation/views/pages/PaymentViewPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -159,7 +155,7 @@ final viewmodel=getIt.get<CheckoutViewModelBloc>();
                       isGift = val;
                     });
                   },
-                  activeColor: Colors.pink,
+                  activeThumbColor: Colors.pink,
                 ),
               ],
             ),

@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
@@ -20,8 +19,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AddAddressDetialsScreen extends StatefulWidget {
   const AddAddressDetialsScreen({super.key});
@@ -162,7 +159,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
 
                           /// Country
                           DropdownButtonFormField<String>(
-                            value: selectedAddress,
+                            initialValue: selectedAddress,
                             decoration: const InputDecoration(
                               labelText: "Address",
                               border: OutlineInputBorder(),
@@ -225,12 +222,12 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                             children: [
                               Expanded(
                                 child: DropdownButtonFormField<String>(
-                                  value: selectedCity,
+                                  initialValue: selectedCity,
                                   decoration: const InputDecoration(
                                     labelText: "City",
                                     border: OutlineInputBorder(),
                                   ),
-                                  items: state.governorates?.map((governorate) {
+                                  items: state.governorates.map((governorate) {
                                     return DropdownMenuItem<String>(
                                       value: governorate.id,
                                       child: Text(
@@ -254,14 +251,13 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
 
 
                                       final selectedGovernorate =
-                                      state.governorates?.firstWhere(
+                                      state.governorates.firstWhere(
                                             (g) => g.id == value,
                                         orElse: () => GovernorateEntity(
                                             id: '', nameAr: '', nameEn: ''),
                                       );
 
-                                      if (selectedGovernorate != null &&
-                                          selectedGovernorate.nameEn.isNotEmpty) {
+                                      if (selectedGovernorate.nameEn.isNotEmpty) {
                                         _locateOnMap(
                                             selectedGovernorate.nameEn);
                                       }
@@ -279,12 +275,12 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                       ? "Please select an Area"
                                       : null,
                                   isExpanded: true,
-                                  value: selectedStreet,
+                                  initialValue: selectedStreet,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: "Area",
                                   ),
-                                  items: state.states?.map((val) {
+                                  items: state.states.map((val) {
                                     return DropdownMenuItem<String>(
                                       value: val.cityNameEn,
                                       child: Text(
@@ -324,7 +320,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
 
                               if (formKey.currentState!.validate()) {
                                 final selectedGovernorate =
-                                state.governorates?.firstWhere(
+                                state.governorates.firstWhere(
                                       (g) => g.id == selectedCity,
                                   orElse: () =>
                                       GovernorateEntity(id: '', nameAr: '', nameEn: ''),
@@ -333,7 +329,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                   GetAddAddressEvent(
                                     request: AddAdressRequest(
                                       username: userName.text,
-                                      city: selectedGovernorate?.nameEn ?? '',
+                                      city: selectedGovernorate.nameEn ?? '',
                                       long: selectedLocation?.longitude
                                           .toString() ??
                                           "",

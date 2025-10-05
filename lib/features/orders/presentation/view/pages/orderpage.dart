@@ -10,12 +10,13 @@ import 'package:flower_e_commerce/features/orders/presentation/view_model/orders
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:injectable/injectable.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/widgets/common_loading.dart';
 import '../../../domain/entity/order_entity/orders_entity.dart';
 
 class OrderPage extends StatefulWidget{
+  const OrderPage({super.key});
+
   @override
   State<OrderPage> createState() => _OrderPageState();
 }
@@ -23,12 +24,14 @@ class OrderPage extends StatefulWidget{
 class _OrderPageState extends State<OrderPage> {
   final OrdersViewModel Order=getIt.get<OrdersViewModel>();
   int selected=0;
+  @override
   void initState() {
     Order.add(GetOrderEvent());
     super.initState();
   }
 
 
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: Order,
@@ -114,7 +117,9 @@ labelStyle:                       getMediumStyle(color: AppColors.pink,fontSize:
         ),
       );
     }
-    else return SizedBox();
+    else {
+      return SizedBox();
+    }
   },
 )
 

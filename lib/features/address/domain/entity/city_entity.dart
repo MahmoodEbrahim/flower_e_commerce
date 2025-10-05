@@ -5,7 +5,7 @@ final String cityId;
 final String governorateId;
 final String cityNameAr;
 final String cityNameEn;
-StateEntity({
+const StateEntity({
   required this.cityId,
   required this.governorateId,
   required this.cityNameAr,

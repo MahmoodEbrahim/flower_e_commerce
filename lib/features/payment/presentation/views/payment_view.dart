@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentViewPage extends StatefulWidget {
-  String url;
-  PaymentViewPage(this.url);
+  final String url;
+  const PaymentViewPage(this.url, {super.key});
 
   @override
   State<PaymentViewPage> createState() => _PaymentViewPageState();
@@ -13,7 +13,7 @@ class _PaymentViewPageState extends State<PaymentViewPage> {
   late WebViewController controller;
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)

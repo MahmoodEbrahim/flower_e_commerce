@@ -1,6 +1,5 @@
 import 'package:flower_e_commerce/features/home/api/models/meta_data_dto.dart';
 import 'package:flower_e_commerce/features/home/api/models/product_model.dart';
-import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_by_occasion.g.dart';

@@ -6,7 +6,7 @@ class ChangePasswordStates extends Equatable{
 final  RequestState requestState;
 final String errorMessage;
 final ChangePasswordResponse? changePasswordResponse;
-ChangePasswordStates({
+const ChangePasswordStates({
   this.requestState=RequestState.loading,
   this.changePasswordResponse,
   this.errorMessage=""

@@ -10,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 @injectable
 class EditProfileBloc extends Bloc<EditProfileEvent,EditProfileStates>{
-  GetUploadPhotoProfileUseCase _getUploadPhotoProfileUseCase;
-  GetEditProfileUseCase _getEditProfileUseCase;
+  final GetUploadPhotoProfileUseCase _getUploadPhotoProfileUseCase;
+  final GetEditProfileUseCase _getEditProfileUseCase;
   EditProfileBloc(this._getUploadPhotoProfileUseCase,this._getEditProfileUseCase)
       :super(EditProfileStates()){
     on<GetUploadProfileEvent>((event, emit) async {

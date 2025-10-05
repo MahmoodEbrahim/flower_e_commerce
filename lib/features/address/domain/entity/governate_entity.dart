@@ -4,7 +4,7 @@ class GovernorateEntity extends Equatable{
   final String id;
   final String nameAr;
   final String nameEn;
-GovernorateEntity({
+const GovernorateEntity({
     required this.id,
   required this.nameAr,
   required this.nameEn,

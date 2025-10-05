@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetEditProfileUseCase{
-  ProfileRepository _profileRepository;
+  final ProfileRepository _profileRepository;
   GetEditProfileUseCase(this._profileRepository);
   Future<ApiResult<EditProfileResponsea>>
   editProfile(String token, EditProfileRequest request)async{

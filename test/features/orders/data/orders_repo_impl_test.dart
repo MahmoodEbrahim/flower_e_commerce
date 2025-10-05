@@ -74,8 +74,7 @@ void main() {
       when(mockOrdersRemoteDataSource.GetOrders())
           .thenAnswer((_) async => mockResult);
 
-      final res = await await ordersRepoImpl.GetOrders();
-      ;
+      final res = await ordersRepoImpl.GetOrders();
 
       expect(res, isA<ApiFailedResult<OrdersResponceEntity>>());
       final acResult = res as ApiFailedResult<OrdersResponceEntity>;

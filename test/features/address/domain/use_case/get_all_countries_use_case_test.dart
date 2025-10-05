@@ -1,6 +1,4 @@
-import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/core/local_ds_result/local_ds_result.dart';
-import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/time_zone.dart';
 import 'package:flower_e_commerce/features/address/domain/use_case/get_all_countries_use_case.dart';
@@ -25,7 +23,7 @@ void main() {
     CountryEntity(isoCode: "AF", name: "Afghanistan", phoneCode: "93", flag: "🇦🇫", currency: "AFN",
         latitude: "33.00000000", longitude: "65.00000000", timezones: [
           Timezone(
-            zoneName: "Asia\/Kabul",
+            zoneName: "Asia/Kabul",
             gmtOffset: 16200,
             gmtOffsetName: "UTC+04:30",
             abbreviation: "AFT",

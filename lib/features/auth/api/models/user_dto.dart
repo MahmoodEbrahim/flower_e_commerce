@@ -1,5 +1,4 @@
 import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
-import 'package:flower_e_commerce/features/address/domain/entity/adress_entity.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 

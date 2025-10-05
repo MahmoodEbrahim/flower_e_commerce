@@ -1,25 +1,24 @@
 import 'package:flower_e_commerce/features/payment/api/models/meta_data_payment.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../home/api/models/product_by_occasion.dart';
 part 'invoice_data_model.g.dart';
 
 @JsonSerializable()
 class InvoiceData {
   @JsonKey(name: "account_tax_ids")
-  final dynamic? accountTaxIds;
+  final dynamic accountTaxIds;
   @JsonKey(name: "custom_fields")
-  final dynamic? customFields;
+  final dynamic customFields;
   @JsonKey(name: "description")
-  final dynamic? description;
+  final dynamic description;
   @JsonKey(name: "footer")
-  final dynamic? footer;
+  final dynamic footer;
   @JsonKey(name: "issuer")
-  final dynamic? issuer;
+  final dynamic issuer;
   @JsonKey(name: "metadata")
   final Metadata? metadata;
   @JsonKey(name: "rendering_options")
-  final dynamic? renderingOptions;
+  final dynamic renderingOptions;
 
   InvoiceData ({
     this.accountTaxIds,

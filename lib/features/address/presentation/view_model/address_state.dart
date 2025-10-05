@@ -30,7 +30,7 @@ class AddressState extends Equatable{
   final  List<AddressEntity> updateAddresses;
   final String? UpdateAddressErrorMessage;
 
-  AddressState({
+  const AddressState({
     this.addAddressRequestState=RequestState.loading,
     this.addressEntity,
     this.addAddressErrorMessage,

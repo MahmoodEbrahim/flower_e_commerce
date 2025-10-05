@@ -22,7 +22,7 @@ import 'package:flower_e_commerce/features/home/presentation/views/pages/product
 import 'package:flower_e_commerce/features/home/presentation/views/pages/products_details_page.dart';
 import 'package:flower_e_commerce/features/home/presentation/views/pages/search_page.dart';
 import 'package:flower_e_commerce/features/orders/presentation/view/pages/orderpage.dart';
-import 'package:flower_e_commerce/features/payment_view/presentation/views/pages/PaymentViewPage.dart';
+import 'package:flower_e_commerce/features/payment/presentation/views/payment_view.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/notifications_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';

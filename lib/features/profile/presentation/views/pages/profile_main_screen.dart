@@ -223,7 +223,7 @@ class _ProfileMainScreenState extends State<ProfileMainPage> {
                                 isNotificationEnabled = value;
                               });
                             },
-                            activeColor: AppColors.white,
+                            activeThumbColor: AppColors.white,
                             activeTrackColor: AppColors.pink,
                             inactiveThumbColor: AppColors.gray,
                             inactiveTrackColor: AppColors.white,

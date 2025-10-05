@@ -1,8 +1,5 @@
 
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
-import 'package:flower_e_commerce/features/checkout/api/client/checkout_api_service.dart';
-import 'package:flower_e_commerce/features/checkout/data/source/checkout_remote_data_source.dart';
-import 'package:flower_e_commerce/features/checkout/domain/entity/order_entity.dart';
 import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:injectable/injectable.dart';
 

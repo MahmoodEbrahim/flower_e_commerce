@@ -3,7 +3,7 @@ part 'collected_info_model.g.dart';
 @JsonSerializable()
 class CollectedInformation {
   @JsonKey(name: "shipping_details")
-  final dynamic? shippingDetails;
+  final dynamic shippingDetails;
 
   CollectedInformation ({
     this.shippingDetails,

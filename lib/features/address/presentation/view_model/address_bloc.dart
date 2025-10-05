@@ -14,20 +14,19 @@ import 'package:flower_e_commerce/features/address/domain/use_case/get_delete_ad
 import 'package:flower_e_commerce/features/address/domain/use_case/get_update_address_use_case.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_event.dart';
 import 'package:flower_e_commerce/features/address/presentation/view_model/address_state.dart';
-import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/use_case/get_add_address_use_case.dart';
 @injectable
 class AddressBloc extends Bloc<AddressEvent,AddressState>{
-GetAddAddressUseCase _addressUseCase;
-GetAllAddressesUseCase _getAllAddressesUseCase;
-GetDeleteAddressUseCase _deleteAddressUseCase;
-GetAllGovernorateUseCase _getAllGovernorateUseCase;
-GetAllStatesUseCase _allStatesUseCase;
-GetAllCountriesUseCase _getAllCountriesUseCase;
-GetUpdateAddressUseCase _getUpdateAddressUseCase;
+final GetAddAddressUseCase _addressUseCase;
+final GetAllAddressesUseCase _getAllAddressesUseCase;
+final GetDeleteAddressUseCase _deleteAddressUseCase;
+final GetAllGovernorateUseCase _getAllGovernorateUseCase;
+final GetAllStatesUseCase _allStatesUseCase;
+final GetAllCountriesUseCase _getAllCountriesUseCase;
+final GetUpdateAddressUseCase _getUpdateAddressUseCase;
 AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
     this._deleteAddressUseCase,
     this._getAllGovernorateUseCase,this._allStatesUseCase,

@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetDeleteAddressUseCase{
-  AddressRepositry _addressRepositry;
+  final AddressRepositry _addressRepositry;
   GetDeleteAddressUseCase(this._addressRepositry);
   Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id) async {
     return await _addressRepositry.removeAddress(token, id);

@@ -18,7 +18,7 @@ import '../../../../../core/di/di.dart';
 import '../widgets/no_products.dart';
 
 class HomeTab extends StatelessWidget {
-  HomeTab(Key? key) : super(key: key);
+  const HomeTab(Key? key) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

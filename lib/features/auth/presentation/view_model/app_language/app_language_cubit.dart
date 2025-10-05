@@ -11,8 +11,8 @@ import 'package:injectable/injectable.dart';
 class SettingCubit extends Cubit<SettingState> {
   SettingCubit(this._getProfileDataUseCase,this._getLogOutUseCase)
       : super(SettingInitial());
-  GetProfileDataUseCase _getProfileDataUseCase;
-  GetLogOutUseCase _getLogOutUseCase;
+  final GetProfileDataUseCase _getProfileDataUseCase;
+  final GetLogOutUseCase _getLogOutUseCase;
   String currentLanguage = "en";
   void changeLanguage(String langCode)async {
     currentLanguage = langCode;

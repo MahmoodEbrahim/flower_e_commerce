@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../api/models/cash_order_responce_model.dart';
 
 
 

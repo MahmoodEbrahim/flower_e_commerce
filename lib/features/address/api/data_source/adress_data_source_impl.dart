@@ -15,12 +15,10 @@ import 'package:flower_e_commerce/features/address/domain/entity/governate_entit
 import 'package:flower_e_commerce/features/address/domain/entity/time_zone.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mockito/mockito.dart';
-import 'package:http/http.dart' as http;
 
 @Injectable(as: AddressRemoteDataSource)
 class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
-  AddressesApiServices _apiServices;
+  final AddressesApiServices _apiServices;
 
 
   AddressRemoteDataSourceImpl(this._apiServices);

@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'cart_model.dart';
-import 'online_payment_responce_model.dart';
 part 'payment_method_options_model.g.dart';
 
 @JsonSerializable()

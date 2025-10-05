@@ -11,7 +11,7 @@ class CountryEntity extends Equatable{
   final String longitude;
   final List<Timezone> timezones;
 
-  CountryEntity({
+  const CountryEntity({
     required this.isoCode,
     required this.name,
     required this.phoneCode,

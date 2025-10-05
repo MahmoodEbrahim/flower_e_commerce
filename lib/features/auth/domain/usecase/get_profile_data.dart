@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetProfileDataUseCase{
-  AuthRepository _authRepository;
+  final AuthRepository _authRepository;
   GetProfileDataUseCase(this._authRepository);
   Future<ApiResult<UserModel>>getProfileData(String token)async{
     return await _authRepository.getProfileData(token);

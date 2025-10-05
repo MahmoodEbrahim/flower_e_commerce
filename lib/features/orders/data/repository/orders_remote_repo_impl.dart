@@ -1,6 +1,5 @@
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/orders/data/orders_remote_datasource.dart';
-import 'package:flower_e_commerce/features/orders/domain/entity/order_entity/orders_entity.dart';
 import 'package:flower_e_commerce/features/orders/domain/repository/orders_repository.dart';
 import 'package:injectable/injectable.dart';
 

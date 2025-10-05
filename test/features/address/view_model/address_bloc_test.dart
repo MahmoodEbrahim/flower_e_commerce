@@ -23,7 +23,6 @@ import 'package:flower_e_commerce/features/address/presentation/view_model/addre
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -313,7 +312,7 @@ provideDummy<LocalDsResult<List<CountryEntity>>>(LocalDsFailedResult("Dummy Erro
     CountryEntity(isoCode: "AF", name: "Afghanistan", phoneCode: "93", flag: "🇦🇫", currency: "AFN",
         latitude: "33.00000000", longitude: "65.00000000", timezones: [
           Timezone(
-            zoneName: "Asia\/Kabul",
+            zoneName: "Asia/Kabul",
             gmtOffset: 16200,
             gmtOffsetName: "UTC+04:30",
             abbreviation: "AFT",

@@ -18,7 +18,6 @@ import 'package:mockito/mockito.dart';
 import 'adress_data_source_impl_test.mocks.dart';
 import 'package:flutter/services.dart';
 
-import 'dart:convert';
 @GenerateMocks([AddressesApiServices,AssetBundle])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -75,7 +74,7 @@ final countriesJson = '''
     "longitude": "65.00000000",
     "timezones": [
       {
-        "zoneName": "Asia\/Kabul",
+        "zoneName": "Asia/Kabul",
         "gmtOffset": 16200,
         "gmtOffsetName": "UTC+04:30",
         "abbreviation": "AFT",
