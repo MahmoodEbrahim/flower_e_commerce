@@ -21,6 +21,15 @@ jobs:
           echo "Validating PR Title: ${{ github.event.pull_request.title }}"
 
           PR_title="${{ github.event.pull_request.title }}"
+          BASE_BRANCH="${{ github.base_ref }}"
+
+          echo "Base branch: $BASE_BRANCH"
+          
+          
+          if [[ "$BASE_BRANCH" == "main" || "$BASE_BRANCH" == "development" ]]; then
+            echo "PR targeting '$BASE_BRANCH' is exempt from PR title validation."
+            exit 0
+          fi
 
           # Define regex to validate PR title format
           pattern='^(Fix|Release|Hotfix|Test|Feature|Docs|Chore|Refactor|Bugfix|Perf)\/FA-[0-9]+-.+'
@@ -29,7 +38,7 @@ jobs:
           if ! [[ "$PR_title" =~ $pattern ]]; then
             echo "❌ PR title does not match the expected format: 'type/FA-Number-TaskName'"
             echo "Expected format: 'Feature/FA-4-Initialize-Project'"
-            echo "Allowed types: fix, release, feat, hotfix, build, test, feature"
+            echo "Allowed types: Fix, Release, Hotfix, Test, Feature, Docs, Chore, Refactor, Bugfix, Perf"
             exit 1
           fi
 
