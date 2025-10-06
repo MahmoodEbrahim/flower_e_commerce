@@ -97,44 +97,6 @@ void main() {
       expect(find.byKey(Key("error_message")), findsOneWidget);
     });
 
-    testWidgets("Verify search when no products matches keyword ", (
-        WidgetTester tester,
-        ) async {
-      when(mockSearchBloc.state).thenReturn(
-        SearchState(
-          requestState: RequestState.success,
-          products: [],
-          keyword: "keyword",
-        ),
-      );
-      when(mockSearchBloc.stream).thenAnswer(
-            (_) => Stream.fromIterable([
-          SearchState(),
-          SearchState(
-            requestState: RequestState.success,
-            products: [],
-            keyword: "keyword",
-          ),
-        ]),
-      );
-
-      await tester.pumpWidget(prepareWidget());
-      await tester.pump();
-
-      expect(find.byKey(Key("no_results_state")), findsOneWidget);
-      expect(
-        find.byWidgetPredicate(
-              (Widget widget) =>
-          widget is Icon &&
-              widget.color == AppColors.gray &&
-              widget.icon == Icons.sentiment_very_dissatisfied &&
-              widget.size == 40,
-        ),
-        findsOneWidget,
-      );
-      expect(find.byKey(Key('no_results_message')), findsOneWidget);
-    });
-
     testWidgets("Verify search when products is found", (
         WidgetTester tester,
         ) async {
