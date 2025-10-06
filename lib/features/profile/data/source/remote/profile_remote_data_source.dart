@@ -7,14 +7,16 @@ import 'package:flower_e_commerce/features/profile/api/models/change_password/re
 import 'package:flower_e_commerce/features/profile/api/models/change_password/response/change_password_response.dart';
 
 abstract interface class ProfileRemoteDataSource {
-  Future<ApiResult<UploadProfilePhotoResponse>>uploadPhoto(
-
-      String token,File photo
-      );
-  Future<ApiResult<EditProfileResponsea>>editProfile(
-      String token,
-    EditProfileRequest request
-      );
-  Future<ApiResult<ChangePasswordResponse>>
-  changePassword(ChangePasswordRequest request,String token);
+  Future<Result<UploadProfilePhotoResponse>> uploadPhoto(
+    String token,
+    File photo,
+  );
+  Future<Result<EditProfileResponsea>> editProfile(
+    String token,
+    EditProfileRequest request,
+  );
+  Future<Result<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+    String token,
+  );
 }

@@ -14,45 +14,42 @@ class PaymentRepositoryImp implements CheckoutRepository {
 
 }*/
 @Injectable(as: PaymentRepository)
-class  PaymentRepositoryImpl implements PaymentRepository{
+class PaymentRepositoryImpl implements PaymentRepository {
   final PaymentRemoteDataSource _paymentRemoteDataSource;
   @factoryMethod
   PaymentRepositoryImpl(this._paymentRemoteDataSource);
 
   @override
-  Future<ApiResult<CashPaymentResponceEntity>>
-  createCashOrder(CashOrderRequest cashorder)async {
-   var result=await _paymentRemoteDataSource.createCashOrder(cashorder);
-   switch(result){
-
-     case ApiSucessResult<CashOrderResponce>():{
-       return ApiSucessResult(result.sucessResult.toentity());
-
-     }
-
-     case ApiFailedResult<CashOrderResponce>():
+  Future<Result<CashPaymentResponceEntity>> createCashOrder(
+    CashOrderRequest cashorder,
+  ) async {
+    var result = await _paymentRemoteDataSource.createCashOrder(cashorder);
+    switch (result) {
+      case SucessResult<CashOrderResponce>():
         {
-          return ApiFailedResult(result.errorMessage);
+          return SucessResult(result.sucessResult.toentity());
         }
-   }
+
+      case FailedResult<CashOrderResponce>():
+        {
+          return FailedResult(result.errorMessage);
+        }
+    }
   }
 
   @override
-  Future<ApiResult<String>> createOnlineOrder(CashOrderRequest onlineorder) async{
-    var result=await _paymentRemoteDataSource.createOnlineOrder(onlineorder);
-    switch(result){
-
-      case ApiSucessResult<OnlinePaymentResponce>():{
-        return ApiSucessResult(result.sucessResult.session?.url??" ");
-
-      }
-
-      case ApiFailedResult<OnlinePaymentResponce>():
+  Future<Result<String>> createOnlineOrder(CashOrderRequest onlineorder) async {
+    var result = await _paymentRemoteDataSource.createOnlineOrder(onlineorder);
+    switch (result) {
+      case SucessResult<OnlinePaymentResponce>():
         {
-          return ApiFailedResult(result.errorMessage);
+          return SucessResult(result.sucessResult.session?.url ?? " ");
+        }
+
+      case FailedResult<OnlinePaymentResponce>():
+        {
+          return FailedResult(result.errorMessage);
         }
     }
-
   }
-
 }

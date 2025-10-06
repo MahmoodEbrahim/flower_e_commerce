@@ -70,56 +70,61 @@ void main() {
       numOfCartItems: 1,
       cart: fakeCart,
     );
-     updatedReq = UpdatedQuatityRequestEntity(
-        itemId: "68b803e8a8bca307f9e2266a",
-        updatedRequestBody: UpdatedRequestBodyEntity(quantity: 2));
+    updatedReq = UpdatedQuatityRequestEntity(
+      itemId: "68b803e8a8bca307f9e2266a",
+      updatedRequestBody: UpdatedRequestBodyEntity(quantity: 2),
+    );
   });
 
   group("UpdateQuatityUseCase Tests", () {
     test(
-        "when call updateQuantity with valid UpdatedQuatityRequestEntity it should return ApiSuccessResult",
-        () async {
-      // arrange
-      final updatedReq = UpdatedQuatityRequestEntity(
+      "when call updateQuantity with valid UpdatedQuatityRequestEntity it should return ApiSuccessResult",
+      () async {
+        // arrange
+        final updatedReq = UpdatedQuatityRequestEntity(
           itemId: "68b803e8a8bca307f9e2266a",
-          updatedRequestBody: UpdatedRequestBodyEntity(quantity: 2));
+          updatedRequestBody: UpdatedRequestBodyEntity(quantity: 2),
+        );
 
-      final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.updateQuantity(updatedReq))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.updateQuantity(updatedReq),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res = await updateQuatityUseCase.updateQuantity(updatedReq);
+        // act
+        final res = await updateQuatityUseCase.updateQuantity(updatedReq);
 
-      // assert
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
-      expect(acResult.sucessResult.cart!.id, fakeCart.id);
-      verify(mockCartRepository.updateQuantity(updatedReq)).called(1);
-    });
+        // assert
+        expect(res, isA<SucessResult<CartResponseEntity>>());
+        final acResult = res as SucessResult<CartResponseEntity>;
+        expect(acResult.sucessResult.cart!.id, fakeCart.id);
+        verify(mockCartRepository.updateQuantity(updatedReq)).called(1);
+      },
+    );
 
     test(
-        "when call updateQuantity with invalid UpdatedQuatityRequestEntity it should return ApiFailedResult",
-        () async {
-      // arrange
-      
+      "when call updateQuantity with invalid UpdatedQuatityRequestEntity it should return FailedResult",
+      () async {
+        // arrange
 
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.updateQuantity(updatedReq))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.updateQuantity(updatedReq),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res = await updateQuatityUseCase.updateQuantity(updatedReq);
+        // act
+        final res = await updateQuatityUseCase.updateQuantity(updatedReq);
 
-      // assert
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
-      expect(acResult.errorMessage, "error");
-      verify(mockCartRepository.updateQuantity(updatedReq)).called(1);
-    });
+        // assert
+        expect(res, isA<FailedResult<CartResponseEntity>>());
+        final acResult = res as FailedResult<CartResponseEntity>;
+        expect(acResult.errorMessage, "error");
+        verify(mockCartRepository.updateQuantity(updatedReq)).called(1);
+      },
+    );
   });
 }

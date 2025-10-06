@@ -21,24 +21,21 @@ void main() {
 
   setUpAll(() {
     mockOrdersRemoteDataSource = MockOrdersRemoteDataSource();
-    ordersRepoImpl =
-        OrdersRepoImpl(ordersRemoteDataSource: mockOrdersRemoteDataSource);
-  }
+    ordersRepoImpl = OrdersRepoImpl(
+      ordersRemoteDataSource: mockOrdersRemoteDataSource,
+    );
+  });
+  fakeOrder = OrdersEntity(
+    Id: "673e2bd91159920171828139",
+    totalPrice: 250,
+    state: "pending",
+    createdAt: "2023-10-01T10:00:00Z",
+    orderItems: [],
+    user: "user123",
+    paymentType: "Credit Card",
+    isPaid: true,
+    isDelivered: false,
   );
-  fakeOrder =
-      OrdersEntity(
-        Id: "673e2bd91159920171828139",
-        totalPrice: 250,
-        state: "pending",
-        createdAt: "2023-10-01T10:00:00Z",
-        orderItems: [],
-        user: "user123",
-        paymentType: "Credit Card",
-        isPaid: true,
-        isDelivered: false,
-
-
-      );
   fakeOrders = [fakeOrder];
   fakeOrdersResponse = OrdersResponceEntity(
     message: "success",
@@ -46,20 +43,22 @@ void main() {
   );
   group("test getCartOfUser in CartRespositoryImp", () {
     test('GetOrders returns ApiSuccessResult', () async {
-      final MockResult = ApiSucessResult<OrdersResponceEntity>(
-          fakeOrdersResponse);
+      final MockResult = SucessResult<OrdersResponceEntity>(
+        fakeOrdersResponse,
+      );
       // Arrange
-      provideDummy<ApiResult<OrdersResponceEntity>>(MockResult);
-      when(mockOrdersRemoteDataSource.GetOrders())
-          .thenAnswer((_) async => ApiSucessResult((fakeOrdersResponse)));
+      provideDummy<Result<OrdersResponceEntity>>(MockResult);
+      when(
+        mockOrdersRemoteDataSource.GetOrders(),
+      ).thenAnswer((_) async => SucessResult((fakeOrdersResponse)));
 
       // Act
       final result = await ordersRepoImpl.GetOrders();
 
       // Assert
-      expect(result, isA<ApiSucessResult<OrdersResponceEntity>>());
-      final data = (result as ApiSucessResult<OrdersResponceEntity>)
-          .sucessResult;
+      expect(result, isA<SucessResult<OrdersResponceEntity>>());
+      final data =
+          (result as SucessResult<OrdersResponceEntity>).sucessResult;
       expect(data, isA<OrdersResponceEntity>());
       expect(data.orders, isA<List<OrdersEntity>>());
       expect(data.orders?.length, 1);
@@ -67,17 +66,18 @@ void main() {
       verify(mockOrdersRemoteDataSource.GetOrders()).called(1);
       verifyNoMoreInteractions(mockOrdersRemoteDataSource);
     });
-    test("returns ApiFailedResult", () async {
-      final mockResult = ApiFailedResult<OrdersResponceEntity>("error");
-      provideDummy<ApiResult<OrdersResponceEntity>>(mockResult);
+    test("returns FailedResult", () async {
+      final mockResult = FailedResult<OrdersResponceEntity>("error");
+      provideDummy<Result<OrdersResponceEntity>>(mockResult);
 
-      when(mockOrdersRemoteDataSource.GetOrders())
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockOrdersRemoteDataSource.GetOrders(),
+      ).thenAnswer((_) async => mockResult);
 
       final res = await ordersRepoImpl.GetOrders();
 
-      expect(res, isA<ApiFailedResult<OrdersResponceEntity>>());
-      final acResult = res as ApiFailedResult<OrdersResponceEntity>;
+      expect(res, isA<FailedResult<OrdersResponceEntity>>());
+      final acResult = res as FailedResult<OrdersResponceEntity>;
       expect(acResult.errorMessage, "error");
       verify(mockOrdersRemoteDataSource.GetOrders()).called(1);
     });

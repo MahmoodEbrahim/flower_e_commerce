@@ -18,18 +18,23 @@ class SignupViewModel extends Bloc<SignUpEvent, SignUpState> {
     emit(state.copyWith(isLoading: true));
     final result = await _signupUsecase.signUp(event.userModel);
     switch (result) {
-      case ApiSucessResult<UserModel>():
-        
-        emit(state.copyWith(
+      case SucessResult<UserModel>():
+        emit(
+          state.copyWith(
             isLoading: false,
             userModel: result.sucessResult,
-            errorMessage: null));
+            errorMessage: null,
+          ),
+        );
 
-      case ApiFailedResult<UserModel>():
-        emit(state.copyWith(
+      case FailedResult<UserModel>():
+        emit(
+          state.copyWith(
             isLoading: false,
             errorMessage: result.errorMessage,
-            userModel: null));
+            userModel: null,
+          ),
+        );
     }
   }
 }

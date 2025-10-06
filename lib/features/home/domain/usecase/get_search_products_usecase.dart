@@ -11,7 +11,7 @@ class GetSearchProductsUsecase {
   final HomeRepository _homeRepository;
   GetSearchProductsUsecase(this._homeRepository);
 
-  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+  Future<Result<List<ProductsEntity>>> getSearchProducts(
     String filter,
     String? catId,
   ) async {

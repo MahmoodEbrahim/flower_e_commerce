@@ -6,13 +6,13 @@ import 'package:flower_e_commerce/features/profile/domain/repository/profile_rep
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetUploadPhotoProfileUseCase{
+class GetUploadPhotoProfileUseCase {
   final ProfileRepository _profileRepository;
   GetUploadPhotoProfileUseCase(this._profileRepository);
-  Future<ApiResult<UploadProfilePhotoResponse>>uploadPhoto(
-
-      String token,File photo
-      )async{
+  Future<Result<UploadProfilePhotoResponse>> uploadPhoto(
+    String token,
+    File photo,
+  ) async {
     return await _profileRepository.uploadPhoto(token, photo);
   }
 }

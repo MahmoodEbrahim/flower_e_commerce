@@ -55,6 +55,7 @@ dependencies:
   top_snackbar_flutter: ^3.3.0
   firebase_core: ^4.1.0
   webview_flutter: ^4.13.0
+  cloud_firestore: ^6.0.2
   font_awesome_flutter: ^10.10.0
   timeline_tile: ^2.0.0
   shared_preferences: ^2.5.3

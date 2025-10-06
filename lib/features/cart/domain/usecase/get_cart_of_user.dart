@@ -7,11 +7,9 @@ import 'package:injectable/injectable.dart';
 @injectable
 class GetCartOfUserUseCase {
   final CartRepository _cartRepository;
-  GetCartOfUserUseCase(
-    this._cartRepository,
-  );
+  GetCartOfUserUseCase(this._cartRepository);
 
-  Future<ApiResult<CartResponseEntity>> getCartOfUser() async {
+  Future<Result<CartResponseEntity>> getCartOfUser() async {
     return await _cartRepository.getCartOfUser();
   }
 }

@@ -14,8 +14,8 @@ void main() {
   late MockHomeRepository mockHomeRepository;
 
   setUpAll(() {
-    provideDummy<ApiResult<List<ProductsEntity>>>(
-      ApiFailedResult<List<ProductsEntity>>("error"),
+    provideDummy<Result<List<ProductsEntity>>>(
+      FailedResult<List<ProductsEntity>>("error"),
     );
     mockHomeRepository = MockHomeRepository();
     searchProductsUseCase = SearchProductsUseCase(mockHomeRepository);
@@ -27,7 +27,7 @@ void main() {
         title: "Dreamy White Roses Bouquet",
         description: "Elevate any celebration with our luxury rose bouquet.",
         imgCover:
-        "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
+            "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
         images: [
           "https://flower.elevateegy.com/uploads/8ee8e389-da6a-4371-8b13-5e35fcca16c6-image_one.png",
           "https://flower.elevateegy.com/uploads/66fc9304-3ceb-4b73-97dd-730ccf790c49-image_three.png",
@@ -40,12 +40,12 @@ void main() {
 
       when(
         mockHomeRepository.searchProducts("keyword"),
-      ).thenAnswer((_) async => ApiSucessResult([fakeProductEntity]));
+      ).thenAnswer((_) async => SucessResult([fakeProductEntity]));
 
       final result = await searchProductsUseCase.call("keyword");
 
-      expect(result, isA<ApiSucessResult<List<ProductsEntity>>>());
-      final success = result as ApiSucessResult<List<ProductsEntity>>;
+      expect(result, isA<SucessResult<List<ProductsEntity>>>());
+      final success = result as SucessResult<List<ProductsEntity>>;
       expect(success.sucessResult, [fakeProductEntity]);
       verify(mockHomeRepository.searchProducts("keyword")).called(1);
       expect(success.sucessResult.length, 1);
@@ -54,13 +54,13 @@ void main() {
 
     test("should return ApiErrorResult ", () async {
       when(mockHomeRepository.searchProducts("keyword")).thenAnswer(
-            (_) async => ApiFailedResult<List<ProductsEntity>>("Unexpected error"),
+        (_) async => FailedResult<List<ProductsEntity>>("Unexpected error"),
       );
 
       final result = await searchProductsUseCase.call("keyword");
 
-      expect(result, isA<ApiFailedResult<List<ProductsEntity>>>());
-      final failure = result as ApiFailedResult<List<ProductsEntity>>;
+      expect(result, isA<FailedResult<List<ProductsEntity>>>());
+      final failure = result as FailedResult<List<ProductsEntity>>;
       expect(failure.errorMessage, isNotNull);
       expect(failure.errorMessage, contains("Unexpected error"));
     });

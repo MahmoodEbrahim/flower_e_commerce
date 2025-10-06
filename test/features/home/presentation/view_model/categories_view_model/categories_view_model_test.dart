@@ -21,7 +21,6 @@ void main() {
   late String catId;
   late String filter;
 
-
   setUpAll(() {
     catId = "673c46fd1159920171827c85";
     mockGetProductsByCategoryIdUseCase = MockGetProductsByCategoryIdUseCase();
@@ -69,7 +68,7 @@ void main() {
       ),
     ];
 
-    filter="price";
+    filter = "price";
   });
 
   group('test categoryies view model', () {
@@ -77,11 +76,14 @@ void main() {
       'emits states first is loading and second with data when GetAllProductsOfCategoriesEvent is added and products are fetched successfully',
 
       build: () {
-        categoriesViewModel = CategoriesViewModel(mockGetProductsByCategoryIdUseCase,mockGetSearchProductsUsecase);
-        final mockResult = ApiSucessResult<List<ProductsEntity>>(
+        categoriesViewModel = CategoriesViewModel(
+          mockGetProductsByCategoryIdUseCase,
+          mockGetSearchProductsUsecase,
+        );
+        final mockResult = SucessResult<List<ProductsEntity>>(
           fakeProductsModel,
         );
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+        provideDummy<Result<List<ProductsEntity>>>(mockResult);
         when(
           mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId),
         ).thenAnswer((_) async => mockResult);
@@ -106,12 +108,13 @@ void main() {
       'emits states first is loading and second with errorMessage when GetAllProductsOfCategoriesEvent is added and products are fetched failed',
       build: () {
         categoriesViewModel = CategoriesViewModel(
-          mockGetProductsByCategoryIdUseCase,mockGetSearchProductsUsecase
+          mockGetProductsByCategoryIdUseCase,
+          mockGetSearchProductsUsecase,
         );
-        final mockResult = ApiFailedResult<List<ProductsEntity>>(
+        final mockResult = FailedResult<List<ProductsEntity>>(
           "errorMessage",
         );
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+        provideDummy<Result<List<ProductsEntity>>>(mockResult);
         when(
           mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId),
         ).thenAnswer((_) async => mockResult);
@@ -130,91 +133,84 @@ void main() {
         mockGetProductsByCategoryIdUseCase.getProductsByCategoryId(catId),
       ).called(1),
     );
- 
-     blocTest<CategoriesViewModel, CategoryState>(
 
-    
-    'emits states first is loading and second with data when GetAllProductsEvent is added and products are fetched successfully',
-    build: () {
-      categoriesViewModel = CategoriesViewModel(
-        mockGetProductsByCategoryIdUseCase,mockGetSearchProductsUsecase
-      );
-      return categoriesViewModel;
-    },
-    act: (bloc) => bloc.add(GetAllProductsEvent(products: fakeProductsModel)),
-    expect: () => <CategoryState>[
-      CategoryState(isLoading: true, errorMessage: null, products: null),
-      CategoryState(
-        isLoading: false,
-        errorMessage: null,
-        products: fakeProductsModel,
-      ),
-    ],
-  );
+    blocTest<CategoriesViewModel, CategoryState>(
+      'emits states first is loading and second with data when GetAllProductsEvent is added and products are fetched successfully',
+      build: () {
+        categoriesViewModel = CategoriesViewModel(
+          mockGetProductsByCategoryIdUseCase,
+          mockGetSearchProductsUsecase,
+        );
+        return categoriesViewModel;
+      },
+      act: (bloc) => bloc.add(GetAllProductsEvent(products: fakeProductsModel)),
+      expect: () => <CategoryState>[
+        CategoryState(isLoading: true, errorMessage: null, products: null),
+        CategoryState(
+          isLoading: false,
+          errorMessage: null,
+          products: fakeProductsModel,
+        ),
+      ],
+    );
 
-  
-     blocTest<CategoriesViewModel, CategoryState>(
-
-    
-    'emits states first is loading and second with data when GetSearchProductsEvent is added and products are fetched successfully',
-    build: () {
-       categoriesViewModel = CategoriesViewModel(mockGetProductsByCategoryIdUseCase,mockGetSearchProductsUsecase);
-        final mockResult = ApiSucessResult<List<ProductsEntity>>(
+    blocTest<CategoriesViewModel, CategoryState>(
+      'emits states first is loading and second with data when GetSearchProductsEvent is added and products are fetched successfully',
+      build: () {
+        categoriesViewModel = CategoriesViewModel(
+          mockGetProductsByCategoryIdUseCase,
+          mockGetSearchProductsUsecase,
+        );
+        final mockResult = SucessResult<List<ProductsEntity>>(
           fakeProductsModel,
         );
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+        provideDummy<Result<List<ProductsEntity>>>(mockResult);
         when(
-          mockGetSearchProductsUsecase.getSearchProducts(filter,catId),
+          mockGetSearchProductsUsecase.getSearchProducts(filter, catId),
         ).thenAnswer((_) async => mockResult);
         return categoriesViewModel;
-    },
-    act: (bloc) => bloc.add(GetSearchProductsEvent(filter:filter,catId: catId )),
-    expect: () => <CategoryState>[
-      CategoryState(isLoading: true),
-      CategoryState(
-        isLoading: false,
-        errorMessage: null,
-        products: fakeProductsModel,
-      ),
-    ],
+      },
+      act: (bloc) =>
+          bloc.add(GetSearchProductsEvent(filter: filter, catId: catId)),
+      expect: () => <CategoryState>[
+        CategoryState(isLoading: true),
+        CategoryState(
+          isLoading: false,
+          errorMessage: null,
+          products: fakeProductsModel,
+        ),
+      ],
 
       verify: (categoriesViewModel) => verify(
-        mockGetSearchProductsUsecase.getSearchProducts(filter,catId),
+        mockGetSearchProductsUsecase.getSearchProducts(filter, catId),
       ).called(1),
-  );
+    );
 
     blocTest<CategoriesViewModel, CategoryState>(
       'emits states first is loading and second with errorMessage when GetSearchProductsEvent is added and products are fetched failed',
       build: () {
         categoriesViewModel = CategoriesViewModel(
-          mockGetProductsByCategoryIdUseCase,mockGetSearchProductsUsecase
+          mockGetProductsByCategoryIdUseCase,
+          mockGetSearchProductsUsecase,
         );
-        final mockResult = ApiFailedResult<List<ProductsEntity>>(
+        final mockResult = FailedResult<List<ProductsEntity>>(
           "errorMessage",
         );
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+        provideDummy<Result<List<ProductsEntity>>>(mockResult);
         when(
-          mockGetSearchProductsUsecase.getSearchProducts(filter,catId),
+          mockGetSearchProductsUsecase.getSearchProducts(filter, catId),
         ).thenAnswer((_) async => mockResult);
         return categoriesViewModel;
       },
-      act: (bloc) => bloc.add(GetSearchProductsEvent(filter: filter,catId: catId)),
+      act: (bloc) =>
+          bloc.add(GetSearchProductsEvent(filter: filter, catId: catId)),
       expect: () => <CategoryState>[
         CategoryState(isLoading: true, errorMessage: null, products: null),
-        CategoryState(
-          isLoading: false,
-          errorMessage: "errorMessage",
-         
-        ),
+        CategoryState(isLoading: false, errorMessage: "errorMessage"),
       ],
-       verify: (categoriesViewModel) => verify(
-        mockGetSearchProductsUsecase.getSearchProducts(filter,catId),
+      verify: (categoriesViewModel) => verify(
+        mockGetSearchProductsUsecase.getSearchProducts(filter, catId),
       ).called(1),
     );
- 
-
   });
-
-
-
 }

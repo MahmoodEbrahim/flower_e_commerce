@@ -13,77 +13,88 @@ import 'package:mockito/mockito.dart';
 import 'orders_view_model_test.mocks.dart';
 
 @GenerateMocks([GetOrdersUseCase])
-void main(){
+void main() {
   late MockGetOrdersUseCase mockGetOrdersUseCase;
   late GetOrdersUseCase getOrdersUseCase;
   late OrdersViewModel ordersViewModel;
   late OrdersEntity fakeOrder;
   late List<OrdersEntity> fakeOrders;
   late OrdersResponceEntity fakeOrdersResponse;
-  setUpAll((){
-    mockGetOrdersUseCase=MockGetOrdersUseCase();
-    getOrdersUseCase=mockGetOrdersUseCase;
-    ordersViewModel=OrdersViewModel(getOrdersUseCase);
-
+  setUpAll(() {
+    mockGetOrdersUseCase = MockGetOrdersUseCase();
+    getOrdersUseCase = mockGetOrdersUseCase;
+    ordersViewModel = OrdersViewModel(getOrdersUseCase);
   });
-  fakeOrder =
-      OrdersEntity(
-        Id: "673e2bd91159920171828139",
-        totalPrice: 250,
-        state: "pending",
-        createdAt: "2023-10-01T10:00:00Z",
-        orderItems: [],
-        user: "user123",
-        paymentType: "Credit Card",
-        isPaid: true,
-        isDelivered: false,);
+  fakeOrder = OrdersEntity(
+    Id: "673e2bd91159920171828139",
+    totalPrice: 250,
+    state: "pending",
+    createdAt: "2023-10-01T10:00:00Z",
+    orderItems: [],
+    user: "user123",
+    paymentType: "Credit Card",
+    isPaid: true,
+    isDelivered: false,
+  );
   fakeOrders = [fakeOrder];
   fakeOrdersResponse = OrdersResponceEntity(
     message: "success",
     orders: fakeOrders,
   );
-  group("test getorders function",(){
-    blocTest<OrdersViewModel,OrderStates>(
+  group("test getorders function", () {
+    blocTest<OrdersViewModel, OrderStates>(
       'emits loading then success and calls usecase',
-      build:(){
-        ordersViewModel=OrdersViewModel(getOrdersUseCase);
-        final mockresult=ApiSucessResult<OrdersResponceEntity>(fakeOrdersResponse);
-        provideDummy<ApiResult<OrdersResponceEntity>>(mockresult);
-        when(mockGetOrdersUseCase.GetOrders()).thenAnswer((_) async=>mockresult);
+      build: () {
+        ordersViewModel = OrdersViewModel(getOrdersUseCase);
+        final mockresult = SucessResult<OrdersResponceEntity>(
+          fakeOrdersResponse,
+        );
+        provideDummy<Result<OrdersResponceEntity>>(mockresult);
+        when(
+          mockGetOrdersUseCase.GetOrders(),
+        ).thenAnswer((_) async => mockresult);
 
-        return ordersViewModel;},
-      act:(bloc)=>bloc.add(GetOrderEvent()),
-      expect: ()=>[
-        OrderStates(isLoading: true, errorMessage: null,OrdersResonse: null),
-        OrderStates(isLoading: false, errorMessage: null, OrdersResonse: fakeOrdersResponse),
+        return ordersViewModel;
+      },
+      act: (bloc) => bloc.add(GetOrderEvent()),
+      expect: () => [
+        OrderStates(isLoading: true, errorMessage: null, OrdersResonse: null),
+        OrderStates(
+          isLoading: false,
+          errorMessage: null,
+          OrdersResonse: fakeOrdersResponse,
+        ),
       ],
-      verify: (_){
+      verify: (_) {
         verify(mockGetOrdersUseCase.GetOrders()).called(1);
       },
-
     );
-    blocTest<OrdersViewModel,OrderStates>(
+    blocTest<OrdersViewModel, OrderStates>(
       'emits loading then failure with old data and calls usecase',
-      build:(){
-        ordersViewModel=OrdersViewModel(getOrdersUseCase);
-        final mockresult=ApiFailedResult<OrdersResponceEntity>("error");
-        provideDummy<ApiResult<OrdersResponceEntity>>(mockresult);
-        when(mockGetOrdersUseCase.GetOrders()).thenAnswer((_) async=>mockresult);
+      build: () {
+        ordersViewModel = OrdersViewModel(getOrdersUseCase);
+        final mockresult = FailedResult<OrdersResponceEntity>("error");
+        provideDummy<Result<OrdersResponceEntity>>(mockresult);
+        when(
+          mockGetOrdersUseCase.GetOrders(),
+        ).thenAnswer((_) async => mockresult);
 
-        return ordersViewModel;},
-      act:(bloc)=>bloc.add(GetOrderEvent()),
-      expect: ()=>[
-        OrderStates(isLoading: true, errorMessage: null,OrdersResonse: null),
-        OrderStates(isLoading: false, errorMessage:"error", OrdersResonse: ordersViewModel.state.OrdersResonse),
+        return ordersViewModel;
+      },
+      act: (bloc) => bloc.add(GetOrderEvent()),
+      expect: () => [
+        OrderStates(isLoading: true, errorMessage: null, OrdersResonse: null),
+        OrderStates(
+          isLoading: false,
+          errorMessage: "error",
+          OrdersResonse: ordersViewModel.state.OrdersResonse,
+        ),
       ],
-      verify: (_){
+      verify: (_) {
         verify(mockGetOrdersUseCase.GetOrders()).called(1);
       },
-
     );
   });
-  
-
 }
 /*group("test getCartOfUser function", () {
     blocTest<CartViewModel, CartStates>(
@@ -121,7 +132,7 @@ void main(){
         mockDeleteItemFromCartUseCase,
         mockUpdateQuatityUseCase);
 
-        final mockResult = ApiFailedResult<CartResponseEntity>("error");
+        final mockResult = FailedResult<CartResponseEntity>("error");
         provideDummy<ApiResult<CartResponseEntity>>(mockResult);
 
         when(mockGetCartOfUserUseCase.getCartOfUser())

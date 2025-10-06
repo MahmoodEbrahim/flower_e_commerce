@@ -4,10 +4,10 @@ import 'package:flower_e_commerce/features/auth/domain/repository/auth_repositor
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetProfileDataUseCase{
+class GetProfileDataUseCase {
   final AuthRepository _authRepository;
   GetProfileDataUseCase(this._authRepository);
-  Future<ApiResult<UserModel>>getProfileData(String token)async{
+  Future<Result<UserModel>> getProfileData(String token) async {
     return await _authRepository.getProfileData(token);
   }
 }

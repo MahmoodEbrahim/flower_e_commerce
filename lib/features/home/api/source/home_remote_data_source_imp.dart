@@ -13,7 +13,7 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
   final HomeApiService _apiService;
   HomeRemoteDataSourceImp(this._apiService);
   @override
-  Future<ApiResult<List<ProductsEntity>>> getProductsDetialsByOccasions(
+  Future<Result<List<ProductsEntity>>> getProductsDetialsByOccasions(
     String occasionId,
   ) async {
     try {
@@ -24,21 +24,21 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       final products =
           response.products?.map((e) => e.toEntity()).toList() ?? [];
       if (response.products == null) {
-        return ApiFailedResult('Products list is null');
+        return FailedResult('Products list is null');
       } else {
-        return ApiSucessResult(products);
+        return SucessResult(products);
       }
     } catch (error) {
       if (error is DioException) {
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
-        return ApiFailedResult(error.toString());
+        return FailedResult(error.toString());
       }
     }
   }
 
   @override
-  Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
+  Future<Result<List<ProductsEntity>>> getProductsByCategoryId(
     String catId,
   ) async {
     try {
@@ -48,7 +48,7 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
           .map((dto) => dto.toEntity())
           .toList();
 
-      return ApiSucessResult(productModelList);
+      return SucessResult(productModelList);
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -56,14 +56,14 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+  Future<Result<List<ProductsEntity>>> getSearchProducts(
     String filter,
     String? catId,
   ) async {
@@ -72,7 +72,7 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       final products = searchResponse.products!.map((model) {
         return model.toEntity();
       }).toList();
-      return ApiSucessResult(products);
+      return SucessResult(products);
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -80,25 +80,25 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<HomeEntity>> getHomeData() async {
+  Future<Result<HomeEntity>> getHomeData() async {
     try {
       final homeModel = await _apiService.getHomeData();
-  
-      return ApiSucessResult(homeModel.toEntity());
+
+      return SucessResult(homeModel.toEntity());
     } catch (e) {
-      return ApiFailedResult('Failed to fetch home data: $e');
+      return FailedResult('Failed to fetch home data: $e');
     }
   }
 
   @override
-  Future<ApiResult<List<ProductsEntity>>> searchProducts(
+  Future<Result<List<ProductsEntity>>> searchProducts(
     String keyword, {
     CancelToken? cancelToken,
   }) async {
@@ -112,12 +112,12 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
           .map((dto) => dto.toEntity())
           .toList();
 
-      return ApiSucessResult(productsEntityList);
+      return SucessResult(productsEntityList);
     } catch (error) {
       if (error is DioException) {
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
-        return ApiFailedResult(error.toString());
+        return FailedResult(error.toString());
       }
     }
   }

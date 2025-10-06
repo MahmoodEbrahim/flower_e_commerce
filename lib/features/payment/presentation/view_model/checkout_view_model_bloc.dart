@@ -10,10 +10,13 @@ import 'package:meta/meta.dart';
 
 part 'checkout_view_model_event.dart';
 part 'checkout_view_model_state.dart';
+
 @injectable
-class CheckoutViewModelBloc extends Bloc<CheckoutViewModelEvent, CheckoutViewModelState> {
+class CheckoutViewModelBloc
+    extends Bloc<CheckoutViewModelEvent, CheckoutViewModelState> {
   @factoryMethod
-  CheckoutViewModelBloc(this.cashUseCase , this.onlineUseCase) : super(CheckoutViewModelInitial()) {
+  CheckoutViewModelBloc(this.cashUseCase, this.onlineUseCase)
+    : super(CheckoutViewModelInitial()) {
     on<PayCashOrderEvent>(payCashOrder);
     on<PayOnlineOrderEvent>(payOnlineOrder);
   }
@@ -21,32 +24,50 @@ class CheckoutViewModelBloc extends Bloc<CheckoutViewModelEvent, CheckoutViewMod
   CashUseCase cashUseCase;
   OnlineUsecase onlineUseCase;
 
-  payCashOrder(PayCashOrderEvent event , Emitter emit)async{
+  payCashOrder(PayCashOrderEvent event, Emitter emit) async {
     emit(PaymentCashStates(isLoading: true));
     var result = await cashUseCase.invoke(event.cashorder);
-    switch(result){
-
-      case ApiSucessResult<CashPaymentResponceEntity>():{
-        emit(PaymentCashStates(isLoading: false,cashPaymentResponceEntity: result.sucessResult));
-      }
-      case ApiFailedResult<CashPaymentResponceEntity>():{
-        emit(PaymentCashStates(isLoading: false,errorMessage: result.errorMessage));
-      }
+    switch (result) {
+      case SucessResult<CashPaymentResponceEntity>():
+        {
+          emit(
+            PaymentCashStates(
+              isLoading: false,
+              cashPaymentResponceEntity: result.sucessResult,
+            ),
+          );
+        }
+      case FailedResult<CashPaymentResponceEntity>():
+        {
+          emit(
+            PaymentCashStates(
+              isLoading: false,
+              errorMessage: result.errorMessage,
+            ),
+          );
+        }
     }
   }
-  payOnlineOrder(PayOnlineOrderEvent event , Emitter emit)async{
+
+  payOnlineOrder(PayOnlineOrderEvent event, Emitter emit) async {
     emit(PaymentOnlineStates(isLoading: true));
     var result = await onlineUseCase.invoke(event.onlineorder);
-    switch(result){
-
-      case ApiSucessResult<String>():{
-        emit(PaymentOnlineStates(isLoading: false,
-            frame: result.sucessResult));
-      }
-      case ApiFailedResult<String>():{
-        emit(PaymentOnlineStates(isLoading: false,
-            errorMessage: result.errorMessage));
-      }
+    switch (result) {
+      case SucessResult<String>():
+        {
+          emit(
+            PaymentOnlineStates(isLoading: false, frame: result.sucessResult),
+          );
+        }
+      case FailedResult<String>():
+        {
+          emit(
+            PaymentOnlineStates(
+              isLoading: false,
+              errorMessage: result.errorMessage,
+            ),
+          );
+        }
     }
   }
 }

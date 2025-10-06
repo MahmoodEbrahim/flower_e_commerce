@@ -4,16 +4,13 @@ import 'package:flower_e_commerce/features/cart/domain/entity/cart_response_enti
 import 'package:flower_e_commerce/features/cart/domain/entity/updated_quatity_request_entity.dart';
 
 abstract interface class CartRepository {
-  Future<ApiResult<CartResponseEntity>> addProductToCart(
-      CartItemRequestEntity cartRequestModel);
-  Future<ApiResult<CartResponseEntity>> getCartOfUser();
+  Future<Result<CartResponseEntity>> addProductToCart(
+    CartItemRequestEntity cartRequestModel,
+  );
+  Future<Result<CartResponseEntity>> getCartOfUser();
 
-
-    Future<ApiResult<CartResponseEntity>> deleteItemFromCart(
-      String itemId);
-    Future<ApiResult<CartResponseEntity>> updateQuantity(
-     UpdatedQuatityRequestEntity updatedReq);
-
-
-
+  Future<Result<CartResponseEntity>> deleteItemFromCart(String itemId);
+  Future<Result<CartResponseEntity>> updateQuantity(
+    UpdatedQuatityRequestEntity updatedReq,
+  );
 }

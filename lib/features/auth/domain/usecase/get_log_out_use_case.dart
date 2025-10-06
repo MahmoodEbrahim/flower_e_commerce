@@ -4,10 +4,10 @@ import 'package:flower_e_commerce/features/auth/domain/repository/auth_repositor
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetLogOutUseCase{
+class GetLogOutUseCase {
   AuthRepository authRepository;
   GetLogOutUseCase(this.authRepository);
-  Future<ApiResult<SignOutResponse>> logOut(String token)async{
+  Future<Result<SignOutResponse>> logOut(String token) async {
     return await authRepository.logOut(token);
   }
 }

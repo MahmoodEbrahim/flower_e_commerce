@@ -7,11 +7,9 @@ import '../repository/orders_repository.dart';
 @injectable
 class GetOrdersUseCase {
   final OrdersRepository _ordersRepository;
-  GetOrdersUseCase(
-      this._ordersRepository,
-      );
+  GetOrdersUseCase(this._ordersRepository);
 
-  Future<ApiResult<OrdersResponceEntity>> GetOrders() async {
+  Future<Result<OrdersResponceEntity>> GetOrders() async {
     return await _ordersRepository.GetOrders();
   }
 }

@@ -12,36 +12,41 @@ class HomeRepositoryImp implements HomeRepository {
   final HomeRemoteDataSource _homeRemoteDataSource;
   HomeRepositoryImp(this._homeRemoteDataSource);
   @override
-  Future<ApiResult<List<ProductsEntity>>> getProductsDetialsByOccasions(
+  Future<Result<List<ProductsEntity>>> getProductsDetialsByOccasions(
     String occasionId,
   ) async {
     return _homeRemoteDataSource.getProductsDetialsByOccasions(occasionId);
   }
 
   @override
-  Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
+  Future<Result<List<ProductsEntity>>> getProductsByCategoryId(
     String catId,
   ) async {
     return await _homeRemoteDataSource.getProductsByCategoryId(catId);
   }
 
   @override
-  Future<ApiResult<HomeEntity>> getHomeData() async {
+  Future<Result<HomeEntity>> getHomeData() async {
     try {
       return await _homeRemoteDataSource.getHomeData();
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword,
-      {CancelToken? cancelToken}) async{
-    return await _homeRemoteDataSource.searchProducts(keyword,cancelToken: cancelToken);
+  Future<Result<List<ProductsEntity>>> searchProducts(
+    String keyword, {
+    CancelToken? cancelToken,
+  }) async {
+    return await _homeRemoteDataSource.searchProducts(
+      keyword,
+      cancelToken: cancelToken,
+    );
   }
-  
-   @override
-  Future<ApiResult<List<ProductsEntity>>> getSearchProducts(
+
+  @override
+  Future<Result<List<ProductsEntity>>> getSearchProducts(
     String filter,
     String? catId,
   ) async {

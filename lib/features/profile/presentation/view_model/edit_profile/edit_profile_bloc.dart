@@ -8,16 +8,17 @@ import 'package:flower_e_commerce/features/profile/presentation/view_model/edit_
 import 'package:flower_e_commerce/features/profile/presentation/view_model/edit_profile/edit_profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
-class EditProfileBloc extends Bloc<EditProfileEvent,EditProfileStates>{
+class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileStates> {
   final GetUploadPhotoProfileUseCase _getUploadPhotoProfileUseCase;
   final GetEditProfileUseCase _getEditProfileUseCase;
-  EditProfileBloc(this._getUploadPhotoProfileUseCase,this._getEditProfileUseCase)
-      :super(EditProfileStates()){
+  EditProfileBloc(
+    this._getUploadPhotoProfileUseCase,
+    this._getEditProfileUseCase,
+  ) : super(EditProfileStates()) {
     on<GetUploadProfileEvent>((event, emit) async {
-
       emit(state.copyWith(uploadPhotoState: RequestState.loading));
-
 
       final result = await _getUploadPhotoProfileUseCase.uploadPhoto(
         event.token,
@@ -25,40 +26,46 @@ class EditProfileBloc extends Bloc<EditProfileEvent,EditProfileStates>{
       );
 
       switch (result) {
-        case ApiSucessResult<UploadProfilePhotoResponse>():
-          emit(state.copyWith(
-            uploadProfilePhotoResponse: result.sucessResult,
-            uploadPhotoState: RequestState.success,
-          ));
+        case SucessResult<UploadProfilePhotoResponse>():
+          emit(
+            state.copyWith(
+              uploadProfilePhotoResponse: result.sucessResult,
+              uploadPhotoState: RequestState.success,
+            ),
+          );
 
-        case ApiFailedResult<UploadProfilePhotoResponse>():
-          emit(state.copyWith(
-            errorMessageUploadPhoto: result.errorMessage,
-            uploadPhotoState: RequestState.error,
-          ));
+        case FailedResult<UploadProfilePhotoResponse>():
+          emit(
+            state.copyWith(
+              errorMessageUploadPhoto: result.errorMessage,
+              uploadPhotoState: RequestState.error,
+            ),
+          );
       }
     });
-on<GetEditProfileEvent>((event,emit)async{
-  emit(state.copyWith(
-    editProfileState: RequestState.loading
-  ));
-  final result=await _getEditProfileUseCase.editProfile(event.token,
-      event.request);
-  switch(result){
-    case ApiSucessResult<EditProfileResponsea>():
-      emit(state.copyWith(
-          editProfileResponsea: result.sucessResult,
-          editProfileState: RequestState.success
-      ));
+    on<GetEditProfileEvent>((event, emit) async {
+      emit(state.copyWith(editProfileState: RequestState.loading));
+      final result = await _getEditProfileUseCase.editProfile(
+        event.token,
+        event.request,
+      );
+      switch (result) {
+        case SucessResult<EditProfileResponsea>():
+          emit(
+            state.copyWith(
+              editProfileResponsea: result.sucessResult,
+              editProfileState: RequestState.success,
+            ),
+          );
 
-    case ApiFailedResult<EditProfileResponsea>():
-      emit(state.copyWith(
-          errorMessageEditProfile: result.errorMessage,
-          editProfileState: RequestState.error
-      ));
+        case FailedResult<EditProfileResponsea>():
+          emit(
+            state.copyWith(
+              errorMessageEditProfile: result.errorMessage,
+              editProfileState: RequestState.error,
+            ),
+          );
+      }
+    });
   }
-
-});
-  }
-
 }

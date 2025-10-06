@@ -8,12 +8,11 @@ import 'package:injectable/injectable.dart';
 @injectable
 class AddToCartUsecase {
   final CartRepository _cartRepository;
-  AddToCartUsecase(
-    this._cartRepository,
-  );
+  AddToCartUsecase(this._cartRepository);
 
-  Future<ApiResult<CartResponseEntity>> addProductToCart(
-      CartItemRequestEntity cartRequestModel) async {
+  Future<Result<CartResponseEntity>> addProductToCart(
+    CartItemRequestEntity cartRequestModel,
+  ) async {
     return await _cartRepository.addProductToCart(cartRequestModel);
   }
 }

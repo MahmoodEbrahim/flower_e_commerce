@@ -16,29 +16,41 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
   final DeleteItemFromCartUseCase _deleteItemFromCartUseCase;
   final UpdateQuatityUseCase _updateQuatityUseCase;
 
-  CartViewModel(this._addToCartUsecase, this._getCartOfUser,
-      this._deleteItemFromCartUseCase,this._updateQuatityUseCase)
-      : super(CartStates()) {
+  CartViewModel(
+    this._addToCartUsecase,
+    this._getCartOfUser,
+    this._deleteItemFromCartUseCase,
+    this._updateQuatityUseCase,
+  ) : super(CartStates()) {
     on<AddToCartEvent>(_addToCart);
     on<GetCartItemsEvent>(_getCartItems);
     on<DeleteItemFromCartEvent>(_deleteItemFromCart);
     on<UpdateQuatityItemCEvent>(_updateQuanity);
-    
-
   }
 
   Future<void> _addToCart(AddToCartEvent event, Emitter emit) async {
     emit(state.copyWith(isLoading: true));
-    final res =
-    await _addToCartUsecase.addProductToCart(event.cartItemRequestEntity);
+    final res = await _addToCartUsecase.addProductToCart(
+      event.cartItemRequestEntity,
+    );
 
     switch (res) {
-      case ApiSucessResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: null, cart: res.sucessResult));
-      case ApiFailedResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: res.errorMessage, cart: state.cartResonse));
+      case SucessResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: null,
+            cart: res.sucessResult,
+          ),
+        );
+      case FailedResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: res.errorMessage,
+            cart: state.cartResonse,
+          ),
+        );
     }
   }
 
@@ -47,43 +59,76 @@ class CartViewModel extends Bloc<CartEvents, CartStates> {
     final res = await _getCartOfUser.getCartOfUser();
 
     switch (res) {
-      case ApiSucessResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: null, cart: res.sucessResult));
-      case ApiFailedResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: res.errorMessage, cart: state.cartResonse));
+      case SucessResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: null,
+            cart: res.sucessResult,
+          ),
+        );
+      case FailedResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: res.errorMessage,
+            cart: state.cartResonse,
+          ),
+        );
     }
   }
 
   Future<void> _deleteItemFromCart(
-      DeleteItemFromCartEvent event, Emitter emit) async {
-
-    final res =
-    await _deleteItemFromCartUseCase.deleteItemFromCart(event.itemId);
+    DeleteItemFromCartEvent event,
+    Emitter emit,
+  ) async {
+    final res = await _deleteItemFromCartUseCase.deleteItemFromCart(
+      event.itemId,
+    );
 
     switch (res) {
-      case ApiSucessResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: null, cart: res.sucessResult));
-      case ApiFailedResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: res.errorMessage, cart: state.cartResonse));
+      case SucessResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: null,
+            cart: res.sucessResult,
+          ),
+        );
+      case FailedResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: res.errorMessage,
+            cart: state.cartResonse,
+          ),
+        );
     }
   }
-  Future<void> _updateQuanity(
-      UpdateQuatityItemCEvent event, Emitter emit) async {
 
-    final res =
-    await _updateQuatityUseCase.updateQuantity(event.updatedReq);
+  Future<void> _updateQuanity(
+    UpdateQuatityItemCEvent event,
+    Emitter emit,
+  ) async {
+    final res = await _updateQuatityUseCase.updateQuantity(event.updatedReq);
 
     switch (res) {
-      case ApiSucessResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: null, cart: res.sucessResult));
-      case ApiFailedResult<CartResponseEntity>():
-        emit(state.copyWith(
-            isLoading: false, errorMessage: res.errorMessage, cart: state.cartResonse));
+      case SucessResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: null,
+            cart: res.sucessResult,
+          ),
+        );
+      case FailedResult<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: res.errorMessage,
+            cart: state.cartResonse,
+          ),
+        );
     }
   }
 }

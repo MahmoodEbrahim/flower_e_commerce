@@ -44,55 +44,64 @@ void main() {
       addresses: [],
     );
 
-    provideDummy<ApiResult<UserModel>>(ApiFailedResult<UserModel>("dummy"));
-    provideDummy<utils.ApiResult<LoginModel>>(
-        utils.ApiFailedResult<LoginModel>("dummy"));
+    provideDummy<Result<UserModel>>(FailedResult<UserModel>("dummy"));
+    provideDummy<utils.Result<LoginModel>>(
+      utils.FailedResult<LoginModel>("dummy"),
+    );
   });
 
   // ---------------------------signup------------------------------------
   group("test signup in AuthRepository", () {
     test(
-        'when call signUp in AuthRepositoryImp with success paramters it should create user from AuthRemoteDataSource with successApiResult',
-            () async {
-          //Arrange
-          final mockResult = ApiSucessResult<UserModel>(fakeUser);
-          provideDummy<ApiResult<UserModel>>(mockResult);
+      'when call signUp in AuthRepositoryImp with success paramters it should create user from AuthRemoteDataSource with successApiResult',
+      () async {
+        //Arrange
+        final mockResult = SucessResult<UserModel>(fakeUser);
+        provideDummy<Result<UserModel>>(mockResult);
 
-          when(mockAuthRemoteDataSource.signUp(fakeSignupRequestModel))
-              .thenAnswer((_) async => mockResult);
+        when(
+          mockAuthRemoteDataSource.signUp(fakeSignupRequestModel),
+        ).thenAnswer((_) async => mockResult);
 
-          //Act
-          final result = await authRepositoryImp.signUp(fakeSignupRequestModel);
+        //Act
+        final result = await authRepositoryImp.signUp(fakeSignupRequestModel);
 
-          // Assert
-          expect(result, isA<ApiSucessResult<UserModel>>());
-          final acResult = result as ApiSucessResult<UserModel>;
-          expect(acResult.sucessResult.firstName, equals("Aya"));
-          expect(acResult.sucessResult.email, equals("aya.saber@example.com"));
+        // Assert
+        expect(result, isA<SucessResult<UserModel>>());
+        final acResult = result as SucessResult<UserModel>;
+        expect(acResult.sucessResult.firstName, equals("Aya"));
+        expect(acResult.sucessResult.email, equals("aya.saber@example.com"));
 
-          verify(mockAuthRemoteDataSource.signUp(fakeSignupRequestModel)).called(1);
-        });
+        verify(
+          mockAuthRemoteDataSource.signUp(fakeSignupRequestModel),
+        ).called(1);
+      },
+    );
 
     test(
-        'when call signUp in AuthRepositoryImp  it should return failedApiResult',
-            () async {
-          //Arrange
-          final mockResult = ApiFailedResult<UserModel>("failed");
-          provideDummy<ApiResult<UserModel>>(mockResult);
+      'when call signUp in AuthRepositoryImp  it should return failedApiResult',
+      () async {
+        //Arrange
+        final mockResult = FailedResult<UserModel>("failed");
+        provideDummy<Result<UserModel>>(mockResult);
 
-          when(mockAuthRemoteDataSource.signUp(fakeSignupRequestModel))
-              .thenAnswer((_) async => mockResult);
+        when(
+          mockAuthRemoteDataSource.signUp(fakeSignupRequestModel),
+        ).thenAnswer((_) async => mockResult);
 
-          //Act
-          final result = await authRepositoryImp.signUp(fakeSignupRequestModel);
+        //Act
+        final result = await authRepositoryImp.signUp(fakeSignupRequestModel);
 
-          // Assert
-          expect(result, isA<ApiFailedResult<UserModel>>());
-          final acResult = result as ApiFailedResult<UserModel>;
-          expect(acResult.errorMessage, equals("failed"));
+        // Assert
+        expect(result, isA<FailedResult<UserModel>>());
+        final acResult = result as FailedResult<UserModel>;
+        expect(acResult.errorMessage, equals("failed"));
 
-          verify(mockAuthRemoteDataSource.signUp(fakeSignupRequestModel)).called(1);
-        });
+        verify(
+          mockAuthRemoteDataSource.signUp(fakeSignupRequestModel),
+        ).called(1);
+      },
+    );
   });
 
   // -----------------------------log in----------------------------------
@@ -119,34 +128,34 @@ void main() {
       );
 
       when(mockAuthRemoteDataSource.login(email, password)).thenAnswer(
-            (_) async => utils.ApiSucessResult<LoginModel>(fakeLoginEntity),
+        (_) async => utils.SucessResult<LoginModel>(fakeLoginEntity),
       );
 
       //act
       final result = await authRepositoryImp.login(email, password);
-      final success = result as ApiSucessResult<LoginModel>;
+      final success = result as SucessResult<LoginModel>;
 
       //assert
-      expect(result, isA<ApiSucessResult<LoginModel>>());
+      expect(result, isA<SucessResult<LoginModel>>());
       expect(success.sucessResult.token, "fake_token");
       expect(success.sucessResult.user.email, email);
     });
 
-    test("should return ApiFailedResult when login fails", () async {
+    test("should return FailedResult when login fails", () async {
       //arrange
       const email = "test@test.com";
       const password = "123456";
 
       when(mockAuthRemoteDataSource.login(email, password)).thenAnswer(
-            (_) async => utils.ApiFailedResult<LoginModel>("errorMessage"),
+        (_) async => utils.FailedResult<LoginModel>("errorMessage"),
       );
 
       //act
       final result = await authRepositoryImp.login(email, password);
-      final error = result as utils.ApiFailedResult<LoginModel>;
+      final error = result as utils.FailedResult<LoginModel>;
 
       //assert
-      expect(result, isA<utils.ApiFailedResult<LoginModel>>());
+      expect(result, isA<utils.FailedResult<LoginModel>>());
       expect(error.errorMessage, "errorMessage");
     });
   });

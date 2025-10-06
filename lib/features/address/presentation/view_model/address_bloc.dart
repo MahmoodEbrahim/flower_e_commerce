@@ -18,160 +18,184 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/use_case/get_add_address_use_case.dart';
+
 @injectable
-class AddressBloc extends Bloc<AddressEvent,AddressState>{
-final GetAddAddressUseCase _addressUseCase;
-final GetAllAddressesUseCase _getAllAddressesUseCase;
-final GetDeleteAddressUseCase _deleteAddressUseCase;
-final GetAllGovernorateUseCase _getAllGovernorateUseCase;
-final GetAllStatesUseCase _allStatesUseCase;
-final GetAllCountriesUseCase _getAllCountriesUseCase;
-final GetUpdateAddressUseCase _getUpdateAddressUseCase;
-AddressBloc(this._addressUseCase,this._getAllAddressesUseCase,
+class AddressBloc extends Bloc<AddressEvent, AddressState> {
+  final GetAddAddressUseCase _addressUseCase;
+  final GetAllAddressesUseCase _getAllAddressesUseCase;
+  final GetDeleteAddressUseCase _deleteAddressUseCase;
+  final GetAllGovernorateUseCase _getAllGovernorateUseCase;
+  final GetAllStatesUseCase _allStatesUseCase;
+  final GetAllCountriesUseCase _getAllCountriesUseCase;
+  final GetUpdateAddressUseCase _getUpdateAddressUseCase;
+  AddressBloc(
+    this._addressUseCase,
+    this._getAllAddressesUseCase,
     this._deleteAddressUseCase,
-    this._getAllGovernorateUseCase,this._allStatesUseCase,
-    this._getAllCountriesUseCase,this._getUpdateAddressUseCase):super(AddressState()){
-  on<GetAddAddressEvent>((event,emit)async{
-    emit(state.copyWith(
-      addAddressRequestState: RequestState.loading
-    ));
-    final result=await _addressUseCase.addAddress(event.request, event.token);
-    switch(result){
+    this._getAllGovernorateUseCase,
+    this._allStatesUseCase,
+    this._getAllCountriesUseCase,
+    this._getUpdateAddressUseCase,
+  ) : super(AddressState()) {
+    on<GetAddAddressEvent>((event, emit) async {
+      emit(state.copyWith(addAddressRequestState: RequestState.loading));
+      final result = await _addressUseCase.addAddress(
+        event.request,
+        event.token,
+      );
+      switch (result) {
+        case SucessResult<List<AddressEntity>>():
+          emit(
+            state.copyWith(
+              addressEntity: result.sucessResult,
+              addAddressRequestState: RequestState.success,
+            ),
+          );
 
-      case ApiSucessResult<List<AddressEntity>>():
-      emit(state.copyWith(
-        addressEntity: result.sucessResult,
-        addAddressRequestState: RequestState.success
-      ));
+        // await   UserLocalStorage.updateUserAddress(result.sucessResult);
+        case FailedResult<List<AddressEntity>>():
+          emit(
+            state.copyWith(
+              addAddressErrorMessage: result.errorMessage,
+              addAddressRequestState: RequestState.error,
+            ),
+          );
+      }
+    });
+    on<GetAllddressEvent>((event, emit) async {
+      emit(state.copyWith(getAddressRequestState: RequestState.loading));
+      final result = await _getAllAddressesUseCase.getAllAddress(event.token);
+      switch (result) {
+        case SucessResult<List<AddressEntity>>():
+          emit(
+            state.copyWith(
+              addresses: result.sucessResult,
+              getAddressRequestState: RequestState.success,
+            ),
+          );
 
-     // await   UserLocalStorage.updateUserAddress(result.sucessResult);
-      case ApiFailedResult<List<AddressEntity>>():
-        emit(state.copyWith(
-            addAddressErrorMessage: result.errorMessage,
-            addAddressRequestState: RequestState.error
-        ));
-    }
-  });
-  on<GetAllddressEvent>((event,emit)async{
-    emit(state.copyWith(
-      getAddressRequestState: RequestState.loading
-    ));
-    final result=await _getAllAddressesUseCase.getAllAddress(event.token);
-    switch(result){
+        case FailedResult<List<AddressEntity>>():
+          emit(
+            state.copyWith(
+              getAddressErrorMessage: result.errorMessage,
+              getAddressRequestState: RequestState.error,
+            ),
+          );
+      }
+    });
+    on<DeleteAddressEvent>((event, emit) async {
+      emit(state.copyWith(deleteAddressRequestState: RequestState.loading));
+      final result = await _deleteAddressUseCase.removeAddress(
+        event.token,
+        event.id,
+      );
+      final updatedAddresses = List<AddressEntity>.from(state.addresses)
+        ..removeWhere((address) => address.id == event.id);
+      switch (result) {
+        case SucessResult<RemoveAddressDto>():
+          //   await UserLocalStorage.updateUserAddress(updatedAddresses);
+          emit(
+            state.copyWith(
+              deleteAddressRequestState: RequestState.success,
+              removeAddressDto: result.sucessResult,
+              addresses: updatedAddresses,
+            ),
+          );
 
-      case ApiSucessResult<List<AddressEntity>>():
-      emit(state.copyWith(
-        addresses: result.sucessResult,
-        getAddressRequestState: RequestState.success
-      ));
+        case FailedResult<RemoveAddressDto>():
+          emit(
+            state.copyWith(
+              deleteAddressRequestState: RequestState.error,
+              deleteAddressErrorMessage: result.errorMessage,
+            ),
+          );
+      }
+    });
+    on<UpdateAddressEvent>((event, emit) async {
+      emit(state.copyWith(updateState: RequestState.loading));
+      final result = await _getUpdateAddressUseCase.updateAddress(
+        event.token,
+        event.id,
+        event.request,
+      );
+      switch (result) {
+        case SucessResult<List<AddressEntity>>():
+          emit(
+            state.copyWith(
+              updateState: RequestState.success,
+              updateAddresses: result.sucessResult,
+            ),
+          );
+        // await   UserLocalStorage.updateUserAddress(result.sucessResult);
 
-      case ApiFailedResult<List<AddressEntity>>():
-        emit(state.copyWith(
-            getAddressErrorMessage: result.errorMessage,
-            getAddressRequestState: RequestState.error
-        ));
-    }
-
-  });
-  on<DeleteAddressEvent>((event,emit)async{
-    emit(state.copyWith(
-      deleteAddressRequestState: RequestState.loading
-    ));
-    final result=await _deleteAddressUseCase.removeAddress(event.token, event.id);
-    final updatedAddresses = List<AddressEntity>.from(state.addresses)
-      ..removeWhere((address) => address.id == event.id);
-    switch(result){
-
-      case ApiSucessResult<RemoveAddressDto>():
-    //   await UserLocalStorage.updateUserAddress(updatedAddresses);
-       emit(state.copyWith(
-         deleteAddressRequestState: RequestState.success,
-         removeAddressDto: result.sucessResult,
-         addresses: updatedAddresses
-       ));
-      
-
-      case ApiFailedResult<RemoveAddressDto>():
-        emit(state.copyWith(
-            deleteAddressRequestState: RequestState.error,
-          deleteAddressErrorMessage: result.errorMessage
-        ));
-    }
-  });
-  on<UpdateAddressEvent>((event,emit)async{
-    emit(state.copyWith(
-      updateState: RequestState.loading
-    ));
-    final result=await _getUpdateAddressUseCase.updateAddress(event.token, event.id,
-        event.request);
-    switch(result){
-      case ApiSucessResult<List<AddressEntity>>():
-      emit(state.copyWith(
-        updateState: RequestState.success,
-        updateAddresses: result.sucessResult
-      ));
-     // await   UserLocalStorage.updateUserAddress(result.sucessResult);
-
-      case ApiFailedResult<List<AddressEntity>>():
-        emit(state.copyWith(
-            updateState: RequestState.error,
-            UpdateAddressErrorMessage: result.errorMessage
-        ));
-    }
-  });
-  on<GetGovernorateEvent>((event,emit)async{
-    emit(state.copyWith(
-      governorateRequestState: RequestState.loading
-    ));
-    final result=await _getAllGovernorateUseCase.getGovernorates();
-    switch(result){
-      case LocalDsSucessResult<List<GovernorateEntity>>():
-      emit(state.copyWith(
-          governorateRequestState: RequestState.success,
-          governorates: result.sucessResult
-      ));
-      case LocalDsFailedResult<List<GovernorateEntity>>():
-        emit(state.copyWith(
-            governorateRequestState: RequestState.error,
-            governateErrorMessage: result.errorMessage
-        ));
-    }
-  });
-  on<GetStatesEvent>((event,emit)async{
-    emit(state.copyWith(
-      stateRequestState: RequestState.loading
-    ));
-    final result=await _allStatesUseCase.getStates(event.governateId);
-    switch(result){
-  case LocalDsSucessResult<List<StateEntity>>():
-        emit(state.copyWith(
-            stateRequestState: RequestState.success,
-            states: result.sucessResult
-        ));
-      case LocalDsFailedResult<List<StateEntity>>():
-        emit(state.copyWith(
-            stateRequestState: RequestState.error,
-            stateErrorMessage: result.errorMessage
-        ));
-    }
-  });
-  on<GetCountriesEvent>((event,emit)async{
-    emit(state.copyWith(
-      countryRequestState: RequestState.loading
-    ));
-    final result=await _getAllCountriesUseCase.getCountries();
-    switch(result){
-      case LocalDsSucessResult<List<CountryEntity>>():
-        emit(state.copyWith(
-            countryRequestState: RequestState.success,
-            countries: result.sucessResult
-        ));
-      case LocalDsFailedResult<List<CountryEntity>>():
-        emit(state.copyWith(
-            countryRequestState: RequestState.error,
-            countryErrorMessage: result.errorMessage
-        ));
-    }
-  });
-}
+        case FailedResult<List<AddressEntity>>():
+          emit(
+            state.copyWith(
+              updateState: RequestState.error,
+              UpdateAddressErrorMessage: result.errorMessage,
+            ),
+          );
+      }
+    });
+    on<GetGovernorateEvent>((event, emit) async {
+      emit(state.copyWith(governorateRequestState: RequestState.loading));
+      final result = await _getAllGovernorateUseCase.getGovernorates();
+      switch (result) {
+        case LocalDsSucessResult<List<GovernorateEntity>>():
+          emit(
+            state.copyWith(
+              governorateRequestState: RequestState.success,
+              governorates: result.sucessResult,
+            ),
+          );
+        case LocalDsFailedResult<List<GovernorateEntity>>():
+          emit(
+            state.copyWith(
+              governorateRequestState: RequestState.error,
+              governateErrorMessage: result.errorMessage,
+            ),
+          );
+      }
+    });
+    on<GetStatesEvent>((event, emit) async {
+      emit(state.copyWith(stateRequestState: RequestState.loading));
+      final result = await _allStatesUseCase.getStates(event.governateId);
+      switch (result) {
+        case LocalDsSucessResult<List<StateEntity>>():
+          emit(
+            state.copyWith(
+              stateRequestState: RequestState.success,
+              states: result.sucessResult,
+            ),
+          );
+        case LocalDsFailedResult<List<StateEntity>>():
+          emit(
+            state.copyWith(
+              stateRequestState: RequestState.error,
+              stateErrorMessage: result.errorMessage,
+            ),
+          );
+      }
+    });
+    on<GetCountriesEvent>((event, emit) async {
+      emit(state.copyWith(countryRequestState: RequestState.loading));
+      final result = await _getAllCountriesUseCase.getCountries();
+      switch (result) {
+        case LocalDsSucessResult<List<CountryEntity>>():
+          emit(
+            state.copyWith(
+              countryRequestState: RequestState.success,
+              countries: result.sucessResult,
+            ),
+          );
+        case LocalDsFailedResult<List<CountryEntity>>():
+          emit(
+            state.copyWith(
+              countryRequestState: RequestState.error,
+              countryErrorMessage: result.errorMessage,
+            ),
+          );
+      }
+    });
+  }
 }

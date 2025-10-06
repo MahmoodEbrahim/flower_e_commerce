@@ -4,16 +4,15 @@ import 'package:flower_e_commerce/features/orders/domain/repository/orders_repos
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entity/order_entity/orders_responce_entity.dart';
-@Injectable(as:OrdersRepository)
-class OrdersRepoImpl implements OrdersRepository{
+
+@Injectable(as: OrdersRepository)
+class OrdersRepoImpl implements OrdersRepository {
   OrdersRemoteDataSource ordersRemoteDataSource;
   @factoryMethod
   OrdersRepoImpl({required this.ordersRemoteDataSource});
 
   @override
-  Future<ApiResult<OrdersResponceEntity>> GetOrders() {
+  Future<Result<OrdersResponceEntity>> GetOrders() {
     return ordersRemoteDataSource.GetOrders();
-
-
   }
 }

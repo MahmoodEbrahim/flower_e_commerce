@@ -12,8 +12,6 @@ import 'package:mockito/mockito.dart';
 
 import 'add_to_cart_usecase_test.mocks.dart';
 
-
-
 @GenerateMocks([CartRepository])
 void main() {
   late MockCartRepository mockCartRepository;
@@ -73,44 +71,48 @@ void main() {
 
   group("GetCartOfUserUseCase Tests", () {
     test(
-        "when call getCartOfUser and user has cart it should return ApiSuccessResult",
-        () async {
-      // arrange
-      final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+      "when call getCartOfUser and user has cart it should return ApiSuccessResult",
+      () async {
+        // arrange
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.getCartOfUser())
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.getCartOfUser(),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res = await getCartOfUserUseCase.getCartOfUser();
+        // act
+        final res = await getCartOfUserUseCase.getCartOfUser();
 
-      // assert
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
-      expect(acResult.sucessResult.cart!.id, fakeCart.id);
-      expect(acResult.sucessResult.numOfCartItems, 1);
-      verify(mockCartRepository.getCartOfUser()).called(1);
-    });
+        // assert
+        expect(res, isA<SucessResult<CartResponseEntity>>());
+        final acResult = res as SucessResult<CartResponseEntity>;
+        expect(acResult.sucessResult.cart!.id, fakeCart.id);
+        expect(acResult.sucessResult.numOfCartItems, 1);
+        verify(mockCartRepository.getCartOfUser()).called(1);
+      },
+    );
 
     test(
-        "when call getCartOfUser and repository fails it should return ApiFailedResult",
-        () async {
-      // arrange
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+      "when call getCartOfUser and repository fails it should return FailedResult",
+      () async {
+        // arrange
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.getCartOfUser())
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.getCartOfUser(),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res = await getCartOfUserUseCase.getCartOfUser();
+        // act
+        final res = await getCartOfUserUseCase.getCartOfUser();
 
-      // assert
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
-      expect(acResult.errorMessage, "error");
-      verify(mockCartRepository.getCartOfUser()).called(1);
-    });
+        // assert
+        expect(res, isA<FailedResult<CartResponseEntity>>());
+        final acResult = res as FailedResult<CartResponseEntity>;
+        expect(acResult.errorMessage, "error");
+        verify(mockCartRepository.getCartOfUser()).called(1);
+      },
+    );
   });
 }

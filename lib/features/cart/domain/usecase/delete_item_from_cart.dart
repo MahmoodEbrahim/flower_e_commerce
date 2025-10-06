@@ -7,12 +7,9 @@ import 'package:injectable/injectable.dart';
 @injectable
 class DeleteItemFromCartUseCase {
   final CartRepository _cartRepository;
-  DeleteItemFromCartUseCase(
-    this._cartRepository,
-  );
+  DeleteItemFromCartUseCase(this._cartRepository);
 
-  Future<ApiResult<CartResponseEntity>> deleteItemFromCart(
-      String itemId) async {
+  Future<Result<CartResponseEntity>> deleteItemFromCart(String itemId) async {
     return await _cartRepository.deleteItemFromCart(itemId);
   }
 }

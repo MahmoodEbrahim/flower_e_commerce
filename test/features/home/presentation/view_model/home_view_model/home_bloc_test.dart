@@ -11,15 +11,12 @@ import 'package:mockito/mockito.dart';
 
 import 'home_bloc_test.mocks.dart';
 
-
 @GenerateMocks([GetHomeDataUseCase])
 void main() {
   late MockGetHomeDataUseCase mockUseCase;
 
   setUpAll(() {
-    provideDummy<ApiResult<HomeEntity>>(
-      ApiFailedResult<HomeEntity>("dummy"),
-    );
+    provideDummy<Result<HomeEntity>>(FailedResult<HomeEntity>("dummy"));
   });
 
   setUp(() {
@@ -37,16 +34,16 @@ void main() {
     blocTest<HomeBloc, HomeStates>(
       "emits [HomeLoadingState, HomeSuccessState] when GetHomeDataEvent succeeds",
       build: () {
-        when(mockUseCase.call()).thenAnswer(
-              (_) async => ApiSucessResult<HomeEntity>(fakeHomeEntity),
-        );
+        when(
+          mockUseCase.call(),
+        ).thenAnswer((_) async => SucessResult<HomeEntity>(fakeHomeEntity));
         return HomeBloc(mockUseCase);
       },
       act: (bloc) => bloc.add(GetHomeDataEvent()),
       expect: () => [
         isA<HomeLoadingState>(),
         isA<HomeSuccessState>().having(
-              (state) => state.homeResponse,
+          (state) => state.homeResponse,
           "homeResponse",
           fakeHomeEntity,
         ),
@@ -59,16 +56,16 @@ void main() {
     blocTest<HomeBloc, HomeStates>(
       "emits [HomeLoadingState, HomeErrorState] when GetHomeDataEvent fails",
       build: () {
-        when(mockUseCase.call()).thenAnswer(
-              (_) async => ApiFailedResult<HomeEntity>("Network error"),
-        );
+        when(
+          mockUseCase.call(),
+        ).thenAnswer((_) async => FailedResult<HomeEntity>("Network error"));
         return HomeBloc(mockUseCase);
       },
       act: (bloc) => bloc.add(GetHomeDataEvent()),
       expect: () => [
         isA<HomeLoadingState>(),
         isA<HomeErrorState>().having(
-              (state) => state.message,
+          (state) => state.message,
           "message",
           "Network error",
         ),

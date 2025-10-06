@@ -26,24 +26,28 @@ void main() {
   late MockProfileLocalDataSource mockProfileLocalDataSource;
   late File photo;
 
-  const String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; // dummy token
+  const String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; // dummy token
 
   setUpAll(() {
     mockProfileRemoteDataSource = MockProfileRemoteDataSource();
     mockProfileLocalDataSource = MockProfileLocalDataSource();
-    profileRepositoryImp =
-        ProfileRepositoryImp(mockProfileRemoteDataSource, mockProfileLocalDataSource);
+    profileRepositoryImp = ProfileRepositoryImp(
+      mockProfileRemoteDataSource,
+      mockProfileLocalDataSource,
+    );
 
     photo = File("/mock/path/to/file.jpg");
 
     // provideDummy for ApiResult
-    provideDummy<ApiResult<UploadProfilePhotoResponse>>(
-        ApiFailedResult<UploadProfilePhotoResponse>("Dummy Error"));
-    provideDummy<ApiResult<EditProfileResponsea>>(
-        ApiFailedResult<EditProfileResponsea>("Dummy Error"));
-    provideDummy<ApiResult<ChangePasswordResponse>>(
-        ApiFailedResult<ChangePasswordResponse>("Dummy Error"));
+    provideDummy<Result<UploadProfilePhotoResponse>>(
+      FailedResult<UploadProfilePhotoResponse>("Dummy Error"),
+    );
+    provideDummy<Result<EditProfileResponsea>>(
+      FailedResult<EditProfileResponsea>("Dummy Error"),
+    );
+    provideDummy<Result<ChangePasswordResponse>>(
+      FailedResult<ChangePasswordResponse>("Dummy Error"),
+    );
 
     // provideDummy for LocalDsResult
     provideDummy<LocalDsResult<List<GenericJsonSectionEntity>>>(
@@ -55,28 +59,36 @@ void main() {
   group("Upload Photo Repository", () {
     final successResponse = UploadProfilePhotoResponse(message: "success");
 
-    test("should return ApiSuccessResult when remote data source succeeds", () async {
-      when(mockProfileRemoteDataSource.uploadPhoto(token, photo))
-          .thenAnswer((_) async => ApiSucessResult(successResponse));
+    test(
+      "should return ApiSuccessResult when remote data source succeeds",
+      () async {
+        when(
+          mockProfileRemoteDataSource.uploadPhoto(token, photo),
+        ).thenAnswer((_) async => SucessResult(successResponse));
 
-      final result = await profileRepositoryImp.uploadPhoto(token, photo);
+        final result = await profileRepositoryImp.uploadPhoto(token, photo);
 
-      expect(result, isA<ApiSucessResult<UploadProfilePhotoResponse>>());
-      expect((result as ApiSucessResult).sucessResult, successResponse);
-      verify(mockProfileRemoteDataSource.uploadPhoto(token, photo)).called(1);
-    });
+        expect(result, isA<SucessResult<UploadProfilePhotoResponse>>());
+        expect((result as SucessResult).sucessResult, successResponse);
+        verify(mockProfileRemoteDataSource.uploadPhoto(token, photo)).called(1);
+      },
+    );
 
-    test("should return ApiFailedResult when remote data source fails", () async {
-      final exception = Exception("Upload failed");
-      when(mockProfileRemoteDataSource.uploadPhoto(token, photo))
-          .thenAnswer((_) async => ApiFailedResult(exception.toString()));
+    test(
+      "should return FailedResult when remote data source fails",
+      () async {
+        final exception = Exception("Upload failed");
+        when(
+          mockProfileRemoteDataSource.uploadPhoto(token, photo),
+        ).thenAnswer((_) async => FailedResult(exception.toString()));
 
-      final result = await profileRepositoryImp.uploadPhoto(token, photo);
+        final result = await profileRepositoryImp.uploadPhoto(token, photo);
 
-      expect(result, isA<ApiFailedResult<UploadProfilePhotoResponse>>());
-      expect((result as ApiFailedResult).errorMessage, exception.toString());
-      verify(mockProfileRemoteDataSource.uploadPhoto(token, photo)).called(1);
-    });
+        expect(result, isA<FailedResult<UploadProfilePhotoResponse>>());
+        expect((result as FailedResult).errorMessage, exception.toString());
+        verify(mockProfileRemoteDataSource.uploadPhoto(token, photo)).called(1);
+      },
+    );
   });
 
   /// -------------------- Edit Profile Tests --------------------
@@ -107,28 +119,40 @@ void main() {
       ),
     );
 
-    test("should return ApiSuccessResult when remote data source succeeds", () async {
-      when(mockProfileRemoteDataSource.editProfile(token, request))
-          .thenAnswer((_) async => ApiSucessResult(successResponse));
+    test(
+      "should return ApiSuccessResult when remote data source succeeds",
+      () async {
+        when(
+          mockProfileRemoteDataSource.editProfile(token, request),
+        ).thenAnswer((_) async => SucessResult(successResponse));
 
-      final result = await profileRepositoryImp.editProfile(token, request);
+        final result = await profileRepositoryImp.editProfile(token, request);
 
-      expect(result, isA<ApiSucessResult<EditProfileResponsea>>());
-      expect((result as ApiSucessResult).sucessResult, successResponse);
-      verify(mockProfileRemoteDataSource.editProfile(token, request)).called(1);
-    });
+        expect(result, isA<SucessResult<EditProfileResponsea>>());
+        expect((result as SucessResult).sucessResult, successResponse);
+        verify(
+          mockProfileRemoteDataSource.editProfile(token, request),
+        ).called(1);
+      },
+    );
 
-    test("should return ApiFailedResult when remote data source fails", () async {
-      final exception = Exception("Edit failed");
-      when(mockProfileRemoteDataSource.editProfile(token, request))
-          .thenAnswer((_) async => ApiFailedResult(exception.toString()));
+    test(
+      "should return FailedResult when remote data source fails",
+      () async {
+        final exception = Exception("Edit failed");
+        when(
+          mockProfileRemoteDataSource.editProfile(token, request),
+        ).thenAnswer((_) async => FailedResult(exception.toString()));
 
-      final result = await profileRepositoryImp.editProfile(token, request);
+        final result = await profileRepositoryImp.editProfile(token, request);
 
-      expect(result, isA<ApiFailedResult<EditProfileResponsea>>());
-      expect((result as ApiFailedResult).errorMessage, exception.toString());
-      verify(mockProfileRemoteDataSource.editProfile(token, request)).called(1);
-    });
+        expect(result, isA<FailedResult<EditProfileResponsea>>());
+        expect((result as FailedResult).errorMessage, exception.toString());
+        verify(
+          mockProfileRemoteDataSource.editProfile(token, request),
+        ).called(1);
+      },
+    );
   });
 
   /// -------------------- Change Password Tests --------------------
@@ -143,45 +167,76 @@ void main() {
       token: "dummyToken",
     );
 
-    test("should return ApiSuccessResult when remote data source succeeds", () async {
-      when(mockProfileRemoteDataSource.changePassword(request, token))
-          .thenAnswer((_) async => ApiSucessResult(successResponse));
+    test(
+      "should return ApiSuccessResult when remote data source succeeds",
+      () async {
+        when(
+          mockProfileRemoteDataSource.changePassword(request, token),
+        ).thenAnswer((_) async => SucessResult(successResponse));
 
-      final result = await profileRepositoryImp.changePassword(request, token);
+        final result = await profileRepositoryImp.changePassword(
+          request,
+          token,
+        );
 
-      expect(result, isA<ApiSucessResult<ChangePasswordResponse>>());
-      expect((result as ApiSucessResult).sucessResult, successResponse);
-      verify(mockProfileRemoteDataSource.changePassword(request, token)).called(1);
-    });
+        expect(result, isA<SucessResult<ChangePasswordResponse>>());
+        expect((result as SucessResult).sucessResult, successResponse);
+        verify(
+          mockProfileRemoteDataSource.changePassword(request, token),
+        ).called(1);
+      },
+    );
 
-    test("should return ApiFailedResult when remote data source fails", () async {
-      final failureResponse = ChangePasswordResponse(message: "Something went wrong");
-      when(mockProfileRemoteDataSource.changePassword(request, token))
-          .thenAnswer((_) async => ApiFailedResult(failureResponse.message!));
+    test(
+      "should return FailedResult when remote data source fails",
+      () async {
+        final failureResponse = ChangePasswordResponse(
+          message: "Something went wrong",
+        );
+        when(
+          mockProfileRemoteDataSource.changePassword(request, token),
+        ).thenAnswer((_) async => FailedResult(failureResponse.message!));
 
-      final result = await profileRepositoryImp.changePassword(request, token);
+        final result = await profileRepositoryImp.changePassword(
+          request,
+          token,
+        );
 
-      expect(result, isA<ApiFailedResult<ChangePasswordResponse>>());
-      expect((result as ApiFailedResult).errorMessage, failureResponse.message);
-      verify(mockProfileRemoteDataSource.changePassword(request, token)).called(1);
-    });
+        expect(result, isA<FailedResult<ChangePasswordResponse>>());
+        expect(
+          (result as FailedResult).errorMessage,
+          failureResponse.message,
+        );
+        verify(
+          mockProfileRemoteDataSource.changePassword(request, token),
+        ).called(1);
+      },
+    );
 
-    test("should return ApiFailedResult on DioException", () async {
+    test("should return FailedResult on DioException", () async {
       final dioException = DioException(
         requestOptions: RequestOptions(path: ""),
         type: DioExceptionType.connectionTimeout,
       );
 
-      when(mockProfileRemoteDataSource.changePassword(request, token))
-          .thenAnswer((_) async => ApiFailedResult(
-          ServerFailure.fromDioError(dioException).errorMessage));
+      when(
+        mockProfileRemoteDataSource.changePassword(request, token),
+      ).thenAnswer(
+        (_) async => FailedResult(
+          ServerFailure.fromDioError(dioException).errorMessage,
+        ),
+      );
 
       final result = await profileRepositoryImp.changePassword(request, token);
 
-      expect(result, isA<ApiFailedResult<ChangePasswordResponse>>());
-      expect((result as ApiFailedResult).errorMessage,
-          "ServerFailure with Api Server");
-      verify(mockProfileRemoteDataSource.changePassword(request, token)).called(1);
+      expect(result, isA<FailedResult<ChangePasswordResponse>>());
+      expect(
+        (result as FailedResult).errorMessage,
+        "ServerFailure with Api Server",
+      );
+      verify(
+        mockProfileRemoteDataSource.changePassword(request, token),
+      ).called(1);
     });
   });
 
@@ -199,32 +254,54 @@ void main() {
       },
     );
 
-    test("should return LocalDsSucessResult when local data source succeeds", () async {
-      when(mockProfileLocalDataSource.getJsonSections("jsonPath", "jsonKey"))
-          .thenAnswer((_) async => LocalDsSucessResult([jsonSectionEntity]));
+    test(
+      "should return LocalDsSucessResult when local data source succeeds",
+      () async {
+        when(
+          mockProfileLocalDataSource.getJsonSections("jsonPath", "jsonKey"),
+        ).thenAnswer((_) async => LocalDsSucessResult([jsonSectionEntity]));
 
-      final result = await profileRepositoryImp.getJsonSections("jsonPath", "jsonKey");
+        final result = await profileRepositoryImp.getJsonSections(
+          "jsonPath",
+          "jsonKey",
+        );
 
-      expect(result, isA<LocalDsSucessResult<List<GenericJsonSectionEntity>>>());
-      final success = result as LocalDsSucessResult<List<GenericJsonSectionEntity>>;
-      expect(success.sucessResult.length, 1);
-      expect(success.sucessResult.first.content, {
-        "en": "App info",
-        "ar": "معلومات التطبيق",
-      });
-      verify(mockProfileLocalDataSource.getJsonSections(any, any)).called(1);
-    });
+        expect(
+          result,
+          isA<LocalDsSucessResult<List<GenericJsonSectionEntity>>>(),
+        );
+        final success =
+            result as LocalDsSucessResult<List<GenericJsonSectionEntity>>;
+        expect(success.sucessResult.length, 1);
+        expect(success.sucessResult.first.content, {
+          "en": "App info",
+          "ar": "معلومات التطبيق",
+        });
+        verify(mockProfileLocalDataSource.getJsonSections(any, any)).called(1);
+      },
+    );
 
-    test("should return LocalDsFailedResult when local data source fails", () async {
-      when(mockProfileLocalDataSource.getJsonSections(any, any))
-          .thenAnswer((_) async => LocalDsFailedResult("file not found"));
+    test(
+      "should return LocalDsFailedResult when local data source fails",
+      () async {
+        when(
+          mockProfileLocalDataSource.getJsonSections(any, any),
+        ).thenAnswer((_) async => LocalDsFailedResult("file not found"));
 
-      final result = await profileRepositoryImp.getJsonSections("jsonPath", "jsonKey");
+        final result = await profileRepositoryImp.getJsonSections(
+          "jsonPath",
+          "jsonKey",
+        );
 
-      expect(result, isA<LocalDsFailedResult<List<GenericJsonSectionEntity>>>());
-      final fail = result as LocalDsFailedResult<List<GenericJsonSectionEntity>>;
-      expect(fail.errorMessage, contains("file not found"));
-      verify(mockProfileLocalDataSource.getJsonSections(any, any)).called(1);
-    });
+        expect(
+          result,
+          isA<LocalDsFailedResult<List<GenericJsonSectionEntity>>>(),
+        );
+        final fail =
+            result as LocalDsFailedResult<List<GenericJsonSectionEntity>>;
+        expect(fail.errorMessage, contains("file not found"));
+        verify(mockProfileLocalDataSource.getJsonSections(any, any)).called(1);
+      },
+    );
   });
 }

@@ -16,27 +16,41 @@ import 'package:injectable/injectable.dart';
 class ProfileRepositoryImp implements ProfileRepository {
   final ProfileRemoteDataSource _profileRemoteDataSource;
   final ProfileLocalDataSource _profileLocalDataSource;
-  ProfileRepositoryImp(this._profileRemoteDataSource,this._profileLocalDataSource);
-@override
-  Future<ApiResult<UploadProfilePhotoResponse>>
-uploadPhoto(String token, File photo) async{
+  ProfileRepositoryImp(
+    this._profileRemoteDataSource,
+    this._profileLocalDataSource,
+  );
+  @override
+  Future<Result<UploadProfilePhotoResponse>> uploadPhoto(
+    String token,
+    File photo,
+  ) async {
     // TODO: implement uploadPhoto
     return await _profileRemoteDataSource.uploadPhoto(token, photo);
   }
+
   @override
-  Future<ApiResult<EditProfileResponsea>>
-  editProfile(String token, EditProfileRequest request) async {
+  Future<Result<EditProfileResponsea>> editProfile(
+    String token,
+    EditProfileRequest request,
+  ) async {
     // TODO: implement editProfile
     return await _profileRemoteDataSource.editProfile(token, request);
   }
-@override
-  Future<ApiResult<ChangePasswordResponse>> changePassword
-    (ChangePasswordRequest request, String token) async{
-  return await _profileRemoteDataSource.changePassword(request, token);
+
+  @override
+  Future<Result<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+    String token,
+  ) async {
+    return await _profileRemoteDataSource.changePassword(request, token);
   }
 
   @override
-  Future<LocalDsResult<List<GenericJsonSectionEntity>>> getJsonSections(String jsonPath,String jsonKey) async{
-    return await _profileLocalDataSource.getJsonSections(jsonPath,jsonKey);
+  Future<LocalDsResult<List<GenericJsonSectionEntity>>> getJsonSections(
+    String jsonPath,
+    String jsonKey,
+  ) async {
+    return await _profileLocalDataSource.getJsonSections(jsonPath, jsonKey);
   }
 }

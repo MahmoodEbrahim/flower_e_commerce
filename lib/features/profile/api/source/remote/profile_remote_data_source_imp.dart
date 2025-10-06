@@ -15,54 +15,65 @@ import 'package:injectable/injectable.dart';
 class ProfileRemoteDataSourceImp implements ProfileRemoteDataSource {
   final ProfileApiService _profileApiService;
   ProfileRemoteDataSourceImp(this._profileApiService);
- @override
-  Future<ApiResult<UploadProfilePhotoResponse>>
- uploadPhoto(String token, File photo) async{
-  try{
-final response=await _profileApiService.uploadPhoto
-  ("Bearer $token", photo);
-return ApiSucessResult(response);
-  }catch(error){
-if(error is DioException){
-  return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
-}else{
-  return ApiFailedResult(error.toString());
-}
-  }
-  }
   @override
-  Future<ApiResult<EditProfileResponsea>>
-  editProfile(String token, EditProfileRequest request)async {
-    try{
-      final response=await _profileApiService.editProfile
-        ("Bearer $token", request);
-      return ApiSucessResult(response);
-    }catch(error){
-      if(error is DioException){
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
-      }else{
-        return ApiFailedResult(error.toString());
+  Future<Result<UploadProfilePhotoResponse>> uploadPhoto(
+    String token,
+    File photo,
+  ) async {
+    try {
+      final response = await _profileApiService.uploadPhoto(
+        "Bearer $token",
+        photo,
+      );
+      return SucessResult(response);
+    } catch (error) {
+      if (error is DioException) {
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
+      } else {
+        return FailedResult(error.toString());
       }
     }
   }
- @override
-  Future<ApiResult<ChangePasswordResponse>>
- changePassword(ChangePasswordRequest request,String token) async{
-  try{
-    final response = await _profileApiService.changePassword(
-      {"password": request.password, "newPassword": request.newPassword},
-      "Bearer $token",
-    );
-if(response.message=="success"){
-return ApiSucessResult(response);
-}else{
-return ApiFailedResult(ServerFailure("Something went wrong").errorMessage);
-}
-  }on DioException catch(error){
-    return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+
+  @override
+  Future<Result<EditProfileResponsea>> editProfile(
+    String token,
+    EditProfileRequest request,
+  ) async {
+    try {
+      final response = await _profileApiService.editProfile(
+        "Bearer $token",
+        request,
+      );
+      return SucessResult(response);
+    } catch (error) {
+      if (error is DioException) {
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
+      } else {
+        return FailedResult(error.toString());
+      }
+    }
   }
-  catch(error){
-    return ApiFailedResult(error.toString());
-  }
+
+  @override
+  Future<Result<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+    String token,
+  ) async {
+    try {
+      final response = await _profileApiService.changePassword({
+        "password": request.password,
+        "newPassword": request.newPassword,
+      }, "Bearer $token");
+      if (response.message == "success") {
+        return SucessResult(response);
+      } else {
+        return FailedResult(ServerFailure("Something went wrong").errorMessage);
+      }
+    } on DioException catch (error) {
+      return FailedResult(ServerFailure.fromDioError(error).errorMessage);
+    } catch (error) {
+      return FailedResult(error.toString());
+    }
   }
 }

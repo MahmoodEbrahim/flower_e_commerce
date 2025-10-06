@@ -4,10 +4,13 @@ import 'package:flower_e_commerce/features/address/domain/repositry/address_repo
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetDeleteAddressUseCase{
+class GetDeleteAddressUseCase {
   final AddressRepositry _addressRepositry;
   GetDeleteAddressUseCase(this._addressRepositry);
-  Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id) async {
+  Future<Result<RemoveAddressDto>> removeAddress(
+    String token,
+    String id,
+  ) async {
     return await _addressRepositry.removeAddress(token, id);
   }
 }

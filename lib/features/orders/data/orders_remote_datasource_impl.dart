@@ -4,20 +4,21 @@ import 'package:flower_e_commerce/features/orders/domain/entity/order_entity/ord
 import 'package:injectable/injectable.dart';
 
 import 'orders_remote_datasource.dart';
-@Injectable(as:OrdersRemoteDataSource)
+
+@Injectable(as: OrdersRemoteDataSource)
 class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
   OrdersApiService ordersApiService;
-@factoryMethod
+  @factoryMethod
   OrdersRemoteDataSourceImpl({required this.ordersApiService});
 
   @override
-  Future<ApiResult<OrdersResponceEntity>> GetOrders() async {
+  Future<Result<OrdersResponceEntity>> GetOrders() async {
     try {
       var response = await ordersApiService.getOrders();
       var entity = response.toEntity();
-      return ApiSucessResult(entity);
+      return SucessResult(entity);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 }

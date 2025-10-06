@@ -9,7 +9,7 @@ class LoginUsecase {
   AuthRepository authRepository;
   LoginUsecase(this.authRepository);
 
-  Future<ApiResult<LoginModel>> call(String email, String password) async {
+  Future<Result<LoginModel>> call(String email, String password) async {
     return await authRepository.login(email, password);
   }
 }

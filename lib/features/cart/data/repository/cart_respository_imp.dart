@@ -11,28 +11,29 @@ import 'package:flower_e_commerce/features/cart/domain/repository/cart_repositor
 @Injectable(as: CartRepository)
 class CartRespositoryImp implements CartRepository {
   final CartRemoteDataSouce _cartRemoteDataSouce;
-  CartRespositoryImp(
-    this._cartRemoteDataSouce,
-  );
+  CartRespositoryImp(this._cartRemoteDataSouce);
 
   @override
-  Future<ApiResult<CartResponseEntity>> addProductToCart(
-      CartItemRequestEntity cartRequestModel) async {
+  Future<Result<CartResponseEntity>> addProductToCart(
+    CartItemRequestEntity cartRequestModel,
+  ) async {
     return await _cartRemoteDataSouce.addProductToCart(cartRequestModel);
   }
-  
+
   @override
-  Future<ApiResult<CartResponseEntity>> getCartOfUser()async {
-        return await _cartRemoteDataSouce.getCartOfUser();
+  Future<Result<CartResponseEntity>> getCartOfUser() async {
+    return await _cartRemoteDataSouce.getCartOfUser();
   }
-  
+
   @override
-  Future<ApiResult<CartResponseEntity>> deleteItemFromCart(String itemId) async{
+  Future<Result<CartResponseEntity>> deleteItemFromCart(String itemId) async {
     return await _cartRemoteDataSouce.deleteItemFromCart(itemId);
   }
-  
+
   @override
-  Future<ApiResult<CartResponseEntity>> updateQuantity(UpdatedQuatityRequestEntity updatedReq)async {
-   return await _cartRemoteDataSouce.updateQuantity(updatedReq);
+  Future<Result<CartResponseEntity>> updateQuantity(
+    UpdatedQuatityRequestEntity updatedReq,
+  ) async {
+    return await _cartRemoteDataSouce.updateQuantity(updatedReq);
   }
 }

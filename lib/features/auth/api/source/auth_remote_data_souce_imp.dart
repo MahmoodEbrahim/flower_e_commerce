@@ -20,19 +20,20 @@ import 'package:injectable/injectable.dart';
 import '../models/auth_response/auth_response_dto.dart';
 
 @Injectable(as: AuthRemoteDataSource)
-
 class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
   AuthApiService authApiService;
 
   AuthRemoteDataSourceImp(this.authApiService);
 
   @override
-  Future<ApiResult<LoginModel>> login(String email, String password) async {
+  Future<Result<LoginModel>> login(String email, String password) async {
     try {
-      AuthResponseDto response =
-      await authApiService.logIn({"email": email, "password": password});
+      AuthResponseDto response = await authApiService.logIn({
+        "email": email,
+        "password": password,
+      });
 
-      return ApiSucessResult<LoginModel>(response.toLoginModel());
+      return SucessResult<LoginModel>(response.toLoginModel());
     } on DioException catch (e) {
       String message = "Something went wrong, please try again";
 
@@ -45,76 +46,85 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
           message = e.response?.data["message"] ?? message;
         }
       }
-      return ApiFailedResult<LoginModel>(message);
+      return FailedResult<LoginModel>(message);
     } catch (e) {
-      return ApiFailedResult<LoginModel>(e.toString());
+      return FailedResult<LoginModel>(e.toString());
     }
   }
+
   @override
-  Future<ApiResult<ForgetPasswordResponse>> forgetPassword(
-      ForgetPasswordRequest request) async
-  {
+  Future<Result<ForgetPasswordResponse>> forgetPassword(
+    ForgetPasswordRequest request,
+  ) async {
     try {
       final response = await authApiService.forgetPassword(request);
-      if(response.message=="success"){
-        return ApiSucessResult(response);
-      }else{
-        return ApiFailedResult(ServerFailure("There is no account with this email address").errorMessage);
+      if (response.message == "success") {
+        return SucessResult(response);
+      } else {
+        return FailedResult(
+          ServerFailure(
+            "There is no account with this email address",
+          ).errorMessage,
+        );
       }
-
     } on DioException catch (e) {
-      return ApiFailedResult(ServerFailure.fromDioError(e).errorMessage);
+      return FailedResult(ServerFailure.fromDioError(e).errorMessage);
     } catch (error) {
-      return ApiFailedResult(error.toString());
+      return FailedResult(error.toString());
     }
   }
 
   @override
-  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword
-      (VerfiyPasswordRequest request) async {
+  Future<Result<VerfiyPasswordResponse>> verfiyPassword(
+    VerfiyPasswordRequest request,
+  ) async {
     try {
       final response = await authApiService.verfiyPassword(request);
-     
+
       if (response.status == "Success") {
-      
-        return ApiSucessResult(response);
+        return SucessResult(response);
       } else {
-        return ApiFailedResult(ServerFailure(response.status??
-            'Reset code is invalid or has expired').errorMessage);
+        return FailedResult(
+          ServerFailure(
+            response.status ?? 'Reset code is invalid or has expired',
+          ).errorMessage,
+        );
       }
     } on DioException catch (e) {
-      return ApiFailedResult(ServerFailure.fromDioError(e).errorMessage);
+      return FailedResult(ServerFailure.fromDioError(e).errorMessage);
     } catch (error) {
-      return ApiFailedResult(ServerFailure(error.toString()).errorMessage);
+      return FailedResult(ServerFailure(error.toString()).errorMessage);
     }
   }
 
   @override
-  Future<ApiResult<ResetPasswordResponsea>> resetPassword(
-      ResetPasswordRequest request) async {
+  Future<Result<ResetPasswordResponsea>> resetPassword(
+    ResetPasswordRequest request,
+  ) async {
     try {
       final response = await authApiService.resetPassword(request);
-      if(response.message=="success"){
-        return ApiSucessResult(response);
-      }else{
-        return ApiFailedResult(ServerFailure("reset code not verified").errorMessage);
+      if (response.message == "success") {
+        return SucessResult(response);
+      } else {
+        return FailedResult(
+          ServerFailure("reset code not verified").errorMessage,
+        );
       }
     } on DioException catch (e) {
-      return ApiFailedResult(ServerFailure.fromDioError(e).errorMessage);
+      return FailedResult(ServerFailure.fromDioError(e).errorMessage);
     } catch (error) {
-      return ApiFailedResult(error.toString());
+      return FailedResult(error.toString());
     }
   }
 
-
-
   @override
-  Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel) async {
+  Future<Result<UserModel>> signUp(SignupRequestModel userModel) async {
     try {
-      final signupResponse =
-          await authApiService.signUp(SignupRequestDto.toDto(userModel));
+      final signupResponse = await authApiService.signUp(
+        SignupRequestDto.toDto(userModel),
+      );
 
-      return ApiSucessResult(signupResponse.user!.toUserModel());
+      return SucessResult(signupResponse.user!.toUserModel());
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -122,41 +132,38 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      
 
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
-    }
-  }
-  @override
-  Future<ApiResult<UserModel>> getProfileData(String token) async{
-    try{
-      final response=await authApiService.getProfile("Bearer $token");
-      return ApiSucessResult(response.user!.toEntity());
-    }catch(error){
-      if(error is DioException){
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
-      }
-      else{
-        return ApiFailedResult(error.toString());
-      }
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<SignOutResponse>> logOut(String token) async{
-try{
-  final response=await authApiService.logOut("Bearer $token");
-return ApiSucessResult(response);
-}catch(error){
-  if(error is DioException){
-    return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
-  }else{
-    return ApiFailedResult(error.toString());
-
+  Future<Result<UserModel>> getProfileData(String token) async {
+    try {
+      final response = await authApiService.getProfile("Bearer $token");
+      return SucessResult(response.user!.toEntity());
+    } catch (error) {
+      if (error is DioException) {
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
+      } else {
+        return FailedResult(error.toString());
+      }
+    }
   }
-}
-  }
 
+  @override
+  Future<Result<SignOutResponse>> logOut(String token) async {
+    try {
+      final response = await authApiService.logOut("Bearer $token");
+      return SucessResult(response);
+    } catch (error) {
+      if (error is DioException) {
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
+      } else {
+        return FailedResult(error.toString());
+      }
+    }
+  }
 }

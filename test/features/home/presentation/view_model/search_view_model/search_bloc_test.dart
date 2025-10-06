@@ -17,8 +17,8 @@ void main() {
   late MockSearchProductsUseCase mockSearchProductsUseCase;
 
   setUp(() {
-    provideDummy<ApiResult<List<ProductsEntity>>>(
-      ApiFailedResult<List<ProductsEntity>>("error"),
+    provideDummy<Result<List<ProductsEntity>>>(
+      FailedResult<List<ProductsEntity>>("error"),
     );
     mockSearchProductsUseCase = MockSearchProductsUseCase();
     searchBloc = SearchBloc(mockSearchProductsUseCase);
@@ -43,9 +43,11 @@ void main() {
       "emits [loading, success] when search succeeds",
       build: () {
         when(
-          mockSearchProductsUseCase.call("keyword",
-            cancelToken: anyNamed("cancelToken"),),
-        ).thenAnswer((_) async => ApiSucessResult([fakeProductEntity]));
+          mockSearchProductsUseCase.call(
+            "keyword",
+            cancelToken: anyNamed("cancelToken"),
+          ),
+        ).thenAnswer((_) async => SucessResult([fakeProductEntity]));
         return searchBloc;
       },
       act: (bloc) => bloc.add(SearchProductsEvent("keyword")),
@@ -65,9 +67,11 @@ void main() {
       "emits [loading, error] when search fails ",
       build: () {
         when(
-          mockSearchProductsUseCase.call("keyword",
-              cancelToken: anyNamed("cancelToken")),
-        ).thenAnswer((_) async => ApiFailedResult("errorMessage"));
+          mockSearchProductsUseCase.call(
+            "keyword",
+            cancelToken: anyNamed("cancelToken"),
+          ),
+        ).thenAnswer((_) async => FailedResult("errorMessage"));
         return searchBloc;
       },
       act: (bloc) => bloc.add(SearchProductsEvent("keyword")),
@@ -96,11 +100,14 @@ void main() {
         cancel request in-flight
             ''',
         build: () {
-          when(mockSearchProductsUseCase.call(
-            "keyword",
-            cancelToken: anyNamed("cancelToken"),
-          )).thenAnswer((invocation) async {
-            final cancelToken = invocation.namedArguments[#cancelToken] as CancelToken;
+          when(
+            mockSearchProductsUseCase.call(
+              "keyword",
+              cancelToken: anyNamed("cancelToken"),
+            ),
+          ).thenAnswer((invocation) async {
+            final cancelToken =
+                invocation.namedArguments[#cancelToken] as CancelToken;
             // simulate api calling takes 500ms
             await Future.delayed(const Duration(milliseconds: 500));
             if (cancelToken.isCancelled) {
@@ -109,9 +116,8 @@ void main() {
                 type: DioExceptionType.cancel,
               );
             }
-            return ApiSucessResult([fakeProductEntity]);
+            return SucessResult([fakeProductEntity]);
           });
-
 
           return searchBloc;
         },

@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 
-
-
-class ServerFailure extends  ApiFailedResult {
+class ServerFailure extends FailedResult {
   ServerFailure(super.errorMessage);
-  factory ServerFailure.fromDioError(DioException dioException){
-    switch(dioException.type){
+  factory ServerFailure.fromDioError(DioException dioException) {
+    switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
         return ServerFailure("ServerFailure with Api Server");
       case DioExceptionType.sendTimeout:
@@ -14,10 +12,11 @@ class ServerFailure extends  ApiFailedResult {
       case DioExceptionType.receiveTimeout:
         return ServerFailure("receiveTimeout with Api Server");
       case DioExceptionType.badCertificate:
-     
       case DioExceptionType.badResponse:
-        return ServerFailure.fromResponse(dioException.response!.statusCode,
-            dioException.response!.data);
+        return ServerFailure.fromResponse(
+          dioException.response!.statusCode,
+          dioException.response!.data,
+        );
       case DioExceptionType.cancel:
         return ServerFailure(" ServerFailure with Api Server was canceled");
       case DioExceptionType.connectionError:
@@ -27,7 +26,6 @@ class ServerFailure extends  ApiFailedResult {
           return ServerFailure('No Internet Connection');
         }
         return ServerFailure('Unexpected Error, Please try again!');
-     
     }
   }
   factory ServerFailure.fromResponse(dynamic statusCode, dynamic response) {

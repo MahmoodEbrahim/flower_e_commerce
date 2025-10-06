@@ -20,63 +20,62 @@ import 'package:injectable/injectable.dart';
 class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
   final AddressesApiServices _apiServices;
 
-
   AddressRemoteDataSourceImpl(this._apiServices);
   @override
-  Future<ApiResult<List<AddressEntity>>> addAddress(
+  Future<Result<List<AddressEntity>>> addAddress(
     AddAdressRequest request,
     String token,
   ) async {
     try {
       final response = await _apiServices.addAddress(request, "Bearer $token");
       final address = response.address?.map((e) => e.toEntity()).toList() ?? [];
-      return ApiSucessResult(address);
+      return SucessResult(address);
     } catch (error) {
       if (error is DioException) {
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
-        return ApiFailedResult(error.toString());
+        return FailedResult(error.toString());
       }
     }
   }
 
   @override
-  Future<ApiResult<List<AddressEntity>>> getAllAddress(String token) async {
+  Future<Result<List<AddressEntity>>> getAllAddress(String token) async {
     try {
       final response = await _apiServices.getAllAddress("Bearer $token");
-            print("came here in s1");
+      print("came here in s1");
       final addresses = response.addresses?.map((e) => e.toEntity()).toList();
-            print("came here in s2");
-      return ApiSucessResult(addresses!);
+      print("came here in s2");
+      return SucessResult(addresses!);
     } catch (error) {
       print("came here in error");
       if (error is DioException) {
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
-        return ApiFailedResult(error.toString());
+        return FailedResult(error.toString());
       }
     }
   }
 
   @override
-  Future<ApiResult<RemoveAddressDto>> removeAddress(
+  Future<Result<RemoveAddressDto>> removeAddress(
     String token,
     String id,
   ) async {
     try {
       final response = await _apiServices.deleteAddress("Bearer $token", id);
-      return ApiSucessResult(response);
+      return SucessResult(response);
     } catch (error) {
       if (error is DioException) {
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
-        return ApiFailedResult(error.toString());
+        return FailedResult(error.toString());
       }
     }
   }
 
   @override
-  Future<ApiResult<List<AddressEntity>>> updateAddress(
+  Future<Result<List<AddressEntity>>> updateAddress(
     String token,
     String id,
     AddAdressRequest request,
@@ -89,12 +88,12 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
       );
       final addresses =
           response.addresses?.map((e) => e.toEntity()).toList() ?? [];
-      return ApiSucessResult(addresses);
+      return SucessResult(addresses);
     } catch (error) {
       if (error is DioException) {
-        return ApiFailedResult(ServerFailure.fromDioError(error).errorMessage);
+        return FailedResult(ServerFailure.fromDioError(error).errorMessage);
       } else {
-        return ApiFailedResult(error.toString());
+        return FailedResult(error.toString());
       }
     }
   }

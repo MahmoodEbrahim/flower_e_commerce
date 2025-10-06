@@ -14,13 +14,15 @@ class CartRemoteDataSouceImp implements CartRemoteDataSouce {
   final CartApiService _cartApiService;
   CartRemoteDataSouceImp(this._cartApiService);
   @override
-  Future<ApiResult<CartResponseEntity>> addProductToCart(
-      CartItemRequestEntity cartRequestModel) async {
+  Future<Result<CartResponseEntity>> addProductToCart(
+    CartItemRequestEntity cartRequestModel,
+  ) async {
     try {
-      final cartResponseModel = await _cartApiService
-          .addProductToCart(CartItemRequestModel.toModel(cartRequestModel));
+      final cartResponseModel = await _cartApiService.addProductToCart(
+        CartItemRequestModel.toModel(cartRequestModel),
+      );
       final cartResponseEntity = cartResponseModel.toEntity();
-      return ApiSucessResult(cartResponseEntity);
+      return SucessResult(cartResponseEntity);
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -28,18 +30,18 @@ class CartRemoteDataSouceImp implements CartRemoteDataSouce {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<CartResponseEntity>> getCartOfUser() async {
+  Future<Result<CartResponseEntity>> getCartOfUser() async {
     try {
       final cartResponseModel = await _cartApiService.getCartUser();
       final cartResponseEntity = cartResponseModel.toEntity();
-      return ApiSucessResult(cartResponseEntity);
+      return SucessResult(cartResponseEntity);
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -47,20 +49,20 @@ class CartRemoteDataSouceImp implements CartRemoteDataSouce {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<CartResponseEntity>> deleteItemFromCart(
-      String itemId) async {
+  Future<Result<CartResponseEntity>> deleteItemFromCart(String itemId) async {
     try {
-      final cartResponseModel =
-          await _cartApiService.deleteItemFromCart(itemId);
+      final cartResponseModel = await _cartApiService.deleteItemFromCart(
+        itemId,
+      );
       final cartResponseEntity = cartResponseModel.toEntity();
-      return ApiSucessResult(cartResponseEntity);
+      return SucessResult(cartResponseEntity);
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -68,20 +70,23 @@ class CartRemoteDataSouceImp implements CartRemoteDataSouce {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
 
   @override
-  Future<ApiResult<CartResponseEntity>> updateQuantity(
-      UpdatedQuatityRequestEntity updatedReq) async {
+  Future<Result<CartResponseEntity>> updateQuantity(
+    UpdatedQuatityRequestEntity updatedReq,
+  ) async {
     try {
-      final cartResponseModel =
-          await _cartApiService.updateQuantity(updatedReq.itemId,UpdatedRequestBodyModel.toModel(updatedReq.updatedRequestBody) );
+      final cartResponseModel = await _cartApiService.updateQuantity(
+        updatedReq.itemId,
+        UpdatedRequestBodyModel.toModel(updatedReq.updatedRequestBody),
+      );
       final cartResponseEntity = cartResponseModel.toEntity();
-      return ApiSucessResult(cartResponseEntity);
+      return SucessResult(cartResponseEntity);
     } on DioException catch (e) {
       final data = e.response?.data;
       String errorMessage = e.message!;
@@ -89,11 +94,9 @@ class CartRemoteDataSouceImp implements CartRemoteDataSouce {
       if (data is Map<String, dynamic> && data.containsKey("error")) {
         errorMessage = data["error"].toString();
       }
-      return ApiFailedResult(errorMessage);
+      return FailedResult(errorMessage);
     } catch (e) {
-      return ApiFailedResult(e.toString());
+      return FailedResult(e.toString());
     }
   }
-
-
 }

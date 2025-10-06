@@ -1,14 +1,12 @@
+sealed class Result<t> {}
 
-sealed class ApiResult<t> {}
-
-class ApiSucessResult<T> extends ApiResult<T> {
+class SucessResult<T> extends Result<T> {
   T sucessResult;
-  ApiSucessResult(this.sucessResult);
+  SucessResult(this.sucessResult);
 }
 
-class ApiFailedResult<T> extends ApiResult<T> {
+class FailedResult<T> extends Result<T> {
   String errorMessage;
 
-  ApiFailedResult(this.errorMessage);
-
+  FailedResult(this.errorMessage);
 }

@@ -24,7 +24,7 @@ import 'cart_view_model_test.mocks.dart';
   AddToCartUsecase,
   DeleteItemFromCartUseCase,
   GetCartOfUserUseCase,
-  UpdateQuatityUseCase
+  UpdateQuatityUseCase,
 ])
 void main() {
   late MockAddToCartUsecase mockAddToCartUsecase;
@@ -45,10 +45,11 @@ void main() {
     mockGetCartOfUserUseCase = MockGetCartOfUserUseCase();
     mockAddToCartUsecase = MockAddToCartUsecase();
     cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+      mockAddToCartUsecase,
+      mockGetCartOfUserUseCase,
+      mockDeleteItemFromCartUseCase,
+      mockUpdateQuatityUseCase,
+    );
 
     fakeProduct = ProductsEntity(
       id: "673e2bd91159920171828139",
@@ -92,8 +93,9 @@ void main() {
       cart: fakeCart,
     );
     updatedReq = UpdatedQuatityRequestEntity(
-        itemId: "68b803e8a8bca307f9e2266a",
-        updatedRequestBody: UpdatedRequestBodyEntity(quantity: 2));
+      itemId: "68b803e8a8bca307f9e2266a",
+      updatedRequestBody: UpdatedRequestBodyEntity(quantity: 2),
+    );
   });
 
   group("test add to cart function", () {
@@ -105,29 +107,27 @@ void main() {
     blocTest<CartViewModel, CartStates>(
       'emit 2 states one with sucess data that return from apiSuccess Result and second with loading and both with null error message',
       build: () {
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-        final mockResult =
-            ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        when(mockAddToCartUsecase.addProductToCart(cartItemRequestEntity))
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockAddToCartUsecase.addProductToCart(cartItemRequestEntity),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
-      act: (bloc) => bloc
-          .add(AddToCartEvent(cartItemRequestEntity: cartItemRequestEntity)),
+      act: (bloc) => bloc.add(
+        AddToCartEvent(cartItemRequestEntity: cartItemRequestEntity),
+      ),
       expect: () {
         return [
-          CartStates(
-            isLoading: true,
-            errorMessage: null,
-            cartResonse: null,
-          ),
+          CartStates(isLoading: true, errorMessage: null, cartResonse: null),
           CartStates(
             isLoading: false,
             errorMessage: null,
@@ -136,71 +136,64 @@ void main() {
         ];
       },
     );
-  
-  
-  
+
     blocTest<CartViewModel, CartStates>(
-      'emit 2 states one with old data and error message that return from apiFailedResult and second with loading ',
+      'emit 2 states one with old data and error message that return from FailedResult and second with loading ',
       build: () {
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-        final mockResult =
-            ApiFailedResult<CartResponseEntity>("error");
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        when(mockAddToCartUsecase.addProductToCart(cartItemRequestEntity))
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockAddToCartUsecase.addProductToCart(cartItemRequestEntity),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
-      act: (bloc) => bloc
-          .add(AddToCartEvent(cartItemRequestEntity: cartItemRequestEntity)),
+      act: (bloc) => bloc.add(
+        AddToCartEvent(cartItemRequestEntity: cartItemRequestEntity),
+      ),
       expect: () {
         return [
-          CartStates(
-            isLoading: true,
-            errorMessage: null,
-            cartResonse: null,
-          ),
-          CartStates(
-            isLoading: false,
-            errorMessage: "error",
-         
-          ),
+          CartStates(isLoading: true, errorMessage: null, cartResonse: null),
+          CartStates(isLoading: false, errorMessage: "error"),
         ];
       },
     );
-  
-  
-  
   });
 
-
-
-    group("test getCartOfUser function", () {
+  group("test getCartOfUser function", () {
     blocTest<CartViewModel, CartStates>(
       'emits loading then success and calls usecase',
       build: () {
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
-
-        when(mockGetCartOfUserUseCase.getCartOfUser()).thenAnswer((_) async => mockResult);
+        when(
+          mockGetCartOfUserUseCase.getCartOfUser(),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
       act: (bloc) => bloc.add(GetCartItemsEvent()),
       expect: () => [
         CartStates(isLoading: true, errorMessage: null, cartResonse: null),
-        CartStates(isLoading: false, errorMessage: null, cartResonse: fakeCartResponse),
+        CartStates(
+          isLoading: false,
+          errorMessage: null,
+          cartResonse: fakeCartResponse,
+        ),
       ],
       verify: (_) {
         verify(mockGetCartOfUserUseCase.getCartOfUser()).called(1);
@@ -210,17 +203,19 @@ void main() {
     blocTest<CartViewModel, CartStates>(
       'emits loading then failure with old data and calls usecase',
       build: () {
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-        final mockResult = ApiFailedResult<CartResponseEntity>("error");
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        when(mockGetCartOfUserUseCase.getCartOfUser())
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockGetCartOfUserUseCase.getCartOfUser(),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
       act: (bloc) => bloc.add(GetCartItemsEvent()),
@@ -238,96 +233,93 @@ void main() {
     );
   });
 
-
   group("test deleteItemFromCart function", () {
     blocTest<CartViewModel, CartStates>(
       'emits loading then success and calls usecase',
       build: () {
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
-
-        when(mockDeleteItemFromCartUseCase.deleteItemFromCart("item1"))
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockDeleteItemFromCartUseCase.deleteItemFromCart("item1"),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
       act: (bloc) => bloc.add(DeleteItemFromCartEvent(itemId: "item1")),
       expect: () => [
-       
-        CartStates(isLoading: false, errorMessage: null, cartResonse: fakeCartResponse),
+        CartStates(
+          isLoading: false,
+          errorMessage: null,
+          cartResonse: fakeCartResponse,
+        ),
       ],
       verify: (_) {
-        verify(mockDeleteItemFromCartUseCase.deleteItemFromCart("item1")).called(1);
+        verify(
+          mockDeleteItemFromCartUseCase.deleteItemFromCart("item1"),
+        ).called(1);
       },
     );
 
     blocTest<CartViewModel, CartStates>(
       'emits loading then failure with old data and calls usecase',
       build: () {
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        final mockResult = ApiFailedResult<CartResponseEntity>("error");
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
-
-        when(mockDeleteItemFromCartUseCase.deleteItemFromCart("item1"))
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockDeleteItemFromCartUseCase.deleteItemFromCart("item1"),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
       act: (bloc) => bloc.add(DeleteItemFromCartEvent(itemId: "item1")),
-      expect: () => [
-       
-        CartStates(
-          isLoading: false,
-          errorMessage: "error",
-          
-        ),
-      ],
+      expect: () => [CartStates(isLoading: false, errorMessage: "error")],
       verify: (_) {
-        verify(mockDeleteItemFromCartUseCase.deleteItemFromCart("item1")).called(1);
+        verify(
+          mockDeleteItemFromCartUseCase.deleteItemFromCart("item1"),
+        ).called(1);
       },
     );
   });
-
-
-
-   
 
   group("test updateQuatity function", () {
     blocTest<CartViewModel, CartStates>(
       'emits loading then success and calls usecase',
       build: () {
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-        final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        when(mockUpdateQuatityUseCase.updateQuantity(updatedReq))
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockUpdateQuatityUseCase.updateQuantity(updatedReq),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
       act: (bloc) => bloc.add(UpdateQuatityItemCEvent(updatedReq: updatedReq)),
       expect: () => [
-       
         CartStates(
           isLoading: false,
           errorMessage: null,
           cartResonse: fakeCartResponse,
-          
         ),
       ],
       verify: (_) {
@@ -338,34 +330,26 @@ void main() {
     blocTest<CartViewModel, CartStates>(
       'emits loading then failure with old data and calls usecase',
       build: () {
+        cartViewModel = CartViewModel(
+          mockAddToCartUsecase,
+          mockGetCartOfUserUseCase,
+          mockDeleteItemFromCartUseCase,
+          mockUpdateQuatityUseCase,
+        );
 
-          cartViewModel = CartViewModel(
-        mockAddToCartUsecase,
-        mockGetCartOfUserUseCase,
-        mockDeleteItemFromCartUseCase,
-        mockUpdateQuatityUseCase);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-        final mockResult = ApiFailedResult<CartResponseEntity>("error");
-        provideDummy<ApiResult<CartResponseEntity>>(mockResult);
-
-        when(mockUpdateQuatityUseCase.updateQuantity(updatedReq))
-            .thenAnswer((_) async => mockResult);
+        when(
+          mockUpdateQuatityUseCase.updateQuantity(updatedReq),
+        ).thenAnswer((_) async => mockResult);
         return cartViewModel;
       },
       act: (bloc) => bloc.add(UpdateQuatityItemCEvent(updatedReq: updatedReq)),
-      expect: () => [
-       
-        CartStates(
-          isLoading: false,
-          errorMessage: "error",
-      
-        ),
-      ],
+      expect: () => [CartStates(isLoading: false, errorMessage: "error")],
       verify: (_) {
         verify(mockUpdateQuatityUseCase.updateQuantity(updatedReq)).called(1);
       },
     );
   });
-
-
 }

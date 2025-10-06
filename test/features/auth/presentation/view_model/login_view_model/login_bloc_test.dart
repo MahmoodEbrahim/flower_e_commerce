@@ -13,16 +13,14 @@ import 'login_bloc_test.mocks.dart';
 
 @GenerateMocks([LoginUsecase])
 main() {
-  provideDummy<ApiResult<LoginModel>>(ApiFailedResult<LoginModel>("dummy"));
+  provideDummy<Result<LoginModel>>(FailedResult<LoginModel>("dummy"));
   late LoginBloc loginBloc;
   late MockLoginUsecase mockLoginUsecase;
 
-  setUp(
-        () {
-      mockLoginUsecase = MockLoginUsecase();
-      loginBloc = LoginBloc(mockLoginUsecase);
-    },
-  );
+  setUp(() {
+    mockLoginUsecase = MockLoginUsecase();
+    loginBloc = LoginBloc(mockLoginUsecase);
+  });
 
   const email = "test@test.com";
   const password = "123456";
@@ -43,65 +41,58 @@ main() {
     ),
   );
 
-  group(
-    "test LoginButtonPressed ",
-        () {
-      // blocTest<LoginBloc, LoginState>(
-      //   "emits [init, success] when login succeeds",
-      //   build: () {
-      //     when(mockLoginUsecase.call(email, password)).thenAnswer(
-      //             (_) async => ApiSucessResult<LoginModel>(fakeLoginModel));
-      //     return loginBloc;
-      //   },
-      //   act: (bloc) =>
-      //       bloc.add(LoginButtonPressed(email: email, password: password)),
-      //   expect: () => [
-      //     LoginState(loginState: RequestState.init),
-      //     LoginState(
-      //       loginState: RequestState.success,
-      //       user: fakeLoginModel,
-      //     ),
-      //   ],
-      // );
+  group("test LoginButtonPressed ", () {
+    // blocTest<LoginBloc, LoginState>(
+    //   "emits [init, success] when login succeeds",
+    //   build: () {
+    //     when(mockLoginUsecase.call(email, password)).thenAnswer(
+    //             (_) async => ApiSucessResult<LoginModel>(fakeLoginModel));
+    //     return loginBloc;
+    //   },
+    //   act: (bloc) =>
+    //       bloc.add(LoginButtonPressed(email: email, password: password)),
+    //   expect: () => [
+    //     LoginState(loginState: RequestState.init),
+    //     LoginState(
+    //       loginState: RequestState.success,
+    //       user: fakeLoginModel,
+    //     ),
+    //   ],
+    // );
 
-      blocTest<LoginBloc, LoginState>(
-        "emits [init, error] when login succeeds",
-        build: () {
-          when(mockLoginUsecase.call(email, password)).thenAnswer(
-                  (_) async => ApiFailedResult<LoginModel>("errorMessage"));
-          return loginBloc;
-        },
-        act: (bloc) =>
-            bloc.add(LoginButtonPressed(email: email, password: password)),
-        expect: () => [
-          LoginState(loginState: RequestState.init),
-          LoginState(
-              loginState: RequestState.error, errorMessage: "errorMessage"),
-        ],
-      );
-    },
-  );
+    blocTest<LoginBloc, LoginState>(
+      "emits [init, error] when login succeeds",
+      build: () {
+        when(
+          mockLoginUsecase.call(email, password),
+        ).thenAnswer((_) async => FailedResult<LoginModel>("errorMessage"));
+        return loginBloc;
+      },
+      act: (bloc) =>
+          bloc.add(LoginButtonPressed(email: email, password: password)),
+      expect: () => [
+        LoginState(loginState: RequestState.init),
+        LoginState(
+          loginState: RequestState.error,
+          errorMessage: "errorMessage",
+        ),
+      ],
+    );
+  });
 
   group("test ToggleRememberMe", () {
     blocTest<LoginBloc, LoginState>(
       "emits [rememberMe: true] when ToggleRememberMe(true) is added",
       build: () => loginBloc,
       act: (bloc) => bloc.add(ToggleRememberMe(true)),
-      expect: () => [
-        LoginState(rememberMe: true),
-      ],
+      expect: () => [LoginState(rememberMe: true)],
     );
 
     blocTest<LoginBloc, LoginState>(
       "emits [rememberMe: false] when ToggleRememberMe(false) is added",
       build: () => loginBloc,
       act: (bloc) => bloc.add(ToggleRememberMe(false)),
-      expect: () => [
-        LoginState(rememberMe: false),
-      ],
+      expect: () => [LoginState(rememberMe: false)],
     );
-
-  },);
-
-
+  });
 }
