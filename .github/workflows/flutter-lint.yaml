@@ -9,9 +9,7 @@ on:
       - reopened
 
   push:
-    branches:
-      - developments
-      - master
+   
 
 jobs:
   lint:
