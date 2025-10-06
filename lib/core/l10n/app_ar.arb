@@ -129,6 +129,11 @@
   "trackorder": "تتبع الطلب",
   "noLocationFound":"  😐 ! لا يوجد موقع",
   "showMap":"عرض الخريطة",
-  "trackingOrder":"تتبع الطلب"
+  "trackingOrder":"تتبع الطلب",
+   "receivedYourOrder": "تم استلام طلبك",
+  "preparingYourOrder": "يتم تجهيز طلبك",
+  "outForDelivery": "في طريقه إليك",
+  "delivered": "تم التوصيل",
+  "estimatedArrival":"الوقت المتوقع للوصول"
 
 }

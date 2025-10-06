@@ -1,6 +1,7 @@
-import 'dart:ui_web';
-
 import 'package:flower_e_commerce/config/theme/app_color.dart';
+import 'package:flower_e_commerce/config/theme/font_manger.dart';
+import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
+import 'package:flower_e_commerce/core/enum/order_state_enum.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
 import 'package:flower_e_commerce/features/tracking_order/presentation/views/widgets/cache_image.dart';
@@ -15,17 +16,17 @@ class TrackingOrderPage extends StatelessWidget {
   // fn take state then decide who will be colorfull
 
   int decideColor(String state) {
-    if (state == "Received") {
+    if (state == OrderStatus.received.name) {
       return 1;
     }
-    if (state == "Preparing") {
+    if (state == OrderStatus.preparing.name) {
       return 2;
     }
 
-    if (state == "out") {
+    if (state == OrderStatus.outForDelivery.name) {
       return 3;
     }
-    if (state == "delivered") {
+    if (state == OrderStatus.delivered.name) {
       return 4;
     } else {
       return 1;
@@ -56,10 +57,18 @@ class TrackingOrderPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextSection(
-              txt1:
-                  "Estimated arrival", // fake data will be removed when data came
+              txt1: t.estimatedArrival,
               txt2:
                   "03 Sep 2024, 11:00 AM", //  fake data will be removed when data came
+
+              style1: getBoldStyle(
+                color: AppColors.gray,
+                fontSize: FontSize.s14,
+              ).copyWith(letterSpacing: 1),
+              style2: getBoldStyle(
+                color: AppColors.black,
+                fontSize: FontSize.s18,
+              ).copyWith(letterSpacing: 1),
             ),
 
             Divider(),
@@ -77,15 +86,33 @@ class TrackingOrderPage extends StatelessWidget {
                     txt1: "Muhamed", // fake data will be removed when data came
                     txt2:
                         "is your delivery hero for today", // fake data will be removed when data came
+
+                    style1: getBoldStyle(
+                      color: AppColors.black,
+                      fontSize: FontSize.s18,
+                    ),
+                    style2: getBoldStyle(
+                      color: AppColors.gray,
+                      fontSize: FontSize.s14,
+                    ),
                   ),
 
-                  //phone
-                  IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
-
-                  //whatsapp
                   IconButton(
-                    onPressed: () {},
-                    icon: Icon(FontAwesomeIcons.whatsapp),
+                    onPressed: () {
+                      // will be added with bloc
+                      
+                    },
+                    icon: Icon(Icons.phone, color: AppColors.pink),
+                  ),
+
+                  IconButton(
+                    onPressed: () {
+                      // will be added with bloc
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.whatsapp,
+                      color: AppColors.pink,
+                    ),
                   ),
                 ],
               ),

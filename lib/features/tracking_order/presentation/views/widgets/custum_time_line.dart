@@ -1,12 +1,11 @@
-
 import 'package:flower_e_commerce/config/theme/app_color.dart';
-import 'package:flower_e_commerce/features/tracking_order/presentation/views/widgets/text_section.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class CustumTimeLine extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
+  final Widget endChildWidget;
 
   final Color color;
 
@@ -14,7 +13,7 @@ class CustumTimeLine extends StatelessWidget {
     super.key,
     this.isFirst = false,
     this.isLast = false,
-    required this.color,
+    required this.color, required this.endChildWidget,
   });
 
   @override
@@ -24,10 +23,7 @@ class CustumTimeLine extends StatelessWidget {
       isLast: isLast,
       endChild: Padding(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 10, vertical: 15),
-        child: TextSection(
-          txt1: "Recived Your Order",
-          txt2: "03 Sep 2024 - 2:10",
-        ),
+        child: endChildWidget
       ),
 
       indicatorStyle: IndicatorStyle(

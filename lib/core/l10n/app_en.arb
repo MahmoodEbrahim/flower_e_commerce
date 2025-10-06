@@ -143,6 +143,11 @@
   "noProductsFor":"No products found for ",
   "noLocationFound":"No Address Found !   😐",
   "showMap":"Show Map",
-  "trackingOrder":"Tracking Order"
+  "trackingOrder":"Tracking Order",
+   "receivedYourOrder": "Received your order",
+  "preparingYourOrder": "Preparing your order",
+  "outForDelivery": "Out for delivery",
+  "delivered": "Delivered",
+  "estimatedArrival":"Estimated arrival"
 
 }

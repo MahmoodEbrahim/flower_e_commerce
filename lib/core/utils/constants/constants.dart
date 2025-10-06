@@ -20,6 +20,11 @@ class Constants {
   static const String myNew = "new";
   static const String old = "old";
   static const String discount = "discount";
+  static const String dateFormat = "dd MMM yyyy - h:mm";
+  static const String sharedPrefrenceDataKey = "order_dates";
+
+
+
 
 
 }
