@@ -4,8 +4,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   push:
-    branches:
-      - 'developments'
 
 jobs:
   validate:
@@ -27,7 +25,14 @@ jobs:
         run: |
           BRANCH_NAME="${{ steps.branch.outputs.branch_name }}"
           echo "Validating branch name: $BRANCH_NAME"
-          
+
+        
+          if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "development" ]]; then
+            echo "Branch '$BRANCH_NAME' is exempt from validation."
+            exit 0
+          fi
+
+        
           if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|release)\/[a-zA-Z0-9_-]+$ ]]; then
             echo "Branch name is valid."
             exit 0

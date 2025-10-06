@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBkkhBW1kqWXzW4tXOjwk3ycOYcWfRwWN0',
-    appId: '1:316905993516:android:3888b4bbba41335e812889',
-    messagingSenderId: '316905993516',
-    projectId: 'flowerecommerceapp',
-    storageBucket: 'flowerecommerceapp.firebasestorage.app',
+    apiKey: 'AIzaSyCNsEkVxjgPr9t7FmVoABh1N33VyA5KFkc',
+    appId: '1:109209317343:android:9933a17b4289bdc4961e6a',
+    messagingSenderId: '109209317343',
+    projectId: 'trackingapp-f64ef',
+    storageBucket: 'trackingapp-f64ef.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBpQfslYldJw6AvO9mrlEhtwqDnqBJFVV8',
-    appId: '1:316905993516:ios:a54ea590389a0d73812889',
-    messagingSenderId: '316905993516',
-    projectId: 'flowerecommerceapp',
-    storageBucket: 'flowerecommerceapp.firebasestorage.app',
+    apiKey: 'AIzaSyB7lUNkPeGhVkiX3KAbfEWZtZoZwRJXu6o',
+    appId: '1:109209317343:ios:ea3c3c5bddc810fc961e6a',
+    messagingSenderId: '109209317343',
+    projectId: 'trackingapp-f64ef',
+    storageBucket: 'trackingapp-f64ef.firebasestorage.app',
     iosBundleId: 'com.example.flowerECommerce',
   );
 }

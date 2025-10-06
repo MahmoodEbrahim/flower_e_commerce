@@ -12,8 +12,9 @@ abstract class AppColors {
 
   static const Color pink=Color(0xFFD21E6A);
   static const Color darkGrey=Color(0xFF434343);
+  static const Color transparent=Colors.transparent;
 //
-  static MaterialColor pinkColor=MaterialColor(0xFF02369C, <int , Color>{
+  static MaterialColor pinkColor=const MaterialColor(0xFF02369C, <int , Color>{
     10: Color(0xFFf6d2e1),
     20: Color(0xFFf0b4cd),
     30: Color(0xFFe98fb5),
@@ -27,7 +28,7 @@ abstract class AppColors {
   });
 
 
-  static MaterialColor blackColor=MaterialColor(0xFF0f0f0f, <int , Color>{
+  static MaterialColor blackColor=const MaterialColor(0xFF0f0f0f, <int , Color>{
     10: Color(0xFFcfcfcf),
     20: Color(0xFFafafaf),
     30: Color(0xFF878787),
@@ -41,7 +42,7 @@ abstract class AppColors {
   });
 
 
-  static MaterialColor whiteColor=MaterialColor(0xFF0f0f0f, <int , Color>{
+  static MaterialColor whiteColor=const MaterialColor(0xFF0f0f0f, <int , Color>{
     10: Color(0xFFfefefe),
     20: Color(0xFFfdfdfd),
     30: Color(0xFFfcfcfc),

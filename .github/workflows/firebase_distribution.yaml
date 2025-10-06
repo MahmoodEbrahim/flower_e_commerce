@@ -1,6 +1,5 @@
 name: Firebase Distribution
 
-
 on:
   push:
     branches:
@@ -9,14 +8,11 @@ on:
     branches:
       - release/0.0.5
     types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
-    
+      - closed
 
 jobs:
   build:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
 
     env:
@@ -24,7 +20,7 @@ jobs:
       ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
     steps:
-      - name: Checkout My Code 
+      - name: Checkout My Code
         uses: actions/checkout@v3
 
       - name: Setup Java 17
@@ -36,7 +32,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.35.2'
+          flutter-version: '3.35.4'
           channel: stable
 
       - name: Install Android Command-line Tools
