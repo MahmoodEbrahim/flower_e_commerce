@@ -31,10 +31,6 @@ class TrackingFirebaseService {
         .map((snapshot) => snapshot.data()!);
   }
 
-  Future<void> updateOrderState(String orderId, String newState) async {
-    await _collectionReference.doc(orderId).update({
-      FirebaseConstants.orderDeliveryStatus: newState,
-    });
-  }
+  
 
 }
