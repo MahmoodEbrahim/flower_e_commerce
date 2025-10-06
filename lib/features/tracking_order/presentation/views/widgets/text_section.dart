@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+
+class TextSection extends StatelessWidget {
+  final String txt1;
+  final String txt2;
+  const TextSection({super.key, required this.txt1, required this.txt2});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [Text(txt1), Text(txt2)],
+      ),
+    );
+  }
+}

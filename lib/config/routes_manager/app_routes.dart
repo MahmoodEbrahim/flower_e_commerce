@@ -34,4 +34,5 @@ abstract class AppRoutes {
   static const String orderspage="/Orders";
 
   static const String paymentView="/PaymentViewPage";
+  static const String trackingOrderPage="trackingOrder";
 }

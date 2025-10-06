@@ -141,6 +141,8 @@
 
   "typeSomething": "Type something to search...",
   "noProductsFor":"No products found for ",
-  "noLocationFound":"No Address Found !   😐"
+  "noLocationFound":"No Address Found !   😐",
+  "showMap":"Show Map",
+  "trackingOrder":"Tracking Order"
 
 }

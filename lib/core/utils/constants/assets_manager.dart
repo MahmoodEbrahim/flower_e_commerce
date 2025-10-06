@@ -3,6 +3,8 @@ class AssetsManager {
   static const String categoriesicon = 'assets/images/categoriesicon.svg';
   static const String carticon = 'assets/images/carticon.svg';
   static const String profileicon = 'assets/images/profileicon.svg';
+  static const String carImage = 'assets/images/car.png';
+  static const String delivaryBoyImage = 'assets/images/delivery_boy.png';
 
   // Add more assets as needed
 }

@@ -127,6 +127,8 @@
   "completed": "مكتمل",
   "reorder": "إعادة الطلب",
   "trackorder": "تتبع الطلب",
-  "noLocationFound":"No Address Found !   😐"
+  "noLocationFound":"  😐 ! لا يوجد موقع",
+  "showMap":"عرض الخريطة",
+  "trackingOrder":"تتبع الطلب"
 
 }
