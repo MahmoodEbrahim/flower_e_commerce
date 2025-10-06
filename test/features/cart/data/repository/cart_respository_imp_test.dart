@@ -28,7 +28,7 @@ void main() {
     mockCartRemoteDataSouce = MockCartRemoteDataSouce();
     cartRespositoryImp = CartRespositoryImp(mockCartRemoteDataSouce);
 
-// Fake Product
+    // Fake Product
     fakeProduct = ProductsEntity(
       id: "673e2bd91159920171828139",
       title: "Red Wdding Flower",
@@ -48,7 +48,7 @@ void main() {
       occasion: "673b34c21159920171827ae0",
     );
 
-// Fake Cart Items
+    // Fake Cart Items
     fakeCartItems = [
       CartItemEntity(
         id: "68b803e8a8bca307f9e2266a",
@@ -58,7 +58,7 @@ void main() {
       ),
     ];
 
-// Fake Cart
+    // Fake Cart
     fakeCart = CartEntity(
       id: "68b6f13fa8bca307f9e21118",
       user: "68b1a4a2a8bca307f9e1c328",
@@ -67,7 +67,7 @@ void main() {
       totalPrice: 1000,
     );
 
-// Fake Cart Response
+    // Fake Cart Response
     fakeCartResponse = CartResponseEntity(
       message: "success",
       numOfCartItems: 1,
@@ -76,179 +76,179 @@ void main() {
   });
   group("test addProductToCart in CartRespositoryImp", () {
     test(
-        "when call addToCart function with correct parameters it should return apiSuccess result",
-        () async {
-      //arrange
+      "when call addToCart function with correct parameters it should return apiSuccess result",
+      () async {
+        //arrange
 
-      CartItemRequestEntity cartItemRequestEntity = CartItemRequestEntity(
-        product: "12345",
-        quantity: 3,
-      );
+        CartItemRequestEntity cartItemRequestEntity = CartItemRequestEntity(
+          product: "12345",
+          quantity: 3,
+        );
 
-      final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity),
+        ).thenAnswer((_) async => mockResult);
 
-      //act
+        //act
 
-      final res =
-          await cartRespositoryImp.addProductToCart(cartItemRequestEntity);
+        final res = await cartRespositoryImp.addProductToCart(
+          cartItemRequestEntity,
+        );
 
-      //assert
+        //assert
 
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
-      expect(acResult.sucessResult.cart!.id, fakeCart.id);
-      verify(mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity))
-          .called(1);
-    });
+        expect(res, isA<SucessResult<CartResponseEntity>>());
+        final acResult = res as SucessResult<CartResponseEntity>;
+        expect(acResult.sucessResult.cart!.id, fakeCart.id);
+        verify(
+          mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity),
+        ).called(1);
+      },
+    );
 
     test(
-        "when call addToCart function with inCorrect parameters it should return apiFailed result",
-        () async {
-      //arrange
+      "when call addToCart function with inCorrect parameters it should return apiFailed result",
+      () async {
+        //arrange
 
-      CartItemRequestEntity cartItemRequestEntity = CartItemRequestEntity(
-        product: "12345",
-        quantity: 3,
-      );
+        CartItemRequestEntity cartItemRequestEntity = CartItemRequestEntity(
+          product: "12345",
+          quantity: 3,
+        );
 
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity),
+        ).thenAnswer((_) async => mockResult);
 
-      //act
+        //act
 
-      final res =
-          await cartRespositoryImp.addProductToCart(cartItemRequestEntity);
+        final res = await cartRespositoryImp.addProductToCart(
+          cartItemRequestEntity,
+        );
 
-      //assert
+        //assert
 
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
-      expect(acResult.errorMessage, "error");
-      verify(mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity))
-          .called(1);
-    });
+        expect(res, isA<FailedResult<CartResponseEntity>>());
+        final acResult = res as FailedResult<CartResponseEntity>;
+        expect(acResult.errorMessage, "error");
+        verify(
+          mockCartRemoteDataSouce.addProductToCart(cartItemRequestEntity),
+        ).called(1);
+      },
+    );
   });
 
   group("test getCartOfUser in CartRespositoryImp", () {
     test("returns ApiSucessResult", () async {
-      final mockResult = ApiSucessResult(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+      final mockResult = SucessResult(fakeCartResponse);
+      provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce.getCartOfUser())
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockCartRemoteDataSouce.getCartOfUser(),
+      ).thenAnswer((_) async => mockResult);
 
       final res = await cartRespositoryImp.getCartOfUser();
 
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
+      expect(res, isA<SucessResult<CartResponseEntity>>());
+      final acResult = res as SucessResult<CartResponseEntity>;
       expect(acResult.sucessResult.cart!.id, fakeCart.id);
       verify(mockCartRemoteDataSouce.getCartOfUser()).called(1);
     });
 
-    test("returns ApiFailedResult", () async {
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+    test("returns FailedResult", () async {
+      final mockResult = FailedResult<CartResponseEntity>("error");
+      provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce.getCartOfUser())
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockCartRemoteDataSouce.getCartOfUser(),
+      ).thenAnswer((_) async => mockResult);
 
       final res = await cartRespositoryImp.getCartOfUser();
 
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
+      expect(res, isA<FailedResult<CartResponseEntity>>());
+      final acResult = res as FailedResult<CartResponseEntity>;
       expect(acResult.errorMessage, "error");
       verify(mockCartRemoteDataSouce.getCartOfUser()).called(1);
     });
   });
 
   group("test deleteItemFromCart in CartRespositoryImp", () {
-
     final String itemId = "68b803e8a8bca307f9e2266a";
     test("returns ApiSucessResult", () async {
-      final mockResult = ApiSucessResult(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
-      
+      final mockResult = SucessResult(fakeCartResponse);
+      provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce
-              .deleteItemFromCart(itemId))
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockCartRemoteDataSouce.deleteItemFromCart(itemId),
+      ).thenAnswer((_) async => mockResult);
 
-      final res = await cartRespositoryImp
-          .deleteItemFromCart(itemId);
+      final res = await cartRespositoryImp.deleteItemFromCart(itemId);
 
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
+      expect(res, isA<SucessResult<CartResponseEntity>>());
+      final acResult = res as SucessResult<CartResponseEntity>;
       expect(acResult.sucessResult.cart!.id, fakeCart.id);
-      verify(mockCartRemoteDataSouce
-              .deleteItemFromCart(itemId))
-          .called(1);
+      verify(mockCartRemoteDataSouce.deleteItemFromCart(itemId)).called(1);
     });
 
-    test("returns ApiFailedResult", () async {
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+    test("returns FailedResult", () async {
+      final mockResult = FailedResult<CartResponseEntity>("error");
+      provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce
-              .deleteItemFromCart(itemId))
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockCartRemoteDataSouce.deleteItemFromCart(itemId),
+      ).thenAnswer((_) async => mockResult);
 
-      final res = await cartRespositoryImp
-          .deleteItemFromCart(itemId);
+      final res = await cartRespositoryImp.deleteItemFromCart(itemId);
 
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
+      expect(res, isA<FailedResult<CartResponseEntity>>());
+      final acResult = res as FailedResult<CartResponseEntity>;
       expect(acResult.errorMessage, "error");
-      verify(mockCartRemoteDataSouce
-              .deleteItemFromCart(itemId))
-          .called(1);
+      verify(mockCartRemoteDataSouce.deleteItemFromCart(itemId)).called(1);
     });
   });
 
-
-group("test deleteItemFromCart in CartRespositoryImp", () {
-
-  final UpdatedQuatityRequestEntity fakeUpdatedReq = UpdatedQuatityRequestEntity(
-    itemId: "68b803e8a8bca307f9e2266a",
-    updatedRequestBody: UpdatedRequestBodyEntity(quantity: 5),
-  );
+  group("test deleteItemFromCart in CartRespositoryImp", () {
+    final UpdatedQuatityRequestEntity fakeUpdatedReq =
+        UpdatedQuatityRequestEntity(
+          itemId: "68b803e8a8bca307f9e2266a",
+          updatedRequestBody: UpdatedRequestBodyEntity(quantity: 5),
+        );
     test("returns ApiSucessResult", () async {
-      final mockResult = ApiSucessResult(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+      final mockResult = SucessResult(fakeCartResponse);
+      provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce.updateQuantity(fakeUpdatedReq))
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockCartRemoteDataSouce.updateQuantity(fakeUpdatedReq),
+      ).thenAnswer((_) async => mockResult);
 
       final res = await cartRespositoryImp.updateQuantity(fakeUpdatedReq);
 
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
+      expect(res, isA<SucessResult<CartResponseEntity>>());
+      final acResult = res as SucessResult<CartResponseEntity>;
       expect(acResult.sucessResult.cart!.id, fakeCart.id);
       verify(mockCartRemoteDataSouce.updateQuantity(fakeUpdatedReq)).called(1);
     });
 
-    test("returns ApiFailedResult", () async {
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+    test("returns FailedResult", () async {
+      final mockResult = FailedResult<CartResponseEntity>("error");
+      provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRemoteDataSouce.updateQuantity(fakeUpdatedReq))
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockCartRemoteDataSouce.updateQuantity(fakeUpdatedReq),
+      ).thenAnswer((_) async => mockResult);
 
       final res = await cartRespositoryImp.updateQuantity(fakeUpdatedReq);
 
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
+      expect(res, isA<FailedResult<CartResponseEntity>>());
+      final acResult = res as FailedResult<CartResponseEntity>;
       expect(acResult.errorMessage, "error");
       verify(mockCartRemoteDataSouce.updateQuantity(fakeUpdatedReq)).called(1);
     });
   });
-
-
-
 }

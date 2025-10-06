@@ -7,51 +7,51 @@ import 'package:flower_e_commerce/features/auth/domain/usecase/get_log_out_use_c
 import 'package:flower_e_commerce/features/auth/domain/usecase/get_profile_data.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/app_language/app_language_state.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
 class SettingCubit extends Cubit<SettingState> {
-  SettingCubit(this._getProfileDataUseCase,this._getLogOutUseCase)
-      : super(SettingInitial());
+  SettingCubit(this._getProfileDataUseCase, this._getLogOutUseCase)
+    : super(SettingInitial());
   final GetProfileDataUseCase _getProfileDataUseCase;
   final GetLogOutUseCase _getLogOutUseCase;
   String currentLanguage = "en";
-  void changeLanguage(String langCode)async {
+  void changeLanguage(String langCode) async {
     currentLanguage = langCode;
-    await  UserLocalStorage.saveLanguage(langCode);
+    await UserLocalStorage.saveLanguage(langCode);
     emit(SaveLanguageState());
   }
-  void getLanguage() async{
+
+  void getLanguage() async {
     String? lang = await UserLocalStorage.getLanguage();
     if (lang != null) {
-      if (lang=="en"){
+      if (lang == "en") {
         currentLanguage = "en";
-      }
-      else
-      {
+      } else {
         currentLanguage = "ar";
       }
     }
     emit(getLanguageState());
   }
-  UserModel? userModel;
-  Future<void>getProfileData(String token)async{
-    final result=await _getProfileDataUseCase.getProfileData(token);
-    switch(result){
 
-      case ApiSucessResult<UserModel>():
-        userModel=result.sucessResult;
-  emit(GetProfileDataSuccessState(result.sucessResult));
-      case ApiFailedResult<UserModel>():
-      emit(GetProfileDataErrorState(result.errorMessage));
+  UserModel? userModel;
+  Future<void> getProfileData(String token) async {
+    final result = await _getProfileDataUseCase.getProfileData(token);
+    switch (result) {
+      case SucessResult<UserModel>():
+        userModel = result.sucessResult;
+        emit(GetProfileDataSuccessState(result.sucessResult));
+      case FailedResult<UserModel>():
+        emit(GetProfileDataErrorState(result.errorMessage));
     }
   }
-  Future<void> logOut(String token)async{
-    final result=await _getLogOutUseCase.logOut(token);
-    switch(result){
 
-      case ApiSucessResult<SignOutResponse>():
+  Future<void> logOut(String token) async {
+    final result = await _getLogOutUseCase.logOut(token);
+    switch (result) {
+      case SucessResult<SignOutResponse>():
         emit(GetLogOutSuccessState());
-      case ApiFailedResult<SignOutResponse>():
-  emit(GetLogOutErrorState(result.errorMessage));
+      case FailedResult<SignOutResponse>():
+        emit(GetLogOutErrorState(result.errorMessage));
     }
   }
 }

@@ -5,11 +5,13 @@ import 'package:flower_e_commerce/features/profile/domain/repository/profile_rep
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetChangePasswordUseCase{
+class GetChangePasswordUseCase {
   final ProfileRepository _profileRepository;
   GetChangePasswordUseCase(this._profileRepository);
-  Future<ApiResult<ChangePasswordResponse>>
-  changePassword(ChangePasswordRequest request,String token) async{
+  Future<Result<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+    String token,
+  ) async {
     return await _profileRepository.changePassword(request, token);
   }
 }

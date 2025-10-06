@@ -7,12 +7,18 @@ import 'package:flower_e_commerce/features/address/domain/entity/city_entity.dar
 import 'package:flower_e_commerce/features/address/domain/entity/country_entity.dart';
 import 'package:flower_e_commerce/features/address/domain/entity/governate_entity.dart';
 
-abstract interface class AddressRepositry{
-  Future<ApiResult<List<AddressEntity>>> addAddress(AddAdressRequest request, String token);
-  Future<ApiResult <List<AddressEntity>>> getAllAddress(String token);
-  Future<ApiResult<RemoveAddressDto>> removeAddress(String token, String id);
-  Future<ApiResult<List<AddressEntity>>> updateAddress
-      (String token, String id, AddAdressRequest request);
+abstract interface class AddressRepositry {
+  Future<Result<List<AddressEntity>>> addAddress(
+    AddAdressRequest request,
+    String token,
+  );
+  Future<Result<List<AddressEntity>>> getAllAddress(String token);
+  Future<Result<RemoveAddressDto>> removeAddress(String token, String id);
+  Future<Result<List<AddressEntity>>> updateAddress(
+    String token,
+    String id,
+    AddAdressRequest request,
+  );
   Future<LocalDsResult<List<GovernorateEntity>>> getGovernorates();
   Future<LocalDsResult<List<StateEntity>>> getStates(String governateId);
   Future<LocalDsResult<List<CountryEntity>>> getCountries();

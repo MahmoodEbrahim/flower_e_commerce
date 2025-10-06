@@ -9,9 +9,13 @@ class SearchProductsUseCase {
   final HomeRepository _homeRepository;
   SearchProductsUseCase(this._homeRepository);
 
-  Future<ApiResult<List<ProductsEntity>>> call(String keyword,
-      {CancelToken? cancelToken})async{
-    return await _homeRepository.searchProducts(keyword.trim(),cancelToken: cancelToken);
+  Future<Result<List<ProductsEntity>>> call(
+    String keyword, {
+    CancelToken? cancelToken,
+  }) async {
+    return await _homeRepository.searchProducts(
+      keyword.trim(),
+      cancelToken: cancelToken,
+    );
   }
-
 }

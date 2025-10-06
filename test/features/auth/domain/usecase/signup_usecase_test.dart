@@ -19,76 +19,76 @@ void main() {
     mockAuthRespository = MockAuthRepository();
     signupUsecase = SignupUsecase(mockAuthRespository);
     fakeSignupRequestModel = SignupRequestModel(
-        firstName: "Aya",
-        lastName: "Saber",
-        email: "aya.saber@example.com",
-        password: "Ahmed@123",
-        repassword: "Ahmed@123",
-        phone: "+201234567890",
-        gender: "female",
-      );
+      firstName: "Aya",
+      lastName: "Saber",
+      email: "aya.saber@example.com",
+      password: "Ahmed@123",
+      repassword: "Ahmed@123",
+      phone: "+201234567890",
+      gender: "female",
+    );
 
-      fakeUser = UserModel(
-        firstName: "Aya",
-        lastName: "Saber",
-        email: "aya.saber@example.com",
-        gender: "female",
-        phone: "+201234567890",
-        photo: "https://example.com/avatar.png",
-        role: "customer",
-        wishlist: ["prod_1", "prod_2", "prod_3"],
-        addresses: [
-         
-        ],
-      );
-
+    fakeUser = UserModel(
+      firstName: "Aya",
+      lastName: "Saber",
+      email: "aya.saber@example.com",
+      gender: "female",
+      phone: "+201234567890",
+      photo: "https://example.com/avatar.png",
+      role: "customer",
+      wishlist: ["prod_1", "prod_2", "prod_3"],
+      addresses: [],
+    );
   });
 
   group('test SignupUsecase', () {
     test(
-        "when call signUp in SignupUsecase with correctParameters it should return successApiResult",
-        () async {
-      // arange
+      "when call signUp in SignupUsecase with correctParameters it should return successApiResult",
+      () async {
+        // arange
 
-     
-      final mockResult = ApiSucessResult<UserModel>(fakeUser);
-      provideDummy<ApiResult<UserModel>>(mockResult);
+        final mockResult = SucessResult<UserModel>(fakeUser);
+        provideDummy<Result<UserModel>>(mockResult);
 
-      when(mockAuthRespository.signUp(fakeSignupRequestModel))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockAuthRespository.signUp(fakeSignupRequestModel),
+        ).thenAnswer((_) async => mockResult);
 
-      //act
-      final result = await signupUsecase.signUp(fakeSignupRequestModel);
+        //act
+        final result = await signupUsecase.signUp(fakeSignupRequestModel);
 
-      //assert
-      expect(result, isA<ApiSucessResult<UserModel>>());
-      final acResult = result as ApiSucessResult<UserModel>;
-      expect(acResult.sucessResult.firstName, equals("Aya"));
-      expect(acResult.sucessResult.email, equals("aya.saber@example.com"));
+        //assert
+        expect(result, isA<SucessResult<UserModel>>());
+        final acResult = result as SucessResult<UserModel>;
+        expect(acResult.sucessResult.firstName, equals("Aya"));
+        expect(acResult.sucessResult.email, equals("aya.saber@example.com"));
 
-      verify(mockAuthRespository.signUp(fakeSignupRequestModel)).called(1);
-    });
+        verify(mockAuthRespository.signUp(fakeSignupRequestModel)).called(1);
+      },
+    );
 
     test(
-        "when call signUp in SignupUsecase with incorrect parameters it should return failedApiResult",
-        () async {
-      // arrange
-     
-      final mockError = ApiFailedResult<UserModel>("Invalid signup data");
-      provideDummy<ApiResult<UserModel>>(mockError);
+      "when call signUp in SignupUsecase with incorrect parameters it should return failedApiResult",
+      () async {
+        // arrange
 
-      when(mockAuthRespository.signUp(fakeSignupRequestModel))
-          .thenAnswer((_) async => mockError);
+        final mockError = FailedResult<UserModel>("Invalid signup data");
+        provideDummy<Result<UserModel>>(mockError);
 
-      // act
-      final result = await signupUsecase.signUp(fakeSignupRequestModel);
+        when(
+          mockAuthRespository.signUp(fakeSignupRequestModel),
+        ).thenAnswer((_) async => mockError);
 
-      // assert
-      expect(result, isA<ApiFailedResult<UserModel>>());
-      final acResult = result as ApiFailedResult<UserModel>;
-      expect(acResult.errorMessage, equals("Invalid signup data"));
+        // act
+        final result = await signupUsecase.signUp(fakeSignupRequestModel);
 
-      verify(mockAuthRespository.signUp(fakeSignupRequestModel)).called(1);
-    });
+        // assert
+        expect(result, isA<FailedResult<UserModel>>());
+        final acResult = result as FailedResult<UserModel>;
+        expect(acResult.errorMessage, equals("Invalid signup data"));
+
+        verify(mockAuthRespository.signUp(fakeSignupRequestModel)).called(1);
+      },
+    );
   });
 }

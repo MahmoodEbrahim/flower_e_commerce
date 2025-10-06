@@ -9,12 +9,11 @@ import 'package:injectable/injectable.dart';
 @injectable
 class GetProductsByCategoryIdUseCase {
   final HomeRepository _homeRepository;
-  GetProductsByCategoryIdUseCase(
-    this._homeRepository,
-  );
+  GetProductsByCategoryIdUseCase(this._homeRepository);
 
-  Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(
-      String catId) async {
+  Future<Result<List<ProductsEntity>>> getProductsByCategoryId(
+    String catId,
+  ) async {
     return await _homeRepository.getProductsByCategoryId(catId);
   }
 }

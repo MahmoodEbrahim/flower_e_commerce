@@ -5,11 +5,13 @@ import 'package:flower_e_commerce/features/profile/domain/repository/profile_rep
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetEditProfileUseCase{
+class GetEditProfileUseCase {
   final ProfileRepository _profileRepository;
   GetEditProfileUseCase(this._profileRepository);
-  Future<ApiResult<EditProfileResponsea>>
-  editProfile(String token, EditProfileRequest request)async{
+  Future<Result<EditProfileResponsea>> editProfile(
+    String token,
+    EditProfileRequest request,
+  ) async {
     return await _profileRepository.editProfile(token, request);
   }
 }

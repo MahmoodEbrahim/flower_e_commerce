@@ -14,7 +14,7 @@ void main() {
   late MockHomeRepository mockRepository;
 
   setUp(() {
-    provideDummy<ApiResult<HomeEntity>>(ApiFailedResult<HomeEntity>("dummy"));
+    provideDummy<Result<HomeEntity>>(FailedResult<HomeEntity>("dummy"));
     mockRepository = MockHomeRepository();
     useCase = GetHomeDataUseCase(mockRepository);
   });
@@ -29,30 +29,30 @@ void main() {
           products: [],
         );
 
-        final mockResult = ApiSucessResult<HomeEntity>(fakeHomeEntity);
+        final mockResult = SucessResult<HomeEntity>(fakeHomeEntity);
 
         when(mockRepository.getHomeData()).thenAnswer((_) async => mockResult);
 
         final result = await useCase();
 
-        expect(result, isA<ApiSucessResult<HomeEntity>>());
-        final success = result as ApiSucessResult<HomeEntity>;
+        expect(result, isA<SucessResult<HomeEntity>>());
+        final success = result as SucessResult<HomeEntity>;
         expect(success.sucessResult, equals(fakeHomeEntity));
         verify(mockRepository.getHomeData()).called(1);
       },
     );
 
     test(
-      "should return ApiFailedResult when repository returns failure",
+      "should return FailedResult when repository returns failure",
       () async {
-        final mockError = ApiFailedResult<HomeEntity>("Network error");
+        final mockError = FailedResult<HomeEntity>("Network error");
 
         when(mockRepository.getHomeData()).thenAnswer((_) async => mockError);
 
         final result = await useCase();
 
-        expect(result, isA<ApiFailedResult<HomeEntity>>());
-        final failure = result as ApiFailedResult<HomeEntity>;
+        expect(result, isA<FailedResult<HomeEntity>>());
+        final failure = result as FailedResult<HomeEntity>;
         expect(failure.errorMessage, equals("Network error"));
         verify(mockRepository.getHomeData()).called(1);
       },

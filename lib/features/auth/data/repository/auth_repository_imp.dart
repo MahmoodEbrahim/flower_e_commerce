@@ -16,45 +16,50 @@ import 'package:injectable/injectable.dart';
 
 @Injectable(as: AuthRepository)
 class AuthRepositoryImp implements AuthRepository {
-
   AuthRemoteDataSource authRemoteDataSource;
   AuthRepositoryImp(this.authRemoteDataSource);
 
   @override
-  Future<ApiResult<LoginModel>> login(String email,String password)async{
-    return  await authRemoteDataSource.login(email, password);
+  Future<Result<LoginModel>> login(String email, String password) async {
+    return await authRemoteDataSource.login(email, password);
   }
 
   @override
-  Future<ApiResult<ForgetPasswordResponse>> forgetPassword
-      (ForgetPasswordRequest request) async {
+  Future<Result<ForgetPasswordResponse>> forgetPassword(
+    ForgetPasswordRequest request,
+  ) async {
     return await authRemoteDataSource.forgetPassword(request);
   }
+
   @override
-  Future<ApiResult<VerfiyPasswordResponse>> verfiyPassword(VerfiyPasswordRequest request)async {
+  Future<Result<VerfiyPasswordResponse>> verfiyPassword(
+    VerfiyPasswordRequest request,
+  ) async {
     // TODO: implement verfiyPassword
     return await authRemoteDataSource.verfiyPassword(request);
   }
+
   @override
-  Future<ApiResult<ResetPasswordResponsea>>
-  resetPassword(ResetPasswordRequest request) async{
-   
-    return await authRemoteDataSource.resetPassword(request);  }
+  Future<Result<ResetPasswordResponsea>> resetPassword(
+    ResetPasswordRequest request,
+  ) async {
+    return await authRemoteDataSource.resetPassword(request);
+  }
 
-
-    @override
-  Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel) async {
+  @override
+  Future<Result<UserModel>> signUp(SignupRequestModel userModel) async {
     return await authRemoteDataSource.signUp(userModel);
   }
+
   @override
-  Future<ApiResult<UserModel>> getProfileData(String token) async{
+  Future<Result<UserModel>> getProfileData(String token) async {
     // TODO: implement getProfileData
     return await authRemoteDataSource.getProfileData(token);
   }
 
   @override
-  Future<ApiResult<SignOutResponse>> logOut(String token)async {
+  Future<Result<SignOutResponse>> logOut(String token) async {
     // TODO: implement logOut
-   return await authRemoteDataSource.logOut(token);
+    return await authRemoteDataSource.logOut(token);
   }
 }

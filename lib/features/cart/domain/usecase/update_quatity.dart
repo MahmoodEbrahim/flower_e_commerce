@@ -8,12 +8,11 @@ import 'package:injectable/injectable.dart';
 @injectable
 class UpdateQuatityUseCase {
   final CartRepository _cartRepository;
-  UpdateQuatityUseCase(
-    this._cartRepository,
-  );
+  UpdateQuatityUseCase(this._cartRepository);
 
-  Future<ApiResult<CartResponseEntity>> updateQuantity(
-      UpdatedQuatityRequestEntity updatedReq) async {
+  Future<Result<CartResponseEntity>> updateQuantity(
+    UpdatedQuatityRequestEntity updatedReq,
+  ) async {
     return await _cartRepository.updateQuantity(updatedReq);
   }
 }

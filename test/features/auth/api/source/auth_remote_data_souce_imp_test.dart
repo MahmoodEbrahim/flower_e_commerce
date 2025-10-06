@@ -50,90 +50,104 @@ void main() {
     );
   });
 
- // -----------------------------sign up----------------------------------
+  // -----------------------------sign up----------------------------------
   group("test signup function in the AuthRemoteDataSourceImp", () {
     test(
-        "when call signup function with a correct parameters then it should return success api_result",
-            () async {
-          //------------------------Arrange----------------------------//
-          AuthResponseDto fakeSignupResponseDto = AuthResponseDto(
-            message: "sucess",
-            user: fakeUser,
-            token: "hhhhhhhhh",
-          );
+      "when call signup function with a correct parameters then it should return success api_result",
+      () async {
+        //------------------------Arrange----------------------------//
+        AuthResponseDto fakeSignupResponseDto = AuthResponseDto(
+          message: "sucess",
+          user: fakeUser,
+          token: "hhhhhhhhh",
+        );
 
-          when(mockAuthApiService.signUp(
+        when(
+          mockAuthApiService.signUp(
             SignupRequestDto.toDto(fakeSignupRequestModel),
-          )).thenAnswer((_) async => fakeSignupResponseDto);
+          ),
+        ).thenAnswer((_) async => fakeSignupResponseDto);
 
-          //----------------Act----------------------------------//
-          final result =
-          await authRemoteDataSouceImp.signUp(fakeSignupRequestModel);
+        //----------------Act----------------------------------//
+        final result = await authRemoteDataSouceImp.signUp(
+          fakeSignupRequestModel,
+        );
 
-          //----------------Assert----------------------------------//
-          verify(mockAuthApiService.signUp(
+        //----------------Assert----------------------------------//
+        verify(
+          mockAuthApiService.signUp(
             SignupRequestDto.toDto(fakeSignupRequestModel),
-          )).called(1);
+          ),
+        ).called(1);
 
-          expect(result, isA<ApiSucessResult<UserModel>>());
-          final acResult = result as ApiSucessResult<UserModel>;
-          expect(acResult.sucessResult.email, fakeUser.email);
-        });
+        expect(result, isA<SucessResult<UserModel>>());
+        final acResult = result as SucessResult<UserModel>;
+        expect(acResult.sucessResult.email, fakeUser.email);
+      },
+    );
 
     test(
-        "when call signup function with a correct parameters but there is dio exception then it should return failed api_result",
-            () async {
-          //------------------------Arrange----------------------------//
-          final String dioExceptionMessage = "dio error";
-          final DioException mockDioException = DioException(
-            requestOptions: RequestOptions(path: ''),
-            message: dioExceptionMessage,
-          );
+      "when call signup function with a correct parameters but there is dio exception then it should return failed api_result",
+      () async {
+        //------------------------Arrange----------------------------//
+        final String dioExceptionMessage = "dio error";
+        final DioException mockDioException = DioException(
+          requestOptions: RequestOptions(path: ''),
+          message: dioExceptionMessage,
+        );
 
-          when(mockAuthApiService.signUp(
+        when(
+          mockAuthApiService.signUp(
             SignupRequestDto.toDto(fakeSignupRequestModel),
-          )).thenThrow(mockDioException);
+          ),
+        ).thenThrow(mockDioException);
 
-          //----------------Act----------------------------------//
-          final result =
-          await authRemoteDataSouceImp.signUp(fakeSignupRequestModel);
+        //----------------Act----------------------------------//
+        final result = await authRemoteDataSouceImp.signUp(
+          fakeSignupRequestModel,
+        );
 
-          //----------------Assert----------------------------------//
-          verify(mockAuthApiService.signUp(any)).called(1);
+        //----------------Assert----------------------------------//
+        verify(mockAuthApiService.signUp(any)).called(1);
 
-          expect(result, isA<ApiFailedResult<UserModel>>());
-          final ApiFailedResult<UserModel> acResult =
-          result as ApiFailedResult<UserModel>;
-          expect(acResult.errorMessage, equals(dioExceptionMessage));
-        });
+        expect(result, isA<FailedResult<UserModel>>());
+        final FailedResult<UserModel> acResult =
+            result as FailedResult<UserModel>;
+        expect(acResult.errorMessage, equals(dioExceptionMessage));
+      },
+    );
 
     test(
-        "when call signup function with a correct parameters but there is exception then it should return failed api_result",
-            () async {
-          //------------------------Arrange----------------------------//
-          final String exceptionMessage = "exception error";
-          final Exception mockException = Exception(exceptionMessage);
+      "when call signup function with a correct parameters but there is exception then it should return failed api_result",
+      () async {
+        //------------------------Arrange----------------------------//
+        final String exceptionMessage = "exception error";
+        final Exception mockException = Exception(exceptionMessage);
 
-          when(mockAuthApiService.signUp(
+        when(
+          mockAuthApiService.signUp(
             SignupRequestDto.toDto(fakeSignupRequestModel),
-          )).thenThrow(mockException);
+          ),
+        ).thenThrow(mockException);
 
-          //----------------Act----------------------------------//
-          final result =
-          await authRemoteDataSouceImp.signUp(fakeSignupRequestModel);
+        //----------------Act----------------------------------//
+        final result = await authRemoteDataSouceImp.signUp(
+          fakeSignupRequestModel,
+        );
 
-          //----------------Assert----------------------------------//
-          verify(mockAuthApiService.signUp(any)).called(1);
+        //----------------Assert----------------------------------//
+        verify(mockAuthApiService.signUp(any)).called(1);
 
-          expect(result, isA<ApiFailedResult<UserModel>>());
-          final ApiFailedResult<UserModel> acResult =
-          result as ApiFailedResult<UserModel>;
-          expect(acResult.errorMessage, equals(mockException.toString()));
-        });
+        expect(result, isA<FailedResult<UserModel>>());
+        final FailedResult<UserModel> acResult =
+            result as FailedResult<UserModel>;
+        expect(acResult.errorMessage, equals(mockException.toString()));
+      },
+    );
   });
 
   // -----------------------------login----------------------------------
- group('AuthRemoteDataSource.login', () {
+  group('AuthRemoteDataSource.login', () {
     const email = "test@test.com";
     const password = "123456";
 
@@ -155,43 +169,49 @@ void main() {
         ),
       );
 
-      when(mockAuthApiService.logIn(any))
-          .thenAnswer((_) async => fakeLoginResponse);
+      when(
+        mockAuthApiService.logIn(any),
+      ).thenAnswer((_) async => fakeLoginResponse);
 
       // Act
       final result = await authRemoteDataSouceImp.login(email, password);
-      final success = result as ApiSucessResult<LoginModel>;
+      final success = result as SucessResult<LoginModel>;
 
       // Assert
-      expect(result, isA<ApiSucessResult<LoginModel>>());
+      expect(result, isA<SucessResult<LoginModel>>());
       expect(success.sucessResult.token, "fake_token");
       expect(success.sucessResult.user.email, email);
     });
 
     test('should return ApiErrorResult when DioException is thrown', () async {
       // Arrange
-      when(mockAuthApiService.logIn(any))
-          .thenThrow(DioException(requestOptions: RequestOptions(path: '')));
+      when(
+        mockAuthApiService.logIn(any),
+      ).thenThrow(DioException(requestOptions: RequestOptions(path: '')));
 
       // Act
       final result = await authRemoteDataSouceImp.login(email, password);
 
       // Assert
-      expect(result, isA<ApiFailedResult<LoginModel>>());
+      expect(result, isA<FailedResult<LoginModel>>());
     });
 
-    test('should return ApiErrorResult when other Exception is thrown', () async {
-      // Arrange
-      when(mockAuthApiService.logIn(any))
-          .thenThrow(Exception("Unknown Error"));
+    test(
+      'should return ApiErrorResult when other Exception is thrown',
+      () async {
+        // Arrange
+        when(
+          mockAuthApiService.logIn(any),
+        ).thenThrow(Exception("Unknown Error"));
 
-      // Act
-      final result = await authRemoteDataSouceImp.login(email, password);
-      final error = result as ApiFailedResult<LoginModel>;
+        // Act
+        final result = await authRemoteDataSouceImp.login(email, password);
+        final error = result as FailedResult<LoginModel>;
 
-      // Assert
-      expect(result, isA<ApiFailedResult<LoginModel>>());
-      expect(error.errorMessage, contains("Unknown Error"));
-    });
+        // Assert
+        expect(result, isA<FailedResult<LoginModel>>());
+        expect(error.errorMessage, contains("Unknown Error"));
+      },
+    );
   });
 }

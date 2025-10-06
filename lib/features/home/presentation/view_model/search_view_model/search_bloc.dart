@@ -16,20 +16,22 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchProductsUseCase _searchProductsUseCase;
   SearchBloc(this._searchProductsUseCase) : super(const SearchState()) {
+    on<SearchProductsEvent>(
+      _onSearchProducts,
+      transformer: debounceSwitch(const Duration(milliseconds: 300)),
+    );
 
-
-    on<SearchProductsEvent>(_onSearchProducts,
-      transformer: debounceSwitch(const Duration(milliseconds: 300)),);
-
-    on<ClearSearch>(_onClearSearch,
-      transformer: debounceSwitch(const Duration(milliseconds: 300)),);
+    on<ClearSearch>(
+      _onClearSearch,
+      transformer: debounceSwitch(const Duration(milliseconds: 300)),
+    );
   }
 
   CancelToken? _cancelToken;
   Future<void> _onSearchProducts(
-      SearchProductsEvent event,
-      Emitter<SearchState> emit,
-      ) async {
+    SearchProductsEvent event,
+    Emitter<SearchState> emit,
+  ) async {
     // cancel previous search (API call) before send another request
     _cancelToken?.cancel();
 
@@ -42,10 +44,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     // Emit loading state
-    emit(state.copyWith(
-      requestState: RequestState.loading,
-      keyword: event.keyword,
-    ));
+    emit(
+      state.copyWith(
+        requestState: RequestState.loading,
+        keyword: event.keyword,
+      ),
+    );
 
     try {
       final result = await _searchProductsUseCase.call(
@@ -57,7 +61,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       if (_cancelToken!.isCancelled) return;
 
       switch (result) {
-        case ApiSucessResult<List<ProductsEntity>>():
+        case SucessResult<List<ProductsEntity>>():
           emit(
             state.copyWith(
               requestState: RequestState.success,
@@ -67,7 +71,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             ),
           );
 
-        case ApiFailedResult<List<ProductsEntity>>():
+        case FailedResult<List<ProductsEntity>>():
           emit(
             state.copyWith(
               requestState: RequestState.error,
@@ -93,7 +97,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-
   void _onClearSearch(ClearSearch event, Emitter<SearchState> emit) {
     _cancelToken?.cancel();
     emit(const SearchState());
@@ -103,10 +106,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   // switchMap --> cancel previous event if another one added
   EventTransformer<T> debounceSwitch<T>(Duration duration) {
     return (events, mapper) {
-      return events
-          .debounceTime(duration)
-          .switchMap(mapper);
+      return events.debounceTime(duration).switchMap(mapper);
     };
   }
-
 }

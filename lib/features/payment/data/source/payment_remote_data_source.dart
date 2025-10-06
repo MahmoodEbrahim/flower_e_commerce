@@ -4,9 +4,8 @@ import '../../api/models/cash_order_responce_model.dart';
 import '../../api/models/online_payment_responce_model.dart';
 
 abstract interface class PaymentRemoteDataSource {
-  Future<ApiResult<CashOrderResponce>> createCashOrder(
-  CashOrderRequest cashorder);
-  Future<ApiResult<OnlinePaymentResponce>> createOnlineOrder(
-      CashOrderRequest onlineorder);
-
+  Future<Result<CashOrderResponce>> createCashOrder(CashOrderRequest cashorder);
+  Future<Result<OnlinePaymentResponce>> createOnlineOrder(
+    CashOrderRequest onlineorder,
+  );
 }

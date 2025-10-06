@@ -12,7 +12,6 @@ import 'package:mockito/mockito.dart';
 
 import 'add_to_cart_usecase_test.mocks.dart';
 
-
 @GenerateMocks([CartRepository])
 void main() {
   late MockCartRepository mockCartRepository;
@@ -72,47 +71,51 @@ void main() {
 
   group("DeleteItemFromCartUseCase Tests", () {
     test(
-        "when call deleteItemFromCart with correct itemId it should return ApiSuccessResult",
-        () async {
-      // arrange
-      const itemId = "68b803e8a8bca307f9e2266a";
+      "when call deleteItemFromCart with correct itemId it should return ApiSuccessResult",
+      () async {
+        // arrange
+        const itemId = "68b803e8a8bca307f9e2266a";
 
-      final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.deleteItemFromCart(itemId))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.deleteItemFromCart(itemId),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res = await deleteItemFromCartUseCase.deleteItemFromCart(itemId);
+        // act
+        final res = await deleteItemFromCartUseCase.deleteItemFromCart(itemId);
 
-      // assert
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
-      expect(acResult.sucessResult.cart!.id, fakeCart.id);
-      verify(mockCartRepository.deleteItemFromCart(itemId)).called(1);
-    });
+        // assert
+        expect(res, isA<SucessResult<CartResponseEntity>>());
+        final acResult = res as SucessResult<CartResponseEntity>;
+        expect(acResult.sucessResult.cart!.id, fakeCart.id);
+        verify(mockCartRepository.deleteItemFromCart(itemId)).called(1);
+      },
+    );
 
     test(
-        "when call deleteItemFromCart with wrong itemId it should return ApiFailedResult",
-        () async {
-      // arrange
-      const itemId = "wrongId";
+      "when call deleteItemFromCart with wrong itemId it should return FailedResult",
+      () async {
+        // arrange
+        const itemId = "wrongId";
 
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.deleteItemFromCart(itemId))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.deleteItemFromCart(itemId),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res = await deleteItemFromCartUseCase.deleteItemFromCart(itemId);
+        // act
+        final res = await deleteItemFromCartUseCase.deleteItemFromCart(itemId);
 
-      // assert
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
-      expect(acResult.errorMessage, "error");
-      verify(mockCartRepository.deleteItemFromCart(itemId)).called(1);
-    });
+        // assert
+        expect(res, isA<FailedResult<CartResponseEntity>>());
+        final acResult = res as FailedResult<CartResponseEntity>;
+        expect(acResult.errorMessage, "error");
+        verify(mockCartRepository.deleteItemFromCart(itemId)).called(1);
+      },
+    );
   });
 }

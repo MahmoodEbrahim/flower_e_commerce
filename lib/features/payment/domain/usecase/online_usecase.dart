@@ -5,10 +5,11 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/api_result/api_result.dart';
 
 @injectable
-class OnlineUsecase{
+class OnlineUsecase {
   PaymentRepository repository;
   @factoryMethod
   OnlineUsecase(this.repository);
 
-  Future<ApiResult<String>> invoke(CashOrderRequest onlineorder)=>repository.createOnlineOrder(onlineorder);
+  Future<Result<String>> invoke(CashOrderRequest onlineorder) =>
+      repository.createOnlineOrder(onlineorder);
 }

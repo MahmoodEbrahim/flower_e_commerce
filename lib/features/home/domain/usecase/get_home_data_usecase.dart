@@ -9,7 +9,7 @@ class GetHomeDataUseCase {
 
   GetHomeDataUseCase(this.repository);
 
-  Future<ApiResult<HomeEntity>> call() async {
+  Future<Result<HomeEntity>> call() async {
     return await repository.getHomeData();
   }
 }

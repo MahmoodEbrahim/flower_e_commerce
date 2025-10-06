@@ -33,7 +33,7 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
     );
 
     switch (res) {
-      case ApiSucessResult<List<ProductsEntity>>():
+      case SucessResult<List<ProductsEntity>>():
         emit(
           state.copyWith(
             isLoading: false,
@@ -42,7 +42,7 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
             categories: event.categories,
           ),
         );
-      case ApiFailedResult<List<ProductsEntity>>():
+      case FailedResult<List<ProductsEntity>>():
         emit(
           state.copyWith(
             isLoading: false,
@@ -79,7 +79,7 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
     );
 
     switch (res) {
-      case ApiSucessResult<List<ProductsEntity>>():
+      case SucessResult<List<ProductsEntity>>():
         emit(
           state.copyWith(
             products: res.sucessResult,
@@ -87,7 +87,7 @@ class CategoriesViewModel extends Bloc<CategoriesEvent, CategoryState> {
             isLoading: false,
           ),
         );
-      case ApiFailedResult<List<ProductsEntity>>():
+      case FailedResult<List<ProductsEntity>>():
         emit(state.copyWith(errorMessage: res.errorMessage, isLoading: false));
     }
   }

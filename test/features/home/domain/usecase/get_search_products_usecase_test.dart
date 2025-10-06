@@ -70,13 +70,13 @@ void main() {
       'when call getSearchProducts in GetSearchProductsUsecase and remote source returns products, should return ApiSuccessResultl',
       () async {
         // arrange
-        final mockResult = ApiSucessResult<List<ProductsEntity>>(
+        final mockResult = SucessResult<List<ProductsEntity>>(
           fakeProductsModel,
         );
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+        provideDummy<Result<List<ProductsEntity>>>(mockResult);
 
         when(
-          mockHomeRepository.getSearchProducts(filter,catId),
+          mockHomeRepository.getSearchProducts(filter, catId),
         ).thenAnswer((_) async => mockResult);
 
         // act
@@ -86,25 +86,25 @@ void main() {
           catId,
         );
         //assert
-        expect(res, isA<ApiSucessResult<List<ProductsEntity>>>());
-        final acResult = res as ApiSucessResult<List<ProductsEntity>>;
+        expect(res, isA<SucessResult<List<ProductsEntity>>>());
+        final acResult = res as SucessResult<List<ProductsEntity>>;
         expect(acResult.sucessResult[0].id, equals(fakeProductsModel[0].id));
 
-        verify(mockHomeRepository.getSearchProducts(filter,catId)).called(1);
+        verify(mockHomeRepository.getSearchProducts(filter, catId)).called(1);
       },
     );
 
     test(
-      'when call getProductsByCategoryId in GetProductsByCategoryIdUseCase and remote source returns Failure, should return ApiFailedResultl',
+      'when call getProductsByCategoryId in GetProductsByCategoryIdUseCase and remote source returns Failure, should return FailedResultl',
       () async {
         // arrange
-        final mockFailure = ApiFailedResult<List<ProductsEntity>>(
+        final mockFailure = FailedResult<List<ProductsEntity>>(
           "Error occurred",
         );
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockFailure);
+        provideDummy<Result<List<ProductsEntity>>>(mockFailure);
 
         when(
-          mockHomeRepository.getSearchProducts(filter,catId),
+          mockHomeRepository.getSearchProducts(filter, catId),
         ).thenAnswer((_) async => mockFailure);
 
         // act
@@ -114,11 +114,11 @@ void main() {
         );
 
         // assert
-        expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
-        final failResult = res as ApiFailedResult<List<ProductsEntity>>;
+        expect(res, isA<FailedResult<List<ProductsEntity>>>());
+        final failResult = res as FailedResult<List<ProductsEntity>>;
         expect(failResult.errorMessage, equals("Error occurred"));
 
-        verify(mockHomeRepository.getSearchProducts(filter,catId)).called(1);
+        verify(mockHomeRepository.getSearchProducts(filter, catId)).called(1);
       },
     );
   });

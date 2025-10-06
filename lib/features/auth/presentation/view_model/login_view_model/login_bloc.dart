@@ -16,33 +16,37 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginButtonPressed>((event, emit) async {
       emit(state.copyWith(loginState: RequestState.init));
 
-      ApiResult<LoginModel> result =
-          await loginUsecase(event.email, event.password);
+      Result<LoginModel> result = await loginUsecase(
+        event.email,
+        event.password,
+      );
       switch (result) {
-        case ApiSucessResult<LoginModel>():
-          emit(state.copyWith(
-            loginState: RequestState.success,
-            user: result.sucessResult,
-          ));
+        case SucessResult<LoginModel>():
+          emit(
+            state.copyWith(
+              loginState: RequestState.success,
+              user: result.sucessResult,
+            ),
+          );
           await UserLocalStorage.saveToken(result.sucessResult.token);
-          await UserLocalStorage.saveUser(result.sucessResult,);
+          await UserLocalStorage.saveUser(result.sucessResult);
 
           if (state.rememberMe) {
             await UserLocalStorage.saveUser(result.sucessResult);
           }
 
-        case ApiFailedResult<LoginModel>():
-          emit(state.copyWith(
-            loginState: RequestState.error,
-            errorMessage: result.errorMessage,
-          ));
+        case FailedResult<LoginModel>():
+          emit(
+            state.copyWith(
+              loginState: RequestState.error,
+              errorMessage: result.errorMessage,
+            ),
+          );
       }
     });
 
-    on<ToggleRememberMe>(
-      (event, emit) {
-        emit(state.copyWith(rememberMe: event.value));
-      },
-    );
+    on<ToggleRememberMe>((event, emit) {
+      emit(state.copyWith(rememberMe: event.value));
+    });
   }
 }

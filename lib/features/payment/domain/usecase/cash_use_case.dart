@@ -6,11 +6,12 @@ import '../entity/cash_payment_responce_entity.dart';
 import '../repository/payment_repository.dart';
 
 @injectable
-class CashUseCase{
+class CashUseCase {
   PaymentRepository repository;
   @factoryMethod
   CashUseCase(this.repository);
 
-  Future<ApiResult<CashPaymentResponceEntity>> invoke
-      (CashOrderRequest cashorder)=>repository.createCashOrder(cashorder);
+  Future<Result<CashPaymentResponceEntity>> invoke(
+    CashOrderRequest cashorder,
+  ) => repository.createCashOrder(cashorder);
 }

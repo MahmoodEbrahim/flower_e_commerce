@@ -1,4 +1,3 @@
-
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/payment/api/models/request/cash_order_request.dart';
 import 'package:injectable/injectable.dart';
@@ -15,30 +14,28 @@ class PaymentRemoteDataSourceImp implements PaymentRemoteDataSource {
   PaymentRemoteDataSourceImp(this._apiService);
 
   @override
-  Future<ApiResult<CashOrderResponce>> createCashOrder(CashOrderRequest cashorder) async{
-
-    try{
+  Future<Result<CashOrderResponce>> createCashOrder(
+    CashOrderRequest cashorder,
+  ) async {
+    try {
       final result = await _apiService.createCashOrder(cashorder);
 
-      return ApiSucessResult(result);
-      }
-      catch(e){
-        return ApiFailedResult(e.toString());
-      }
+      return SucessResult(result);
+    } catch (e) {
+      return FailedResult(e.toString());
+    }
   }
 
   @override
-  Future<ApiResult<OnlinePaymentResponce>> createOnlineOrder(
-      CashOrderRequest onlineorder) async{
-    try{
+  Future<Result<OnlinePaymentResponce>> createOnlineOrder(
+    CashOrderRequest onlineorder,
+  ) async {
+    try {
       final result = await _apiService.createOnlineOrder(onlineorder);
 
-      return ApiSucessResult(result);
-    }
-    catch(e){
-      return ApiFailedResult(e.toString());
+      return SucessResult(result);
+    } catch (e) {
+      return FailedResult(e.toString());
     }
   }
-
-  }
-
+}

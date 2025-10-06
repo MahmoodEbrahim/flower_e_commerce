@@ -18,8 +18,8 @@ void main() {
   late String filter;
 
   setUpAll(() {
-    provideDummy<ApiResult<List<ProductsEntity>>>(
-      ApiFailedResult<List<ProductsEntity>>("error"),
+    provideDummy<Result<List<ProductsEntity>>>(
+      FailedResult<List<ProductsEntity>>("error"),
     );
 
     mockHomeRemoteDataSource = MockHomeRemoteDataSource();
@@ -34,7 +34,7 @@ void main() {
         title: "Dreamy White Roses Bouquet",
         description: "Elevate any celebration with our luxury rose bouquet.",
         imgCover:
-        "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
+            "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
         images: [
           "https://flower.elevateegy.com/uploads/8ee8e389-da6a-4371-8b13-5e35fcca16c6-image_one.png",
           "https://flower.elevateegy.com/uploads/66fc9304-3ceb-4b73-97dd-730ccf790c49-image_three.png",
@@ -50,7 +50,7 @@ void main() {
         title: "Forever Pink | Baby Roses",
         description: "A gift of pink baby roses holds profound meaning.",
         imgCover:
-        "https://flower.elevateegy.com/uploads/336d4a68-109d-4f29-a35c-d5ca2215b4ff-cover_image.png",
+            "https://flower.elevateegy.com/uploads/336d4a68-109d-4f29-a35c-d5ca2215b4ff-cover_image.png",
         images: [
           "https://flower.elevateegy.com/uploads/ef146ee3-ac7c-4bbd-a2f7-9ddae14d0656-image_four.png",
           "https://flower.elevateegy.com/uploads/6e1fa180-7b99-4dd5-95f0-032715a0f04e-image_one.png",
@@ -65,93 +65,83 @@ void main() {
 
   // -------- test getProductsByCategoryId ----------
   group("test getProductsByCategoryId in HomeRepositoryImp", () {
-    test(
-      "should return ApiSuccessResult",
-          () async {
-        final mockResult = ApiSucessResult<List<ProductsEntity>>(fakeProductsModel);
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+    test("should return ApiSuccessResult", () async {
+      final mockResult = SucessResult<List<ProductsEntity>>(fakeProductsModel);
+      provideDummy<Result<List<ProductsEntity>>>(mockResult);
 
-        when(mockHomeRemoteDataSource.getProductsByCategoryId(catId))
-            .thenAnswer((_) async => mockResult);
+      when(
+        mockHomeRemoteDataSource.getProductsByCategoryId(catId),
+      ).thenAnswer((_) async => mockResult);
 
-        final res = await homeRepositoryImp.getProductsByCategoryId(catId);
+      final res = await homeRepositoryImp.getProductsByCategoryId(catId);
 
-        expect(res, isA<ApiSucessResult<List<ProductsEntity>>>());
-        final acResult = res as ApiSucessResult<List<ProductsEntity>>;
-        expect(acResult.sucessResult[0].id, equals(fakeProductsModel[0].id));
-        verify(mockHomeRemoteDataSource.getProductsByCategoryId(catId)).called(1);
-      },
-    );
+      expect(res, isA<SucessResult<List<ProductsEntity>>>());
+      final acResult = res as SucessResult<List<ProductsEntity>>;
+      expect(acResult.sucessResult[0].id, equals(fakeProductsModel[0].id));
+      verify(mockHomeRemoteDataSource.getProductsByCategoryId(catId)).called(1);
+    });
 
-    test(
-      "should return ApiFailedResult",
-          () async {
-        final mockError = ApiFailedResult<List<ProductsEntity>>("Network error");
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockError);
+    test("should return FailedResult", () async {
+      final mockError = FailedResult<List<ProductsEntity>>("Network error");
+      provideDummy<Result<List<ProductsEntity>>>(mockError);
 
-        when(mockHomeRemoteDataSource.getProductsByCategoryId(catId))
-            .thenAnswer((_) async => mockError);
+      when(
+        mockHomeRemoteDataSource.getProductsByCategoryId(catId),
+      ).thenAnswer((_) async => mockError);
 
-        final res = await homeRepositoryImp.getProductsByCategoryId(catId);
+      final res = await homeRepositoryImp.getProductsByCategoryId(catId);
 
-        expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
-        final failResult = res as ApiFailedResult<List<ProductsEntity>>;
-        expect(failResult.errorMessage, equals("Network error"));
-      },
-    );
+      expect(res, isA<FailedResult<List<ProductsEntity>>>());
+      final failResult = res as FailedResult<List<ProductsEntity>>;
+      expect(failResult.errorMessage, equals("Network error"));
+    });
   });
 
   // -------- test getSearchProducts ----------
   group("test getSearchProducts in HomeRepositoryImp", () {
-    test(
-      "should return ApiSuccessResult when category != null",
-          () async {
-        final mockResult = ApiSucessResult<List<ProductsEntity>>(fakeProductsModel);
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+    test("should return ApiSuccessResult when category != null", () async {
+      final mockResult = SucessResult<List<ProductsEntity>>(fakeProductsModel);
+      provideDummy<Result<List<ProductsEntity>>>(mockResult);
 
-        when(mockHomeRemoteDataSource.getSearchProducts(filter, catId))
-            .thenAnswer((_) async => mockResult);
+      when(
+        mockHomeRemoteDataSource.getSearchProducts(filter, catId),
+      ).thenAnswer((_) async => mockResult);
 
-        final res = await homeRepositoryImp.getSearchProducts(filter, catId);
+      final res = await homeRepositoryImp.getSearchProducts(filter, catId);
 
-        expect(res, isA<ApiSucessResult<List<ProductsEntity>>>());
-        final acResult = res as ApiSucessResult<List<ProductsEntity>>;
-        expect(acResult.sucessResult.first.id, equals(fakeProductsModel[0].id));
-      },
-    );
+      expect(res, isA<SucessResult<List<ProductsEntity>>>());
+      final acResult = res as SucessResult<List<ProductsEntity>>;
+      expect(acResult.sucessResult.first.id, equals(fakeProductsModel[0].id));
+    });
 
-    test(
-      "should return ApiSuccessResult when category == null",
-          () async {
-        String? catId;
-        final mockResult = ApiSucessResult<List<ProductsEntity>>(fakeProductsModel);
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockResult);
+    test("should return ApiSuccessResult when category == null", () async {
+      String? catId;
+      final mockResult = SucessResult<List<ProductsEntity>>(fakeProductsModel);
+      provideDummy<Result<List<ProductsEntity>>>(mockResult);
 
-        when(mockHomeRemoteDataSource.getSearchProducts(filter, catId))
-            .thenAnswer((_) async => mockResult);
+      when(
+        mockHomeRemoteDataSource.getSearchProducts(filter, catId),
+      ).thenAnswer((_) async => mockResult);
 
-        final res = await homeRepositoryImp.getSearchProducts(filter, catId);
+      final res = await homeRepositoryImp.getSearchProducts(filter, catId);
 
-        expect(res, isA<ApiSucessResult<List<ProductsEntity>>>());
-      },
-    );
+      expect(res, isA<SucessResult<List<ProductsEntity>>>());
+    });
 
-    test(
-      "should return ApiFailedResult",
-          () async {
-        final mockError = ApiFailedResult<List<ProductsEntity>>("Network error");
-        provideDummy<ApiResult<List<ProductsEntity>>>(mockError);
+    test("should return FailedResult", () async {
+      final mockError = FailedResult<List<ProductsEntity>>("Network error");
+      provideDummy<Result<List<ProductsEntity>>>(mockError);
 
-        when(mockHomeRemoteDataSource.getSearchProducts(filter, catId))
-            .thenAnswer((_) async => mockError);
+      when(
+        mockHomeRemoteDataSource.getSearchProducts(filter, catId),
+      ).thenAnswer((_) async => mockError);
 
-        final res = await homeRepositoryImp.getSearchProducts(filter, catId);
+      final res = await homeRepositoryImp.getSearchProducts(filter, catId);
 
-        expect(res, isA<ApiFailedResult<List<ProductsEntity>>>());
-        final failResult = res as ApiFailedResult<List<ProductsEntity>>;
-        expect(failResult.errorMessage, equals("Network error"));
-      },
-    );
+      expect(res, isA<FailedResult<List<ProductsEntity>>>());
+      final failResult = res as FailedResult<List<ProductsEntity>>;
+      expect(failResult.errorMessage, equals("Network error"));
+    });
   });
 
   // -------- test searchProducts ----------
@@ -162,7 +152,7 @@ void main() {
         title: "Dreamy White Roses Bouquet",
         description: "Elevate any celebration with our luxury rose bouquet.",
         imgCover:
-        "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
+            "https://flower.elevateegy.com/uploads/2d8ddf11-935f-4a45-a100-e1e0765a39c3-cover_image.png",
         images: [
           "https://flower.elevateegy.com/uploads/8ee8e389-da6a-4371-8b13-5e35fcca16c6-image_one.png",
           "https://flower.elevateegy.com/uploads/66fc9304-3ceb-4b73-97dd-730ccf790c49-image_three.png",
@@ -172,26 +162,27 @@ void main() {
         priceAfterDiscount: 199,
       );
 
-      when(mockHomeRemoteDataSource.searchProducts("keyword"))
-          .thenAnswer((_) async => ApiSucessResult([fakeProductEntity]));
+      when(
+        mockHomeRemoteDataSource.searchProducts("keyword"),
+      ).thenAnswer((_) async => SucessResult([fakeProductEntity]));
 
       final result = await homeRepositoryImp.searchProducts("keyword");
 
-      expect(result, isA<ApiSucessResult<List<ProductsEntity>>>());
-      final success = result as ApiSucessResult<List<ProductsEntity>>;
+      expect(result, isA<SucessResult<List<ProductsEntity>>>());
+      final success = result as SucessResult<List<ProductsEntity>>;
       expect(success.sucessResult, [fakeProductEntity]);
       verify(mockHomeRemoteDataSource.searchProducts("keyword")).called(1);
     });
 
-    test("should return ApiFailedResult", () async {
+    test("should return FailedResult", () async {
       when(mockHomeRemoteDataSource.searchProducts("keyword")).thenAnswer(
-            (_) async => ApiFailedResult<List<ProductsEntity>>("Unexpected error"),
+        (_) async => FailedResult<List<ProductsEntity>>("Unexpected error"),
       );
 
       final result = await homeRepositoryImp.searchProducts("keyword");
 
-      expect(result, isA<ApiFailedResult<List<ProductsEntity>>>());
-      final failure = result as ApiFailedResult<List<ProductsEntity>>;
+      expect(result, isA<FailedResult<List<ProductsEntity>>>());
+      final failure = result as FailedResult<List<ProductsEntity>>;
       expect(failure.errorMessage, contains("Unexpected error"));
     });
   });
@@ -204,29 +195,31 @@ void main() {
         products: [],
       );
 
-      final mockResult = ApiSucessResult<HomeEntity>(fakeHomeEntity);
-      provideDummy<ApiResult<HomeEntity>>(mockResult);
+      final mockResult = SucessResult<HomeEntity>(fakeHomeEntity);
+      provideDummy<Result<HomeEntity>>(mockResult);
 
-      when(mockHomeRemoteDataSource.getHomeData())
-          .thenAnswer((_) async => mockResult);
+      when(
+        mockHomeRemoteDataSource.getHomeData(),
+      ).thenAnswer((_) async => mockResult);
 
       final result = await homeRepositoryImp.getHomeData();
 
-      expect(result, isA<ApiSucessResult<HomeEntity>>());
-      final success = result as ApiSucessResult<HomeEntity>;
+      expect(result, isA<SucessResult<HomeEntity>>());
+      final success = result as SucessResult<HomeEntity>;
       expect(success.sucessResult, equals(fakeHomeEntity));
       verify(mockHomeRemoteDataSource.getHomeData()).called(1);
     });
 
-    test("should return ApiFailedResult when exception thrown", () async {
-      when(mockHomeRemoteDataSource.getHomeData()).thenThrow(Exception("API error"));
+    test("should return FailedResult when exception thrown", () async {
+      when(
+        mockHomeRemoteDataSource.getHomeData(),
+      ).thenThrow(Exception("API error"));
 
       final result = await homeRepositoryImp.getHomeData();
 
-      expect(result, isA<ApiFailedResult<HomeEntity>>());
-      final failure = result as ApiFailedResult<HomeEntity>;
+      expect(result, isA<FailedResult<HomeEntity>>());
+      final failure = result as FailedResult<HomeEntity>;
       expect(failure.errorMessage, contains("API error"));
     });
   });
-
 }

@@ -1,4 +1,3 @@
-
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
 import 'package:flower_e_commerce/features/auth/api/models/sign_out_response/sign_out_response.dart';
 import 'package:flower_e_commerce/features/auth/domain/entity/login_model.dart';
@@ -12,15 +11,17 @@ import 'package:flower_e_commerce/features/auth/domain/entity/signup_request_mod
 import 'package:flower_e_commerce/features/auth/domain/entity/user_model.dart';
 
 abstract interface class AuthRemoteDataSource {
-   Future<ApiResult<LoginModel>> login(String email, String password);
-  Future<ApiResult<ForgetPasswordResponse>>
-  forgetPassword(ForgetPasswordRequest request);
-  Future<ApiResult<VerfiyPasswordResponse>>
-  verfiyPassword(VerfiyPasswordRequest request);
-  Future<ApiResult<ResetPasswordResponsea>>
-  resetPassword(ResetPasswordRequest request);
-  Future<ApiResult<UserModel>> signUp(SignupRequestModel userModel);
-   Future<ApiResult<UserModel>>getProfileData(String token);
-   Future<ApiResult<SignOutResponse>>logOut(String token);
+  Future<Result<LoginModel>> login(String email, String password);
+  Future<Result<ForgetPasswordResponse>> forgetPassword(
+    ForgetPasswordRequest request,
+  );
+  Future<Result<VerfiyPasswordResponse>> verfiyPassword(
+    VerfiyPasswordRequest request,
+  );
+  Future<Result<ResetPasswordResponsea>> resetPassword(
+    ResetPasswordRequest request,
+  );
+  Future<Result<UserModel>> signUp(SignupRequestModel userModel);
+  Future<Result<UserModel>> getProfileData(String token);
+  Future<Result<SignOutResponse>> logOut(String token);
 }
-

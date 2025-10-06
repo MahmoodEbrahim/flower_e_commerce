@@ -4,12 +4,17 @@ import 'package:flower_e_commerce/features/home/domain/entity/home_entity.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/product_entity.dart';
 
 abstract interface class HomeRepository {
-  Future<ApiResult<List<ProductsEntity>>>
-  getProductsDetialsByOccasions(String occasionId);
-  Future<ApiResult<HomeEntity>> getHomeData();
-  Future<ApiResult<List<ProductsEntity>>> getProductsByCategoryId(String catId);
-  Future<ApiResult<List<ProductsEntity>>> searchProducts(String keyword,
-      {CancelToken? cancelToken});
-   Future<ApiResult<List<ProductsEntity>>> getSearchProducts(String filter,
-    String? catId,);
+  Future<Result<List<ProductsEntity>>> getProductsDetialsByOccasions(
+    String occasionId,
+  );
+  Future<Result<HomeEntity>> getHomeData();
+  Future<Result<List<ProductsEntity>>> getProductsByCategoryId(String catId);
+  Future<Result<List<ProductsEntity>>> searchProducts(
+    String keyword, {
+    CancelToken? cancelToken,
+  });
+  Future<Result<List<ProductsEntity>>> getSearchProducts(
+    String filter,
+    String? catId,
+  );
 }

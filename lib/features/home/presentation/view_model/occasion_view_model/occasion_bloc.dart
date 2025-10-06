@@ -6,32 +6,35 @@ import 'package:flower_e_commerce/features/home/presentation/view_model/occasion
 import 'package:flower_e_commerce/features/home/presentation/view_model/occasion_view_model/occasion_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
-class ProductsDetialsOccasionBloc extends
-Bloc<ProductsDetialsOccasionEvent,OccasionStates>{
+class ProductsDetialsOccasionBloc
+    extends Bloc<ProductsDetialsOccasionEvent, OccasionStates> {
   final GetProductDetialsByOccasionUseCase _byOccasionUseCase;
-  ProductsDetialsOccasionBloc(this._byOccasionUseCase):super(OccasionStates()){
+  ProductsDetialsOccasionBloc(this._byOccasionUseCase)
+    : super(OccasionStates()) {
     on<GetProductsDetialsByOccasionEvent>((event, emit) async {
-    emit(state.copyWith(requestState: RequestState.init));
+      emit(state.copyWith(requestState: RequestState.init));
 
-final result =
-      await _byOccasionUseCase.getProductsDetialsByOccasions(event.occassionId);
-    switch(result){
-      
-
-      case ApiSucessResult<List<ProductsEntity>>():
-        emit(state.copyWith(requestState: RequestState.success,
-        productsDetials: result.sucessResult
-        ));
-      case ApiFailedResult<List<ProductsEntity>>():
-        emit(state.copyWith(requestState: RequestState.error,
-           errorMessage: result.errorMessage
-        ));
-    }
+      final result = await _byOccasionUseCase.getProductsDetialsByOccasions(
+        event.occassionId,
+      );
+      switch (result) {
+        case SucessResult<List<ProductsEntity>>():
+          emit(
+            state.copyWith(
+              requestState: RequestState.success,
+              productsDetials: result.sucessResult,
+            ),
+          );
+        case FailedResult<List<ProductsEntity>>():
+          emit(
+            state.copyWith(
+              requestState: RequestState.error,
+              errorMessage: result.errorMessage,
+            ),
+          );
+      }
     });
-
   }
-
-
-
 }

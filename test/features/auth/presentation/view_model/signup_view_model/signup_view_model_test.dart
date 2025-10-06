@@ -18,47 +18,42 @@ void main() {
   late SignupUsecase mockSignupUsecase;
   late SignupRequestModel fakeSignupRequestModel;
   late UserModel fakeUser;
-  setUp(
-    () {
-      mockSignupUsecase = MockSignupUsecase();
-      //arange
-      signupViewModel = SignupViewModel(mockSignupUsecase);
+  setUp(() {
+    mockSignupUsecase = MockSignupUsecase();
+    //arange
+    signupViewModel = SignupViewModel(mockSignupUsecase);
 
-      fakeSignupRequestModel = SignupRequestModel(
-        firstName: "Aya",
-        lastName: "Saber",
-        email: "aya.saber@example.com",
-        password: "Ahmed@123",
-        repassword: "Ahmed@123",
-        phone: "+201234567890",
-        gender: "female",
-      );
+    fakeSignupRequestModel = SignupRequestModel(
+      firstName: "Aya",
+      lastName: "Saber",
+      email: "aya.saber@example.com",
+      password: "Ahmed@123",
+      repassword: "Ahmed@123",
+      phone: "+201234567890",
+      gender: "female",
+    );
 
-      fakeUser = UserModel(
-        firstName: "Aya",
-        lastName: "Saber",
-        email: "aya.saber@example.com",
-        gender: "female",
-        phone: "+201234567890",
-        photo: "https://example.com/avatar.png",
-        role: "customer",
-        wishlist: ["prod_1", "prod_2", "prod_3"],
-        addresses: [
-         
-        ],
-      );
-     
-    
-    },
-  );
+    fakeUser = UserModel(
+      firstName: "Aya",
+      lastName: "Saber",
+      email: "aya.saber@example.com",
+      gender: "female",
+      phone: "+201234567890",
+      photo: "https://example.com/avatar.png",
+      role: "customer",
+      wishlist: ["prod_1", "prod_2", "prod_3"],
+      addresses: [],
+    );
+  });
   group('signup function test in SignupViewModel ', () {
     blocTest<SignupViewModel, SignUpState>(
       "call signup function in signupViewModel with createUserEvent  and successApiResult it should emit usermodel and null errorMessage",
       build: () {
-        final mockResult = ApiSucessResult<UserModel>(fakeUser);
-        provideDummy<ApiResult<UserModel>>(mockResult);
-        when(mockSignupUsecase.signUp(fakeSignupRequestModel))
-            .thenAnswer((_) async => mockResult);
+        final mockResult = SucessResult<UserModel>(fakeUser);
+        provideDummy<Result<UserModel>>(mockResult);
+        when(
+          mockSignupUsecase.signUp(fakeSignupRequestModel),
+        ).thenAnswer((_) async => mockResult);
 
         return signupViewModel;
       },
@@ -66,13 +61,12 @@ void main() {
           bloc.add(CreateUserEvent(userModel: fakeSignupRequestModel)),
       expect: () {
         return [
+          SignUpState(isLoading: true, errorMessage: null, userModel: null),
           SignUpState(
-            isLoading: true,
+            isLoading: false,
+            userModel: fakeUser,
             errorMessage: null,
-            userModel: null,
           ),
-          SignUpState(
-              isLoading: false, userModel: fakeUser, errorMessage: null),
         ];
       },
       verify: (signupViewModel) {
@@ -83,10 +77,11 @@ void main() {
     blocTest<SignupViewModel, SignUpState>(
       "call signup function in signupViewModel with createUserEvent and failedApiResult it should emit failedState with errorMessage and userModel equels null   ",
       build: () {
-        final mockResult = ApiFailedResult<UserModel>("Signup failed");
-        provideDummy<ApiResult<UserModel>>(mockResult);
-        when(mockSignupUsecase.signUp(fakeSignupRequestModel))
-            .thenAnswer((_) async => mockResult);
+        final mockResult = FailedResult<UserModel>("Signup failed");
+        provideDummy<Result<UserModel>>(mockResult);
+        when(
+          mockSignupUsecase.signUp(fakeSignupRequestModel),
+        ).thenAnswer((_) async => mockResult);
 
         return signupViewModel;
       },
@@ -94,16 +89,15 @@ void main() {
           bloc.add(CreateUserEvent(userModel: fakeSignupRequestModel)),
       expect: () {
         return [
+          SignUpState(isLoading: true, errorMessage: null, userModel: null),
           SignUpState(
-            isLoading: true,
-            errorMessage: null,
+            isLoading: false,
             userModel: null,
+            errorMessage: "Signup failed",
           ),
-          SignUpState(
-              isLoading: false, userModel: null, errorMessage: "Signup failed"),
         ];
       },
-       verify: (signupViewModel) {
+      verify: (signupViewModel) {
         verify(mockSignupUsecase.signUp(fakeSignupRequestModel)).called(1);
       },
     );

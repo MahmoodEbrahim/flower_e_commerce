@@ -18,11 +18,9 @@ void main() {
   late AddToCartUsecase addToCartUsecase;
   late CartResponseEntity fakeCartResponse;
 
-
-    late ProductsEntity fakeProduct;
+  late ProductsEntity fakeProduct;
   late List<CartItemEntity> fakeCartItems;
   late CartEntity fakeCart;
-
 
   setUpAll(() {
     mockCartRepository = MockCartRepository();
@@ -59,7 +57,7 @@ void main() {
       occasion: "673b34c21159920171827ae0",
     );
 
-// Fake Cart Items
+    // Fake Cart Items
     fakeCartItems = [
       CartItemEntity(
         id: "68b803e8a8bca307f9e2266a",
@@ -69,7 +67,7 @@ void main() {
       ),
     ];
 
-// Fake Cart
+    // Fake Cart
     fakeCart = CartEntity(
       id: "68b6f13fa8bca307f9e21118",
       user: "68b1a4a2a8bca307f9e1c328",
@@ -78,7 +76,7 @@ void main() {
       totalPrice: 1000,
     );
 
-// Fake Cart Response
+    // Fake Cart Response
     fakeCartResponse = CartResponseEntity(
       message: "success",
       numOfCartItems: 1,
@@ -88,57 +86,65 @@ void main() {
 
   group("AddToCartUsecase Tests", () {
     test(
-        "when call addProductToCart with correct parameters it should return ApiSuccessResult",
-        () async {
-      // arrange
-      final cartItemRequestEntity = CartItemRequestEntity(
-        product: "p123",
-        quantity: 2,
-      );
+      "when call addProductToCart with correct parameters it should return ApiSuccessResult",
+      () async {
+        // arrange
+        final cartItemRequestEntity = CartItemRequestEntity(
+          product: "p123",
+          quantity: 2,
+        );
 
-      final mockResult = ApiSucessResult<CartResponseEntity>(fakeCartResponse);
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = SucessResult<CartResponseEntity>(fakeCartResponse);
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.addProductToCart(cartItemRequestEntity))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.addProductToCart(cartItemRequestEntity),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res =
-          await addToCartUsecase.addProductToCart(cartItemRequestEntity);
+        // act
+        final res = await addToCartUsecase.addProductToCart(
+          cartItemRequestEntity,
+        );
 
-      // assert
-      expect(res, isA<ApiSucessResult<CartResponseEntity>>());
-      final acResult = res as ApiSucessResult<CartResponseEntity>;
-      expect(acResult.sucessResult.cart!.id, fakeCart.id);
-      verify(mockCartRepository.addProductToCart(cartItemRequestEntity))
-          .called(1);
-    });
+        // assert
+        expect(res, isA<SucessResult<CartResponseEntity>>());
+        final acResult = res as SucessResult<CartResponseEntity>;
+        expect(acResult.sucessResult.cart!.id, fakeCart.id);
+        verify(
+          mockCartRepository.addProductToCart(cartItemRequestEntity),
+        ).called(1);
+      },
+    );
 
     test(
-        "when call addProductToCart with incorrect parameters it should return ApiFailedResult",
-        () async {
-      // arrange
-      final cartItemRequestEntity = CartItemRequestEntity(
-        product: "wrong",
-        quantity: 2,
-      );
+      "when call addProductToCart with incorrect parameters it should return ApiFailedResult",
+      () async {
+        // arrange
+        final cartItemRequestEntity = CartItemRequestEntity(
+          product: "wrong",
+          quantity: 2,
+        );
 
-      final mockResult = ApiFailedResult<CartResponseEntity>("error");
-      provideDummy<ApiResult<CartResponseEntity>>(mockResult);
+        final mockResult = FailedResult<CartResponseEntity>("error");
+        provideDummy<Result<CartResponseEntity>>(mockResult);
 
-      when(mockCartRepository.addProductToCart(cartItemRequestEntity))
-          .thenAnswer((_) async => mockResult);
+        when(
+          mockCartRepository.addProductToCart(cartItemRequestEntity),
+        ).thenAnswer((_) async => mockResult);
 
-      // act
-      final res =
-          await addToCartUsecase.addProductToCart(cartItemRequestEntity);
+        // act
+        final res = await addToCartUsecase.addProductToCart(
+          cartItemRequestEntity,
+        );
 
-      // assert
-      expect(res, isA<ApiFailedResult<CartResponseEntity>>());
-      final acResult = res as ApiFailedResult<CartResponseEntity>;
-      expect(acResult.errorMessage, "error");
-      verify(mockCartRepository.addProductToCart(cartItemRequestEntity))
-          .called(1);
-    });
+        // assert
+        expect(res, isA<FailedResult<CartResponseEntity>>());
+        final acResult = res as FailedResult<CartResponseEntity>;
+        expect(acResult.errorMessage, "error");
+        verify(
+          mockCartRepository.addProductToCart(cartItemRequestEntity),
+        ).called(1);
+      },
+    );
   });
 }

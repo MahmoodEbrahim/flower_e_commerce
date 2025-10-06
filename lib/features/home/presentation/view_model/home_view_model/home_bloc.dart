@@ -16,10 +16,10 @@ class HomeBloc extends Bloc<HomeEvents, HomeStates> {
       final result = await getHomeDataUseCase.call();
 
       switch (result) {
-        case ApiSucessResult<HomeEntity>():
+        case SucessResult<HomeEntity>():
           emit(HomeSuccessState(result.sucessResult));
 
-        case ApiFailedResult<HomeEntity>():
+        case FailedResult<HomeEntity>():
           emit(HomeErrorState(result.errorMessage));
       }
     });

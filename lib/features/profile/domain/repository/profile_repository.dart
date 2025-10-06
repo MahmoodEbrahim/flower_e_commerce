@@ -9,13 +9,20 @@ import 'package:flower_e_commerce/features/profile/api/models/change_password/re
 import '../entity/generic_json_section_entity.dart';
 
 abstract interface class ProfileRepository {
-  Future<ApiResult<UploadProfilePhotoResponse>>uploadPhoto(
-
-      String token,File photo
-      );
-  Future<ApiResult<EditProfileResponsea>>
-  editProfile(String token, EditProfileRequest request);
-  Future<ApiResult<ChangePasswordResponse>>
-  changePassword(ChangePasswordRequest request,String token);
-  Future<LocalDsResult<List<GenericJsonSectionEntity>>> getJsonSections(String jsonPath,String jsonKey);
+  Future<Result<UploadProfilePhotoResponse>> uploadPhoto(
+    String token,
+    File photo,
+  );
+  Future<Result<EditProfileResponsea>> editProfile(
+    String token,
+    EditProfileRequest request,
+  );
+  Future<Result<ChangePasswordResponse>> changePassword(
+    ChangePasswordRequest request,
+    String token,
+  );
+  Future<LocalDsResult<List<GenericJsonSectionEntity>>> getJsonSections(
+    String jsonPath,
+    String jsonKey,
+  );
 }

@@ -5,11 +5,13 @@ import 'package:flower_e_commerce/features/address/domain/repositry/address_repo
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetAddAddressUseCase{
-final AddressRepositry _addressRepositry;
-GetAddAddressUseCase(this._addressRepositry);
-Future<ApiResult<List<AddressEntity>>> addAddress(AddAdressRequest
-request, String token) async{
-  return await _addressRepositry.addAddress(request, token);
-}
+class GetAddAddressUseCase {
+  final AddressRepositry _addressRepositry;
+  GetAddAddressUseCase(this._addressRepositry);
+  Future<Result<List<AddressEntity>>> addAddress(
+    AddAdressRequest request,
+    String token,
+  ) async {
+    return await _addressRepositry.addAddress(request, token);
+  }
 }
