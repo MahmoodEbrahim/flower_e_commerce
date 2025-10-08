@@ -38,12 +38,13 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => MainLayout());
 
       case AppRoutes.cart:
-        return MaterialPageRoute(
-          builder: (context) => CartPage(),
-        );
+        return MaterialPageRoute(builder: (context) => CartPage());
       case AppRoutes.trackingOrderPage:
+        final orderId = settings.arguments as String;
+        //"68c853e7dd8937e0573d1d42"
         return MaterialPageRoute(
-          builder: (context) => TrackingOrderPage(),
+          builder: (context) =>
+              TrackingOrderPage(orderId: orderId),
         );
       case AppRoutes.bestSellers:
         final args = settings.arguments as Map<String, dynamic>;
@@ -60,22 +61,16 @@ abstract class Routes {
         );
 
       case AppRoutes.catergories:
-       // final args = settings.arguments as Map<String, dynamic>;
+        // final args = settings.arguments as Map<String, dynamic>;
         // final categoryList = args[Constants.catList] as List<CategoriesEntity>;
         // final productsList = args[Constants.productList] as List<ProductsEntity>;
-        return MaterialPageRoute(
-          builder: (context) => CategoriesPage(),
-        );
+        return MaterialPageRoute(builder: (context) => CategoriesPage());
       case AppRoutes.editProfilePage:
-      // final args = settings.arguments as List<OccasionsEntity>;
-        return MaterialPageRoute(
-            builder: (_) => EditProfilePage()
-        );
+        // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(builder: (_) => EditProfilePage());
       case AppRoutes.changePassword:
-      // final args = settings.arguments as List<OccasionsEntity>;
-        return MaterialPageRoute(
-            builder: (_) => ChangePasswordScreen()
-        );
+        // final args = settings.arguments as List<OccasionsEntity>;
+        return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
 
       case AppRoutes.allProducts:
         final args = settings.arguments as Map<String, dynamic>;
@@ -122,33 +117,31 @@ abstract class Routes {
         );
 
       case AppRoutes.about:
-        return MaterialPageRoute(builder: (context) => AboutAppPage(),);
+        return MaterialPageRoute(builder: (context) => AboutAppPage());
 
       case AppRoutes.termsAndCondition:
-        return MaterialPageRoute(builder: (context) => TermsAndConditionPage(),);
+        return MaterialPageRoute(builder: (context) => TermsAndConditionPage());
 
       case AppRoutes.search:
-        return MaterialPageRoute(builder: (context) => SearchPage(),);
+        return MaterialPageRoute(builder: (context) => SearchPage());
       case AppRoutes.orderspage:
-        return MaterialPageRoute(
-          builder: (context) => OrderPage(),
-        );
+        return MaterialPageRoute(builder: (context) => OrderPage());
       case AppRoutes.notificationspage:
-        return MaterialPageRoute(builder: (context) => NotificationsPage(),);
+        return MaterialPageRoute(builder: (context) => NotificationsPage());
       case AppRoutes.checkoutscreen:
         final args = settings.arguments as CartEntity;
-        return MaterialPageRoute(builder: (context) => CheckoutScreen(cart:args));
-      case AppRoutes.paymentView:{
-        final url = settings.arguments as String;
-        return MaterialPageRoute(builder: (context) =>
-            PaymentViewPage(url),);
-      }
+        return MaterialPageRoute(
+          builder: (context) => CheckoutScreen(cart: args),
+        );
+      case AppRoutes.paymentView:
+        {
+          final url = settings.arguments as String;
+          return MaterialPageRoute(builder: (context) => PaymentViewPage(url));
+        }
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
+            body: Center(child: Text('No route defined for ${settings.name}')),
           ),
         );
     }

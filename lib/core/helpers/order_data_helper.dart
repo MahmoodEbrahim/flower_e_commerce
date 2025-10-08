@@ -7,23 +7,23 @@ class OrderDateHelper {
   final SharedPreferences _sharedPreferences;
 
   OrderDateHelper(this._sharedPreferences);
-  static const String _key = Constants.sharedPrefrenceDataKey;
+  
 
-   Future<void> addOrderDate() async {
+   Future<void> addOrderDate(String orderId) async {
     
-    final List<String> dates = _sharedPreferences.getStringList(_key) ?? [];
+    final List<String> dates = _sharedPreferences.getStringList('dates_$orderId') ?? [];
     final now = DateFormat(Constants.dateFormat).format(DateTime.now());
     dates.add(now);
-    await _sharedPreferences.setStringList(_key, dates);
+    await _sharedPreferences.setStringList('dates_$orderId', dates);
   }
 
-   Future<List<String>> getOrderDates() async {
+   Future<List<String>> getOrderDates(String orderId) async {
     
-    return _sharedPreferences.getStringList(_key) ?? [];
+    return _sharedPreferences.getStringList('dates_$orderId') ?? [];
   }
 
-   Future<void> clearAllOrderDates() async {
+   Future<void> clearAllOrderDates(String orderId) async {
     
-    await _sharedPreferences.remove(_key);
+    await _sharedPreferences.remove('dates_$orderId');
   }
 }
