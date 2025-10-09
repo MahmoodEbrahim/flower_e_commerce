@@ -32,7 +32,7 @@ class TrackingOrderPage extends StatelessWidget {
     if (state == OrderStatus.delivered.name) {
       return 4;
     } else {
-      return 1;
+      return 0;
     }
   }
 

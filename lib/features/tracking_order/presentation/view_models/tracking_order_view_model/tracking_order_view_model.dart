@@ -24,16 +24,16 @@ class TrackingOrderViewModel extends Bloc<TrackingOrderEvent, TrackingOrderState
     GetDataFromRemoteEvent event,
     Emitter emit,
   ) async {
-    await emit.forEach<Result<RemoteDataEntity>>(
+    await emit.forEach<Result<RemoteDataEntity?>>(
       _getDataFromRemoteUseCase.getOrderFromRemote(event.orderId),
       onData: (data) {
         switch (data) {
-          case SucessResult<RemoteDataEntity>():
+          case SucessResult<RemoteDataEntity?>():
             return state.copyWith(
               remoteData: data.sucessResult,
               isLoading: false,
             );
-          case FailedResult<RemoteDataEntity>():
+          case FailedResult<RemoteDataEntity?>():
             return state.copyWith(
               errorMessage: data.errorMessage,
               isLoading: false,

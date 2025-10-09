@@ -35,4 +35,7 @@ abstract class AppRoutes {
 
   static const String paymentView="/PaymentViewPage";
   static const String trackingOrderPage="trackingOrder";
+  static const String orderPlacedSuccessfullyPage="OrderPlacedSuccessfullyPage";
+  static const String waitingForConfirmationPage="WaitingForConfirmationPage";
+  static const String orderStatesPages="OrderStatesPages";
 }

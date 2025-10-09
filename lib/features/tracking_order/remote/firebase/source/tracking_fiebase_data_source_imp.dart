@@ -4,20 +4,25 @@ import 'package:flower_e_commerce/features/tracking_order/data/source/tracking_r
 import 'package:flower_e_commerce/features/tracking_order/remote/firebase/client/tracking_firebase_service.dart';
 import 'package:injectable/injectable.dart';
 
-
 @Injectable(as: TrackingRemoteDataSource)
-
 class TrackingFirebaseDataSourceImp implements TrackingRemoteDataSource {
- final  TrackingFirebaseService _trackingApiService;
+  final TrackingFirebaseService _trackingApiService;
 
   TrackingFirebaseDataSourceImp(this._trackingApiService);
 
   @override
-  Stream<Result<RemoteDataEntity>> getOrderFromRemote(String orderId) async* {
+  Stream<Result<RemoteDataEntity?>> getOrderFromRemote(String orderId) async* {
     try {
       final res = _trackingApiService.getDataFromRemote(orderId);
+
       await for (final data in res) {
-        final orderEntity = data.toEntity();
+        RemoteDataEntity? orderEntity;
+        if (data != null) {
+          orderEntity = data.toEntity();
+        } else {
+          print("come here ");
+          orderEntity = null;
+        }
 
         yield SucessResult(orderEntity);
       }
@@ -25,6 +30,4 @@ class TrackingFirebaseDataSourceImp implements TrackingRemoteDataSource {
       yield FailedResult(error.toString());
     }
   }
-
- 
 }

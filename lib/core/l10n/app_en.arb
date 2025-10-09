@@ -150,6 +150,11 @@
   "delivered": "Delivered",
   "estimatedArrival":"Estimated arrival",
   "isYourDelivery":"is your delivery hero for today",
-  "unExpextedError":"unexpected error"
+  "unExpextedError":"unexpected error",
+    "orderPlacedSuccessfullyTitle": "Your order placed successfully!",
+  "trackOrderButton": "Track Order",
+    "waitingForDeliveryHero": "Waiting for a delivery hero to accept your order"
+
+
 
 }

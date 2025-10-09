@@ -38,10 +38,10 @@ class _TimeLineListState extends State<TimeLineList> {
 
   Future<void> _loadDates() async {
     List<String> savedDates = await orderDateHelper.getOrderDates(widget.orderId);
-    if (savedDates.isEmpty) {
-      orderDateHelper.addOrderDate(widget.orderId);
-      savedDates = await orderDateHelper.getOrderDates(widget.orderId);
-    }
+    // if (savedDates.isEmpty) {
+    //   orderDateHelper.addOrderDate(widget.orderId);
+    //   savedDates = await orderDateHelper.getOrderDates(widget.orderId);
+    // }
     setState(() {
       for (int i = 0; i < savedDates.length && i < 4; i++) {
         dates[i] = savedDates[i];

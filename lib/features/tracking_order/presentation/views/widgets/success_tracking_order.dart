@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/assets_manager.dart';
+import 'package:flower_e_commerce/core/utils/constants/constants.dart';
 import 'package:flower_e_commerce/features/tracking_order/domain/entity/driver_entity.dart';
 import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_order_view_model/tracking_order_events.dart';
 import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_order_view_model/tracking_order_view_model.dart';
@@ -60,7 +61,7 @@ class SuccessTrackingOrder extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //image
-                CacheImage(),
+                CacheImage(imageUrl:AssetsManager.delivaryBoyImage ,),
     
                 //col
                 Flexible(
