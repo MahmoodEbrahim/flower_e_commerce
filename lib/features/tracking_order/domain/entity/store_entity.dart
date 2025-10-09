@@ -1,9 +1,11 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class StoreEntity {
     String name;
     String image;
     String address;
     String phoneNumber;
-    String latLong;
+    LatLng latLong;
 
     StoreEntity({
         required this.name,

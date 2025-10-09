@@ -1,5 +1,6 @@
 import 'package:flower_e_commerce/core/utils/constants/json_serlizable_constants.dart';
 import 'package:flower_e_commerce/features/tracking_order/domain/entity/store_entity.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'remote_store_model.g.dart';
 
@@ -18,7 +19,7 @@ String? address;
 String? phoneNumber;
 
 @JsonKey(name: JsonSerlizableConstants.latLong)
-String? latLong;
+LatLng? latLong;
 
   RemoteStoreModel({
     this.name,
@@ -40,7 +41,7 @@ String? latLong;
         image: 'https://example.com/default-store.png',
         address: '123 Fake Street, Cairo, Egypt',
         phoneNumber: '0100000000',
-        latLong: '30.0444,31.2357',
+        latLong:LatLng(30.0444,31.2357) ,
       );
     }
 
@@ -49,7 +50,7 @@ String? latLong;
       image: model.image ?? 'https://example.com/default-store.png',
       address: model.address ?? '123 Fake Street, Cairo, Egypt',
       phoneNumber: model.phoneNumber ?? '0100000000',
-      latLong: model.latLong ?? '30.0444,31.2357',
+      latLong: model.latLong ?? LatLng(.0444,31.2357),
     );
   }
 

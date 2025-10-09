@@ -1,4 +1,5 @@
 import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
 import 'package:flower_e_commerce/features/address/presentation/view/screen/address_detials_screen.dart';
 import 'package:flower_e_commerce/features/address/presentation/view/screen/saved_address.dart';
@@ -26,7 +27,11 @@ import 'package:flower_e_commerce/features/payment/presentation/views/payment_vi
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/notifications_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_map_view_model/tracking_map_bloc.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_map_view_model/tracking_map_event.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/views/tracking_map_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
 import '../../features/profile/presentation/views/pages/change_password_screen.dart';
 import '../../features/profile/presentation/views/pages/edit_profile_page.dart';
 
@@ -138,6 +143,16 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) =>
             PaymentViewPage(url),);
       }
+
+      case AppRoutes.trackingMap:
+      //  final id = settings.arguments as String;
+       return MaterialPageRoute(
+    builder: (_) => BlocProvider(
+      create: (_) => getIt<TrackingBloc>()
+        ..add(ListenToOrderStreamEvent("68e7893e7fee68a4c2e9f6a0")),
+      child: TrackOrderScreen(orderId: "68e7893e7fee68a4c2e9f6a0"),
+    ),
+  );
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(

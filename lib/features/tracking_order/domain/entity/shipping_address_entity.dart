@@ -3,8 +3,8 @@ class ShippingAddressEntity {
     String street;
     String city;
     String phone;
-    String lat;
-    String long;
+    double lat;
+    double long;
 
     ShippingAddressEntity({
         required this.street,
