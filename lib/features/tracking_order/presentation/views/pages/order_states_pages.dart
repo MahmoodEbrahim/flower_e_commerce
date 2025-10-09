@@ -11,16 +11,18 @@ import 'package:flower_e_commerce/features/tracking_order/presentation/views/wid
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+bool hasNavigated = false;
+
 class OrderStatesPages extends StatelessWidget {
   final String orderId;
   OrderStatesPages({super.key, required this.orderId});
 
-  final TrackingOrderViewModel _trackingOrderViewModel = getIt
-      .get<TrackingOrderViewModel>();
+  final TrackingOrderViewModel _trackingOrderViewModel = getIt.get<TrackingOrderViewModel>();
 
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
+    bool hasNavigated = false;
 
     return Scaffold(
       appBar: AppBar(
@@ -34,31 +36,34 @@ class OrderStatesPages extends StatelessWidget {
       ),
       body: BlocProvider.value(
         value: _trackingOrderViewModel..add(GetDataFromRemoteEvent(orderId)),
-        child: BlocBuilder<TrackingOrderViewModel, TrackingOrderState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const CommonLoading();
+        child: BlocListener<TrackingOrderViewModel, TrackingOrderState>(
+          listener: (context, state) {
+            if (state.remoteData != null && !hasNavigated) {
+              hasNavigated = true;
+              Navigator.pushReplacementNamed(
+                context,
+                AppRoutes.orderPlacedSuccessfullyPage,
+                arguments: orderId,
+              );
             }
-
-            if (state.errorMessage != null) {
-              return CustumError(errorMessage: state.errorMessage);
-            }
-
-            if (state.remoteData == null) {
-              return const WaitingForConfirmation();
-            }
-            if (state.remoteData != null) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushReplacementNamed(
-                  context,
-                  AppRoutes.orderPlacedSuccessfullyPage,
-                  arguments: orderId,
-                );
-              });
-            }
-
-            return const SizedBox();
           },
+          child: BlocBuilder<TrackingOrderViewModel, TrackingOrderState>(
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const CommonLoading();
+              }
+
+              if (state.errorMessage != null) {
+                return CustumError(errorMessage: state.errorMessage);
+              }
+
+              if (state.remoteData == null) {
+                return const WaitingForConfirmation();
+              }
+
+              return const SizedBox(); 
+            },
+          ),
         ),
       ),
     );

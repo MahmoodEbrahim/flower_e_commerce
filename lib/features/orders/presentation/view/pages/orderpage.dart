@@ -102,10 +102,11 @@ class _OrderPageState extends State<OrderPage> {
                   }
 
                   if (state.OrdersResonse != null) {
+                   
                     List<OrdersEntity> activeorders = state
                         .OrdersResonse!
                         .orders!
-                        .where((order) => order.state == "pending")
+                        .where((order) => order.state == "inProgress"||order.state == "pending")
                         .toList();
                     List<OrdersEntity> completedorders = state
                         .OrdersResonse!
@@ -127,7 +128,7 @@ class _OrderPageState extends State<OrderPage> {
                       ),
                     );
                   } else {
-                    return SizedBox();
+                    return SizedBox(child: Text("error here"));
                   }
                 },
               ),
