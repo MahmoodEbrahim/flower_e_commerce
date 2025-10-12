@@ -1,10 +1,9 @@
-
 class ShippingAddressEntity {
     String street;
     String city;
     String phone;
-    double lat;
-    double long;
+    String lat;
+    String long;
 
     ShippingAddressEntity({
         required this.street,

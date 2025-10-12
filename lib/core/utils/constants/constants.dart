@@ -22,5 +22,11 @@ class Constants {
   static const String discount = "discount";
   static const String orderRef = "orders";
 
-
+  //tracking app
+  static const String male = "male";
+  static const String errorTracking = "Error tracking the order";
+static const String driver = "driver";
+static const String  store= "store";
+static const String  user= "user";
+static const String  route= "route";
 }

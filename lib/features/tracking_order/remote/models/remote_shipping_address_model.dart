@@ -16,10 +16,10 @@ String? city;
 String? phone;
 
 @JsonKey(name: JsonSerlizableConstants.lat)
-double? lat;
+String? lat;
 
 @JsonKey(name: JsonSerlizableConstants.long)
-double? long;
+String? long;
 
 
   RemoteShippingAddressModel({
@@ -44,8 +44,8 @@ double? long;
         street: "Zagazig",
         city: "Sharkia",
         phone: "01010518802",
-        lat: 31.7195459,
-        long: 31.7195459,
+        lat: "31.7195459",
+        long: "31.7195459",
       );
     }
 
@@ -53,8 +53,8 @@ double? long;
       street: model.street ?? "",
       city: model.city ?? "",
       phone: model.phone ?? "",
-      lat: model.lat ??31.7195459 ,
-      long: model.long ?? 31.7195459,
+      lat: model.lat ?? "",
+      long: model.long ?? "",
     );
   }
 

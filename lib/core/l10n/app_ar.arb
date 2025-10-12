@@ -127,6 +127,9 @@
   "completed": "مكتمل",
   "reorder": "إعادة الطلب",
   "trackorder": "تتبع الطلب",
-  "noLocationFound":"No Address Found !   😐"
+  "noLocationFound":"لا يوجد عنوان ! 😐",
+  "estimatedArrival":"موعد الوصول المتوقع",
+  "deliveryHero":"بطل التوصيل الخاص بك اليوم",
+  "orderDetails":"تفاصيل الطلب"
 
 }

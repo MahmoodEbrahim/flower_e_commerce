@@ -141,6 +141,9 @@
 
   "typeSomething": "Type something to search...",
   "noProductsFor":"No products found for ",
-  "noLocationFound":"No Address Found !   😐"
+  "noLocationFound":"No Address Found !   😐",
+  "estimatedArrival":"Estimated arrival",
+  "deliveryHero":"Is your delivery hero for today",
+  "orderDetails":"Order Details"
 
 }
