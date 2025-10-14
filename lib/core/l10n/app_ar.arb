@@ -134,6 +134,8 @@
   "preparingYourOrder": "يتم تجهيز طلبك",
   "outForDelivery": "في طريقه إليك",
   "delivered": "تم التوصيل",
-  "estimatedArrival":"الوقت المتوقع للوصول"
+  "estimatedArrival":"الوقت المتوقع للوصول",
+  "isYourDelivery":"سوف يقوم بتوصيل طلبك",
+    "unExpextedError":"حدث خطا غير متوقع"
 
 }

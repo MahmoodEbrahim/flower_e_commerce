@@ -148,6 +148,8 @@
   "preparingYourOrder": "Preparing your order",
   "outForDelivery": "Out for delivery",
   "delivered": "Delivered",
-  "estimatedArrival":"Estimated arrival"
+  "estimatedArrival":"Estimated arrival",
+  "isYourDelivery":"is your delivery hero for today",
+  "unExpextedError":"unexpected error"
 
 }

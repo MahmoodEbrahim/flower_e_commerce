@@ -14,7 +14,7 @@ class CustumError extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 180.0),
+      
         Icon(CupertinoIcons.info_circle_fill, size: 60, color: AppColors.pink),
         SizedBox(height: 20.0),
         Text(

@@ -9,8 +9,9 @@ import 'package:flower_e_commerce/features/tracking_order/presentation/views/wid
 import 'package:flutter/material.dart';
 
 class TimeLineList extends StatefulWidget {
+  final String orderId;
   final int count;
-  const TimeLineList({super.key, required this.count});
+  const TimeLineList({super.key, required this.count, required this.orderId});
 
   @override
   State<TimeLineList> createState() => _TimeLineListState();
@@ -30,16 +31,16 @@ class _TimeLineListState extends State<TimeLineList> {
   void didUpdateWidget(covariant TimeLineList oldWidget) {
     super.didUpdateWidget(oldWidget);
     if ((widget.count != oldWidget.count && widget.count <= 4)) {
-      orderDateHelper.addOrderDate();
+      orderDateHelper.addOrderDate(widget.orderId);
       _loadDates();
     }
   }
 
   Future<void> _loadDates() async {
-    List<String> savedDates = await orderDateHelper.getOrderDates();
+    List<String> savedDates = await orderDateHelper.getOrderDates(widget.orderId);
     if (savedDates.isEmpty) {
-       orderDateHelper.addOrderDate();
-       savedDates = await orderDateHelper.getOrderDates();
+      orderDateHelper.addOrderDate(widget.orderId);
+      savedDates = await orderDateHelper.getOrderDates(widget.orderId);
     }
     setState(() {
       for (int i = 0; i < savedDates.length && i < 4; i++) {
