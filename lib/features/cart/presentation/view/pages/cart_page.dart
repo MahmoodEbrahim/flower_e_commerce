@@ -62,105 +62,107 @@ class _CartPageState extends State<CartPage> {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DeliveryLocation(),
-              SizedBox(
-                height: 430,
-                child: BlocConsumer<CartViewModel, CartStates>(
-                  listener: (context, state) {
-                    final user = UserLocalStorage.getUser();
-
-                    if (state.cartResonse != null && user != null) {
-                      cartEntity = state.cartResonse!.cart;
-                      if (state.cartResonse!.cart!.cartItems!.isEmpty) {
-                        isEmptyCart.value = true;
-                      } else {
-                        isEmptyCart.value = false;
-                      }
-                      price.value = state.cartResonse!.cart!.totalPrice!;
-                    } else {
-                      isEmptyCart.value = true;
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      return CommonLoading();
-                    }
-                    if (state.cartResonse != null && user != null) {
-                      if (state.cartResonse!.cart!.cartItems!.isEmpty) {
-                        isEmptyCart.value = true;
-                        return EmptyCartView();
-                      } else {
-                        isEmptyCart.value = false;
-                        return CardSection(
-                          cartEntity: state.cartResonse!.cart!,
-                        );
-                      }
-                    }
-                    if (state.errorMessage != null) {
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DeliveryLocation(),
+                SizedBox(
+                  height: 430,
+                  child: BlocConsumer<CartViewModel, CartStates>(
+                    listener: (context, state) {
                       final user = UserLocalStorage.getUser();
-
-                      if (user == null) {
-                        return CustumError(
-                          errorMessage: t.loginToEnjoyShopping,
-                        );
+          
+                      if (state.cartResonse != null && user != null) {
+                        cartEntity = state.cartResonse!.cart;
+                        if (state.cartResonse!.cart!.cartItems!.isEmpty) {
+                          isEmptyCart.value = true;
+                        } else {
+                          isEmptyCart.value = false;
+                        }
+                        price.value = state.cartResonse!.cart!.totalPrice!;
+                      } else {
+                        isEmptyCart.value = true;
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return CommonLoading();
+                      }
+                      if (state.cartResonse != null && user != null) {
+                        if (state.cartResonse!.cart!.cartItems!.isEmpty) {
+                          isEmptyCart.value = true;
+                          return EmptyCartView();
+                        } else {
+                          isEmptyCart.value = false;
+                          return CardSection(
+                            cartEntity: state.cartResonse!.cart!,
+                          );
+                        }
+                      }
+                      if (state.errorMessage != null) {
+                        final user = UserLocalStorage.getUser();
+          
+                        if (user == null) {
+                          return CustumError(
+                            errorMessage: t.loginToEnjoyShopping,
+                          );
+                        } else {
+                          return CustumError();
+                        }
                       } else {
                         return CustumError();
                       }
-                    } else {
-                      return CustumError();
-                    }
-                  },
+                    },
+                  ),
                 ),
-              ),
-
-              ValueListenableBuilder(
-                valueListenable: isEmptyCart,
-                builder: (context, value, child) {
-                  return Column(
-                    children: [
-                      if (!value) ...[
-                        ValueListenableBuilder(
-                          valueListenable: price,
-
-                          builder: (context, value, child) {
-                            return TotalCalculationPart(price: price.value);
-                          },
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed(
-                                    AppRoutes.checkoutscreen,
-                                    arguments: cartEntity,
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    t.checkout,
-                                    style: getRegularStyle(
-                                      color: AppColors.white,
-                                      fontSize: FontSize.s16,
+          
+                ValueListenableBuilder(
+                  valueListenable: isEmptyCart,
+                  builder: (context, value, child) {
+                    return Column(
+                      children: [
+                        if (!value) ...[
+                          ValueListenableBuilder(
+                            valueListenable: price,
+          
+                            builder: (context, value, child) {
+                              return TotalCalculationPart(price: price.value);
+                            },
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                      AppRoutes.checkoutscreen,
+                                      arguments: cartEntity,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      t.checkout,
+                                      style: getRegularStyle(
+                                        color: AppColors.white,
+                                        fontSize: FontSize.s16,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        ],
                       ],
-                    ],
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

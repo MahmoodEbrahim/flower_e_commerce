@@ -26,7 +26,10 @@ import 'package:flower_e_commerce/features/payment/presentation/views/payment_vi
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/about_app_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/notifications_page.dart';
 import 'package:flower_e_commerce/features/profile/presentation/views/pages/terms_and_condition_page.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/views/pages/order_placed_successfully_page.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/views/pages/order_states_pages.dart';
 import 'package:flower_e_commerce/features/tracking_order/presentation/views/pages/tracking_order_page.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/views/widgets/waiting_confirm_order.dart';
 import 'package:flutter/material.dart';
 import '../../features/profile/presentation/views/pages/change_password_screen.dart';
 import '../../features/profile/presentation/views/pages/edit_profile_page.dart';
@@ -43,8 +46,22 @@ abstract class Routes {
         final orderId = settings.arguments as String;
         //"68c853e7dd8937e0573d1d42"
         return MaterialPageRoute(
-          builder: (context) =>
-              TrackingOrderPage(orderId: orderId),
+          builder: (context) => TrackingOrderPage(orderId: orderId),
+        );
+      case AppRoutes.orderPlacedSuccessfullyPage:
+        final orderId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => OrderPlacedSuccessfullyPage(orderId: orderId),
+        );
+      case AppRoutes.waitingForConfirmationPage:
+        return MaterialPageRoute(
+          builder: (context) => WaitingForConfirmation(),
+        );
+      case AppRoutes.orderStatesPages:
+        final orderId = settings.arguments as String;
+     
+        return MaterialPageRoute(
+          builder: (context) => OrderStatesPages(orderId: orderId),
         );
       case AppRoutes.bestSellers:
         final args = settings.arguments as Map<String, dynamic>;

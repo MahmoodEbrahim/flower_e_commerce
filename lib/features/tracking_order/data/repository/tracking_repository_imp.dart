@@ -10,7 +10,7 @@ class TrackingRepositoryImp implements TrackingRepository {
   const TrackingRepositoryImp(this._trackingRemoteDataSource);
 
   @override
-  Stream<Result<RemoteDataEntity>> getOrderFromRemote(String orderId)  {
+  Stream<Result<RemoteDataEntity?>> getOrderFromRemote(String orderId)  {
     return  _trackingRemoteDataSource.getOrderFromRemote(orderId);
   }
 }
