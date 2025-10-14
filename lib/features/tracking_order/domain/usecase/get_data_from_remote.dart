@@ -10,7 +10,7 @@ class GetDataFromRemoteUseCase {
 
   GetDataFromRemoteUseCase(this._trackingRepository);
 
-   Stream<Result<RemoteDataEntity>> getOrderFromRemote(String orderId){
+   Stream<Result<RemoteDataEntity?>> getOrderFromRemote(String orderId){
     return _trackingRepository.getOrderFromRemote(orderId);
   }
 }

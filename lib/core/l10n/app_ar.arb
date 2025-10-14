@@ -127,6 +127,20 @@
   "completed": "مكتمل",
   "reorder": "إعادة الطلب",
   "trackorder": "تتبع الطلب",
-  "noLocationFound":"No Address Found !   😐"
+  "noLocationFound":"  😐 ! لا يوجد موقع",
+  "showMap":"عرض الخريطة",
+  "trackingOrder":"تتبع الطلب",
+   "receivedYourOrder": "تم استلام طلبك",
+  "preparingYourOrder": "يتم تجهيز طلبك",
+  "outForDelivery": "في طريقه إليك",
+  "delivered": "تم التوصيل",
+  "estimatedArrival":"الوقت المتوقع للوصول",
+  "isYourDelivery":"سوف يقوم بتوصيل طلبك",
+    "unExpextedError":"حدث خطا غير متوقع",
+      "orderPlacedSuccessfullyTitle": "تم تنفيذ طلبك بنجاح!",
+  "trackOrderButton": "تتبع الطلب",
+    "waitingForDeliveryHero": "في انتظار أحد أبطال التوصيل ليقبل طلبك"
+
+
 
 }

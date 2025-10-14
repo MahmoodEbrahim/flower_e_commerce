@@ -24,11 +24,11 @@ class TrackingFirebaseService {
 
 
 
-  Stream<RemoteDataModel> getDataFromRemote(String orderId) {
+  Stream<RemoteDataModel?> getDataFromRemote(String orderId) {
     return _collectionReference
         .doc(orderId)
         .snapshots()
-        .map((snapshot) => snapshot.data()!);
+        .map((snapshot) => snapshot.data());
   }
 
   

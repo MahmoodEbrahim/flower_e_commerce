@@ -1,3 +1,4 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/orders/domain/entity/order_entity/orders_entity.dart';
@@ -6,20 +7,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/theme/app_color.dart';
 import '../../../../cart/presentation/view/widgets/image_cart.dart';
 
-class OrderCard extends  StatelessWidget{
+class OrderCard extends StatelessWidget {
   bool iscompleted;
-  OrdersEntity  ordersentity;
-  OrderCard({super.key, this.iscompleted=true, required this.ordersentity});
+  OrdersEntity ordersentity;
+  OrderCard({super.key, this.iscompleted = true, required this.ordersentity});
   @override
   Widget build(BuildContext context) {
-var local =AppLocalizations.of(context)!;
+    var local = AppLocalizations.of(context)!;
 
-     return Container(
+    return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: BoxBorder.all(color: AppColors.blackColor[20]!)),
+        borderRadius: BorderRadius.circular(10),
+        border: BoxBorder.all(color: AppColors.blackColor[20]!),
+      ),
       width: double.infinity,
       child: InkWell(
         onTap: () {},
@@ -28,32 +30,79 @@ var local =AppLocalizations.of(context)!;
           child: Row(
             children: [
               CardImage(
-                productImage: ordersentity.orderItems!=null&&ordersentity.orderItems!.isNotEmpty?ordersentity.orderItems!.first.product!.images!=null&&ordersentity.orderItems!.first.product!.images!.isNotEmpty?ordersentity.orderItems!.first.product!.images!.first:"https://i.stack.imgur.com/l60Hf.png":"https://i.stack.imgur.com/l60Hf.png",
+                productImage:
+                    ordersentity.orderItems != null &&
+                        ordersentity.orderItems!.isNotEmpty
+                    ? ordersentity.orderItems!.first.product!.images != null &&
+                              ordersentity
+                                  .orderItems!
+                                  .first
+                                  .product!
+                                  .images!
+                                  .isNotEmpty
+                          ? ordersentity
+                                .orderItems!
+                                .first
+                                .product!
+                                .images!
+                                .first
+                          : "https://i.stack.imgur.com/l60Hf.png"
+                    : "https://i.stack.imgur.com/l60Hf.png",
               ),
-              SizedBox(width: 10.w,),
-              Expanded(child:Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(ordersentity.orderItems!.first.product!.title!,style: TextTheme.of(context).bodyMedium?.copyWith(fontSize: 12)),
-                  SizedBox(height: 5,),
-                  Text("${local.egp}  ${ordersentity.totalPrice.toString()}",style: TextTheme.of(context).bodyMedium?.copyWith(fontSize: 14,fontWeight: FontWeight.w500)),
-                  SizedBox(height: 5,),
-                  Text("Order Number ${ordersentity.orderNumber}".toString(),style: TextTheme.of(context).bodyMedium?.copyWith(fontSize: 12)),
-                  SizedBox(height: 5,),
-                  ElevatedButton(onPressed: (){}, 
-                      
+              SizedBox(width: 20.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ordersentity.orderItems!.first.product!.title!,
+                      style: TextTheme.of(
+                        context,
+                      ).bodyMedium?.copyWith(fontSize: 12),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "${local.egp}  ${ordersentity.totalPrice.toString()}",
+                      style: TextTheme.of(context).bodyMedium?.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "Order Number ${ordersentity.orderNumber}".toString(),
+                      style: TextTheme.of(
+                        context,
+                      ).bodyMedium?.copyWith(fontSize: 12),
+                    ),
+                    SizedBox(height: 5),
+                    ElevatedButton(
+                    
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.orderStatesPages,
+                          arguments: ordersentity.Id
+                        );
+                      },
+
                       child: Text(
-                          iscompleted?AppLocalizations.of(context)!
-                              .reorder:AppLocalizations.of(context)!.trackorder,
-                        style: getMediumStyle(color: AppColors.white,
-                            fontSize: 14.sp),))
-                ],
-             ) )
+                        iscompleted
+                            ? AppLocalizations.of(context)!.reorder
+                            : AppLocalizations.of(context)!.trackorder,
+                        style: getMediumStyle(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
 }
