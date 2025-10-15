@@ -15,6 +15,7 @@ import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.da
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -40,11 +41,16 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
   LatLng? selectedLocation;
   String? goverId;
   Set<Marker> markers = {};
-
+  String? _mapStyle;
   @override
   void initState() {
     super.initState();
+    _loadMapStyle();
     addressController.addListener(_updateLocation);
+  }
+  Future<void> _loadMapStyle() async {
+    final style = await rootBundle.loadString("assets/json/map_style.json");
+    setState(() => _mapStyle = style);
   }
 @override
   void dispose() {
@@ -68,9 +74,11 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
           selectedLocation =
               LatLng(locations.first.latitude, locations.first.longitude);
           markers.clear();
-          markers.add(Marker(
+          markers.add(
+              Marker(
             markerId: const MarkerId('selected-location'),
             position: selectedLocation!,
+                icon:  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
           ));
         });
         if (mapController != null) {
@@ -118,9 +126,9 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                         children: [
                           SizedBox(height: 16.h),
                           SizedBox(
-                            height: 200.h,
+                            height: MediaQuery.of(context).size.height*0.4,
                             child: GoogleMap(
-
+style: _mapStyle,
                               onMapCreated: (controller) {
                                 mapController = controller;
                                 if (selectedLocation != null) {
@@ -129,6 +137,8 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                         selectedLocation!, 14.0),
                                   );
                                 }
+                                controller.setMapStyle(_mapStyle);
+
                               },
                               myLocationButtonEnabled: true,
                               initialCameraPosition: CameraPosition(
@@ -302,15 +312,16 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                   GetAddAddressEvent(
                                     request: AddAdressRequest(
                                       username: userName.text,
-                                      city: selectedGovernorate.nameEn +selectedStreet! ?? '',
+                                      city: selectedGovernorate.nameEn ?? '',
                                       long: selectedLocation?.longitude
                                           .toString() ??
                                           "",
+
                                       lat: selectedLocation?.latitude
                                           .toString() ??
                                           "",
                                       phone: phone.text,
-                                      street: addressController.text ?? "",
+                                      street: selectedStreet ?? "" + addressController.text ,
                                     ),
                                     token: token!,
                                   ),
