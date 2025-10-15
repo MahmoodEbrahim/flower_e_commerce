@@ -157,45 +157,18 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                           ),
                           SizedBox(height: 16.h),
 
-                          /// Country
-                          DropdownButtonFormField<String>(
-                            initialValue: selectedAddress,
-                            decoration: const InputDecoration(
-                              labelText: "Address",
-                              border: OutlineInputBorder(),
-                            ),
-                            items: state.countries.map((e) {
-                              return DropdownMenuItem<String>(
-                                value: e.isoCode,
-                                child: Text(
-                                  e.name,
-                                  style: getRegularStyle(
-                                      color: AppColors.gray, fontSize: 14.sp),
-                                ),
-                              );
-                            }).toList(),
-                            validator: (value) =>
-                            value == null ? "address must be not empty" : null,
-                            onChanged: (value) {
-                              selectedAddress = value;
-                              setState(() {});
-                              final country = state.countries.firstWhere(
-                                    (c) => c.isoCode == value,
-                                orElse: () => CountryEntity(
-                                  isoCode: "",
-                                  name: "",
-                                  phoneCode: "",
-                                  flag: "",
-                                  currency: "",
-                                  latitude: "",
-                                  longitude: "",
-                                  timezones: [],
-                                ),
-                              );
-                              if (country.name.isNotEmpty) {
-                                _locateOnMap(country.name);
+                          /// address
+                          CustomTxtFieldWidget(
+                            lbl: "Enter the Address",
+                            hint: "Address",
+                            validator: (value){
+                              if(value!.isEmpty ||value==null){
+                                return "must be not empty";
+                              }else{
+                                return null;
                               }
                             },
+                            controller: addressController,
                           ),
                           SizedBox(height: 16.h),
 
@@ -329,7 +302,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                   GetAddAddressEvent(
                                     request: AddAdressRequest(
                                       username: userName.text,
-                                      city: selectedGovernorate.nameEn ?? '',
+                                      city: selectedGovernorate.nameEn +selectedStreet! ?? '',
                                       long: selectedLocation?.longitude
                                           .toString() ??
                                           "",
@@ -337,7 +310,7 @@ class _AddAddressDetialsScreenState extends State<AddAddressDetialsScreen> {
                                           .toString() ??
                                           "",
                                       phone: phone.text,
-                                      street: selectedStreet ?? "",
+                                      street: addressController.text ?? "",
                                     ),
                                     token: token!,
                                   ),

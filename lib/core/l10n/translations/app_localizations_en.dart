@@ -384,4 +384,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noLocationFound => 'No Address Found !   😐';
+
+  @override
+  String get showMap => 'Show Map';
+
+  @override
+  String get trackingOrder => 'Tracking Order';
+
+  @override
+  String get receivedYourOrder => 'Received your order';
+
+  @override
+  String get preparingYourOrder => 'Preparing your order';
+
+  @override
+  String get outForDelivery => 'Out for delivery';
+
+  @override
+  String get delivered => 'Delivered';
+
+  @override
+  String get estimatedArrival => 'Estimated arrival';
+
+  @override
+  String get isYourDelivery => 'is your delivery hero for today';
+
+  @override
+  String get unExpextedError => 'unexpected error';
+
+  @override
+  String get orderPlacedSuccessfullyTitle => 'Your order placed successfully!';
+
+  @override
+  String get trackOrderButton => 'Track Order';
+
+  @override
+  String get waitingForDeliveryHero =>
+      'Waiting for a delivery hero to accept your order';
 }

@@ -382,5 +382,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noProductsFor => 'لا توجد منتجات لـ ';
 
   @override
-  String get noLocationFound => 'No Address Found !   😐';
+  String get noLocationFound => '  😐 ! لا يوجد موقع';
+
+  @override
+  String get showMap => 'عرض الخريطة';
+
+  @override
+  String get trackingOrder => 'تتبع الطلب';
+
+  @override
+  String get receivedYourOrder => 'تم استلام طلبك';
+
+  @override
+  String get preparingYourOrder => 'يتم تجهيز طلبك';
+
+  @override
+  String get outForDelivery => 'في طريقه إليك';
+
+  @override
+  String get delivered => 'تم التوصيل';
+
+  @override
+  String get estimatedArrival => 'الوقت المتوقع للوصول';
+
+  @override
+  String get isYourDelivery => 'سوف يقوم بتوصيل طلبك';
+
+  @override
+  String get unExpextedError => 'حدث خطا غير متوقع';
+
+  @override
+  String get orderPlacedSuccessfullyTitle => 'تم تنفيذ طلبك بنجاح!';
+
+  @override
+  String get trackOrderButton => 'تتبع الطلب';
+
+  @override
+  String get waitingForDeliveryHero => 'في انتظار أحد أبطال التوصيل ليقبل طلبك';
 }
