@@ -157,9 +157,9 @@ abstract class Routes {
       }
 
       case AppRoutes.trackingMap:
-      //  final id = settings.arguments as String;
+       final orderId = settings.arguments as String;
        return MaterialPageRoute(
-    builder: (context) =>  TrackingMapScreen(orderId: "68ea2c247fee68a4c2eaf601"),
+    builder: (context) =>  TrackingMapScreen(orderId: orderId),
   );
   
       default:

@@ -36,16 +36,25 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
       Emitter<TrackingState> emit,
       ) async {
     emit(state.copyWith(requestState: RequestState.loading));
+    print("Listening to order stream for id: ${event.orderId}");
 
     final stream = _getDataFromRemoteUseCase.getOrderFromRemote(event.orderId);
 
-    await emit.forEach<Result<RemoteDataEntity>>(
+    await emit.forEach<Result<RemoteDataEntity?>>(
       stream,
       onData: (result) {
-        if (result is SucessResult<RemoteDataEntity>) {
+        print("🔥 Bloc received result: $result");
+        print("🔥 Result type: ${result.runtimeType}");
+        if (result is SucessResult<RemoteDataEntity?>) {
+          print("✅ Going to success");
           final data = result.sucessResult;
-          return _updateTracking(data);
-        } else if (result is FailedResult) {
+          if (data != null) {
+            return _updateTracking(data);
+          } else {
+            return state.copyWith(requestState: RequestState.loading);
+          }
+        }
+        else if (result is FailedResult) {
           return state.copyWith(
             requestState: RequestState.error,
             errorMessage: Constants.errorTracking,
@@ -155,8 +164,8 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
   void _startSmoothMovement() {
     _driverTimer?.cancel();
 
-    const duration = Duration(milliseconds: 200);
-    const stepFraction = 0.02;
+    const duration = Duration(milliseconds: 100);
+    const stepFraction = 0.01;
     double progress = 0.0;
 
     _driverTimer = Timer.periodic(duration, (timer) {

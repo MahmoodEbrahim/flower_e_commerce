@@ -1,6 +1,6 @@
 class Constants {
   static const String noRoutesFound = "No Route Page";
-   static const String catList = "catList";
+  static const String catList = "catList";
   static const String productList = "productList";
 
   // Best Seller
@@ -26,19 +26,11 @@ class Constants {
   static const String whatsAppError = "can not open whatsApp ,please try again";
   static const String telSchema = "tel";
 
-  
-
-
-
-
   //tracking app
   static const String male = "male";
   static const String errorTracking = "Error tracking the order";
-static const String driver = "driver";
-static const String  store= "store";
-static const String  user= "user";
-static const String  route= "route";
-
-static const String callError="call error";
-static const String whatsAppError="whatsApp error";
+  static const String driver = "driver";
+  static const String store = "store";
+  static const String user = "user";
+  static const String route = "route";
 }

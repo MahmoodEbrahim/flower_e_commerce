@@ -118,7 +118,7 @@ class SuccessTrackingOrder extends StatelessWidget {
             child: TimeLineList(count: count, orderId: orderId),
           ),
     
-          ShowMapBtn(),
+          ShowMapBtn(orderId: orderId,),
         ],
       ),
     );

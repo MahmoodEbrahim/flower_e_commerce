@@ -1,8 +1,10 @@
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ShowMapBtn extends StatelessWidget {
-  const ShowMapBtn({super.key});
+  final String orderId;
+  const ShowMapBtn({required this.orderId,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,8 @@ class ShowMapBtn extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              // go to map page
+             Navigator.pushNamed(context, AppRoutes.trackingMap,
+             arguments: orderId);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),

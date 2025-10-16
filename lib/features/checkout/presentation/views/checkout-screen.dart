@@ -209,6 +209,9 @@ final viewmodel=getIt.get<CheckoutViewModelBloc>();
                   Navigator.of(context).pushNamed(AppRoutes.paymentView,
                       arguments:state.frame);
                 }
+                if(state is PaymentCashStates){
+                  Navigator.of(context).pushNamed(AppRoutes.orderspage);
+                }
               },
               child:   ValueListenableBuilder(
                 valueListenable:selectedAddress,
@@ -228,7 +231,7 @@ final viewmodel=getIt.get<CheckoutViewModelBloc>();
                                   phone: address[selectedAddress.value!].phone,
                                 )
                             )));
-                        Navigator.of(context).pushNamed(AppRoutes.orderspage);
+
                       }else{
                         viewmodel.add(PayOnlineOrderEvent
                           ( CashOrderRequest(
