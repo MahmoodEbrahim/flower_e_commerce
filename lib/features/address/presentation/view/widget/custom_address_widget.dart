@@ -174,6 +174,7 @@ class CustomAddressWidget extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => UpdateAddressDetailsScreen(
                         address: addressEntity,
+
                       ),
                     ),
                   );

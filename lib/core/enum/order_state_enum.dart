@@ -1,0 +1,6 @@
+enum OrderStatus {
+  received,
+  preparing,
+  outForDelivery,
+  delivered,
+}

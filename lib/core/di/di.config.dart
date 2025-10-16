@@ -9,9 +9,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:firebase_core/firebase_core.dart' as _i982;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../features/address/api/client/adress_api_services.dart' as _i658;
 import '../../features/address/api/data_source/adress_data_source_impl.dart'
@@ -159,21 +161,48 @@ import '../../features/profile/presentation/view_model/edit_profile/edit_profile
     as _i878;
 import '../../features/profile/presentation/view_model/json_section/generic_json_section_bloc.dart'
     as _i147;
+import '../../features/tracking_order/data/repository/tracking_repository_imp.dart'
+    as _i815;
+import '../../features/tracking_order/data/source/tracking_remote_data_source.dart'
+    as _i147;
+import '../../features/tracking_order/domain/repository/tracking_repository.dart'
+    as _i479;
+import '../../features/tracking_order/domain/usecase/get_data_from_remote.dart'
+    as _i652;
+import '../../features/tracking_order/presentation/view_models/tracking_order_view_model/tracking_order_view_model.dart'
+    as _i252;
+import '../../features/tracking_order/remote/firebase/client/tracking_firebase_service.dart'
+    as _i765;
+import '../../features/tracking_order/remote/firebase/source/tracking_fiebase_data_source_imp.dart'
+    as _i1017;
+import '../helpers/order_data_helper.dart' as _i55;
 import '../utils/json_helpers/json_loader.dart' as _i530;
+import 'modules/database_module.dart' as _i664;
 import 'modules/dio_modules.dart' as _i288;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
+    final databaseModule = _$DatabaseModule();
     final dioModule = _$DioModule();
+    await gh.factoryAsync<_i460.SharedPreferences>(
+      () => databaseModule.providesharedPreferences,
+      preResolve: true,
+    );
+    await gh.factoryAsync<_i982.FirebaseApp>(
+      () => databaseModule.firebaseApp,
+      preResolve: true,
+    );
+    gh.factory<_i765.TrackingFirebaseService>(
+        () => _i765.TrackingFirebaseService());
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioModule.prettyDioLogger);
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<_i528.PrettyDioLogger>()));
@@ -196,10 +225,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i495.ProfileApiService(gh<_i361.Dio>()));
     gh.factory<_i535.AddressRemoteDataSource>(() =>
         _i107.AddressRemoteDataSourceImpl(gh<_i658.AddressesApiServices>()));
+    gh.factory<_i55.OrderDateHelper>(
+        () => _i55.OrderDateHelper(gh<_i460.SharedPreferences>()));
     gh.factory<_i691.ProfileLocalDataSource>(
         () => _i752.ProfileLocalDataSourceImp(gh<_i530.JsonLoader>()));
+    gh.factory<_i147.TrackingRemoteDataSource>(() =>
+        _i1017.TrackingFirebaseDataSourceImp(
+            gh<_i765.TrackingFirebaseService>()));
     gh.factory<_i368.ProfileRemoteDataSource>(
         () => _i246.ProfileRemoteDataSourceImp(gh<_i495.ProfileApiService>()));
+    gh.factory<_i479.TrackingRepository>(() =>
+        _i815.TrackingRepositoryImp(gh<_i147.TrackingRemoteDataSource>()));
     gh.factory<_i751.CartRemoteDataSouce>(
         () => _i296.CartRemoteDataSouceImp(gh<_i942.CartApiService>()));
     gh.factory<_i158.OrdersRemoteDataSource>(() =>
@@ -247,6 +283,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i711.CheckoutRepositoryImp(gh<_i335.CheckoutRemoteDataSource>()));
     gh.factory<_i267.PaymentRepository>(() =>
         _i1012.PaymentRepositoryImpl(gh<_i1028.PaymentRemoteDataSource>()));
+    gh.factory<_i652.GetDataFromRemoteUseCase>(
+        () => _i652.GetDataFromRemoteUseCase(gh<_i479.TrackingRepository>()));
     gh.factory<_i207.GetOrdersUseCase>(
         () => _i207.GetOrdersUseCase(gh<_i798.OrdersRepository>()));
     gh.factory<_i717.SearchBloc>(
@@ -315,6 +353,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i285.CashUseCase(gh<_i267.PaymentRepository>()));
     gh.factory<_i238.OnlineUsecase>(
         () => _i238.OnlineUsecase(gh<_i267.PaymentRepository>()));
+    gh.singleton<_i252.TrackingOrderViewModel>(() =>
+        _i252.TrackingOrderViewModel(gh<_i652.GetDataFromRemoteUseCase>()));
     gh.factory<_i191.HomeBloc>(
         () => _i191.HomeBloc(gh<_i630.GetHomeDataUseCase>()));
     gh.factory<_i472.SignupUsecase>(
@@ -351,5 +391,7 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$DatabaseModule extends _i664.DatabaseModule {}
 
 class _$DioModule extends _i288.DioModule {}

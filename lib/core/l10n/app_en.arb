@@ -145,5 +145,19 @@
   "estimatedArrival":"Estimated arrival",
   "deliveryHero":"Is your delivery hero for today",
   "orderDetails":"Order Details"
+  "showMap":"Show Map",
+  "trackingOrder":"Tracking Order",
+   "receivedYourOrder": "Received your order",
+  "preparingYourOrder": "Preparing your order",
+  "outForDelivery": "Out for delivery",
+  "delivered": "Delivered",
+  "estimatedArrival":"Estimated arrival",
+  "isYourDelivery":"is your delivery hero for today",
+  "unExpextedError":"unexpected error",
+    "orderPlacedSuccessfullyTitle": "Your order placed successfully!",
+  "trackOrderButton": "Track Order",
+    "waitingForDeliveryHero": "Waiting for a delivery hero to accept your order"
+
+
 
 }

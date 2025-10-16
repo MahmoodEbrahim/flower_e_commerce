@@ -16,6 +16,7 @@ import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.da
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_btn_widget.dart';
 import 'package:flower_e_commerce/features/auth/presentation/views/widgets/custom_txt_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -42,22 +43,25 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
   var formKey = GlobalKey<FormState>();
   String? selectedCity;
   String? selectedStreet;
-  final addressController = TextEditingController();
+
+  late final addressController ;
   String? selectedAddress;
   GoogleMapController? mapController;
   LatLng? selectedLocation;
   String? goverId;
   Set<Marker> markers = {};
-
+String _mapStyle="";
   @override
   void initState() {
     super.initState();
-
+_loadMapStyle();
     phone = TextEditingController(text: widget.address.phone);
     userName = TextEditingController(text: widget.address.username);
     selectedStreet = widget.address.street;
+    addressController = TextEditingController(
+        text: widget.address.street
+    );
 
-    // تحديد الموقع على الخريطة
     if (widget.address.lat != null && widget.address.long != null) {
       selectedLocation = LatLng(
         double.tryParse(widget.address.lat!) ?? 30.0444,
@@ -65,13 +69,17 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
       );
       markers.add(Marker(
         markerId: const MarkerId('selected-location'),
+     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
         position: selectedLocation!,
       ));
     }
 
     addressController.addListener(_updateLocation);
   }
-
+  Future<void> _loadMapStyle() async {
+    final style = await rootBundle.loadString("assets/json/map_style.json");
+    setState(() => _mapStyle = style);
+  }
   void _updateLocation() async {
     if (addressController.text.isNotEmpty) {
       await _locateOnMap(addressController.text);
@@ -161,8 +169,10 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                         children: [
                           SizedBox(height: 16.h),
                           SizedBox(
-                            height: 200.h,
+                            height: MediaQuery.of(context).size.height*0.4,
+
                             child: GoogleMap(
+                              style: _mapStyle,
                               onMapCreated: (controller) {
                                 mapController = controller;
                                 if (selectedLocation != null) {
@@ -199,45 +209,19 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                           ),
                           SizedBox(height: 16.h),
 
-                          /// Country
-                          DropdownButtonFormField<String>(
-                            initialValue: selectedAddress,
-                            decoration: const InputDecoration(
-                              labelText: "Address",
-                              border: OutlineInputBorder(),
-                            ),
-                            items: state.countries.map((e) {
-                              return DropdownMenuItem<String>(
-                                value: e.isoCode,
-                                child: Text(
-                                  e.name,
-                                  style: getRegularStyle(
-                                      color: AppColors.gray, fontSize: 14.sp),
-                                ),
-                              );
-                            }).toList(),
-                            validator: (value) =>
-                            value == null ? "address must be not empty" : null,
-                            onChanged: (value) {
-                              selectedAddress = value;
-                              setState(() {});
-                              final country = state.countries.firstWhere(
-                                    (c) => c.isoCode == value,
-                                orElse: () => CountryEntity(
-                                  isoCode: "",
-                                  name: "",
-                                  phoneCode: "",
-                                  flag: "",
-                                  currency: "",
-                                  latitude: "",
-                                  longitude: "",
-                                  timezones: [],
-                                ),
-                              );
-                              if (country.name.isNotEmpty) {
-                                _locateOnMap(country.name);
+
+                          /// Phone
+                          CustomTxtFieldWidget(
+                            lbl: "Enter the address",
+                            hint: "address",
+                            validator: (value){
+                              if(value!.isEmpty ||value==null){
+                                return "must be not empty";
+                              }else{
+                                return null;
                               }
                             },
+                            controller: addressController,
                           ),
                           SizedBox(height: 16.h),
 
@@ -351,24 +335,13 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
                               if (state.updateState == RequestState.success) {
                                 Navigator.of(context).pushReplacementNamed(
                                     AppRoutes.saveAddress);
-                                showTopSnackBar(
-                                  Overlay.of(context),
-                                  CustomSnackBar.info(
-                                    message: "Address updated successfully",
-                                    backgroundColor: AppColors.pink,
-                                    textStyle: TextStyle(color: AppColors.white),
-                                  ),
-                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(content:
+                                Text("Update Address Successfuly")));
+
+
                               } else if (state.updateState == RequestState.error) {
-                                showTopSnackBar(
-                                  Overlay.of(context),
-                                  CustomSnackBar.error(
-                                    message: state.UpdateAddressErrorMessage ??
-                                        "Failed to update address",
-                                    backgroundColor: Colors.red,
-                                    textStyle: TextStyle(color: AppColors.white),
-                                  ),
-                                );
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.getAddressErrorMessage!)));
                               }
                             },
                             child: CustomBtnWidget(
@@ -385,7 +358,7 @@ class _UpdateAddressDetailsScreenState extends State<UpdateAddressDetailsScreen>
 
                                   context.read<AddressBloc>().add(
                                     UpdateAddressEvent(
-                                      id: widget.address.id!, // معرف العنوان المراد تحديثه
+                                      id: widget.address.id!, //
                                       request: AddAdressRequest(
                                         username: userName.text,
                                         city: selectedGovernorate.nameEn ?? '',

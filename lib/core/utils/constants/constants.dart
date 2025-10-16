@@ -21,6 +21,15 @@ class Constants {
   static const String old = "old";
   static const String discount = "discount";
   static const String orderRef = "orders";
+  static const String dateFormat = "dd MMM yyyy - h:mm";
+  static const String callError = "can not make a phone call ,please try again";
+  static const String whatsAppError = "can not open whatsApp ,please try again";
+  static const String telSchema = "tel";
+
+  
+
+
+
 
   //tracking app
   static const String male = "male";

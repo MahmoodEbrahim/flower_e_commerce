@@ -30,6 +30,15 @@
     ]
   },
   {
+
+    "featureType": "poi",
+    "elementType": "all",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },
+  {
+
     "featureType": "all",
     "elementType": "labels.text.stroke",
     "stylers": [

@@ -835,6 +835,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Address Found !   😐'**
   String get noLocationFound;
+
+  /// No description provided for @showMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Map'**
+  String get showMap;
+
+  /// No description provided for @trackingOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking Order'**
+  String get trackingOrder;
+
+  /// No description provided for @receivedYourOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Received your order'**
+  String get receivedYourOrder;
+
+  /// No description provided for @preparingYourOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your order'**
+  String get preparingYourOrder;
+
+  /// No description provided for @outForDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Out for delivery'**
+  String get outForDelivery;
+
+  /// No description provided for @delivered.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered'**
+  String get delivered;
+
+  /// No description provided for @estimatedArrival.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated arrival'**
+  String get estimatedArrival;
+
+  /// No description provided for @isYourDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'is your delivery hero for today'**
+  String get isYourDelivery;
+
+  /// No description provided for @unExpextedError.
+  ///
+  /// In en, this message translates to:
+  /// **'unexpected error'**
+  String get unExpextedError;
+
+  /// No description provided for @orderPlacedSuccessfullyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your order placed successfully!'**
+  String get orderPlacedSuccessfullyTitle;
+
+  /// No description provided for @trackOrderButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Order'**
+  String get trackOrderButton;
+
+  /// No description provided for @waitingForDeliveryHero.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a delivery hero to accept your order'**
+  String get waitingForDeliveryHero;
 }
 
 class _AppLocalizationsDelegate
