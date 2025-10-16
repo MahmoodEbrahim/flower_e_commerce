@@ -23,3 +23,14 @@ class UpdateDriverPositionEvent extends TrackingEvent {
   @override
   List<Object?> get props => [newPosition];
 }
+
+class CallUserEvent extends TrackingEvent {
+  final String phoneNumber;
+  const CallUserEvent(this.phoneNumber);
+}
+
+class WhatsAppUserEvent extends TrackingEvent {
+  final String phoneNumber;
+  final String? message;
+  const WhatsAppUserEvent(this.phoneNumber, {this.message});
+}

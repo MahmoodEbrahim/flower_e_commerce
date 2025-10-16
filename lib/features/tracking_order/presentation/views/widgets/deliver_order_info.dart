@@ -4,16 +4,23 @@ import 'package:flower_e_commerce/config/theme/font_manger.dart';
 import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
+import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_map_view_model/tracking_map_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+
+import '../../view_models/tracking_map_view_model/tracking_map_event.dart';
 
 class DeliverOrderInfo extends StatelessWidget {
   String deliveryGender;
   String deliveryName;
+  String phone;
   DeliverOrderInfo({
     required this.deliveryGender,
     required this.deliveryName,
+    required this.phone,
     super.key,
   });
 
@@ -81,6 +88,46 @@ class DeliverOrderInfo extends StatelessWidget {
                   ),
                 ],
               ),
+              Spacer(),
+              InkWell(
+          onTap: () {
+            if (phone != null) {
+              context
+                  .read<TrackingBloc>()
+                  .add(
+                CallUserEvent(
+                  phone!,
+                ),
+              );
+            }
+          },
+          child: Icon(
+            Icons.call,
+            color: AppColors.pink,
+            size: 20,
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        InkWell(
+          onTap: () {
+            if (phone != null) {
+              context
+                  .read<TrackingBloc>()
+                  .add(
+                WhatsAppUserEvent(
+                  phone
+                ),
+              );
+            }
+          },
+          child: Icon(
+            FontAwesomeIcons.whatsapp,
+            color: AppColors.pink,
+            size: 22,
+          ),
+        ),
             ],
           ),
         ),

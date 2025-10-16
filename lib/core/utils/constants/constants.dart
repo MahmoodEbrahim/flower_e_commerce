@@ -29,4 +29,7 @@ static const String driver = "driver";
 static const String  store= "store";
 static const String  user= "user";
 static const String  route= "route";
+
+static const String callError="call error";
+static const String whatsAppError="whatsApp error";
 }

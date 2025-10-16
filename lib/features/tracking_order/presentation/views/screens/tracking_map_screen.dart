@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/config/theme/assets_manger.dart';
+import 'package:flower_e_commerce/config/theme/font_manger.dart';
+import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_map_view_model/tracking_map_bloc.dart';
 import 'package:flower_e_commerce/features/tracking_order/presentation/view_models/tracking_map_view_model/tracking_map_event.dart';
@@ -50,15 +52,36 @@ class _TrackOrderScreenState extends State<TrackingMapScreen> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    // if (!isPermissionGranted) {
-    //   return const Center(child: Text('Location permission required'));
-    // }
+    if (!isPermissionGranted) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(Icons.location_off_outlined,
+              color: AppColors.pink,
+              size: 100,
+              ),
+              Text("permission required to track the order",
+              style: getMediumStyle(
+                fontSize: FontSize.s16, color: AppColors.black),
+              ),
+              Padding(padding: EdgeInsetsGeometry.all(15),
+              child: ElevatedButton(onPressed: _checkPermission, child: Text(
+                "Allow location access"
+              )),)
+            ],
+          ),
+        )
+      );
+    }
 
     return Scaffold(
       body: BlocProvider(
         create: (_) =>
             getIt<TrackingBloc>()
-              ..add(ListenToOrderStreamEvent("68ea2c247fee68a4c2eaf601")),
+              ..add(ListenToOrderStreamEvent("68f0aa587fee68a4c2ec7881")),
         child: BlocBuilder<TrackingBloc, TrackingState>(
           builder: (context, state) {
             final deliveryGender = state.remoteData?.driverEntity.gender;
@@ -107,6 +130,7 @@ class _TrackOrderScreenState extends State<TrackingMapScreen> {
                   child: DeliverOrderInfo(
                     deliveryGender: deliveryGender!,
                     deliveryName: deliveryName!,
+                    phone: state.remoteData!.driverEntity.phone,
                   ),
                 ),
               ],

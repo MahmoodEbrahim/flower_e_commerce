@@ -10,6 +10,7 @@ import 'package:flower_e_commerce/core/request_state/request_state.dart';
 import 'package:flower_e_commerce/features/tracking_order/domain/entity/remote_data_entity.dart';
 import 'package:flower_e_commerce/features/tracking_order/domain/usecase/get_data_from_remote.dart';
 import 'package:flower_e_commerce/core/api_result/api_result.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'tracking_map_event.dart';
 import 'package:injectable/injectable.dart';
 
@@ -26,12 +27,14 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
     on<ListenToOrderStreamEvent>(_onListenToOrderStream);
     on<UpdateDriverPositionEvent>(_onUpdateDriverPosition);
     _loadCustomMarker();
+    on<CallUserEvent>(_callUser);
+    on<WhatsAppUserEvent>(_openWhatsApp);
   }
 
   Future<void> _onListenToOrderStream(
-    ListenToOrderStreamEvent event,
-    Emitter<TrackingState> emit,
-  ) async {
+      ListenToOrderStreamEvent event,
+      Emitter<TrackingState> emit,
+      ) async {
     emit(state.copyWith(requestState: RequestState.loading));
 
     final stream = _getDataFromRemoteUseCase.getOrderFromRemote(event.orderId);
@@ -55,17 +58,16 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
   }
 
   void _onUpdateDriverPosition(
-    UpdateDriverPositionEvent event,
-    Emitter<TrackingState> emit,
-  ) {
+      UpdateDriverPositionEvent event,
+      Emitter<TrackingState> emit,
+      ) {
     final updatedMarkers = Set<Marker>.from(state.markers ?? {});
     updatedMarkers.removeWhere((m) => m.markerId.value == Constants.driver);
     updatedMarkers.add(
       Marker(
         markerId: const MarkerId(Constants.driver),
         position: event.newPosition,
-        icon:
-            _driverMarker ??
+        icon: _driverMarker ??
             BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
         infoWindow: const InfoWindow(title: Constants.driver),
       ),
@@ -80,6 +82,7 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
   }
 
   TrackingState _updateTracking(RemoteDataEntity data) {
+
     _userLatLng = LatLng(
       double.parse(data.orderEntity.shippingAddress.lat),
       double.parse(data.orderEntity.shippingAddress.long),
@@ -92,43 +95,42 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
     );
 
     final status = data.orderDeliveryStatus;
-    double fraction = _getFractionFromStatus(status!);
 
-    _driverTarget = _interpolate(_storeLatLng!, _userLatLng!, fraction);
-    _driverLatLng ??= _storeLatLng;
 
-    if (fraction == 1.0) {
+    if (status == "outForDelivery") {
+      _driverLatLng ??= _storeLatLng;
+      _driverTarget = _userLatLng;
+      _startSmoothMovement();
+    } else if (status == "delivered") {
       _stopMovement();
-      _driverLatLng = _userLatLng!;
+      _driverLatLng = _userLatLng;
     } else {
-      _startMovement();
+      _stopMovement();
+      _driverLatLng = _storeLatLng;
     }
+
 
     final markers = {
       Marker(
         markerId: const MarkerId(Constants.store),
         position: _storeLatLng!,
         infoWindow: const InfoWindow(title: Constants.store),
-        icon:
-            _storeAndUserMaker ??
+        icon: _storeAndUserMaker ??
             BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
       ),
       Marker(
         markerId: const MarkerId(Constants.user),
         position: _userLatLng!,
-        icon:
-            _storeAndUserMaker ??
-            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-
         infoWindow: const InfoWindow(title: Constants.user),
+        icon: _storeAndUserMaker ??
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
       ),
       Marker(
         markerId: const MarkerId(Constants.driver),
         position: _driverLatLng!,
-        icon:
-            _driverMarker ??
-            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
         infoWindow: const InfoWindow(title: Constants.driver),
+        icon: _driverMarker ??
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
       ),
     };
 
@@ -150,59 +152,34 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
     );
   }
 
-  void _startMovement() {
+  void _startSmoothMovement() {
     _driverTimer?.cancel();
 
-    _driverTimer = Timer.periodic(const Duration(milliseconds: 500), (_) {
+    const duration = Duration(milliseconds: 200);
+    const stepFraction = 0.02;
+    double progress = 0.0;
+
+    _driverTimer = Timer.periodic(duration, (timer) {
       if (_driverLatLng == null || _driverTarget == null) return;
 
-      final distance = _calculateDistance(_driverLatLng!, _driverTarget!);
-      if (distance < 0.0005) {
-        _driverLatLng = _driverTarget;
-        _driverTimer?.cancel();
-      } else {
-        final newLat =
-            _driverLatLng!.latitude +
-            (_driverTarget!.latitude - _driverLatLng!.latitude) * 0.2;
-        final newLng =
-            _driverLatLng!.longitude +
-            (_driverTarget!.longitude - _driverLatLng!.longitude) * 0.2;
-        _driverLatLng = LatLng(newLat, newLng);
+      progress += stepFraction;
+      if (progress >= 1.0) {
+        progress = 1.0;
+        timer.cancel();
       }
+
+      final newLat = _storeLatLng!.latitude +
+          (_userLatLng!.latitude - _storeLatLng!.latitude) * progress;
+      final newLng = _storeLatLng!.longitude +
+          (_userLatLng!.longitude - _storeLatLng!.longitude) * progress;
+
+      _driverLatLng = LatLng(newLat, newLng);
 
       add(UpdateDriverPositionEvent(_driverLatLng!));
     });
   }
 
   void _stopMovement() => _driverTimer?.cancel();
-
-  double _calculateDistance(LatLng a, LatLng b) =>
-      ((a.latitude - b.latitude) * (a.latitude - b.latitude) +
-              (a.longitude - b.longitude) * (a.longitude - b.longitude))
-          .abs();
-
-  LatLng _interpolate(LatLng start, LatLng end, double fraction) => LatLng(
-    start.latitude + (end.latitude - start.latitude) * fraction,
-    start.longitude + (end.longitude - start.longitude) * fraction,
-  );
-
-  //will change ,after change --> delete hard code
-  double _getFractionFromStatus(String status) {
-    switch (status) {
-      case "waiting":
-        return 0.0;
-      case "Arrived at Pickup point":
-        return 0.25;
-      case "Start deliver":
-        return 0.5;
-      case "Arrived to the user":
-        return 0.75;
-      case "Delivered to the user":
-        return 1.0;
-      default:
-        return 0.0;
-    }
-  }
 
   Future<BitmapDescriptor> customMarker(String marker) async {
     return await BitmapDescriptor.asset(
@@ -214,5 +191,33 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
   Future<void> _loadCustomMarker() async {
     _driverMarker = await customMarker(ImageAssets.deliveryMotorcycle);
     _storeAndUserMaker = await customMarker(ImageAssets.placeMarker);
+  }
+
+
+  Future<void> _callUser(
+      CallUserEvent event, Emitter<TrackingState> emit) async {
+    final Uri uri = Uri(scheme: 'tel', path: "0${event.phoneNumber}");
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      emit(state.copyWith(errorMessage: "call error"));
+    }
+  }
+
+  Future<void> _openWhatsApp(
+      WhatsAppUserEvent event, Emitter<TrackingState> emit) async {
+    final phone = event.phoneNumber.startsWith("0")
+        ? "2${event.phoneNumber.substring(1)}"
+        : event.phoneNumber;
+
+    final Uri uri = Uri.parse(
+      "https://wa.me/$phone${event.message != null ? "?text=${Uri.encodeComponent(event.message!)}" : ""}",
+    );
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      emit(state.copyWith(errorMessage: "whatsApp error"));
+    }
   }
 }
