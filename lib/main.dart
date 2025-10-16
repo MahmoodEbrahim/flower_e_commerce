@@ -1,31 +1,123 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';import 'config/theme/app_theme.dart';
-import 'core/di/di.dart';
+// import 'package:device_preview/device_preview.dart';
+// import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+// import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
+// import 'package:flower_e_commerce/core/di/di.dart';
+// import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+//
+// import 'package:flutter/material.dart';
+// import 'config/theme/app_theme.dart';
+//
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:hive_flutter/adapters.dart';
+//
+// import 'features/auth/api/source/user_local_storage.dart';
+// import 'features/auth/domain/entity/login_model.dart';
+// import 'features/auth/domain/entity/user_model.dart';
+// import 'package:hive/hive.dart';
+// import 'package:hive_flutter/hive_flutter.dart';
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await configureDependencies();
+//   await Hive.initFlutter();
+//   Hive.registerAdapter(UserModelAdapter());
+//   Hive.registerAdapter(LoginModelAdapter());
+//   await UserLocalStorage.init();
+//   runApp(
+//       //DevicePreview(builder: (context)=>
+//           MyApp()
+//       //)
+//
+//   );}
+//
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     final isLoggedIn = UserLocalStorage.isLoggedIn();
+//     return ScreenUtilInit(
+//       designSize: const Size(375, 812),
+//       minTextAdapt: true,
+//       splitScreenMode: true,
+//       child: MaterialApp(
+//
+//         initialRoute:AppRoutes.login,
+//         localizationsDelegates: AppLocalizations.localizationsDelegates,
+//         supportedLocales: AppLocalizations.supportedLocales,
+//         debugShowCheckedModeBanner: false,
+//         onGenerateRoute: Routes.onGenerate,
+//         theme: AppTheme.lightTheme,
+//       ),
+//
+//     );
+//   }
+// }
+import 'package:device_preview/device_preview.dart';
+import 'package:flower_e_commerce/config/routes_manager/app_routes.dart';
+import 'package:flower_e_commerce/config/routes_manager/routes_manager.dart';
+import 'package:flower_e_commerce/core/di/di.dart';
+import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
+import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_cubit.dart';
+import 'package:flower_e_commerce/features/profile/presentation/view_model/app_language/app_language_state.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'config/theme/app_theme.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
+
+import 'features/auth/api/source/user_local_storage.dart';
+import 'features/auth/domain/entity/login_model.dart';
+import 'features/auth/domain/entity/user_model.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  configureDependencies();
+  await configureDependencies();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(LoginModelAdapter());
+  await UserLocalStorage.init();
   runApp(
-    EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), ],
-      path: 'assets/translations',
-      fallbackLocale: Locale('en', 'US'),
-      child: MyApp(),
-    ),
-  );}
+      DevicePreview(builder: (context) =>
+          BlocProvider(
+            create: (context) => LanguageCubit()..getLanguage(),
+            child: MyApp(),
+          ))
+
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = UserLocalStorage.isLoggedIn();
 
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: BlocBuilder<LanguageCubit, LanguageState>(
+        builder: (context, state) {
+          final lang = context.read<LanguageCubit>().currentLanguage;
+          return MaterialApp(
+
+
+             initialRoute:isLoggedIn? AppRoutes.home:AppRoutes.login,
+            locale: Locale(lang),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: Routes.onGenerate,
+            theme: AppTheme.lightTheme,
+          );
+        },
+      ),
+
     );
   }
 }

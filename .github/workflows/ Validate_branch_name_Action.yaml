@@ -1,0 +1,38 @@
+name: Validate Branch Name
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - 'developments'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Get branch name
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "branch_name=${{ github.head_ref }}" >> $GITHUB_OUTPUT
+          else
+            echo "branch_name=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate branch name
+        run: |
+          BRANCH_NAME="${{ steps.branch.outputs.branch_name }}"
+          echo "Validating branch name: $BRANCH_NAME"
+          
+          if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|release)\/[a-zA-Z0-9_-]+$ ]]; then
+            echo "Branch name is valid."
+            exit 0
+          else
+            echo "Branch name is not valid."
+            echo "Branch names must start with 'feature/', 'bugfix/', or 'release/' followed by a description (e.g., 'feature/new-login-page')."
+            exit 1
+          fi

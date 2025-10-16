@@ -4,12 +4,13 @@ abstract class AppColors {
   static const Color white=Color(0xFFF9F9F9);
   static const Color gray=Color(0xFF535353);
   static const Color red=Color(0xFFCC1010);
+  static const Color midGray=Color(0xFFA6A6A6);
   static const Color green=Color(0xFF11CE19);
   static const Color black=Color(0xFF000000);
   static const Color lightPink=Color(0xFFF9ECF0);
   static const Color pink=Color(0xFFD21E6A);
-
-
+  static const Color darkGrey=Color(0xFF434343);
+//
   static MaterialColor pinkColor=MaterialColor(0xFF02369C, <int , Color>{
     10: Color(0xFFf6d2e1),
     20: Color(0xFFf0b4cd),
