@@ -169,6 +169,8 @@ import '../../features/tracking_order/domain/repository/tracking_repository.dart
     as _i479;
 import '../../features/tracking_order/domain/usecase/get_data_from_remote.dart'
     as _i652;
+import '../../features/tracking_order/presentation/view_models/tracking_map_view_model/tracking_map_bloc.dart'
+    as _i208;
 import '../../features/tracking_order/presentation/view_models/tracking_order_view_model/tracking_order_view_model.dart'
     as _i252;
 import '../../features/tracking_order/remote/firebase/client/tracking_firebase_service.dart'
@@ -353,6 +355,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i285.CashUseCase(gh<_i267.PaymentRepository>()));
     gh.factory<_i238.OnlineUsecase>(
         () => _i238.OnlineUsecase(gh<_i267.PaymentRepository>()));
+    gh.factory<_i208.TrackingBloc>(
+        () => _i208.TrackingBloc(gh<_i652.GetDataFromRemoteUseCase>()));
     gh.singleton<_i252.TrackingOrderViewModel>(() =>
         _i252.TrackingOrderViewModel(gh<_i652.GetDataFromRemoteUseCase>()));
     gh.factory<_i191.HomeBloc>(

@@ -836,6 +836,24 @@ abstract class AppLocalizations {
   /// **'No Address Found !   😐'**
   String get noLocationFound;
 
+  /// No description provided for @estimatedArrival.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated arrival'**
+  String get estimatedArrival;
+
+  /// No description provided for @deliveryHero.
+  ///
+  /// In en, this message translates to:
+  /// **'Is your delivery hero for today'**
+  String get deliveryHero;
+
+  /// No description provided for @orderDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Details'**
+  String get orderDetails;
+
   /// No description provided for @showMap.
   ///
   /// In en, this message translates to:
@@ -871,12 +889,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delivered'**
   String get delivered;
-
-  /// No description provided for @estimatedArrival.
-  ///
-  /// In en, this message translates to:
-  /// **'Estimated arrival'**
-  String get estimatedArrival;
 
   /// No description provided for @isYourDelivery.
   ///

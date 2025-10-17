@@ -385,6 +385,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noLocationFound => '  😐 ! لا يوجد موقع';
 
   @override
+  String get estimatedArrival => 'الوقت المتوقع للوصول';
+
+  @override
+  String get deliveryHero => 'بطل التوصيل الخاص بك اليوم';
+
+  @override
+  String get orderDetails => 'تفاصيل الطلب';
+
+  @override
   String get showMap => 'عرض الخريطة';
 
   @override
@@ -401,9 +410,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get delivered => 'تم التوصيل';
-
-  @override
-  String get estimatedArrival => 'الوقت المتوقع للوصول';
 
   @override
   String get isYourDelivery => 'سوف يقوم بتوصيل طلبك';

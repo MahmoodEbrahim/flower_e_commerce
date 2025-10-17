@@ -3,6 +3,7 @@ import 'package:flower_e_commerce/config/theme/app_color.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/constants/constants.dart';
 import 'package:flower_e_commerce/core/widgets/delivery_location.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/home/domain/entity/categories_page_parameter.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_event.dart';
 import 'package:flower_e_commerce/features/home/presentation/view_model/categories_view_model/categories_view_model.dart';
@@ -20,6 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../core/di/di.dart';
+import '../../../../auth/presentation/view_model/app_language/app_language_cubit.dart';
 
 class HomePage extends StatelessWidget {
   final void Function(CategoriesPageParameter)? onChangeTab;
@@ -28,16 +30,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    final categoriesViewModel = context.read<CategoriesViewModel>();
+    final categoriesViewModel =
+    context.read<CategoriesViewModel>();
     final t = AppLocalizations.of(context)!;
     String location = "Lets go to add some addresses 😉";
+    final token=UserLocalStorage.getToken();
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<HomeBloc>(),
         child: BlocBuilder<HomeBloc, HomeStates>(
           builder: (context, state) {
-
-              if (state is HomeInitialState) {
+             if (state is HomeInitialState) {
               BlocProvider.of<HomeBloc>(context).add(GetHomeDataEvent());
               return Center(
                 child: Column(
@@ -53,6 +56,8 @@ class HomePage extends StatelessWidget {
                 ),
               );
             } else if (state is HomeLoadingState) {
+                context.read<SettingCubit>().
+                getProfileData(token!);
               return Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

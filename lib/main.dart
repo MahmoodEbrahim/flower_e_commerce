@@ -27,7 +27,7 @@ void main() async {
      // DevicePreview(builder: (context) =>
           BlocProvider(
             create: (context) => getIt<SettingCubit>()
-              ..getLanguage()..getProfileData(token),//here gork i call function
+              ..getLanguage(),//here gork i call function
             child: MyApp(),
           )
   //)

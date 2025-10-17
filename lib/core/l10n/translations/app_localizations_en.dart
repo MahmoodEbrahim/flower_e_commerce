@@ -386,6 +386,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noLocationFound => 'No Address Found !   😐';
 
   @override
+  String get estimatedArrival => 'Estimated arrival';
+
+  @override
+  String get deliveryHero => 'Is your delivery hero for today';
+
+  @override
+  String get orderDetails => 'Order Details';
+
+  @override
   String get showMap => 'Show Map';
 
   @override
@@ -402,9 +411,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delivered => 'Delivered';
-
-  @override
-  String get estimatedArrival => 'Estimated arrival';
 
   @override
   String get isYourDelivery => 'is your delivery hero for today';

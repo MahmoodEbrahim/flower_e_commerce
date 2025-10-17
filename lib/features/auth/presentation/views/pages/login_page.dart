@@ -6,11 +6,14 @@ import 'package:flower_e_commerce/config/theme/font_style_manger.dart';
 import 'package:flower_e_commerce/core/di/di.dart';
 import 'package:flower_e_commerce/core/l10n/translations/app_localizations.dart';
 import 'package:flower_e_commerce/core/utils/validator.dart';
+import 'package:flower_e_commerce/features/auth/api/source/user_local_storage.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_bloc.dart';
 import 'package:flower_e_commerce/features/auth/presentation/view_model/login_view_model/login_event.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../view_model/app_language/app_language_cubit.dart';
 
 class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
@@ -22,7 +25,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-
+final token =UserLocalStorage.getToken();
     return BlocProvider<LoginBloc>(
       create: (context) => getIt<LoginBloc>(),
       child: Scaffold(
@@ -37,6 +40,9 @@ class LoginPage extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(locale.loginSuccess)),
               );
+
+
+
               Navigator.pushReplacementNamed(context, AppRoutes.home);
             }
             if (state.loginState == RequestState.error) {
